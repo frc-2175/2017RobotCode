@@ -1,0 +1,11 @@
+# @title MoreUnit
+# @description Settings for it
+# @task_type LASTMOD
+#
+# Created by the Workspace Mechanic Preference Recorder
+#Sat Jan 16 17:46:02 CST 2016
+file_export_version=3.0
+/instance/org.moreunit.mock/org.moreunit.mock.mocking_template=
+/instance/org.moreunit/org.moreunit.junit_path=test
+/instance/org.moreunit/org.moreunit.test.test_methodDefaultContent=// TODO implement me
+/project/2016RobotCode/org.moreunit/org.moreunit.preferences.version=2

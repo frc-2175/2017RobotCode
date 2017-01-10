@@ -1,0 +1,9 @@
+# @title ant
+# @description Properties for it
+# @task_type LASTMOD
+#
+# Created by the Workspace Mechanic Preference Recorder
+#Sun Jan 24 15:07:43 CST 2016
+file_export_version=3.0
+/instance/org.eclipse.ant.ui/formatter_tab_size=2
+/instance/org.eclipse.ant.ui/formatter_tab_char=false

@@ -1,0 +1,8 @@
+# @title java-editor-templates
+# @description java-editor-templates
+# @task_type LASTMOD
+#
+# Created by the Workspace Mechanic Preference Recorder
+#Tue Sep 23 13:46:40 CDT 2014
+file_export_version=3.0
+/instance/org.eclipse.jdt.ui/org.eclipse.jdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8"?><templates><template autoinsert\="true" context\="java" deleted\="false" description\="New java.util.logging logger instance" enabled\="true" name\="log">${\:import(java.util.logging.Logger)}private final Logger log \= Logger.getLogger(getClass().getName());&\#13;\r\n${cursor}</template></templates>

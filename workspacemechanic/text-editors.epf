@@ -1,0 +1,10 @@
+# @title Text Editor config
+# @description config it
+# @task_type LASTMOD
+#
+# Created by the Workspace Mechanic Preference Recorder
+#Sat Jan 30 17:17:09 CST 2016
+file_export_version=3.0
+/instance/org.eclipse.ui.editors/lineNumberRuler=true
+/instance/org.eclipse.ui.editors/printMargin=true
+/instance/org.eclipse.ui.editors/spacesForTabs=true
