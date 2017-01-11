@@ -1,5 +1,8 @@
 package org.usfirst.frc.team2175.config;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,8 +32,9 @@ public class LoggingConfigTest extends TestBase {
         log.finer("log a finer msg");
         log.finest("log a finest msg");
 
-        final Level level = log.getLevel();
-        // FIXME
-        // assertThat("Log level is null.", level, notNullValue());
+        final Logger rootLog = Logger.getLogger(LoggingConfig.ROOT_LOGGER_NAME);
+
+        final Level level = rootLog.getLevel();
+        assertThat("Root log level is incorrect.", level, equalTo(Level.ALL));
     }
 }

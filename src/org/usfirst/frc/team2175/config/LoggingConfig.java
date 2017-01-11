@@ -14,6 +14,9 @@ import java.util.logging.SocketHandler;
 import java.util.logging.XMLFormatter;
 
 public class LoggingConfig extends BaseConfig {
+    /** Set to root package, and must match one set in logging.properties. */
+    public static final String ROOT_LOGGER_NAME = "org.usfirst.frc.team2175";
+
     private static final String PROPERTY_FILE_NAME = "logging.properties";
 
     @Override
