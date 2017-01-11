@@ -22,48 +22,52 @@ public class PropertiesLoader {
      *            relative).
      * @return Properties instance loaded with the properties in the file.
      */
-    public Properties loadProperties(String fileName) {
-        File file = new File(fileName);
+    public Properties loadProperties(final String fileName) {
+        final File file = new File(fileName);
         return loadProperties(file);
     }
 
-    private Properties loadProperties(File file) {
-        InputStream inputStream = openPropertiesFile(file);
-        Properties prop = loadPropertiesFromFile(file, inputStream);
-
-        if (prop.isEmpty()) {
-            final String msg =
-                    "No properties were loaded from file=" + file
-                            + CAN_T_CONTINUE_MSG;
-            throw new IllegalStateException(msg);
-        }
+    public Properties loadProperties(final File file) {
+        final InputStream inputStream = openPropertiesFile(file);
+        final Properties prop = loadPropertiesFromFile(file, inputStream);
+        errorIfNoPropertiesLoaded(file, prop);
 
         return prop;
     }
 
-    private InputStream openPropertiesFile(File file) {
+    private InputStream openPropertiesFile(final File file) {
         InputStream inputStream;
         try {
             inputStream = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            final String msg =
-                    "Error finding properties file=" + file + CAN_T_CONTINUE_MSG;
+        } catch (final FileNotFoundException e) {
+            final String msg = "Error finding properties file=" + file
+                    + CAN_T_CONTINUE_MSG;
             log.log(Level.SEVERE, msg, e);
             throw new IllegalStateException(msg, e);
         }
         return inputStream;
     }
 
-    private Properties loadPropertiesFromFile(File file, InputStream inputStream) {
-        Properties prop = new Properties();
+    private Properties loadPropertiesFromFile(final File file,
+            final InputStream inputStream) {
+        final Properties prop = new Properties();
         try {
             prop.load(inputStream);
-        } catch (IOException e) {
-            final String msg =
-                    "Error reading properties file=" + file + CAN_T_CONTINUE_MSG;
+        } catch (final IOException e) {
+            final String msg = "Error reading properties file=" + file
+                    + CAN_T_CONTINUE_MSG;
             log.log(Level.SEVERE, msg, e);
             throw new IllegalStateException(msg, e);
         }
         return prop;
+    }
+
+    private void errorIfNoPropertiesLoaded(final File file,
+            final Properties prop) {
+        if (prop.isEmpty()) {
+            final String msg = "No properties were loaded from file=" + file
+                    + CAN_T_CONTINUE_MSG;
+            throw new IllegalStateException(msg);
+        }
     }
 }
