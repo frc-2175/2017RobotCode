@@ -4,26 +4,30 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Base class for configuration, loading values from properties file.
+ */
 public abstract class BaseConfig {
     private final Logger log = Logger.getLogger(getClass().getName());
 
+    /** This is the default directory set by the WPILib. */
     private static final String PROPERTY_FILE_DIR_DEFAULT = "/home/lvuser/";
+
     private static String propertyFileDir = PROPERTY_FILE_DIR_DEFAULT;
 
     private final Properties properties;
 
     public BaseConfig() {
-        log.info("Configuring class `" + getClass() + "`");
+        log.info("Configuring class '" + getClass() + "'");
 
-        final String propertyFileFullPath =
-                propertyFileDir + getPropertyFileName();
-        properties = new PropertiesLoader().loadProperties(propertyFileFullPath);
+        final String propertyFileName = getFullyQualifiedPropertyFileName();
+        properties = new PropertiesLoader().loadProperties(propertyFileName);
 
         try {
             configure();
-        } catch (Throwable e) {
-            String msg =
-                    "ERROR during configuration of class `" + getClass() + "`";
+        } catch (final Throwable e) {
+            final String msg =
+                    "ERROR during configuration of class '" + getClass() + "'";
             log.log(Level.SEVERE, msg, e);
             throw e;
         }
@@ -32,50 +36,59 @@ public abstract class BaseConfig {
     /** @return The property file name to load for this config. */
     protected abstract String getPropertyFileName();
 
+    /** Perform the configuration. */
     protected abstract void configure();
 
-    public static void setPropertyFileDir(String directory) {
-        propertyFileDir = directory;
-    }
-
-    protected boolean getBooleanPropertyValue(String propertyName) {
+    protected boolean getBooleanPropertyValue(final String propertyName) {
         final String propertyValue = getStringPropertyValue(propertyName);
         return Boolean.parseBoolean(propertyValue);
     }
 
-    protected int getIntPropertyValue(String propertyName) {
+    protected int getIntPropertyValue(final String propertyName) {
         final String propertyValue = getStringPropertyValue(propertyName);
         return Integer.parseInt(propertyValue);
     }
 
-    protected double getDoublePropertyValue(String propertyName) {
+    protected double getDoublePropertyValue(final String propertyName) {
         final String propertyValue = getStringPropertyValue(propertyName);
         return Double.parseDouble(propertyValue);
     }
 
-    protected String getStringPropertyValue(String propertyName) {
+    protected String getStringPropertyValue(final String propertyName) {
         final String value = properties.getProperty(propertyName);
         if (value == null) {
-            String msg =
-                    "Property `" + propertyName + "` not found in property file";
+            final String msg = "Property '" + propertyName
+                    + "' not found in property file";
             throw new IllegalStateException(msg);
         }
 
         return value;
     }
 
-    protected int[] getIntArrayPropertyValue(String propertyName) {
+    protected int[] getIntArrayPropertyValue(final String propertyName) {
         final String propertyValue = getStringPropertyValue(propertyName);
         String rawValues = propertyValue;
         rawValues = rawValues.replace("[", "");
         rawValues = rawValues.replace("]", "");
         final String[] splitValues = rawValues.split(",");
 
-        int[] returnValues = new int[splitValues.length];
+        final int[] returnValues = new int[splitValues.length];
         for (int i = 0; i < splitValues.length; i++) {
             returnValues[i] = Integer.parseInt(splitValues[i].trim());
         }
 
         return returnValues;
+    }
+
+    public String getFullyQualifiedPropertyFileName() {
+        return propertyFileDir + getPropertyFileName();
+    }
+
+    public static void setPropertyFileDir(final String directory) {
+        propertyFileDir = directory;
+    }
+
+    public Properties getProperties() {
+        return properties;
     }
 }
