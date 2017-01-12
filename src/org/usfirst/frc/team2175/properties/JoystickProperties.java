@@ -6,6 +6,8 @@ public class JoystickProperties extends BaseProperties {
     private int joystickRightPort;
     private int gamepadPort;
 
+    private int shiftButtonNumber;
+
     @Override
     protected String getPropertyFileName() {
         return "joysticks.properties";
@@ -16,6 +18,8 @@ public class JoystickProperties extends BaseProperties {
         joystickLeftPort = getIntPropertyValue("joystick.left.port");
         joystickRightPort = getIntPropertyValue("joystick.right.port");
         gamepadPort = getIntPropertyValue("joystick.gamepad.port");
+
+        shiftButtonNumber = getIntPropertyValue("button.shift");
     }
 
     public int getJoystickLeftPort() {
@@ -28,6 +32,10 @@ public class JoystickProperties extends BaseProperties {
 
     public int getGamepadPort() {
         return gamepadPort;
+    }
+
+    public int getShiftButtonNumber() {
+        return shiftButtonNumber;
     }
 
 }

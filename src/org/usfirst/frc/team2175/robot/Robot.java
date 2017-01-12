@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2175.robot;
 
+import org.usfirst.frc.team2175.commandmapper.JoystickEventMapper;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
@@ -29,6 +30,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
+        new JoystickEventMapper();
         schedulerLoop.start();
     }
 
