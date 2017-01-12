@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2175.robot;
 
+import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
 
@@ -18,12 +19,15 @@ public class Robot extends IterativeRobot {
         SubsystemsFactory.makeAll();
     }
 
+    SchedulerLoop schedulerLoop = new SchedulerLoop();
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     @Override
     public void robotInit() {
+        schedulerLoop.start();
     }
 
     /**
