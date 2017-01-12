@@ -1,5 +1,8 @@
 package org.usfirst.frc.team2175.robot;
 
+import org.usfirst.frc.team2175.properties.PropertiesFactory;
+import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**
@@ -10,6 +13,10 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * directory.
  */
 public class Robot extends IterativeRobot {
+    static {
+        PropertiesFactory.makeAll();
+        SubsystemsFactory.makeAll();
+    }
 
     /**
      * This function is run when the robot is first started up and should be
