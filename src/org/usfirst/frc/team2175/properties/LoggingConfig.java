@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2175.config;
+package org.usfirst.frc.team2175.properties;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import java.util.logging.SocketHandler;
 import java.util.logging.XMLFormatter;
 
-public class LoggingConfig extends BaseConfig {
+public class LoggingConfig extends BaseProperties {
     /** Set to root package, and must match one set in logging.properties. */
     public static final String ROOT_LOGGER_NAME = "org.usfirst.frc.team2175";
 
@@ -25,7 +25,7 @@ public class LoggingConfig extends BaseConfig {
     }
 
     @Override
-    protected void configure() {
+    protected void populate() {
         final String propertyFile = getFullyQualifiedPropertyFileName();
         System.out.println("Using logging property file=" + propertyFile);
 
@@ -45,8 +45,7 @@ public class LoggingConfig extends BaseConfig {
         } catch (final FileNotFoundException e) {
             throw new IllegalStateException(
                     "Did not find logging properties file=" + propertyFile
-                            + ", msg=" + e.getMessage(),
-                    e);
+                            + ", msg=" + e.getMessage(), e);
         } catch (SecurityException | IOException e) {
             throw new IllegalStateException("Unable to read logging properties",
                     e);
@@ -76,8 +75,7 @@ public class LoggingConfig extends BaseConfig {
 
         final String socketHandlerHostname =
                 getStringPropertyValue("socket.handler.hostname");
-        final int socketHandlerPort =
-                getIntPropertyValue("socket.handler.port");
+        final int socketHandlerPort = getIntPropertyValue("socket.handler.port");
 
         log.config("host=" + socketHandlerHostname + ", port="
                 + socketHandlerPort);
@@ -87,10 +85,12 @@ public class LoggingConfig extends BaseConfig {
             handler =
                     new SocketHandler(socketHandlerHostname, socketHandlerPort);
         } catch (final IOException e) {
-            final String msg = "Lilith log viewer not running?"
-                    + " Error instantiating SocketHandler with host="
-                    + socketHandlerHostname + ", port=" + socketHandlerPort
-                    + ", msg=" + e.getClass().getName() + ": " + e.getMessage();
+            final String msg =
+                    "Lilith log viewer not running?"
+                            + " Error instantiating SocketHandler with host="
+                            + socketHandlerHostname + ", port="
+                            + socketHandlerPort + ", msg="
+                            + e.getClass().getName() + ": " + e.getMessage();
             log.info(msg);
         }
         return handler;
@@ -101,8 +101,8 @@ public class LoggingConfig extends BaseConfig {
         try {
             handler.setEncoding(handlerEncoding);
         } catch (SecurityException | UnsupportedEncodingException e) {
-            throw new IllegalStateException(
-                    "Error setting handler encoding=" + handlerEncoding, e);
+            throw new IllegalStateException("Error setting handler encoding="
+                    + handlerEncoding, e);
         }
 
         final Formatter socketHandlerFormatter = new XMLFormatter();

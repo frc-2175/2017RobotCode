@@ -1,13 +1,15 @@
-package org.usfirst.frc.team2175.config;
+package org.usfirst.frc.team2175.properties;
 
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.usfirst.frc.team2175.ServiceLocator;
+
 /**
  * Base class for configuration, loading values from properties file.
  */
-public abstract class BaseConfig {
+public abstract class BaseProperties {
     private final Logger log = Logger.getLogger(getClass().getName());
 
     /** This is the default directory set by the WPILib. */
@@ -17,27 +19,28 @@ public abstract class BaseConfig {
 
     private final Properties properties;
 
-    public BaseConfig() {
+    public BaseProperties() {
         log.info("Configuring class '" + getClass() + "'");
 
         final String propertyFileName = getFullyQualifiedPropertyFileName();
         properties = new PropertiesLoader().loadProperties(propertyFileName);
 
         try {
-            configure();
+            populate();
         } catch (final Throwable e) {
-            final String msg =
-                    "ERROR during configuration of class '" + getClass() + "'";
+            final String msg = "ERROR populating class '" + getClass() + "'";
             log.log(Level.SEVERE, msg, e);
             throw e;
         }
+
+        ServiceLocator.register(this);
     }
 
     /** @return The property file name to load for this config. */
     protected abstract String getPropertyFileName();
 
     /** Perform the configuration. */
-    protected abstract void configure();
+    protected abstract void populate();
 
     protected boolean getBooleanPropertyValue(final String propertyName) {
         final String propertyValue = getStringPropertyValue(propertyName);
@@ -57,8 +60,8 @@ public abstract class BaseConfig {
     protected String getStringPropertyValue(final String propertyName) {
         final String value = properties.getProperty(propertyName);
         if (value == null) {
-            final String msg = "Property '" + propertyName
-                    + "' not found in property file";
+            final String msg =
+                    "Property '" + propertyName + "' not found in property file";
             throw new IllegalStateException(msg);
         }
 

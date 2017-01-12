@@ -16,7 +16,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
-import org.usfirst.frc.team2175.config.BaseConfig;
+import org.usfirst.frc.team2175.properties.BaseProperties;
 
 /**
  * Base test class for use by all tests.
@@ -36,7 +36,7 @@ public abstract class TestBase {
     public final double ALLOWED_DOUBLE_DELTA = 0.01;
 
     static {
-        BaseConfig.setPropertyFileDir(PROPERTY_FILE_DIR_SRC_TESTS);
+        BaseProperties.setPropertyFileDir(PROPERTY_FILE_DIR_SRC_TESTS);
         // RobotConfig mocks fire its static initializer so this not needed:
         // new LoggingConfig();
     }
@@ -111,7 +111,7 @@ public abstract class TestBase {
     }
 
     protected void assertNoDuplicatePropertyValues(final String propertyRegex,
-            final BaseConfig config) {
+            final BaseProperties config) {
         final Properties properties = config.getProperties();
         final Set<String> propertyNames = properties.stringPropertyNames();
 

@@ -8,6 +8,8 @@ import java.util.logging.Logger;
 
 import org.junit.Test;
 import org.usfirst.frc.team2175.TestBase;
+import org.usfirst.frc.team2175.properties.BaseProperties;
+import org.usfirst.frc.team2175.properties.LoggingConfig;
 
 public class LoggingConfigTest extends TestBase {
     /**
@@ -16,7 +18,7 @@ public class LoggingConfigTest extends TestBase {
      */
     @Test
     public void testConfigAndDisplay() {
-        BaseConfig.setPropertyFileDir(PROPERTY_FILE_DIR_SRC_COMPETITION);
+        BaseProperties.setPropertyFileDir(PROPERTY_FILE_DIR_SRC_COMPETITION);
         new LoggingConfig();
 
         final Logger log = Logger.getLogger(getClass().getName());

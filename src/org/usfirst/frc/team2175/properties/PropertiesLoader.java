@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2175.config;
+package org.usfirst.frc.team2175.properties;
 
 import java.io.File;
 import java.io.FileInputStream;
