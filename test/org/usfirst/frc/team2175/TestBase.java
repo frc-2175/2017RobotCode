@@ -31,7 +31,7 @@ public abstract class TestBase {
     public static final String PROPERTY_FILE_DIR_SRC_PRACTICE =
             "src/properties/practicebot/";
     public static final String PROPERTY_FILE_DIR_SRC_TESTS =
-            "src/properties/tests/";
+            "test/properties/tests/";
 
     public final double ALLOWED_DOUBLE_DELTA = 0.01;
 
