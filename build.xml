@@ -25,6 +25,60 @@
   <property file="build.properties"/>
   <property file="${user.home}/wpilib/java/${version}/ant/build.properties"/>
 
+  <echo>user.home=${user.home}</echo>
+  <echo>version=${version}</echo>
+  <echo>wpilib.ant.dir=${wpilib.ant.dir}</echo>
+
   <import file="${wpilib.ant.dir}/build.xml"/>
 
+  <target name="clean-2175" depends="clean" description="Delete build output dirs.">
+    <delete dir="${build.test.dir}"/>
+  </target>
+
+  <target name="compile-test" depends="compile" description="Compile the tests code.">
+    <mkdir dir="${build.test.dir}"/>
+    <property name="userLibs" value=""/>
+    <echo>[athena-compile] Compiling ${src.test.dir} with classpath=${classpath}:${userLibs}:${test.libs}:${build.dir} to ${build.test.dir}</echo>
+
+    <javac srcdir="${src.test.dir}"
+     destdir="${build.test.dir}"
+     includeAntRuntime="no"
+     includeJavaRuntime="no"
+     classpath="${classpath}:${userLibs}:${test.libs}:${build.dir}"
+     target="${ant.java.version}"
+     source="${ant.java.version}"
+     compiler="javac${ant.java.version}"
+     debug="true">
+    </javac>
+  </target>
+
+  <target name="test" depends="compile-test" description="Run the tests.">
+    <mkdir dir="${test.output.dir}"/>
+
+    <junit printsummary="yes" haltonfailure="no" errorproperty="isTestErrors" failureproperty="isTestFailures">
+      <classpath>
+        <pathelement path="${classpath}" />
+        <pathelement path="${userLibs}" />
+        <pathelement path="${test.libs}" />
+        <pathelement path="${build.dir}" />
+        <pathelement path="${build.test.dir}" />
+      </classpath>
+
+      <formatter type="plain" />
+      <formatter type="xml" />
+
+      <batchtest fork="yes" todir="${test.output.dir}">
+        <fileset dir="${src.test.dir}">
+          <include name="**/*Test.java" />
+        </fileset>
+      </batchtest>
+    </junit>
+
+    <fail if="isTestErrors" message="Test errors exist" />
+    <fail if="isTestFailurs" message="Test failures exist" />
+  </target>
+
+  <target name="clean-test" depends="clean-2175, test" description="Clean build, run the tests." />
+
+  <target name="clean-jar" depends="clean-test, jar" description="Clean build, run the tests, create jar." />
 </project>
