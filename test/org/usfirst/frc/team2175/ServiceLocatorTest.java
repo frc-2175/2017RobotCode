@@ -7,9 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ServiceLocatorTest {
-
-    private static class Foo {
-    }
+    private final Foo foo = new Foo();
 
     @Before
     @After
@@ -18,17 +16,29 @@ public class ServiceLocatorTest {
     }
 
     @Test
-    public void testCorrectInstance() {
-        Foo foo = new Foo();
+    public void testGet_CorrectInstance() {
         ServiceLocator.register(foo);
-        Foo locatedFoo = ServiceLocator.get(Foo.class);
+        final Foo locatedFoo = ServiceLocator.get(Foo.class);
 
         assertSame(foo, locatedFoo);
     }
 
     @Test(expected = IllegalStateException.class)
-    public void testExceptionOnMiss() {
+    public void testGet_ExceptionOnMiss() {
         ServiceLocator.get(Foo.class);
     }
 
+    private static class Foo {
+    }
+
+    @Test
+    public void testRegister_FirstTime_Success() throws Exception {
+        ServiceLocator.register(foo);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testRegister_SecondTime_Fail() throws Exception {
+        ServiceLocator.register(foo);
+        ServiceLocator.register(foo);
+    }
 }
