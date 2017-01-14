@@ -15,6 +15,8 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     private RobotDrive robotDrive;
 
     public DrivetrainSubsystem() {
+    	super();
+    	
         WiringProperties wiringProperties = ServiceLocator.get(WiringProperties.class);
 
         leftMotor = new CANTalon(wiringProperties.getDriveLeftMotorDeviceNumber());
