@@ -2,7 +2,7 @@ package org.usfirst.frc.team2175.properties;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.usfirst.frc.team2175.TestBase;
 
@@ -21,8 +21,8 @@ public class BasePropertiesTest extends TestBase {
     private BasePropertiesImplementation sut =
             new BasePropertiesImplementation();
 
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() {
         BaseProperties.setPropertyFileDir(PROPERTY_FILE_DIR_SRC_TESTS);
     }
 
