@@ -6,6 +6,8 @@ public class JoystickProperties extends BaseProperties {
     private int joystickRightPort;
     private int gamepadPort;
 
+    private double deadbandSize;
+
     private int shiftButtonNumber;
 
     @Override
@@ -18,6 +20,8 @@ public class JoystickProperties extends BaseProperties {
         joystickLeftPort = getIntPropertyValue("joystick.left.port");
         joystickRightPort = getIntPropertyValue("joystick.right.port");
         gamepadPort = getIntPropertyValue("joystick.gamepad.port");
+
+        deadbandSize = getDoublePropertyValue("deadband.value");
 
         shiftButtonNumber = getIntPropertyValue("button.shift");
     }
@@ -32,6 +36,10 @@ public class JoystickProperties extends BaseProperties {
 
     public int getGamepadPort() {
         return gamepadPort;
+    }
+
+    public double getDeadbandValue() {
+        return deadbandSize;
     }
 
     public int getShiftButtonNumber() {

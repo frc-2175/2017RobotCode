@@ -12,6 +12,9 @@ public class DriverStation {
     private Joystick rightJoystick;
     private Joystick gamepad;
 
+    private DeadbandCalculator deadbandCalculator;
+    private double deadbandSize;
+
     private JoystickButton shiftButton;
 
     public DriverStation() {
@@ -22,19 +25,26 @@ public class DriverStation {
         rightJoystick = new Joystick(joystickProperties.getJoystickRightPort());
         gamepad = new Joystick(joystickProperties.getGamepadPort());
 
-        shiftButton =
-                new JoystickButton(leftJoystick,
-                        joystickProperties.getShiftButtonNumber());
+        shiftButton = new JoystickButton(leftJoystick,
+                joystickProperties.getShiftButtonNumber());
+
+        deadbandSize = joystickProperties.getDeadbandValue();
 
         ServiceLocator.register(this);
     }
 
     public double getMoveValue() {
-        return leftJoystick.getY();
+        double input = -leftJoystick.getY();
+        double deadbandedOutput =
+                deadbandCalculator.calcDeadbandedOutput(input, deadbandSize);
+        return deadbandedOutput;
     }
 
     public double getTurnValue() {
-        return rightJoystick.getX();
+        double input = rightJoystick.getX();
+        double deadbandedOutput =
+                deadbandCalculator.calcDeadbandedOutput(input, deadbandSize);
+        return deadbandedOutput;
     }
 
     public JoystickButton getShiftButton() {
