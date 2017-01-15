@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2175.robot;
 
+import org.usfirst.frc.team2175.autonrecorder.AutonRecorder;
 import org.usfirst.frc.team2175.commandmapper.JoystickEventMapper;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.loop.SchedulerLoop;
@@ -16,6 +17,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * directory.
  */
 public class Robot extends IterativeRobot {
+
     static {
         PropertiesFactory.makeAll();
         SubsystemsFactory.makeAll();
@@ -67,6 +69,16 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during test mode
      */
     @Override
+    public void testInit() {
+        // TODO make AutonRecorder class
+
+        AutonRecorder autonRecorder =
+                new AutonRecorder(/* put encoders in and gyro */);
+
+    }
+
+    @Override
     public void testPeriodic() {
+
     }
 }
