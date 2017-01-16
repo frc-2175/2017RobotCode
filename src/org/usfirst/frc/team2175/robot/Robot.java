@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
     static {
         PropertiesFactory.makeAll();
         SubsystemsFactory.makeAll();
@@ -70,11 +69,8 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void testInit() {
-        // TODO make AutonRecorder class
-
         AutonRecorder autonRecorder =
                 new AutonRecorder(/* put encoders in and gyro */);
-
     }
 
     @Override
