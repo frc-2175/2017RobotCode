@@ -11,9 +11,14 @@ public class BaseSubsystem extends Subsystem {
 		ServiceLocator.register(this);
 	}
 
+    /**
+     * Empty implementation.
+     *
+     * DO NOT override this in subsystems. Use {@link setDefaultCommand}
+     * instead.
+     */
     @Override
     protected void initDefaultCommand() {
-        // No implementation
     }
 
     @Override
