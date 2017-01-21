@@ -29,12 +29,12 @@ public class DriverStation {
                 joystickProperties.getShiftButtonNumber());
 
         deadbandSize = joystickProperties.getDeadbandValue();
-
+        deadbandCalculator = new DeadbandCalculator();
         ServiceLocator.register(this);
     }
 
     public double getMoveValue() {
-        double input = -leftJoystick.getY();
+        double input = leftJoystick.getY();
         double deadbandedOutput =
                 deadbandCalculator.calcDeadbandedOutput(input, deadbandSize);
         return deadbandedOutput;
