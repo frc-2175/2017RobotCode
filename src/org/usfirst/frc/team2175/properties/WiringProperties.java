@@ -4,6 +4,7 @@ public class WiringProperties extends BaseProperties {
 
     private int driveLeftMotorDeviceNumber;
     private int driveRightMotorDeviceNumber;
+    private int driveShiftersSolenoidNumber;
 
     @Override
     protected String getPropertyFileName() {
@@ -15,6 +16,8 @@ public class WiringProperties extends BaseProperties {
         driveLeftMotorDeviceNumber = getIntPropertyValue("drivetrain.can.left");
         driveRightMotorDeviceNumber =
                 getIntPropertyValue("drivetrain.can.right");
+        driveShiftersSolenoidNumber =
+                getIntPropertyValue("drivetrain.solenoid.driveshifters");
     }
 
     public int getDriveLeftMotorDeviceNumber() {
@@ -23,6 +26,10 @@ public class WiringProperties extends BaseProperties {
 
     public int getDriveRightMotorDeviceNumber() {
         return driveRightMotorDeviceNumber;
+    }
+
+    public int getDriveShiftersSolenoidNumber() {
+        return driveShiftersSolenoidNumber;
     }
 
 }
