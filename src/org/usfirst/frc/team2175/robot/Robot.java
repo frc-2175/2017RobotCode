@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2175.robot;
 
+import org.usfirst.frc.team2175.command.DefaultCommandFactory;
 import org.usfirst.frc.team2175.commandmapper.JoystickEventMapper;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.loop.SchedulerLoop;
@@ -19,6 +20,7 @@ public class Robot extends IterativeRobot {
     static {
         PropertiesFactory.makeAll();
         SubsystemsFactory.makeAll();
+        DefaultCommandFactory.makeAll();
         new DriverStation();
     }
 
