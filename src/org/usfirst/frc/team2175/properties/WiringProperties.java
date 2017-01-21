@@ -17,11 +17,12 @@ public class WiringProperties extends BaseProperties {
 
     private int ballIntakeActuaterForwardNumber;
     private int ballIntakeActuaterReverseNumber;
-    
+    private int ballIntakeMainMotorDeviceNumber;
+
     private int shooterShooterMotorDeviceNumber;
     private int shooterFeederMotorDeviceNumber;
     private int shooterAgitatorMotorDeviceNumber;
-    
+
     @Override
     protected String getPropertyFileName() {
         return "wiring.properties";
@@ -56,28 +57,27 @@ public class WiringProperties extends BaseProperties {
                 "ballintake.solenoid.actuatesolenoid.forward");
         ballIntakeActuaterReverseNumber = getIntPropertyValue(
                 "ballintake.solenoid.actuatesolenoid.reverse");
-        
-        shooterShooterMotorDeviceNumber = getIntPropertyValue(
-        	"shooter.motor.shooter");
-        shooterFeederMotorDeviceNumber = getIntPropertyValue(
-        	"shooter.motor.feeder");
-        shooterAgitatorMotorDeviceNumber = getIntPropertyValue(
-        	"shooter.motor.agitator");
-        
+        ballIntakeMainMotorDeviceNumber =
+                getIntPropertyValue("ballintake.motor.main");
+
+        shooterShooterMotorDeviceNumber =
+                getIntPropertyValue("shooter.motor.shooter");
+        shooterFeederMotorDeviceNumber =
+                getIntPropertyValue("shooter.motor.feeder");
+        shooterAgitatorMotorDeviceNumber =
+                getIntPropertyValue("shooter.motor.agitator");
+
     }
 
-    public int getShooterShooterMotorDeviceNumber()
-    {
+    public int getShooterShooterMotorDeviceNumber() {
         return shooterShooterMotorDeviceNumber;
     }
 
-    public int getShooterFeederMotorDeviceNumber()
-    {
+    public int getShooterFeederMotorDeviceNumber() {
         return shooterFeederMotorDeviceNumber;
     }
 
-    public int getShooterAgitatorMotorDeviceNumber()
-    {
+    public int getShooterAgitatorMotorDeviceNumber() {
         return shooterAgitatorMotorDeviceNumber;
     }
 
@@ -129,4 +129,7 @@ public class WiringProperties extends BaseProperties {
         return ballIntakeActuaterReverseNumber;
     }
 
+    public int getBallIntakeMainMotorDeviceNumber() {
+        return ballIntakeMainMotorDeviceNumber;
+    }
 }
