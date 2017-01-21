@@ -48,6 +48,8 @@ public abstract class TestBase {
     public void processTestStarting() {
         log.fine("Test starting: " + testName.getMethodName());
         processMockUps();
+        log.fine("Clearing ServiceLocator");
+        ServiceLocator.clear();
     }
 
     @After
