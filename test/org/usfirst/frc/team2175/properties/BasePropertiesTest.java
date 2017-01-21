@@ -28,42 +28,43 @@ public class BasePropertiesTest extends TestBase {
 
     private void assertIntArrayMatches(final int[] expected,
             final int[] actual) {
-        final String lengthMsg = "Actual array had length " + actual.length
+        final String lengthFailMsg = "Actual array had length " + actual.length
                 + ", expected " + expected.length;
-        assertEquals(lengthMsg, expected.length, actual.length);
+        assertEquals(lengthFailMsg, expected.length, actual.length);
 
         for (int i = 0; i < expected.length; i++) {
-            final String valueMsg = "Actual array had value " + actual[i]
+            final String valueFailMsg = "Actual array had value " + actual[i]
                     + ", expected " + expected[i];
-            assertEquals(valueMsg, expected[i], actual[i]);
+            assertEquals(valueFailMsg, expected[i], actual[i]);
         }
     }
 
     @Test
     public void testGetIntArrayPropertyValue() {
-        final int[] testArray = { 1, 2, 3 };
+        final int[] expectedArray = { 1, 2, 3 };
 
-        final int[] resultWithBrackets =
+        final int[] actualWithBrackets =
                 sut.getIntArrayPropertyValue(KEY_WITH_BRACKETS_WITH_SPACES);
-        assertIntArrayMatches(testArray, resultWithBrackets);
+        assertIntArrayMatches(expectedArray, actualWithBrackets);
 
-        final int[] resultWithoutSpacesWithBrackets =
+        final int[] actualWithoutSpacesWithBrackets =
                 sut.getIntArrayPropertyValue(KEY_WITH_BRACKETS_WITHOUT_SPACES);
-        assertIntArrayMatches(testArray, resultWithoutSpacesWithBrackets);
+        assertIntArrayMatches(expectedArray, actualWithoutSpacesWithBrackets);
 
-        final int[] resultWithoutBrackets =
+        final int[] actualWithoutBrackets =
                 sut.getIntArrayPropertyValue(KEY_WITHOUT_BRACKETS_WITH_SPACES);
-        assertIntArrayMatches(testArray, resultWithoutBrackets);
+        assertIntArrayMatches(expectedArray, actualWithoutBrackets);
 
-        final int[] resultWithoutSpacesWithoutBrackets = sut
+        final int[] actualWithoutSpacesWithoutBrackets = sut
                 .getIntArrayPropertyValue(KEY_WITHOUT_BRACKETS_WITHOUT_SPACES);
-        assertIntArrayMatches(testArray, resultWithoutSpacesWithoutBrackets);
+        assertIntArrayMatches(expectedArray,
+                actualWithoutSpacesWithoutBrackets);
 
-        final int[] testArrayLonger = { 0, 2, 4, 6, 8, 10 };
+        final int[] expectedArrayLonger = { 0, 2, 4, 6, 8, 10 };
 
-        final int[] resultLonger = sut
+        final int[] actualLonger = sut
                 .getIntArrayPropertyValue(KEY_WITH_BRACKETS_WITH_SPACES_LONGER);
-        assertIntArrayMatches(testArrayLonger, resultLonger);
+        assertIntArrayMatches(expectedArrayLonger, actualLonger);
     }
 
     private class BasePropertiesImplementation extends BaseProperties {

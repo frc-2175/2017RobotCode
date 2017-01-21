@@ -18,9 +18,10 @@ public class ServiceLocatorTest {
     @Test
     public void testGet_CorrectInstance() {
         ServiceLocator.register(foo);
-        final Foo locatedFoo = ServiceLocator.get(Foo.class);
+        final Foo actual = ServiceLocator.get(Foo.class);
 
-        assertSame(foo, locatedFoo);
+        assertSame("Same object not retrieved from ServiceLocator", foo,
+                actual);
     }
 
     @Test(expected = IllegalStateException.class)
