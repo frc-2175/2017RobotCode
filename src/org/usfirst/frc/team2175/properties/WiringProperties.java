@@ -12,6 +12,9 @@ public class WiringProperties extends BaseProperties {
     private int driveShiftersForwardNumber;
     private int driveShiftersReverseNumber;
 
+    private int leftGearIntakeMotorDeviceNumber;
+    private int rightGearIntakeMotorDeviceNumber;
+
     @Override
     protected String getPropertyFileName() {
         return "wiring.properties";
@@ -37,6 +40,10 @@ public class WiringProperties extends BaseProperties {
         rightSlaveMotorTwoNumber =
                 getIntPropertyValue("drivetrain.motor.right.slavetwo");
 
+        leftGearIntakeMotorDeviceNumber =
+                getIntPropertyValue("gearintake.can.left");
+        rightGearIntakeMotorDeviceNumber =
+                getIntPropertyValue("gearintake.can.right");
     }
 
     public int getDriveShiftersForwardNumber() {
@@ -71,4 +78,11 @@ public class WiringProperties extends BaseProperties {
         return rightSlaveMotorTwoNumber;
     }
 
+    public int getLeftGearIntakeDeviceNumber() {
+        return leftGearIntakeMotorDeviceNumber;
+    }
+
+    public int getRightGearIntakeDeviceNumber() {
+        return rightGearIntakeMotorDeviceNumber;
+    }
 }

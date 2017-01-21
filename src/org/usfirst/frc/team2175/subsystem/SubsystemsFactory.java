@@ -4,7 +4,7 @@ public class SubsystemsFactory {
 
     public static void makeAll() {
         new DrivetrainSubsystem();
-        // etc.
+        new GearIntakeSubsystem();
     }
 
 }
