@@ -5,17 +5,21 @@ import org.usfirst.frc.team2175.properties.WiringProperties;
 
 import com.ctre.CANTalon;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Solenoid;
 
 public class DrivetrainSubsystem extends BaseSubsystem {
 
-    private CANTalon leftMotor;
-    private CANTalon rightMotor;
+    private CANTalon leftMasterMotor;
+    private CANTalon rightMasterMotor;
+    private CANTalon leftSlaveMotorOne;
+    private CANTalon leftSlaveMotorTwo;
+    private CANTalon rightSlaveMotorOne;
+    private CANTalon rightSlaveMotorTwo;
 
     private RobotDrive robotDrive;
 
-    private Solenoid driveShifters;
+    private DoubleSolenoid driveShifters;
 
     public DrivetrainSubsystem() {
         super();
@@ -23,29 +27,53 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
 
-        leftMotor =
-                new CANTalon(wiringProperties.getDriveLeftMotorDeviceNumber());
-        rightMotor =
-                new CANTalon(wiringProperties.getDriveRightMotorDeviceNumber());
-        driveShifters =
-                new Solenoid(wiringProperties.getDriveShiftersSolenoidNumber());
+        leftMasterMotor =
+                new CANTalon(wiringProperties.getLeftMasterMotorNumber());
+        leftSlaveMotorOne =
+                new CANTalon(wiringProperties.getLeftSlaveMotorOneNumber());
+        leftSlaveMotorTwo =
+                new CANTalon(wiringProperties.getLeftSlaveMotorTwoNumber());
+        rightMasterMotor =
+                new CANTalon(wiringProperties.getRightMasterMotorNumber());
+        rightSlaveMotorOne =
+                new CANTalon(wiringProperties.getRightSlaveMotorOneNumber());
+        rightSlaveMotorTwo =
+                new CANTalon(wiringProperties.getRightSlaveMotorTwoNumber());
 
-        robotDrive = new RobotDrive(leftMotor, rightMotor);
+        leftSlaveMotorOne.changeControlMode(CANTalon.TalonControlMode.Follower);
+        leftSlaveMotorOne.set(leftMasterMotor.getDeviceID());
+
+        leftSlaveMotorTwo.changeControlMode(CANTalon.TalonControlMode.Follower);
+        leftSlaveMotorTwo.set(leftMasterMotor.getDeviceID());
+
+        rightSlaveMotorOne
+                .changeControlMode(CANTalon.TalonControlMode.Follower);
+        rightSlaveMotorOne.set(rightMasterMotor.getDeviceID());
+
+        rightSlaveMotorTwo
+                .changeControlMode(CANTalon.TalonControlMode.Follower);
+        rightSlaveMotorTwo.set(rightMasterMotor.getDeviceID());
+
+        driveShifters = new DoubleSolenoid(
+                wiringProperties.getDriveShiftersForwardNumber(),
+                wiringProperties.getDriveShiftersReverseNumber());
+
+        robotDrive = new RobotDrive(leftMasterMotor, rightMasterMotor);
     }
 
     public void arcadeDrive(double moveValue, double rotateValue) {
         robotDrive.arcadeDrive(moveValue, rotateValue);
     }
 
-    public void setGear(boolean setHighGear) {
-        driveShifters.set(setHighGear);
+    private void setGear(DoubleSolenoid.Value value) {
+        driveShifters.set(value);
     }
 
     public void shiftToHighGear() {
-        driveShifters.set(true);
+        setGear(DoubleSolenoid.Value.kForward);
     }
 
     public void shiftToLowGear() {
-        driveShifters.set(false);
+        setGear(DoubleSolenoid.Value.kReverse);
     }
 }
