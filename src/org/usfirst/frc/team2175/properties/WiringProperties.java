@@ -17,7 +17,11 @@ public class WiringProperties extends BaseProperties {
 
     private int ballIntakeActuaterForwardNumber;
     private int ballIntakeActuaterReverseNumber;
-
+    
+    private int shooterShooterMotorDeviceNumber;
+    private int shooterFeederMotorDeviceNumber;
+    private int shooterAgitatorMotorDeviceNumber;
+    
     @Override
     protected String getPropertyFileName() {
         return "wiring.properties";
@@ -52,6 +56,29 @@ public class WiringProperties extends BaseProperties {
                 "ballintake.solenoid.actuatesolenoid.forward");
         ballIntakeActuaterReverseNumber = getIntPropertyValue(
                 "ballintake.solenoid.actuatesolenoid.reverse");
+        
+        shooterShooterMotorDeviceNumber = getIntPropertyValue(
+        	"shooter.motor.shooter");
+        shooterFeederMotorDeviceNumber = getIntPropertyValue(
+        	"shooter.motor.feeder");
+        shooterAgitatorMotorDeviceNumber = getIntPropertyValue(
+        	"shooter.motor.agitator");
+        
+    }
+
+    public int getShooterShooterMotorDeviceNumber()
+    {
+        return shooterShooterMotorDeviceNumber;
+    }
+
+    public int getShooterFeederMotorDeviceNumber()
+    {
+        return shooterFeederMotorDeviceNumber;
+    }
+
+    public int getShooterAgitatorMotorDeviceNumber()
+    {
+        return shooterAgitatorMotorDeviceNumber;
     }
 
     public int getDriveShiftersForwardNumber() {
