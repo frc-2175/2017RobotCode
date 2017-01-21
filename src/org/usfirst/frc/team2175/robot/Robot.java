@@ -1,5 +1,8 @@
 package org.usfirst.frc.team2175.robot;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team2175.command.DefaultCommandFactory;
 import org.usfirst.frc.team2175.commandmapper.JoystickEventMapper;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
@@ -17,11 +20,19 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * directory.
  */
 public class Robot extends IterativeRobot {
+    private final static Logger log = Logger.getLogger(Robot.class.getName());
+
     static {
-        PropertiesFactory.makeAll();
-        SubsystemsFactory.makeAll();
-        DefaultCommandFactory.makeAll();
-        new DriverStation();
+        try {
+            PropertiesFactory.makeAll();
+            SubsystemsFactory.makeAll();
+            new DriverStation();
+            DefaultCommandFactory.makeAll();
+        } catch (final Throwable e) {
+            final String msg = "ERROR making all";
+            log.log(Level.SEVERE, msg, e);
+            throw e;
+        }
     }
 
     SchedulerLoop schedulerLoop = new SchedulerLoop();

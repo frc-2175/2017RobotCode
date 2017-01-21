@@ -34,6 +34,8 @@ public abstract class BaseProperties {
         }
 
         ServiceLocator.register(this);
+
+        log.info("Finished configuring class '" + getClass() + "'");
     }
 
     /** @return The property file name to load for this config. */
@@ -60,8 +62,8 @@ public abstract class BaseProperties {
     protected String getStringPropertyValue(final String propertyName) {
         final String value = properties.getProperty(propertyName);
         if (value == null) {
-            final String msg =
-                    "Property '" + propertyName + "' not found in property file";
+            final String msg = "Property '" + propertyName
+                    + "' not found in property file";
             throw new IllegalStateException(msg);
         }
 
