@@ -7,11 +7,11 @@ import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-public class BallIntakeSubsystem extends BaseSubsystem {
+public class FuelIntakeSubsystem extends BaseSubsystem {
     private final CANTalon mainMotor;
     private final DoubleSolenoid actuateSolenoidInAndOut;
 
-    public BallIntakeSubsystem() {
+    public FuelIntakeSubsystem() {
         WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
         mainMotor = new CANTalon(
