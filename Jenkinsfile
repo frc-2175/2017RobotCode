@@ -85,10 +85,18 @@ node {
           stage ('Startup') {
             try {
               bat 'ant compile-listener'
+
+              bat 'deployPropertiesFiles_Practice.bat'
+              timeout (time: 30, unit: 'SECONDS') {
+                bat 'java -jar buildlistener\\listener.jar'
+              }
+              echo 'Practice robot started up successfully!\n'
+
               bat 'deployPropertiesFiles_Competition.bat'
               timeout (time: 30, unit: 'SECONDS') {
                 bat 'java -jar buildlistener\\listener.jar'
               }
+              echo 'Competition robot started up successfully!\n'
             } catch (Exception e) {
               currentBuild.result = 'ERROR'
               startupSuccess = false
