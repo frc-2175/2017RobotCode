@@ -33,6 +33,7 @@
 
   <target name="clean-2175" depends="clean" description="Delete build output dirs.">
     <delete dir="${build.test.dir}" quiet="true"/>
+  	<delete dir="${build.listener.dir}" quiet="true"/>
   </target>
 
   <target name="compile-test" depends="compile" description="Compile the tests code.">
@@ -50,6 +51,25 @@
      compiler="javac${ant.java.version}"
      debug="true">
     </javac>
+  </target>
+	
+  <target name="compile-listener" description="Compile the NetConsole listener.">
+  	<mkdir dir="${build.listener.dir}"/>
+  	
+  	<javac srcdir="${src.listener.dir}"
+  	 destdir="${build.listener.dir}"
+  	 includeAntRuntime="no"
+  	 target="${ant.java.version}"
+  	 source="${ant.java.version}"
+  	 compiler="javac${ant.java.version}"
+  	 debug="true">
+  	</javac>
+  	
+  	<jar jarfile="${build.listener.dir}/listener.jar" basedir="${build.listener.dir}">
+  	  <manifest>
+        <attribute name="Main-Class" value="org.usfirst.frc.team2175.NetConsoleReceiver"/>
+      </manifest>
+  	</jar>
   </target>
 
   <target name="test" depends="compile-test" description="Run the tests.">
