@@ -19,6 +19,7 @@ node {
     int skippedCount = 0
     boolean compileSuccess = true
     boolean deploySuccess = true
+    boolean startupSuccess = true
 
     setBuildStatus("Build #${env.BUILD_NUMBER} in progress", 'PENDING')
 
@@ -80,16 +81,43 @@ node {
             deploySuccess = false
           }
         }
+        if (deploySuccess) {
+          stage ('Startup') {
+            try {
+              bat 'ant compile-listener'
+
+              echo '--------------------------\nStarting practice robot\n--------------------------'
+              bat 'deployPropertiesFiles_Practice.bat'
+              timeout (time: 30, unit: 'SECONDS') {
+                bat 'java -jar buildlistener\\listener.jar'
+              }
+              echo 'Practice robot started up successfully!\n'
+
+              echo '--------------------------\nStarting competition robot\n--------------------------'
+              bat 'deployPropertiesFiles_Competition.bat'
+              timeout (time: 30, unit: 'SECONDS') {
+                bat 'java -jar buildlistener\\listener.jar'
+              }
+              echo 'Competition robot started up successfully!\n'
+            } catch (Exception e) {
+              currentBuild.result = 'ERROR'
+              startupSuccess = false
+            }
+          }
+        }
       }
     }
     stage ('Update GitHub Status & Notify') {
-      boolean overallSuccess = (compileSuccess && failureCount == 0 && deploySuccess)
+      boolean overallSuccess = (compileSuccess && failureCount == 0 && deploySuccess && startupSuccess)
       
       def githubStatusMessage = "Compile ${compileSuccess ? 'succeeded' : 'failed'}"
       if (compileSuccess) {
         githubStatusMessage += ", ${testCount - failureCount}/${testCount} tests passed"
         if (failureCount == 0) {
           githubStatusMessage += ", deploy ${deploySuccess ? 'succeeded' : 'failed'}"
+          if (deploySuccess) {
+            githubStatusMessage += ", startup ${startupSuccess ? 'succeeded' : 'failed'}"
+          }
         }
       }
       githubStatusMessage += '.'
@@ -104,6 +132,9 @@ node {
           slackMessage += "\nTest Status:\n    Passed: ${testCount - failureCount}, Failed: ${failureCount}, Skipped: ${skippedCount}"
           if (failureCount == 0) {
             slackMessage += "\nDeploy Result:\n    ${deploySuccess ? 'Success' : 'Failure'}"
+            if (deploySuccess) {
+              slackMessage += "\nStartup Result:\n    ${startupSuccess ? 'Success' : 'Failure'}"
+            }
           }
         }
         
