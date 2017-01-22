@@ -28,7 +28,7 @@ node {
       try {
         bat 'ant clean-jar'
       } catch (Exception e) {} 
-      step([$class: 'JUnitResultArchiver', testResults: 'buildtest/results/*.xml'])
+      step([$class: 'JUnitResultArchiver', testResults: 'buildtest/results/*.xml', allowEmptyResults: true])
       def xmlFiles = findFiles(glob: 'buildtest/results/*.xml')
       for (int i = 0; i < xmlFiles.length; i++) {
         def file = xmlFiles[i]
