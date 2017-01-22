@@ -37,7 +37,9 @@ node {
       stage ('Build and Test') {
         try {
           bat 'ant clean-jar'
-        } catch (Exception e) {} 
+        } catch (Exception e) {
+          currentBuild.result = 'ERROR'
+        } 
         step([$class: 'JUnitResultArchiver', testResults: 'buildtest/results/*.xml', allowEmptyResults: true])
         def xmlFiles = findFiles(glob: 'buildtest/results/*.xml')
         for (int i = 0; i < xmlFiles.length; i++) {
@@ -56,7 +58,7 @@ node {
             failureCount += failures.toInteger()
           }
 
-          def errorMatcher = contents =~ 'failures="([^"]+)"'
+          def errorMatcher = contents =~ 'errors="([^"]+)"'
           def errors = errorMatcher ? errorMatcher[0][1] : null
           if (errors != null) {
             failureCount += errors.toInteger() // we treat errors as failures
