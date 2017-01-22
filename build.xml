@@ -32,7 +32,7 @@
   <import file="${wpilib.ant.dir}/build.xml"/>
 
   <target name="clean-2175" depends="clean" description="Delete build output dirs.">
-    <delete dir="${build.test.dir}"/>
+    <delete dir="${build.test.dir}" quiet="true"/>
   </target>
 
   <target name="compile-test" depends="compile" description="Compile the tests code.">
