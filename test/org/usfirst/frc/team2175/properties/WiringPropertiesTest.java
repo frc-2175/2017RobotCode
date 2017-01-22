@@ -8,33 +8,35 @@ public class WiringPropertiesTest extends TestBase {
     @Test
     public void testWiringProperties_Competition()
             throws IllegalArgumentException, IllegalAccessException {
-        BaseProperties.setPropertyFileDir(PROPERTY_FILE_DIR_SRC_COMPETITION);
-        WiringProperties sut = new WiringProperties();
-        assertInstanceVariablesNotNull(sut);
-        assertArraysNotZeroLength(sut);
+        commonTestWiringProperties(PROPERTY_FILE_DIR_SRC_COMPETITION);
     }
 
     @Test
     public void testWiringProperties_Practice()
             throws IllegalArgumentException, IllegalAccessException {
-        BaseProperties.setPropertyFileDir(PROPERTY_FILE_DIR_SRC_PRACTICE);
-        WiringProperties sut = new WiringProperties();
+        commonTestWiringProperties(PROPERTY_FILE_DIR_SRC_PRACTICE);
+    }
+
+    public void commonTestWiringProperties(final String propertyFileDirectory)
+            throws IllegalArgumentException, IllegalAccessException {
+        BaseProperties.setPropertyFileDir(propertyFileDirectory);
+        final WiringProperties sut = new WiringProperties();
         assertInstanceVariablesNotNull(sut);
         assertArraysNotZeroLength(sut);
     }
 
     @Test
     public void testWiringProperties_UniquePropertiesSequence_Motor_Competition() {
-        String propertyRegex = ".*[.]motor[.].*";
-        String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_COMPETITION;
+        final String propertyRegex = ".*[.]motor[.].*";
+        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_COMPETITION;
 
         commonTestUniqueProperties(propertyFileDirectory, propertyRegex);
     }
 
     @Test
     public void testWiringProperties_UniquePropertiesSequence_Motor_Practice() {
-        String propertyRegex = ".*[.]motor[.].*";
-        String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_PRACTICE;
+        final String propertyRegex = ".*[.]motor[.].*";
+        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_PRACTICE;
 
         commonTestUniqueProperties(propertyFileDirectory, propertyRegex);
     }
@@ -42,8 +44,8 @@ public class WiringPropertiesTest extends TestBase {
     @Test
     @Ignore
     public void testWiringProperties_UniquePropertiesSequence_Digital_Competition() {
-        String propertyRegex = ".*[.]digital[.].*port.*";
-        String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_COMPETITION;
+        final String propertyRegex = ".*[.]digital[.].*port.*";
+        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_COMPETITION;
 
         commonTestUniqueProperties(propertyFileDirectory, propertyRegex);
     }
@@ -51,32 +53,32 @@ public class WiringPropertiesTest extends TestBase {
     @Test
     @Ignore
     public void testWiringProperties_UniquePropertiesSequence_Digital_Practice() {
-        String propertyRegex = ".*[.]digital[.].*port.*";
-        String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_PRACTICE;
+        final String propertyRegex = ".*[.]digital[.].*port.*";
+        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_PRACTICE;
 
         commonTestUniqueProperties(propertyFileDirectory, propertyRegex);
     }
 
     @Test
     public void testWiringProperties_UniquePropertiesSequence_Solenoid_Competition() {
-        String propertyRegex = ".*[.]solenoid[.].*";
-        String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_COMPETITION;
+        final String propertyRegex = ".*[.]solenoid[.].*";
+        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_COMPETITION;
 
         commonTestUniqueProperties(propertyFileDirectory, propertyRegex);
     }
 
     @Test
     public void testWiringProperties_UniquePropertiesSequence_Solenoid_Practice() {
-        String propertyRegex = ".*[.]solenoid[.].*";
-        String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_PRACTICE;
+        final String propertyRegex = ".*[.]solenoid[.].*";
+        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_PRACTICE;
 
         commonTestUniqueProperties(propertyFileDirectory, propertyRegex);
     }
 
-    private void commonTestUniqueProperties(String propertyFileDirectory,
-            String propertyRegex) {
+    private void commonTestUniqueProperties(final String propertyFileDirectory,
+            final String propertyRegex) {
         BaseProperties.setPropertyFileDir(propertyFileDirectory);
-        BaseProperties baseProperties = new WiringProperties();
+        final BaseProperties baseProperties = new WiringProperties();
 
         assertNoDuplicatePropertyValues(propertyRegex, baseProperties);
     }
