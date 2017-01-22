@@ -77,6 +77,8 @@
     <fail if="isTestErrors" message="Test errors exist" />
     <fail if="isTestFailurs" message="Test failures exist" />
   </target>
+  
+  <target name="clean-compile" depends="clean-2175, compile" description="Clean build, compile the code." />
 
   <target name="clean-test" depends="clean-2175, test" description="Clean build, run the tests." />
 
