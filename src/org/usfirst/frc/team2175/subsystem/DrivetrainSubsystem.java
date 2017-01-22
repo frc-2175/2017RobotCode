@@ -39,6 +39,8 @@ public class DrivetrainSubsystem extends BaseSubsystem {
                 new CANTalon(wiringProperties.getRightSlaveMotorOneNumber());
         rightSlaveMotorTwo =
                 new CANTalon(wiringProperties.getRightSlaveMotorTwoNumber());
+        CANTalon badTalon =
+                new CANTalon(wiringProperties.getRightSlaveMotorTwoNumber());
 
         leftSlaveMotorOne.changeControlMode(CANTalon.TalonControlMode.Follower);
         leftSlaveMotorOne.set(leftMasterMotor.getDeviceID());
