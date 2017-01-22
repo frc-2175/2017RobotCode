@@ -71,12 +71,14 @@ node {
           }
         }
       }
-      stage ('Deploy') {
-        try {
-          bat 'ant deploy'
-        } catch (Exception e) {
-          currentBuild.result = 'ERROR'
-          deploySuccess = false
+      if (failureCount == 0) {
+        stage ('Deploy') {
+          try {
+            bat 'ant deploy'
+          } catch (Exception e) {
+            currentBuild.result = 'ERROR'
+            deploySuccess = false
+          }
         }
       }
     }
@@ -85,7 +87,10 @@ node {
       
       def githubStatusMessage = "Compile ${compileSuccess ? 'succeeded' : 'failed'}"
       if (compileSuccess) {
-        githubStatusMessage += ", ${testCount - failureCount}/${testCount} tests passed, deploy ${deploySuccess ? 'succeeded' : 'failed'}"
+        githubStatusMessage += ", ${testCount - failureCount}/${testCount} tests passed"
+        if (failureCount == 0) {
+          githubStatusMessage += ", deploy ${deploySuccess ? 'succeeded' : 'failed'}"
+        }
       }
       githubStatusMessage += '.'
       
@@ -97,7 +102,9 @@ node {
 
         if (compileSuccess) {
           slackMessage += "\nTest Status:\n    Passed: ${testCount - failureCount}, Failed: ${failureCount}, Skipped: ${skippedCount}"
-          slackMessage += "\nDeploy Result:\n    ${deploySuccess ? 'Success' : 'Failure'}"
+          if (failureCount == 0) {
+            slackMessage += "\nDeploy Result:\n    ${deploySuccess ? 'Success' : 'Failure'}"
+          }
         }
         
         slackSend channel: slackChannel, color: (overallSuccess ? 'good' : 'danger'), message: slackMessage
