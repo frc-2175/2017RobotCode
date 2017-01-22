@@ -23,6 +23,8 @@ public class WiringProperties extends BaseProperties {
     private int shooterFeederMotorDeviceNumber;
     private int shooterAgitatorMotorDeviceNumber;
 
+    private int drivetrainAnalogGyroDeviceNumber;
+
     @Override
     protected String getPropertyFileName() {
         return "wiring.properties";
@@ -66,6 +68,9 @@ public class WiringProperties extends BaseProperties {
                 getIntPropertyValue("shooter.motor.feeder");
         shooterAgitatorMotorDeviceNumber =
                 getIntPropertyValue("shooter.motor.agitator");
+
+        drivetrainAnalogGyroDeviceNumber =
+                getIntPropertyValue("drivetrain.analog.gyro");
 
     }
 
@@ -131,5 +136,9 @@ public class WiringProperties extends BaseProperties {
 
     public int getFuelIntakeMainMotorDeviceNumber() {
         return fuelIntakeMainMotorDeviceNumber;
+    }
+
+    public int getDrivetrainAnalogGyroDeviceNumber() {
+        return drivetrainAnalogGyroDeviceNumber;
     }
 }
