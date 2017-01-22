@@ -15,9 +15,9 @@ public class WiringProperties extends BaseProperties {
     private int leftGearIntakeMotorDeviceNumber;
     private int rightGearIntakeMotorDeviceNumber;
 
-    private int ballIntakeActuaterForwardNumber;
-    private int ballIntakeActuaterReverseNumber;
-    private int ballIntakeMainMotorDeviceNumber;
+    private int fuelIntakeActuaterForwardNumber;
+    private int fuelIntakeActuaterReverseNumber;
+    private int fuelIntakeMainMotorDeviceNumber;
 
     private int shooterShooterMotorDeviceNumber;
     private int shooterFeederMotorDeviceNumber;
@@ -53,12 +53,12 @@ public class WiringProperties extends BaseProperties {
         rightGearIntakeMotorDeviceNumber =
                 getIntPropertyValue("gearintake.motor.right");
 
-        ballIntakeActuaterForwardNumber = getIntPropertyValue(
-                "ballintake.solenoid.actuatesolenoid.forward");
-        ballIntakeActuaterReverseNumber = getIntPropertyValue(
-                "ballintake.solenoid.actuatesolenoid.reverse");
-        ballIntakeMainMotorDeviceNumber =
-                getIntPropertyValue("ballintake.motor.main");
+        fuelIntakeActuaterForwardNumber = getIntPropertyValue(
+                "fuelintake.solenoid.actuatesolenoid.forward");
+        fuelIntakeActuaterReverseNumber = getIntPropertyValue(
+                "fuelintake.solenoid.actuatesolenoid.reverse");
+        fuelIntakeMainMotorDeviceNumber =
+                getIntPropertyValue("fuelintake.motor.main");
 
         shooterShooterMotorDeviceNumber =
                 getIntPropertyValue("shooter.motor.shooter");
@@ -121,15 +121,15 @@ public class WiringProperties extends BaseProperties {
         return rightGearIntakeMotorDeviceNumber;
     }
 
-    public int getBallIntakeActuaterForwardNumber() {
-        return ballIntakeActuaterForwardNumber;
+    public int getFuelIntakeActuaterForwardNumber() {
+        return fuelIntakeActuaterForwardNumber;
     }
 
-    public int getBallIntakeActuaterReverseNumber() {
-        return ballIntakeActuaterReverseNumber;
+    public int getFuelIntakeActuaterReverseNumber() {
+        return fuelIntakeActuaterReverseNumber;
     }
 
-    public int getBallIntakeMainMotorDeviceNumber() {
-        return ballIntakeMainMotorDeviceNumber;
+    public int getFuelIntakeMainMotorDeviceNumber() {
+        return fuelIntakeMainMotorDeviceNumber;
     }
 }

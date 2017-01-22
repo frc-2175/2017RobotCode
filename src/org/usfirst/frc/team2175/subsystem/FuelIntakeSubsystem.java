@@ -15,10 +15,10 @@ public class FuelIntakeSubsystem extends BaseSubsystem {
         WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
         mainMotor = new CANTalon(
-                wiringProperties.getBallIntakeMainMotorDeviceNumber());
+                wiringProperties.getFuelIntakeMainMotorDeviceNumber());
         actuateSolenoidInAndOut = new DoubleSolenoid(
-                wiringProperties.getBallIntakeActuaterForwardNumber(),
-                wiringProperties.getBallIntakeActuaterReverseNumber());
+                wiringProperties.getFuelIntakeActuaterForwardNumber(),
+                wiringProperties.getFuelIntakeActuaterReverseNumber());
     }
 
     public void actuateOut() {
