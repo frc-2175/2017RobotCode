@@ -55,6 +55,12 @@ node {
           if (failures != null) {
             failureCount += failures.toInteger()
           }
+
+          def errorMatcher = contents =~ 'failures="([^"]+)"'
+          def errors = errorMatcher ? errorMatcher[0][1] : null
+          if (errors != null) {
+            failureCount += errors.toInteger() // we treat errors as failures
+          }
           
           def skippedMatcher = contents =~ 'skipped="([^"]+)"'
           def skipped = skippedMatcher ? skippedMatcher[0][1] : null
