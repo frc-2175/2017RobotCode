@@ -86,12 +86,14 @@ node {
             try {
               bat 'ant compile-listener'
 
+              echo '--------------------------\nStarting practice robot\n--------------------------'
               bat 'deployPropertiesFiles_Practice.bat'
               timeout (time: 30, unit: 'SECONDS') {
                 bat 'java -jar buildlistener\\listener.jar'
               }
               echo 'Practice robot started up successfully!\n'
 
+              echo '--------------------------\nStarting competition robot\n--------------------------'
               bat 'deployPropertiesFiles_Competition.bat'
               timeout (time: 30, unit: 'SECONDS') {
                 bat 'java -jar buildlistener\\listener.jar'
