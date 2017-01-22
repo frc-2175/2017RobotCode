@@ -83,8 +83,9 @@ node {
         }
         if (deploySuccess) {
           stage ('Startup') {
-            bat 'deployPropertiesFiles_Competition.bat'
             try {
+              bat 'ant compile-listener'
+              bat 'deployPropertiesFiles_Competition.bat'
               timeout (time: 30, unit: 'SECONDS') {
                 bat 'java -jar buildlistener\\listener.jar'
               }
