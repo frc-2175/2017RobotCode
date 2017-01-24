@@ -24,15 +24,11 @@ public class FuelIntakeActuateInCommand extends BaseCommand {
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     @Override
     protected void end() {
         super.end();
-    }
-
-    @Override
-    protected void interrupted() {
     }
 }

@@ -31,8 +31,4 @@ public class FuelIntakeActuateOutCommand extends BaseCommand {
     protected void end() {
         super.end();
     }
-
-    @Override
-    protected void interrupted() {
-    }
 }
