@@ -5,6 +5,7 @@ import org.usfirst.frc.team2175.properties.WiringProperties;
 
 import com.ctre.CANTalon;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.RobotDrive;
 
@@ -20,6 +21,8 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     private RobotDrive robotDrive;
 
     private DoubleSolenoid driveShifters;
+
+    private AnalogGyro analogGyro;
 
     public DrivetrainSubsystem() {
         super();
@@ -59,6 +62,9 @@ public class DrivetrainSubsystem extends BaseSubsystem {
                 wiringProperties.getDriveShiftersReverseNumber());
 
         robotDrive = new RobotDrive(leftMasterMotor, rightMasterMotor);
+
+        analogGyro = new AnalogGyro(
+                wiringProperties.getDrivetrainAnalogGyroDeviceNumber());
     }
 
     public void arcadeDrive(double moveValue, double rotateValue) {
@@ -75,5 +81,18 @@ public class DrivetrainSubsystem extends BaseSubsystem {
 
     public void shiftToLowGear() {
         setGear(DoubleSolenoid.Value.kReverse);
+    }
+
+    public void stopAllMotors() {
+        leftMasterMotor.set(0);
+        rightMasterMotor.set(0);
+    }
+
+    public double getAnalogAngle() {
+        return analogGyro.getAngle();
+    }
+
+    public void resetAnalogGyro() {
+        analogGyro.reset();
     }
 }
