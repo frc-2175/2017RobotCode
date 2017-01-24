@@ -31,6 +31,7 @@ public class ShooterSubsystem extends BaseSubsystem {
     }
 
     public void setMotorSpeedAgitator(double agitatorSpeed) {
+
         agitatorMotor.set(agitatorSpeed);
     }
 }
