@@ -20,6 +20,12 @@ public class RunShooterCommand extends BaseCommand {
     @Override
     protected void initialize() {
 
+        gamepad = new Joystick(2);
+    }
+
+    @Override
+    protected void execute() {
+
         if (gamepad.getRawButton(7)) {
             shooterSubsystem.setMotorSpeed(initialShooterSpeed);
         } else if (gamepad.getRawButton(8)) {
@@ -31,10 +37,6 @@ public class RunShooterCommand extends BaseCommand {
             shooterSubsystem.setMotorSpeedFeeder(0);
             shooterSubsystem.setMotorSpeedAgitator(0);
         }
-    }
-
-    @Override
-    protected void execute() {
     }
 
     @Override
