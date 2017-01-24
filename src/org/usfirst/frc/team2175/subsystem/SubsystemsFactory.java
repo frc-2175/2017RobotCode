@@ -6,6 +6,7 @@ public class SubsystemsFactory {
         new DrivetrainSubsystem();
         new GearIntakeSubsystem();
         new FuelIntakeSubsystem();
+        new ClimberSubsystem();
     }
 
 }

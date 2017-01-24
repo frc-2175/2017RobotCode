@@ -9,6 +9,7 @@ public class ClimberSubsystem extends BaseSubsystem {
     CANTalon mainMotor;
 
     public ClimberSubsystem() {
+        super();
         WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
         mainMotor = new CANTalon(wiringProperties.getClimberMainMotorNumber());
