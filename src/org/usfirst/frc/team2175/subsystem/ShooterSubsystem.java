@@ -22,10 +22,15 @@ public class ShooterSubsystem extends BaseSubsystem {
                 wiringProperties.getShooterAgitatorMotorDeviceNumber());
     }
 
-    public void setMotorSpeed(double shooterSpeed, double feederSpeed,
-            double agitatorSpeed) {
+    public void setMotorSpeed(double shooterSpeed) {
         shooterMotor.set(shooterSpeed);
+    }
+
+    public void setMotorSpeedFeeder(double feederSpeed) {
         feederMotor.set(feederSpeed);
+    }
+
+    public void setMotorSpeedAgitator(double agitatorSpeed) {
         agitatorMotor.set(agitatorSpeed);
     }
 }
