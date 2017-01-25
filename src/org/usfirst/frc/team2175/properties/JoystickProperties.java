@@ -27,9 +27,9 @@ public class JoystickProperties extends BaseProperties {
         gamepadPort = getIntPropertyValue("joystick.gamepad.port");
 
         deadbandSize = getDoublePropertyValue("deadband.value");
-        runfeeder = getIntPropertyValue("button.shooter.out");
-        runshooter = getIntPropertyValue("button.feeder.out");
-        shiftButtonNumber = getIntPropertyValue("button.shift");
+        runfeeder = getIntPropertyValue("button.feeder.out");
+        runshooter = getIntPropertyValue("button.shooter.out");
+        shiftButtonNumber = getIntPropertyValue("joystickbutton.shift");
         gearIntakeInNumber = getIntPropertyValue("button.gearintake.in");
         gearIntakeOutNumber = getIntPropertyValue("button.gearintake.out");
         runshooterin = getIntPropertyValue("joystickbutton.shooter.in");
