@@ -4,13 +4,11 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.ShooterSubsystem;
 
-public class RunShooterCommand extends BaseCommand {
-    private final ShooterSubsystem shooterSubsystem;
-    final double initialShooterSpeed = 1.0;
-    final double initialFeederSpeed = 0.8;
-    final double initialAgitatorSpeed = 0.5;
+public class RunFeederAgitatorCommand extends BaseCommand {
 
-    public RunShooterCommand() {
+    private final ShooterSubsystem shooterSubsystem;
+
+    public RunFeederAgitatorCommand() {
         shooterSubsystem = ServiceLocator.get(ShooterSubsystem.class);
     }
 
@@ -21,24 +19,23 @@ public class RunShooterCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-
-        shooterSubsystem.setMotorSpeed(initialShooterSpeed);
+        shooterSubsystem.setMotorSpeedFeeder(.5);
+        shooterSubsystem.setMotorSpeedAgitator(.5);
 
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     @Override
     protected void end() {
-        shooterSubsystem.setMotorSpeed(0);
-
+        shooterSubsystem.setMotorSpeedFeeder(0);
+        shooterSubsystem.setMotorSpeedAgitator(0);
     }
 
     @Override
     protected void interrupted() {
     }
-
 }

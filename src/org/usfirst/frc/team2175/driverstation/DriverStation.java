@@ -11,7 +11,8 @@ public class DriverStation {
     private Joystick leftJoystick;
     private Joystick rightJoystick;
     private Joystick gamepad;
-
+    private JoystickButton shootButton;
+    private JoystickButton feederButton;
     private DeadbandCalculator deadbandCalculator;
     private double deadbandSize;
 
@@ -26,7 +27,8 @@ public class DriverStation {
         leftJoystick = new Joystick(joystickProperties.getJoystickLeftPort());
         rightJoystick = new Joystick(joystickProperties.getJoystickRightPort());
         gamepad = new Joystick(joystickProperties.getGamepadPort());
-
+        shootButton =
+                new JoystickButton(gamepad, joystickProperties.getRunshooter());
         shiftButton = new JoystickButton(leftJoystick,
                 joystickProperties.getShiftButtonNumber());
 
@@ -66,4 +68,11 @@ public class DriverStation {
         return gearIntakeOutButton;
     }
 
+    public JoystickButton getRunShooter() {
+        return shootButton;
+    }
+
+    public JoystickButton getRunFeeder() {
+        return feederButton;
+    }
 }
