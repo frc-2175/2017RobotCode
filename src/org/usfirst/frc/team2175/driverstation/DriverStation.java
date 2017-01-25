@@ -12,7 +12,7 @@ public class DriverStation {
     private Joystick rightJoystick;
     private Joystick gamepad;
     private JoystickButton shootButton;
-    private JoystickButton feederButton;
+    private JoystickButton feedButton;
     private JoystickButton shootInButton;
     private JoystickButton feederInButton;
     private DeadbandCalculator deadbandCalculator;
@@ -29,22 +29,48 @@ public class DriverStation {
         leftJoystick = new Joystick(joystickProperties.getJoystickLeftPort());
         rightJoystick = new Joystick(joystickProperties.getJoystickRightPort());
         gamepad = new Joystick(joystickProperties.getGamepadPort());
-        shootButton =
-                new JoystickButton(gamepad, joystickProperties.getRunshooter());
-        shiftButton = new JoystickButton(leftJoystick,
+        shootButton = new JoystickButton(
+                location(joystickProperties.getRunShooterOutLocation()),
+                joystickProperties.getRunShooterOutNumber());
+        feedButton = new JoystickButton(
+                location(joystickProperties.getRunFeederOutLocation()),
+                joystickProperties.getRunFeederOutNumber());
+        shiftButton = new JoystickButton(
+                location(joystickProperties.getShiftButtonLocation()),
                 joystickProperties.getShiftButtonNumber());
-        feederInButton = new JoystickButton(leftJoystick,
-                joystickProperties.getRunFeederIn());
-        shootInButton = new JoystickButton(rightJoystick,
-                joystickProperties.getRunShooterIn());
-        gearIntakeInButton = new JoystickButton(gamepad,
+        feederInButton = new JoystickButton(
+                location(joystickProperties.getRunFeederInLocation()),
+                joystickProperties.getRunFeederInNumber());
+        shootInButton = new JoystickButton(
+                location(joystickProperties.getRunShooterInLocation()),
+                joystickProperties.getRunShooterInNumber());
+        gearIntakeInButton = new JoystickButton(
+                location(joystickProperties.getGearIntakeInLocation()),
                 joystickProperties.getGearIntakeInNumber());
-        gearIntakeOutButton = new JoystickButton(gamepad,
+        gearIntakeOutButton = new JoystickButton(
+                location(joystickProperties.getGearIntakeOutLocation()),
                 joystickProperties.getGearIntakeOutNumber());
 
         deadbandSize = joystickProperties.getDeadbandValue();
         deadbandCalculator = new DeadbandCalculator();
         ServiceLocator.register(this);
+    }
+
+    private Joystick location(String str) {
+        Joystick joystickOfChoice = leftJoystick;
+        switch (str) {
+        case "left":
+            joystickOfChoice = leftJoystick;
+            break;
+        case "right":
+            joystickOfChoice = rightJoystick;
+            break;
+        case "gamepad":
+            joystickOfChoice = gamepad;
+            break;
+        }
+        return joystickOfChoice;
+
     }
 
     public double getMoveValue() {
@@ -73,15 +99,15 @@ public class DriverStation {
         return gearIntakeOutButton;
     }
 
-    public JoystickButton getRunShooter() {
+    public JoystickButton getRunShooterOut() {
         return shootButton;
     }
 
-    public JoystickButton getRunFeeder() {
-        return feederButton;
+    public JoystickButton getRunFeederOut() {
+        return feedButton;
     }
 
-    public JoystickButton getFeederin() {
+    public JoystickButton getFeederIn() {
         return feederInButton;
     }
 
