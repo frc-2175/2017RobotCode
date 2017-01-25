@@ -11,6 +11,16 @@ void setBuildStatus(String message, String state) {
   ]);
 }
 
+int matchInt(String contents, String attributeName) {
+  def matcher = contents =~ attributeName + '="([^"]+)"'
+  def value = matcher ? matcher[0][1] : null
+  if (value != null) {
+    return value.toInteger()
+  } else {
+    return 0
+  }
+}
+
 node {
   env.PATH = "${tool 'ant'}\\bin;${env.PATH}"
   withEnv(["JAVA_HOME=C:\\Program Files\\Java\\${jdk}"]) {
@@ -47,29 +57,10 @@ node {
           def file = xmlFiles[i]
           def contents = readFile file.getPath()
           
-          def testsMatcher = contents =~ 'tests="([^"]+)"'
-          def tests = testsMatcher ? testsMatcher[0][1] : null
-          if (tests != null) {
-            testCount += tests.toInteger()
-          }
-          
-          def failureMatcher = contents =~ 'failures="([^"]+)"'
-          def failures = failureMatcher ? failureMatcher[0][1] : null
-          if (failures != null) {
-            failureCount += failures.toInteger()
-          }
-
-          def errorMatcher = contents =~ 'errors="([^"]+)"'
-          def errors = errorMatcher ? errorMatcher[0][1] : null
-          if (errors != null) {
-            failureCount += errors.toInteger() // we treat errors as failures
-          }
-          
-          def skippedMatcher = contents =~ 'skipped="([^"]+)"'
-          def skipped = skippedMatcher ? skippedMatcher[0][1] : null
-          if (skipped != null) {
-            skippedCount += skipped.toInteger()
-          }
+          testCount += matchInt(contents, 'tests')
+          failureCount += matchInt(contents, 'failures') 
+          failureCount += matchInt(contents, 'errors') // errors are treated as failures
+          skippedCount += matchInt(contents, 'skipped')
         }
       }
       if (failureCount == 0) {
