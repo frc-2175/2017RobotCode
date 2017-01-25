@@ -6,7 +6,7 @@ import org.usfirst.frc.team2175.properties.WiringProperties;
 import com.ctre.CANTalon;
 
 public class ClimberSubsystem extends BaseSubsystem {
-    CANTalon mainMotor;
+    private final CANTalon mainMotor;
 
     public ClimberSubsystem() {
         super();
