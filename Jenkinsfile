@@ -57,10 +57,10 @@ node {
           def file = xmlFiles[i]
           def contents = readFile file.getPath()
           
-          testCount += matchInt('tests')
-          failureCount += matchInt('failures') 
-          failureCount += matchInt('errors') // errors are treated as failures
-          skippedCount += matchInt('skipped')
+          testCount += matchInt(contents, 'tests')
+          failureCount += matchInt(contents, 'failures') 
+          failureCount += matchInt(contents, 'errors') // errors are treated as failures
+          skippedCount += matchInt(contents, 'skipped')
         }
       }
       if (failureCount == 0) {
