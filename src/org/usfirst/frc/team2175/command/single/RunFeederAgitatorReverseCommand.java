@@ -8,7 +8,6 @@ public class RunFeederAgitatorReverseCommand extends BaseCommand {
     private final ShooterSubsystem shooterSubsystem;
 
     public RunFeederAgitatorReverseCommand() {
-
         shooterSubsystem = ServiceLocator.get(ShooterSubsystem.class);
     }
 
@@ -18,6 +17,7 @@ public class RunFeederAgitatorReverseCommand extends BaseCommand {
 
     @Override
     protected void execute() {
+        // TODO get speed value from properties file
         shooterSubsystem.setMotorSpeedFeeder(-.5);
         shooterSubsystem.setMotorSpeedAgitator(-.5);
     }
