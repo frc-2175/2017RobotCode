@@ -7,6 +7,8 @@ public class JoystickProperties extends BaseProperties {
     private int gamepadPort;
     private int runfeeder;
     private int runshooter;
+    private int runshooterin;
+    private int runfeederin;
     private double deadbandSize;
 
     private int shiftButtonNumber;
@@ -30,6 +32,8 @@ public class JoystickProperties extends BaseProperties {
         shiftButtonNumber = getIntPropertyValue("button.shift");
         gearIntakeInNumber = getIntPropertyValue("button.gearintake.in");
         gearIntakeOutNumber = getIntPropertyValue("button.gearintake.out");
+        runshooterin = getIntPropertyValue("joystickbutton.shooter.in");
+        runfeederin = getIntPropertyValue("joystickbutton.feeder.in");
     }
 
     public int getJoystickLeftPort() {
@@ -69,4 +73,11 @@ public class JoystickProperties extends BaseProperties {
         return runshooter;
     }
 
+    public int getRunShooterIn() {
+        return runshooterin;
+    }
+
+    public int getRunFeederIn() {
+        return runfeederin;
+    }
 }
