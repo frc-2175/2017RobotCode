@@ -16,7 +16,8 @@ public class RunFuelIntakeInCommand extends BaseCommand {
     protected void initialize() {
         super.initialize();
         // TODO get speed value from properties file
-        fuelIntakeSubsystem.setMotorSpeed(1);
+        fuelIntakeSubsystem.setMotorSpeed(
+                fuelIntakeSubsystem.getMainMotorDefaultInSpeed());
     }
 
     @Override

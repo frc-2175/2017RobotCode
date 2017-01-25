@@ -17,7 +17,8 @@ public class SpinClimberForSecondsCommand extends BaseCommand {
     protected void initialize() {
         super.initialize();
         // TODO get climber speed from properties file
-        climberSubsystem.setClimberSpeed(1);
+        climberSubsystem
+                .setClimberSpeed(climberSubsystem.getMainMotorDefaultSpeed());
     }
 
     @Override
