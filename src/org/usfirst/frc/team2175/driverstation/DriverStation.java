@@ -16,6 +16,8 @@ public class DriverStation {
     private double deadbandSize;
 
     private JoystickButton shiftButton;
+    private JoystickButton gearIntakeInButton;
+    private JoystickButton gearIntakeOutButton;
 
     public DriverStation() {
         JoystickProperties joystickProperties =
@@ -27,6 +29,11 @@ public class DriverStation {
 
         shiftButton = new JoystickButton(leftJoystick,
                 joystickProperties.getShiftButtonNumber());
+
+        gearIntakeInButton = new JoystickButton(gamepad,
+                joystickProperties.getGearIntakeInNumber());
+        gearIntakeOutButton = new JoystickButton(gamepad,
+                joystickProperties.getGearIntakeOutNumber());
 
         deadbandSize = joystickProperties.getDeadbandValue();
         deadbandCalculator = new DeadbandCalculator();
@@ -49,6 +56,14 @@ public class DriverStation {
 
     public JoystickButton getShiftButton() {
         return shiftButton;
+    }
+
+    public JoystickButton getGearIntakeInButton() {
+        return gearIntakeInButton;
+    }
+
+    public JoystickButton getGearIntakeOutButton() {
+        return gearIntakeOutButton;
     }
 
 }

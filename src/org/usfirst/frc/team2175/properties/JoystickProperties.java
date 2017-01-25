@@ -9,6 +9,8 @@ public class JoystickProperties extends BaseProperties {
     private double deadbandSize;
 
     private int shiftButtonNumber;
+    private int gearIntakeInNumber;
+    private int gearIntakeOutNumber;
 
     @Override
     protected String getPropertyFileName() {
@@ -24,6 +26,8 @@ public class JoystickProperties extends BaseProperties {
         deadbandSize = getDoublePropertyValue("deadband.value");
 
         shiftButtonNumber = getIntPropertyValue("button.shift");
+        gearIntakeInNumber = getIntPropertyValue("button.gearintake.in");
+        gearIntakeOutNumber = getIntPropertyValue("button.gearintake.out");
     }
 
     public int getJoystickLeftPort() {
@@ -46,4 +50,11 @@ public class JoystickProperties extends BaseProperties {
         return shiftButtonNumber;
     }
 
+    public int getGearIntakeInNumber() {
+        return gearIntakeInNumber;
+    }
+
+    public int getGearIntakeOutNumber() {
+        return gearIntakeOutNumber;
+    }
 }
