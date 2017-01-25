@@ -76,8 +76,4 @@ public class TurnDegreesCommand extends BaseCommand {
         super.end();
         drivetrainSubsystem.stopAllMotors();
     }
-
-    @Override
-    protected void interrupted() {
-    }
 }
