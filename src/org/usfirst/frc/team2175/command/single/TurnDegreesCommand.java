@@ -39,7 +39,7 @@ public class TurnDegreesCommand extends BaseCommand {
             turnDirection = 2;
         }
 
-        drivetrainSubsystem.resetAnalogGyro();
+        drivetrainSubsystem.resetGyro();
     }
 
     @Override
@@ -59,11 +59,11 @@ public class TurnDegreesCommand extends BaseCommand {
     @Override
     protected boolean isFinished() {
         if (turnDirection == 0) {
-            return drivetrainSubsystem.getAnalogAngle() >= degreesToTurn;
+            return drivetrainSubsystem.getGyroAngle() >= degreesToTurn;
         }
 
         else if (turnDirection == 1) {
-            return drivetrainSubsystem.getAnalogAngle() <= degreesToTurn;
+            return drivetrainSubsystem.getGyroAngle() <= degreesToTurn;
         }
 
         else {
