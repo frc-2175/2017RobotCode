@@ -88,11 +88,11 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         rightMasterMotor.set(0);
     }
 
-    public double getAnalogAngle() {
+    public double getGyroAngle() {
         return analogGyro.getAngle();
     }
 
-    public void resetAnalogGyro() {
+    public void resetGyro() {
         analogGyro.reset();
     }
 }
