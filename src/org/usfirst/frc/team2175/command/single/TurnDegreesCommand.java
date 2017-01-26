@@ -28,12 +28,10 @@ public class TurnDegreesCommand extends BaseCommand {
         // for later
 
         if (degreesToTurn > 0) {
-            // TODO get speed value from properties file
             turnDirection = 0;
         }
 
         else if (degreesToTurn < 0) {
-            // TODO get speed value from properties file
             turnDirection = 1;
         } else {
             turnDirection = 2;
@@ -47,7 +45,6 @@ public class TurnDegreesCommand extends BaseCommand {
         if (degreesToTurn > 0) {
             // TODO get speed value from properties file
             drivetrainSubsystem.arcadeDrive(0, 1);
-
         }
 
         else if (degreesToTurn < 0) {

@@ -18,7 +18,6 @@ public class FuelIntakeForSecondsCommand extends BaseCommand {
     @Override
     protected void initialize() {
         super.initialize();
-        // TODO Load speed value from properties file
         fuelIntakeSubsystem.setMotorSpeed(
                 fuelIntakeSubsystem.getMainMotorDefaultOutSpeed());
     }
