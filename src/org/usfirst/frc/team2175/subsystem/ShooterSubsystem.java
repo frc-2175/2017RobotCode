@@ -12,6 +12,7 @@ public class ShooterSubsystem extends BaseSubsystem {
 
     public ShooterSubsystem() {
         super();
+
         WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
         shooterMotor = new CANTalon(
@@ -31,7 +32,7 @@ public class ShooterSubsystem extends BaseSubsystem {
     }
 
     public void setMotorSpeedAgitator(double agitatorSpeed) {
-
         agitatorMotor.set(agitatorSpeed);
     }
+
 }

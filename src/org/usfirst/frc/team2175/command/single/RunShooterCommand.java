@@ -6,7 +6,6 @@ import org.usfirst.frc.team2175.subsystem.ShooterSubsystem;
 
 public class RunShooterCommand extends BaseCommand {
     private final ShooterSubsystem shooterSubsystem;
-    final double ShooterSpeed = 1.0;
 
     public RunShooterCommand() {
         shooterSubsystem = ServiceLocator.get(ShooterSubsystem.class);
@@ -20,7 +19,7 @@ public class RunShooterCommand extends BaseCommand {
     @Override
     protected void execute() {
 
-        shooterSubsystem.setMotorSpeed(ShooterSpeed);
+        shooterSubsystem.setMotorSpeed(1.0);
 
     }
 

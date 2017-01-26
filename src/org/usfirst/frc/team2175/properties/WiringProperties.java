@@ -22,7 +22,6 @@ public class WiringProperties extends BaseProperties {
     private int shooterShooterMotorDeviceNumber;
     private int shooterFeederMotorDeviceNumber;
     private int shooterAgitatorMotorDeviceNumber;
-
     private int drivetrainAnalogGyroDeviceNumber;
 
     private int climberMainMotorNumber;
