@@ -13,6 +13,9 @@ public class ShooterSubsystem extends BaseSubsystem {
     private final double shooterSpeed;
     private final double feederSpeed;
     private final double agitatorSpeed;
+    private final double shooterReverseSpeed;
+    private final double feederReverseSpeed;
+    private final double agitatorReverseSpeed;
 
     public ShooterSubsystem() {
         super();
@@ -29,7 +32,9 @@ public class ShooterSubsystem extends BaseSubsystem {
         shooterSpeed = behaviorproperties.getShooterSpeed();
         feederSpeed = behaviorproperties.getFeederSpeed();
         agitatorSpeed = behaviorproperties.getAgitatorSpeed();
-
+        shooterReverseSpeed = behaviorproperties.getShooterInSpeed();
+        feederReverseSpeed = behaviorproperties.getFeederInSpeed();
+        agitatorReverseSpeed = behaviorproperties.getAgitatorInSpeeed();
     }
 
     public void setMotorSpeed() {
@@ -56,5 +61,17 @@ public class ShooterSubsystem extends BaseSubsystem {
 
     public void setAgitatorMotorSpeedZero() {
         agitatorMotor.set(0);
+    }
+
+    public void setShooterReverseSpeed() {
+        shooterMotor.set(shooterReverseSpeed);
+    }
+
+    public void setFeederReverseSpeed() {
+        shooterMotor.set(feederReverseSpeed);
+    }
+
+    public void setAgitatorReverseSpeed() {
+        shooterMotor.set(agitatorReverseSpeed);
     }
 }

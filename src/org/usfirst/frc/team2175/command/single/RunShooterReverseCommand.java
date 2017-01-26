@@ -19,7 +19,7 @@ public class RunShooterReverseCommand extends BaseCommand {
     @Override
     protected void execute() {
         // TODO get speed value from properties file
-        shooterSubsystem.setMotorSpeed(-1);
+        shooterSubsystem.setShooterReverseSpeed();
     }
 
     @Override
@@ -29,7 +29,7 @@ public class RunShooterReverseCommand extends BaseCommand {
 
     @Override
     protected void end() {
-        shooterSubsystem.setMotorSpeed(0);
+        shooterSubsystem.setShooterMotorSpeedZero();
     }
 
     @Override
