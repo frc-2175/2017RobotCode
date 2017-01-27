@@ -19,6 +19,7 @@ public class DriverStation {
     private JoystickButton shiftButton;
     private JoystickButton gearIntakeInButton;
     private JoystickButton gearIntakeOutButton;
+    private JoystickButton lowerHopperButton;
 
     public DriverStation() {
         JoystickProperties joystickProperties =
@@ -41,6 +42,8 @@ public class DriverStation {
                 buttonFromButtonInfo(joystickProperties.getGearIntakeInInfo());
         gearIntakeOutButton =
                 buttonFromButtonInfo(joystickProperties.getGearIntakeOutInfo());
+        lowerHopperButton =
+                buttonFromButtonInfo(joystickProperties.getHopperInfo());
 
         deadbandSize = joystickProperties.getDeadbandValue();
         deadbandCalculator = new DeadbandCalculator();
@@ -109,5 +112,9 @@ public class DriverStation {
 
     public JoystickButton getRunShooterIn() {
         return shootInButton;
+    }
+
+    public JoystickButton getRaiseHopper() {
+        return lowerHopperButton;
     }
 }

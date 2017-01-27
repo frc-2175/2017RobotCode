@@ -19,6 +19,9 @@ public class WiringProperties extends BaseProperties {
     private int fuelIntakeActuaterReverseNumber;
     private int fuelIntakeMainMotorDeviceNumber;
 
+    private int hopperForwardNumber;
+    private int hopperReverseNumber;
+
     private int shooterShooterMotorDeviceNumber;
     private int shooterFeederMotorDeviceNumber;
     private int shooterAgitatorMotorDeviceNumber;
@@ -62,6 +65,9 @@ public class WiringProperties extends BaseProperties {
                 "fuelintake.solenoid.actuatesolenoid.reverse");
         fuelIntakeMainMotorDeviceNumber =
                 getIntPropertyValue("fuelintake.motor.main");
+
+        hopperForwardNumber = getIntPropertyValue("hopper.solenoid.forward");
+        hopperReverseNumber = getIntPropertyValue("hopper.solenoid.reverse");
 
         shooterShooterMotorDeviceNumber =
                 getIntPropertyValue("shooter.motor.shooter");
@@ -147,5 +153,13 @@ public class WiringProperties extends BaseProperties {
 
     public int getDrivetrainAnalogGyroDeviceNumber() {
         return drivetrainAnalogGyroDeviceNumber;
+    }
+
+    public int getHopperForwardNumber() {
+        return hopperForwardNumber;
+    }
+
+    public int getHopperReverseNumber() {
+        return hopperReverseNumber;
     }
 }

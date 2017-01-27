@@ -2,6 +2,7 @@ package org.usfirst.frc.team2175.commandmapper;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.EmptyCommand;
+import org.usfirst.frc.team2175.command.single.LowerHopperCommand;
 import org.usfirst.frc.team2175.command.single.RunFeederAgitatorCommand;
 import org.usfirst.frc.team2175.command.single.RunFeederAgitatorReverseCommand;
 import org.usfirst.frc.team2175.command.single.RunGearIntakeInCommand;
@@ -31,6 +32,8 @@ public class JoystickEventMapper {
                 .whileHeld(new RunFeederAgitatorReverseCommand());
         driverStation.getRunShooterIn()
                 .whileHeld(new RunShooterReverseCommand());
+        driverStation.getRaiseHopper()
+                .toggleWhenPressed(new LowerHopperCommand());
     }
 
 }

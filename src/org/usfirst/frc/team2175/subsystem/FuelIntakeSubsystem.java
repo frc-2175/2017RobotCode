@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 public class FuelIntakeSubsystem extends BaseSubsystem {
     private final CANTalon mainMotor;
     private final DoubleSolenoid actuateSolenoidInAndOut;
+    private DoubleSolenoid hopperSolenoid;
     private final double mainMotorDefaultInSpeed;
     private final double mainMotorDefaultOutSpeed;
 
@@ -24,6 +25,9 @@ public class FuelIntakeSubsystem extends BaseSubsystem {
         actuateSolenoidInAndOut = new DoubleSolenoid(
                 wiringProperties.getFuelIntakeActuaterForwardNumber(),
                 wiringProperties.getFuelIntakeActuaterReverseNumber());
+        hopperSolenoid =
+                new DoubleSolenoid(wiringProperties.getHopperForwardNumber(),
+                        wiringProperties.getHopperReverseNumber());
         mainMotorDefaultInSpeed = behaviorProperties.getFuelIntakeInSpeed();
         mainMotorDefaultOutSpeed = behaviorProperties.getFuelIntakeOutSpeed();
     }
@@ -42,6 +46,14 @@ public class FuelIntakeSubsystem extends BaseSubsystem {
 
     public void actuateIn() {
         actuateSolenoidInAndOut.set(DoubleSolenoid.Value.kReverse);
+    }
+
+    public void raiseHopper() {
+        hopperSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
+
+    public void lowerHopper() {
+        hopperSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
     public void setMotorSpeed(double speed) {

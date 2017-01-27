@@ -13,6 +13,8 @@ public class JoystickProperties extends BaseProperties {
     private ButtonInfo gearIntakeInInfo;
     private ButtonInfo gearIntakeOutInfo;
 
+    private ButtonInfo hopperInfo;
+
     @Override
     protected String getPropertyFileName() {
         return "joysticks.properties";
@@ -44,6 +46,8 @@ public class JoystickProperties extends BaseProperties {
                 buttonInfoFromPropertyValue("button.gearintake.out");
         runFeederInInfo = buttonInfoFromPropertyValue("button.feeder.in");
         runShooterInInfo = buttonInfoFromPropertyValue("button.shooter.in");
+
+        hopperInfo = buttonInfoFromPropertyValue("button.hopper.lower");
     }
 
     protected ButtonInfo buttonInfoFromPropertyValue(String propertyValue) {
@@ -104,5 +108,9 @@ public class JoystickProperties extends BaseProperties {
 
     public ButtonInfo getGearIntakeOutInfo() {
         return gearIntakeOutInfo;
+    }
+
+    public ButtonInfo getHopperInfo() {
+        return hopperInfo;
     }
 }
