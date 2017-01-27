@@ -34,29 +34,21 @@ public class JoystickProperties extends BaseProperties {
         joystickRightPort = getIntPropertyValue("joystick.right.port");
         gamepadPort = getIntPropertyValue("joystick.gamepad.port");
         deadbandSize = getDoublePropertyValue("deadband.value");
-        populateButtonInfo();
+
+        runFeederOutInfo = buttonInfoFromPropertyValue("button.feeder.out");
+
+        runShooterOutInfo = buttonInfoFromPropertyValue("button.shooter.out");
+        shiftButtonInfo = buttonInfoFromPropertyValue("button.shift");
+        gearIntakeInInfo = buttonInfoFromPropertyValue("button.gearintake.in");
+        gearIntakeOutInfo =
+                buttonInfoFromPropertyValue("button.gearintake.out");
+        runFeederInInfo = buttonInfoFromPropertyValue("button.feeder.in");
+        runShooterInInfo = buttonInfoFromPropertyValue("button.shooter.in");
     }
 
-    public void populateButtonInfo() {
-        runFeederOutInfo = new ButtonInfo(getJoystickName("button.feeder.out"),
-                getButtonNumber("button.feeder.out"));
-        runShooterOutInfo =
-                new ButtonInfo(getJoystickName("button.shooter.out"),
-                        getButtonNumber("button.shooter.out"));
-        shiftButtonInfo = new ButtonInfo(getJoystickName("button.shift"),
-                getButtonNumber("button.shift"));
-        gearIntakeInInfo =
-                new ButtonInfo(getJoystickName("button.gearintake.in"),
-                        getButtonNumber("button.gearintake.in"));
-        gearIntakeOutInfo =
-                new ButtonInfo(getJoystickName("button.gearintake.out"),
-                        getButtonNumber("button.gearintake.out"));
-        runFeederInInfo = new ButtonInfo(getJoystickName("button.shooter.in"),
-                getButtonNumber("button.shooter.in"));
-        runShooterInInfo = new ButtonInfo(getJoystickName("button.feeder.in"),
-                getButtonNumber("button.feeder.in"));
-        // System.out.println(myButton.joystickName);
-        // System.out.println(myButton.buttonNumber);
+    protected ButtonInfo buttonInfoFromPropertyValue(String propertyValue) {
+        return new ButtonInfo(getJoystickName(propertyValue),
+                getButtonNumber(propertyValue));
     }
 
     private String getJoystickName(String propertyName) {

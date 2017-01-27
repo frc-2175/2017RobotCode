@@ -18,6 +18,17 @@ public class BasePropertiesTest extends TestBase {
     private static final String KEY_WITH_BRACKETS_WITH_SPACES_LONGER =
             "with.brackets.with.spaces.longer";
 
+    private static final String STRING_KEY_WITH_BRACKETS_WITH_SPACES =
+            "string.with.brackets.with.spaces";
+    private static final String STRING_KEY_WITH_BRACKETS_WITHOUT_SPACES =
+            "string.with.brackets.without.spaces";
+    private static final String STRING_KEY_WITHOUT_BRACKETS_WITH_SPACES =
+            "string.without.brackets.with.spaces";
+    private static final String STRING_KEY_WITHOUT_BRACKETS_WITHOUT_SPACES =
+            "string.without.brackets.without.spaces";
+    private static final String STRING_KEY_WITH_BRACKETS_WITH_SPACES_LONGER =
+            "string.with.brackets.with.spaces.longer";
+
     private BasePropertiesImplementation sut =
             new BasePropertiesImplementation();
 
@@ -65,6 +76,51 @@ public class BasePropertiesTest extends TestBase {
         final int[] actualLonger = sut
                 .getIntArrayPropertyValue(KEY_WITH_BRACKETS_WITH_SPACES_LONGER);
         assertIntArrayMatches(expectedArrayLonger, actualLonger);
+    }
+
+    private void assertStringArrayMatches(final String[] expected,
+            final String[] actual) {
+        final String lengthFailMsg = "Actual array had length " + actual.length
+                + ", expected " + expected.length;
+        assertEquals(lengthFailMsg, expected.length, actual.length);
+
+        for (int i = 0; i < expected.length; i++) {
+            final String valueFailMsg = "Actual array had value " + actual[i]
+                    + ", expected " + expected[i];
+            assertEquals(valueFailMsg, expected[i], actual[i]);
+        }
+    }
+
+    @Test
+    public void testGetStringArrayPropertyValue() {
+        final String[] expectedArray = { "one", "two", "three" };
+
+        final String[] actualWithBrackets = sut.getStringArrayPropertyValue(
+                STRING_KEY_WITH_BRACKETS_WITH_SPACES);
+        assertStringArrayMatches(expectedArray, actualWithBrackets);
+
+        final String[] actualWithoutSpacesWithBrackets =
+                sut.getStringArrayPropertyValue(
+                        STRING_KEY_WITH_BRACKETS_WITHOUT_SPACES);
+        assertStringArrayMatches(expectedArray,
+                actualWithoutSpacesWithBrackets);
+
+        final String[] actualWithoutBrackets = sut.getStringArrayPropertyValue(
+                STRING_KEY_WITHOUT_BRACKETS_WITH_SPACES);
+        assertStringArrayMatches(expectedArray, actualWithoutBrackets);
+
+        final String[] actualWithoutSpacesWithoutBrackets =
+                sut.getStringArrayPropertyValue(
+                        STRING_KEY_WITHOUT_BRACKETS_WITHOUT_SPACES);
+        assertStringArrayMatches(expectedArray,
+                actualWithoutSpacesWithoutBrackets);
+
+        final String[] expectedArrayLonger =
+                { "zero", "two", "four", "six", "eight", "ten" };
+
+        final String[] actualLonger = sut.getStringArrayPropertyValue(
+                STRING_KEY_WITH_BRACKETS_WITH_SPACES_LONGER);
+        assertStringArrayMatches(expectedArrayLonger, actualLonger);
     }
 
     private class BasePropertiesImplementation extends BaseProperties {
