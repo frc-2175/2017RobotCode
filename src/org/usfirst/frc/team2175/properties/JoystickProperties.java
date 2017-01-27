@@ -78,11 +78,6 @@ public class JoystickProperties extends BaseProperties {
         return deadbandSize;
     }
 
-    public String getJoystickName() {
-        return null;
-
-    }
-
     public ButtonInfo getShiftButtonInfo() {
         return shiftButtonInfo;
     }
