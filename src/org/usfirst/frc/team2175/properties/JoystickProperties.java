@@ -12,6 +12,7 @@ public class JoystickProperties extends BaseProperties {
     private ButtonInfo runFeederInInfo;
     private ButtonInfo gearIntakeInInfo;
     private ButtonInfo gearIntakeOutInfo;
+    private ButtonInfo gearIntakeActuatorInfo;
     private ButtonInfo fuelIntakeInInfo;
     private ButtonInfo fuelIntakeOutInfo;
     private ButtonInfo fuelIntakeActuateInInfo;
@@ -49,6 +50,8 @@ public class JoystickProperties extends BaseProperties {
         gearIntakeInInfo = buttonInfoFromPropertyValue("button.gearintake.in");
         gearIntakeOutInfo =
                 buttonInfoFromPropertyValue("button.gearintake.out");
+        gearIntakeActuatorInfo =
+                buttonInfoFromPropertyValue("button.gearintake.lower");
         runFeederInInfo = buttonInfoFromPropertyValue("button.feeder.in");
         runShooterInInfo = buttonInfoFromPropertyValue("button.shooter.in");
 
@@ -123,6 +126,10 @@ public class JoystickProperties extends BaseProperties {
 
     public ButtonInfo getGearIntakeOutInfo() {
         return gearIntakeOutInfo;
+    }
+
+    public ButtonInfo getGearIntakeActuatorInfo() {
+        return gearIntakeActuatorInfo;
     }
 
     public ButtonInfo getHopperInfo() {

@@ -23,6 +23,7 @@ public class DriverStation {
     private JoystickButton shiftButton;
     private JoystickButton gearIntakeInButton;
     private JoystickButton gearIntakeOutButton;
+    private JoystickButton gearIntakeActuateOutButton;
     private JoystickButton lowerHopperButton;
     private JoystickButton climberSpinButton;
 
@@ -47,6 +48,8 @@ public class DriverStation {
                 buttonFromButtonInfo(joystickProperties.getGearIntakeInInfo());
         gearIntakeOutButton =
                 buttonFromButtonInfo(joystickProperties.getGearIntakeOutInfo());
+        gearIntakeActuateOutButton = buttonFromButtonInfo(
+                joystickProperties.getGearIntakeActuatorInfo());
         lowerHopperButton =
                 buttonFromButtonInfo(joystickProperties.getHopperInfo());
         fuelIntakeInButton =
@@ -151,5 +154,9 @@ public class DriverStation {
 
     public JoystickButton getFuelIntakeActuateOutButton() {
         return fuelIntakeActuateOutButton;
+    }
+
+    public JoystickButton getGearIntakeActuateOutButton() {
+        return gearIntakeActuateOutButton;
     }
 }

@@ -14,6 +14,8 @@ public class WiringProperties extends BaseProperties {
 
     private int leftGearIntakeMotorDeviceNumber;
     private int rightGearIntakeMotorDeviceNumber;
+    private int gearIntakeSolenoidForwardNumber;
+    private int gearIntakeSolenoidReverseNumber;
 
     private int fuelIntakeActuaterForwardNumber;
     private int fuelIntakeActuaterReverseNumber;
@@ -58,6 +60,10 @@ public class WiringProperties extends BaseProperties {
                 getIntPropertyValue("gearintake.motor.left");
         rightGearIntakeMotorDeviceNumber =
                 getIntPropertyValue("gearintake.motor.right");
+        gearIntakeSolenoidForwardNumber =
+                getIntPropertyValue("gearintake.solenoid.forward");
+        gearIntakeSolenoidReverseNumber =
+                getIntPropertyValue("gearintake.solenoid.reverse");
 
         fuelIntakeActuaterForwardNumber = getIntPropertyValue(
                 "fuelintake.solenoid.actuatesolenoid.forward");
@@ -161,5 +167,13 @@ public class WiringProperties extends BaseProperties {
 
     public int getHopperReverseNumber() {
         return hopperReverseNumber;
+    }
+
+    public int getGearIntakeSolenoidForwardNumber() {
+        return gearIntakeSolenoidForwardNumber;
+    }
+
+    public int getGearIntakeSolenoidReverseNumber() {
+        return gearIntakeSolenoidReverseNumber;
     }
 }
