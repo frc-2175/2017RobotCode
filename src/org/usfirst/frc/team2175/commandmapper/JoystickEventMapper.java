@@ -2,9 +2,14 @@ package org.usfirst.frc.team2175.commandmapper;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.EmptyCommand;
+import org.usfirst.frc.team2175.command.single.FuelIntakeActuateInCommand;
+import org.usfirst.frc.team2175.command.single.FuelIntakeActuateOutCommand;
 import org.usfirst.frc.team2175.command.single.LowerHopperCommand;
+import org.usfirst.frc.team2175.command.single.RunClimberCommand;
 import org.usfirst.frc.team2175.command.single.RunFeederAgitatorCommand;
 import org.usfirst.frc.team2175.command.single.RunFeederAgitatorReverseCommand;
+import org.usfirst.frc.team2175.command.single.RunFuelIntakeInCommand;
+import org.usfirst.frc.team2175.command.single.RunFuelIntakeOutCommand;
 import org.usfirst.frc.team2175.command.single.RunGearIntakeInCommand;
 import org.usfirst.frc.team2175.command.single.RunGearIntakeOutCommand;
 import org.usfirst.frc.team2175.command.single.RunShooterCommand;
@@ -34,6 +39,15 @@ public class JoystickEventMapper {
                 .whileHeld(new RunShooterReverseCommand());
         driverStation.getRaiseHopper()
                 .toggleWhenPressed(new LowerHopperCommand());
+        driverStation.getFuelIntakeInButton()
+                .whileHeld(new RunFuelIntakeInCommand());
+        driverStation.getFuelIntakeOutButton()
+                .whileHeld(new RunFuelIntakeOutCommand());
+        driverStation.getClimberSpinButton().whileHeld(new RunClimberCommand());
+        driverStation.getFuelIntakeActuateInButton()
+                .whileHeld(new FuelIntakeActuateInCommand());
+        driverStation.getFuelIntakeActuateOutButton()
+                .whileHeld(new FuelIntakeActuateOutCommand());
     }
 
 }

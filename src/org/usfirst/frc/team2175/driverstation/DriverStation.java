@@ -15,11 +15,16 @@ public class DriverStation {
     private JoystickButton shootInButton;
     private JoystickButton feedInButton;
     private DeadbandCalculator deadbandCalculator;
+    private JoystickButton fuelIntakeInButton;
+    private JoystickButton fuelIntakeOutButton;
+    private JoystickButton fuelIntakeActuateInButton;
+    private JoystickButton fuelIntakeActuateOutButton;
     private double deadbandSize;
     private JoystickButton shiftButton;
     private JoystickButton gearIntakeInButton;
     private JoystickButton gearIntakeOutButton;
     private JoystickButton lowerHopperButton;
+    private JoystickButton climberSpinButton;
 
     public DriverStation() {
         JoystickProperties joystickProperties =
@@ -44,6 +49,16 @@ public class DriverStation {
                 buttonFromButtonInfo(joystickProperties.getGearIntakeOutInfo());
         lowerHopperButton =
                 buttonFromButtonInfo(joystickProperties.getHopperInfo());
+        fuelIntakeInButton =
+                buttonFromButtonInfo(joystickProperties.getFuelIntakeInInfo());
+        fuelIntakeOutButton =
+                buttonFromButtonInfo(joystickProperties.getFuelIntakeOutInfo());
+        fuelIntakeActuateInButton = buttonFromButtonInfo(
+                joystickProperties.getFuelIntakeActuateInInfo());
+        fuelIntakeActuateOutButton = buttonFromButtonInfo(
+                joystickProperties.getFuelIntakeActuateOutInfo());
+        climberSpinButton =
+                buttonFromButtonInfo(joystickProperties.getClimberInfo());
 
         deadbandSize = joystickProperties.getDeadbandValue();
         deadbandCalculator = new DeadbandCalculator();
@@ -86,6 +101,14 @@ public class DriverStation {
         return deadbandedOutput;
     }
 
+    public JoystickButton getFuelIntakeInButton() {
+        return fuelIntakeInButton;
+    }
+
+    public JoystickButton getFuelIntakeOutButton() {
+        return fuelIntakeOutButton;
+    }
+
     public JoystickButton getShiftButton() {
         return shiftButton;
     }
@@ -116,5 +139,17 @@ public class DriverStation {
 
     public JoystickButton getRaiseHopper() {
         return lowerHopperButton;
+    }
+
+    public JoystickButton getClimberSpinButton() {
+        return climberSpinButton;
+    }
+
+    public JoystickButton getFuelIntakeActuateInButton() {
+        return fuelIntakeActuateInButton;
+    }
+
+    public JoystickButton getFuelIntakeActuateOutButton() {
+        return fuelIntakeActuateOutButton;
     }
 }
