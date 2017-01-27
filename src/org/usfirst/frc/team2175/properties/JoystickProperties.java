@@ -1,23 +1,31 @@
 package org.usfirst.frc.team2175.properties;
 
 public class JoystickProperties extends BaseProperties {
-
     private int joystickLeftPort;
     private int joystickRightPort;
     private int gamepadPort;
-    private int runfeeder;
-    private int runshooter;
-    private int runshooterin;
-    private int runfeederin;
     private double deadbandSize;
-
-    private int shiftButtonNumber;
-    private int gearIntakeInNumber;
-    private int gearIntakeOutNumber;
+    private ButtonInfo shiftButtonInfo;
+    private ButtonInfo runShooterOutInfo;
+    private ButtonInfo runFeederOutInfo;
+    private ButtonInfo runShooterInInfo;
+    private ButtonInfo runFeederInInfo;
+    private ButtonInfo gearIntakeInInfo;
+    private ButtonInfo gearIntakeOutInfo;
 
     @Override
     protected String getPropertyFileName() {
         return "joysticks.properties";
+    }
+
+    public static class ButtonInfo {
+        public final String joystickName;
+        public final int buttonNumber;
+
+        private ButtonInfo(String joystickName, int buttonNumber) {
+            this.joystickName = joystickName;
+            this.buttonNumber = buttonNumber;
+        }
     }
 
     @Override
@@ -25,15 +33,33 @@ public class JoystickProperties extends BaseProperties {
         joystickLeftPort = getIntPropertyValue("joystick.left.port");
         joystickRightPort = getIntPropertyValue("joystick.right.port");
         gamepadPort = getIntPropertyValue("joystick.gamepad.port");
-
         deadbandSize = getDoublePropertyValue("deadband.value");
-        runfeeder = getIntPropertyValue("button.feeder.out");
-        runshooter = getIntPropertyValue("button.shooter.out");
-        shiftButtonNumber = getIntPropertyValue("joystickbutton.shift");
-        gearIntakeInNumber = getIntPropertyValue("button.gearintake.in");
-        gearIntakeOutNumber = getIntPropertyValue("button.gearintake.out");
-        runshooterin = getIntPropertyValue("joystickbutton.shooter.in");
-        runfeederin = getIntPropertyValue("joystickbutton.feeder.in");
+
+        runFeederOutInfo = buttonInfoFromPropertyValue("button.feeder.out");
+
+        runShooterOutInfo = buttonInfoFromPropertyValue("button.shooter.out");
+        shiftButtonInfo = buttonInfoFromPropertyValue("button.shift");
+        gearIntakeInInfo = buttonInfoFromPropertyValue("button.gearintake.in");
+        gearIntakeOutInfo =
+                buttonInfoFromPropertyValue("button.gearintake.out");
+        runFeederInInfo = buttonInfoFromPropertyValue("button.feeder.in");
+        runShooterInInfo = buttonInfoFromPropertyValue("button.shooter.in");
+    }
+
+    protected ButtonInfo buttonInfoFromPropertyValue(String propertyValue) {
+        return new ButtonInfo(getJoystickName(propertyValue),
+                getButtonNumber(propertyValue));
+    }
+
+    private String getJoystickName(String propertyName) {
+        String joystickName = getStringArrayPropertyValue(propertyName)[0];
+        return joystickName;
+    }
+
+    private int getButtonNumber(String propertyName) {
+        int buttonNumber =
+                Integer.parseInt(getStringArrayPropertyValue(propertyName)[1]);
+        return buttonNumber;
     }
 
     public int getJoystickLeftPort() {
@@ -45,7 +71,6 @@ public class JoystickProperties extends BaseProperties {
     }
 
     public int getGamepadPort() {
-
         return gamepadPort;
     }
 
@@ -53,31 +78,31 @@ public class JoystickProperties extends BaseProperties {
         return deadbandSize;
     }
 
-    public int getShiftButtonNumber() {
-        return shiftButtonNumber;
+    public ButtonInfo getShiftButtonInfo() {
+        return shiftButtonInfo;
     }
 
-    public int getGearIntakeInNumber() {
-        return gearIntakeInNumber;
+    public ButtonInfo getRunShooterOutInfo() {
+        return runShooterOutInfo;
     }
 
-    public int getGearIntakeOutNumber() {
-        return gearIntakeOutNumber;
+    public ButtonInfo getRunFeederOutInfo() {
+        return runFeederOutInfo;
     }
 
-    public int getRunfeeder() {
-        return runfeeder;
+    public ButtonInfo getRunShooterInInfo() {
+        return runShooterInInfo;
     }
 
-    public int getRunshooter() {
-        return runshooter;
+    public ButtonInfo getRunFeederInInfo() {
+        return runFeederInInfo;
     }
 
-    public int getRunShooterIn() {
-        return runshooterin;
+    public ButtonInfo getGearIntakeInInfo() {
+        return gearIntakeInInfo;
     }
 
-    public int getRunFeederIn() {
-        return runfeederin;
+    public ButtonInfo getGearIntakeOutInfo() {
+        return gearIntakeOutInfo;
     }
 }
