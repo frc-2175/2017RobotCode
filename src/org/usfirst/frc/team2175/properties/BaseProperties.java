@@ -11,20 +11,15 @@ import org.usfirst.frc.team2175.ServiceLocator;
  */
 public abstract class BaseProperties {
     private final Logger log = Logger.getLogger(getClass().getName());
-
     /** This is the default directory set by the WPILib. */
     private static final String PROPERTY_FILE_DIR_DEFAULT = "/home/lvuser/";
-
     private static String propertyFileDir = PROPERTY_FILE_DIR_DEFAULT;
-
     private final Properties properties;
 
     public BaseProperties() {
         log.info("Configuring class '" + getClass() + "'");
-
         final String propertyFileName = getFullyQualifiedPropertyFileName();
         properties = new PropertiesLoader().loadProperties(propertyFileName);
-
         try {
             populate();
         } catch (final Throwable e) {
@@ -32,9 +27,7 @@ public abstract class BaseProperties {
             log.log(Level.SEVERE, msg, e);
             throw e;
         }
-
         ServiceLocator.register(this);
-
         log.info("Finished configuring class '" + getClass() + "'");
     }
 
@@ -66,7 +59,6 @@ public abstract class BaseProperties {
                     + "' not found in property file";
             throw new IllegalStateException(msg);
         }
-
         return value;
     }
 
@@ -76,12 +68,23 @@ public abstract class BaseProperties {
         rawValues = rawValues.replace("[", "");
         rawValues = rawValues.replace("]", "");
         final String[] splitValues = rawValues.split(",");
-
         final int[] returnValues = new int[splitValues.length];
         for (int i = 0; i < splitValues.length; i++) {
             returnValues[i] = Integer.parseInt(splitValues[i].trim());
         }
+        return returnValues;
+    }
 
+    protected String[] getStringArrayPropertyValue(final String propertyName) {
+        final String propertyValue = getStringPropertyValue(propertyName);
+        String rawValues = propertyValue;
+        rawValues = rawValues.replace("[", "");
+        rawValues = rawValues.replace("]", "");
+        final String[] splitValues = rawValues.split(",");
+        final String[] returnValues = new String[splitValues.length];
+        for (int i = 0; i < splitValues.length; i++) {
+            returnValues[i] = splitValues[i].trim();
+        }
         return returnValues;
     }
 

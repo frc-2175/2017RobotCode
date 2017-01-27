@@ -7,17 +7,15 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class DriverStation {
-
     private Joystick leftJoystick;
     private Joystick rightJoystick;
     private Joystick gamepad;
-    private JoystickButton shootButton;
-    private JoystickButton feedButton;
+    private JoystickButton shootOutButton;
+    private JoystickButton feedOutButton;
     private JoystickButton shootInButton;
-    private JoystickButton feederInButton;
+    private JoystickButton feedInButton;
     private DeadbandCalculator deadbandCalculator;
     private double deadbandSize;
-
     private JoystickButton shiftButton;
     private JoystickButton gearIntakeInButton;
     private JoystickButton gearIntakeOutButton;
@@ -25,40 +23,55 @@ public class DriverStation {
     public DriverStation() {
         JoystickProperties joystickProperties =
                 ServiceLocator.get(JoystickProperties.class);
-
         leftJoystick = new Joystick(joystickProperties.getJoystickLeftPort());
         rightJoystick = new Joystick(joystickProperties.getJoystickRightPort());
         gamepad = new Joystick(joystickProperties.getGamepadPort());
-        shootButton = new JoystickButton(
-                location(joystickProperties.getRunShooterOutLocation()),
-                joystickProperties.getRunShooterOutNumber());
-        feedButton = new JoystickButton(
-                location(joystickProperties.getRunFeederOutLocation()),
-                joystickProperties.getRunFeederOutNumber());
+
+        JoystickProperties.ButtonInfo shiftButtonInfo =
+                joystickProperties.getShiftButtonInfo();
+        JoystickProperties.ButtonInfo runShooterOutInfo =
+                joystickProperties.getRunShooterOutInfo();
+        JoystickProperties.ButtonInfo runFeederOutInfo =
+                joystickProperties.getRunFeederOutInfo();
+        JoystickProperties.ButtonInfo runShooterInInfo =
+                joystickProperties.getRunShooterInInfo();
+        JoystickProperties.ButtonInfo runFeederInInfo =
+                joystickProperties.getRunFeederInInfo();
+        JoystickProperties.ButtonInfo gearIntakeInInfo =
+                joystickProperties.getGearIntakeInInfo();
+        JoystickProperties.ButtonInfo gearIntakeOutInfo =
+                joystickProperties.getGearIntakeOutInfo();
+
         shiftButton = new JoystickButton(
-                location(joystickProperties.getShiftButtonLocation()),
-                joystickProperties.getShiftButtonNumber());
-        feederInButton = new JoystickButton(
-                location(joystickProperties.getRunFeederInLocation()),
-                joystickProperties.getRunFeederInNumber());
+                joystickForName(shiftButtonInfo.joystickName),
+                shiftButtonInfo.buttonNumber);
+        shootOutButton = new JoystickButton(
+                joystickForName(runShooterOutInfo.joystickName),
+                runShooterOutInfo.buttonNumber);
+        feedOutButton = new JoystickButton(
+                joystickForName(runFeederOutInfo.joystickName),
+                runFeederOutInfo.buttonNumber);
         shootInButton = new JoystickButton(
-                location(joystickProperties.getRunShooterInLocation()),
-                joystickProperties.getRunShooterInNumber());
+                joystickForName(runShooterInInfo.joystickName),
+                runShooterInInfo.buttonNumber);
+        feedInButton = new JoystickButton(
+                joystickForName(runFeederInInfo.joystickName),
+                runFeederInInfo.buttonNumber);
         gearIntakeInButton = new JoystickButton(
-                location(joystickProperties.getGearIntakeInLocation()),
-                joystickProperties.getGearIntakeInNumber());
+                joystickForName(gearIntakeInInfo.joystickName),
+                gearIntakeInInfo.buttonNumber);
         gearIntakeOutButton = new JoystickButton(
-                location(joystickProperties.getGearIntakeOutLocation()),
-                joystickProperties.getGearIntakeOutNumber());
+                joystickForName(gearIntakeOutInfo.joystickName),
+                gearIntakeOutInfo.buttonNumber);
 
         deadbandSize = joystickProperties.getDeadbandValue();
         deadbandCalculator = new DeadbandCalculator();
         ServiceLocator.register(this);
     }
 
-    private Joystick location(String str) {
+    private Joystick joystickForName(String name) {
         Joystick joystickOfChoice = leftJoystick;
-        switch (str) {
+        switch (name) {
         case "left":
             joystickOfChoice = leftJoystick;
             break;
@@ -70,7 +83,6 @@ public class DriverStation {
             break;
         }
         return joystickOfChoice;
-
     }
 
     public double getMoveValue() {
@@ -100,15 +112,15 @@ public class DriverStation {
     }
 
     public JoystickButton getRunShooterOut() {
-        return shootButton;
+        return shootOutButton;
     }
 
     public JoystickButton getRunFeederOut() {
-        return feedButton;
+        return feedOutButton;
     }
 
     public JoystickButton getFeederIn() {
-        return feederInButton;
+        return feedInButton;
     }
 
     public JoystickButton getRunShooterIn() {

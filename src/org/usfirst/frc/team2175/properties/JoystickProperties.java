@@ -1,24 +1,31 @@
 package org.usfirst.frc.team2175.properties;
 
 public class JoystickProperties extends BaseProperties {
-
     private int joystickLeftPort;
     private int joystickRightPort;
     private int gamepadPort;
-
     private double deadbandSize;
-
-    private String[] shiftButtonInfo;
-    private String[] runShooterOutInfo;
-    private String[] runFeederOutInfo;
-    private String[] runShooterInInfo;
-    private String[] runFeederInInfo;
-    private String[] gearIntakeInInfo;
-    private String[] gearIntakeOutInfo;
+    private ButtonInfo shiftButtonInfo;
+    private ButtonInfo runShooterOutInfo;
+    private ButtonInfo runFeederOutInfo;
+    private ButtonInfo runShooterInInfo;
+    private ButtonInfo runFeederInInfo;
+    private ButtonInfo gearIntakeInInfo;
+    private ButtonInfo gearIntakeOutInfo;
 
     @Override
     protected String getPropertyFileName() {
         return "joysticks.properties";
+    }
+
+    public static class ButtonInfo {
+        public final String joystickName;
+        public final int buttonNumber;
+
+        private ButtonInfo(String joystickName, int buttonNumber) {
+            this.joystickName = joystickName;
+            this.buttonNumber = buttonNumber;
+        }
     }
 
     @Override
@@ -26,22 +33,41 @@ public class JoystickProperties extends BaseProperties {
         joystickLeftPort = getIntPropertyValue("joystick.left.port");
         joystickRightPort = getIntPropertyValue("joystick.right.port");
         gamepadPort = getIntPropertyValue("joystick.gamepad.port");
-
         deadbandSize = getDoublePropertyValue("deadband.value");
-
-        runFeederOutInfo = getInfo("button.feeder.out");
-        runShooterOutInfo = getInfo("button.shooter.out");
-        shiftButtonInfo = getInfo("button.shift");
-        gearIntakeInInfo = getInfo("button.gearintake.in");
-        gearIntakeOutInfo = getInfo("button.gearintake.out");
-        runShooterInInfo = getInfo("button.shooter.in");
-        runFeederInInfo = getInfo("button.feeder.in");
+        populateButtonInfo();
     }
 
-    public String[] getInfo(String str) {
-        String[] data = getStringPropertyValue(str).split(",");
-        data[1] = data[1].trim();
-        return data;
+    public void populateButtonInfo() {
+        runFeederOutInfo = new ButtonInfo(getJoystickName("button.feeder.out"),
+                getButtonNumber("button.feeder.out"));
+        runShooterOutInfo =
+                new ButtonInfo(getJoystickName("button.shooter.out"),
+                        getButtonNumber("button.shooter.out"));
+        shiftButtonInfo = new ButtonInfo(getJoystickName("button.shift"),
+                getButtonNumber("button.shift"));
+        gearIntakeInInfo =
+                new ButtonInfo(getJoystickName("button.gearintake.in"),
+                        getButtonNumber("button.gearintake.in"));
+        gearIntakeOutInfo =
+                new ButtonInfo(getJoystickName("button.gearintake.out"),
+                        getButtonNumber("button.gearintake.out"));
+        runFeederInInfo = new ButtonInfo(getJoystickName("button.shooter.in"),
+                getButtonNumber("button.shooter.in"));
+        runShooterInInfo = new ButtonInfo(getJoystickName("button.feeder.in"),
+                getButtonNumber("button.feeder.in"));
+        // System.out.println(myButton.joystickName);
+        // System.out.println(myButton.buttonNumber);
+    }
+
+    private String getJoystickName(String propertyName) {
+        String joystickName = getStringArrayPropertyValue(propertyName)[0];
+        return joystickName;
+    }
+
+    private int getButtonNumber(String propertyName) {
+        int buttonNumber =
+                Integer.parseInt(getStringArrayPropertyValue(propertyName)[1]);
+        return buttonNumber;
     }
 
     public int getJoystickLeftPort() {
@@ -53,7 +79,6 @@ public class JoystickProperties extends BaseProperties {
     }
 
     public int getGamepadPort() {
-
         return gamepadPort;
     }
 
@@ -61,59 +86,36 @@ public class JoystickProperties extends BaseProperties {
         return deadbandSize;
     }
 
-    public int getShiftButtonNumber() {
-        return Integer.parseInt(shiftButtonInfo[1]);
+    public String getJoystickName() {
+        return null;
+
     }
 
-    public int getGearIntakeInNumber() {
-        return Integer.parseInt(gearIntakeInInfo[1]);
+    public ButtonInfo getShiftButtonInfo() {
+        return shiftButtonInfo;
     }
 
-    public int getGearIntakeOutNumber() {
-        return Integer.parseInt(gearIntakeOutInfo[1]);
+    public ButtonInfo getRunShooterOutInfo() {
+        return runShooterOutInfo;
     }
 
-    public int getRunFeederOutNumber() {
-        return Integer.parseInt(runFeederOutInfo[1]);
+    public ButtonInfo getRunFeederOutInfo() {
+        return runFeederOutInfo;
     }
 
-    public int getRunShooterOutNumber() {
-        return Integer.parseInt(runShooterOutInfo[1]);
+    public ButtonInfo getRunShooterInInfo() {
+        return runShooterInInfo;
     }
 
-    public int getRunShooterInNumber() {
-        return Integer.parseInt(runShooterInInfo[1]);
+    public ButtonInfo getRunFeederInInfo() {
+        return runFeederInInfo;
     }
 
-    public int getRunFeederInNumber() {
-        return Integer.parseInt(runFeederInInfo[1]);
+    public ButtonInfo getGearIntakeInInfo() {
+        return gearIntakeInInfo;
     }
 
-    public String getShiftButtonLocation() {
-        return shiftButtonInfo[0];
-    }
-
-    public String getGearIntakeInLocation() {
-        return gearIntakeInInfo[0];
-    }
-
-    public String getGearIntakeOutLocation() {
-        return gearIntakeOutInfo[0];
-    }
-
-    public String getRunFeederOutLocation() {
-        return runFeederOutInfo[0];
-    }
-
-    public String getRunShooterOutLocation() {
-        return runShooterOutInfo[0];
-    }
-
-    public String getRunShooterInLocation() {
-        return runShooterInInfo[0];
-    }
-
-    public String getRunFeederInLocation() {
-        return runFeederInInfo[0];
+    public ButtonInfo getGearIntakeOutInfo() {
+        return gearIntakeOutInfo;
     }
 }
