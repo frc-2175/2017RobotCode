@@ -5,7 +5,7 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
 
 public class FuelIntakeActuateOutCommand extends BaseCommand {
-    FuelIntakeSubsystem fuelIntakeSubsystem;
+    private final FuelIntakeSubsystem fuelIntakeSubsystem;
 
     public FuelIntakeActuateOutCommand() {
         super();
