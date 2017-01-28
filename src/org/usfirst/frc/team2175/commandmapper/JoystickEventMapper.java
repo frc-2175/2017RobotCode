@@ -31,9 +31,10 @@ public class JoystickEventMapper {
         driverStation.getGearIntakeOutButton()
                 .whileHeld(new RunGearIntakeOutCommand());
 
-        driverStation.getRunShooterOut().whileHeld(new RunShooterCommand());
+        driverStation.getRunShooterOut()
+                .toggleWhenPressed(new RunShooterCommand());
         driverStation.getRunFeederOut()
-                .whileHeld(new RunFeederAgitatorCommand());
+                .toggleWhenPressed(new RunFeederAgitatorCommand());
         driverStation.getFeederIn()
                 .whileHeld(new RunFeederAgitatorReverseCommand());
         driverStation.getRunShooterIn()

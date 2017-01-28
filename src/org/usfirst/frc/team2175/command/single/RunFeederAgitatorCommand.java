@@ -15,25 +15,23 @@ public class RunFeederAgitatorCommand extends BaseCommand {
     @Override
     protected void initialize() {
 
+        shooterSubsystem.setMotorSpeedFeeder();
     }
 
     @Override
     protected void execute() {
-        shooterSubsystem.setAgitatorReverseSpeed();
-
-        shooterSubsystem.setFeederReverseSpeed();
 
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     @Override
     protected void end() {
         shooterSubsystem.setFeederMotorSpeedZero();
-        shooterSubsystem.setAgitatorMotorSpeedZero();
+        // shooterSubsystem.setAgitatorMotorSpeedZero();
     }
 
     @Override

@@ -13,13 +13,11 @@ public class RunShooterCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
-
+        shooterSubsystem.setMotorSpeed();
     }
 
     @Override
     protected void execute() {
-
-        shooterSubsystem.setMotorSpeed();
 
     }
 
@@ -36,6 +34,7 @@ public class RunShooterCommand extends BaseCommand {
 
     @Override
     protected void interrupted() {
+        end();
     }
 
 }

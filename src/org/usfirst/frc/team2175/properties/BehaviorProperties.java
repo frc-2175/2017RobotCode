@@ -24,8 +24,8 @@ public class BehaviorProperties extends BaseProperties {
     protected void populate() {
         gearIntakeInSpeed = getDoublePropertyValue("gearintake.speed.in");
         gearIntakeOutSpeed = getDoublePropertyValue("gearintake.speed.out");
-        shooterInSpeed = getDoublePropertyValue("shooter.speed");
-        shooterSpeed = getDoublePropertyValue("shooter.speed.in");
+        shooterInSpeed = getDoublePropertyValue("shooter.speed.in");
+        shooterSpeed = getDoublePropertyValue("shooter.speed");
         feederSpeed = getDoublePropertyValue("feeder.speed");
         feederInSpeed = getDoublePropertyValue("feeder.speed.in");
         agitatorSpeed = getDoublePropertyValue("agitator.speed");
