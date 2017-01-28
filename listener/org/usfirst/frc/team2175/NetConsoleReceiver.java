@@ -18,7 +18,9 @@ public class NetConsoleReceiver {
             socket.bind(new InetSocketAddress(6666));
         } catch (SocketException e) {
             e.printStackTrace();
-            socket.close();
+            if (socket != null) {
+                socket.close();
+            }
             return null;
         }
         return socket;
