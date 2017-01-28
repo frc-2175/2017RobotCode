@@ -7,6 +7,7 @@ import org.usfirst.frc.team2175.command.DefaultCommandFactory;
 import org.usfirst.frc.team2175.commandmapper.JoystickEventMapper;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.loop.SchedulerLoop;
+import org.usfirst.frc.team2175.properties.LoggingConfig;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
 
@@ -24,12 +25,14 @@ public class Robot extends IterativeRobot {
 
     static {
         try {
+            new LoggingConfig();
             PropertiesFactory.makeAll();
             SubsystemsFactory.makeAll();
             new DriverStation();
             DefaultCommandFactory.makeAll();
         } catch (final Throwable e) {
-            final String msg = "ERROR making all";
+            final String msg =
+                    "ERROR in Robot class making all in static initializer";
             log.log(Level.SEVERE, msg, e);
             throw e;
         }
