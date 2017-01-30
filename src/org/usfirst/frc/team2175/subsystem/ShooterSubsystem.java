@@ -19,8 +19,7 @@ public class ShooterSubsystem extends BaseSubsystem {
     private final double agitatorReverseSpeed;
 
     public ShooterSubsystem() {
-        super();
-        BehaviorProperties behaviorproperties =
+        BehaviorProperties behaviorProperties =
                 ServiceLocator.get(BehaviorProperties.class);
         WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
@@ -32,37 +31,37 @@ public class ShooterSubsystem extends BaseSubsystem {
                 wiringProperties.getShooterFeederMotorDeviceNumber());
         agitatorMotor = new CANTalon(
                 wiringProperties.getShooterAgitatorMotorDeviceNumber());
-        shooterSpeed = behaviorproperties.getShooterSpeed();
-        feederSpeed = behaviorproperties.getFeederSpeed();
-        agitatorSpeed = behaviorproperties.getAgitatorSpeed();
-        shooterReverseSpeed = behaviorproperties.getShooterInSpeed();
-        feederReverseSpeed = behaviorproperties.getFeederInSpeed();
-        agitatorReverseSpeed = behaviorproperties.getAgitatorInSpeeed();
+        shooterSpeed = behaviorProperties.getShooterSpeed();
+        feederSpeed = behaviorProperties.getFeederSpeed();
+        agitatorSpeed = behaviorProperties.getAgitatorSpeed();
+        shooterReverseSpeed = behaviorProperties.getShooterInSpeed();
+        feederReverseSpeed = behaviorProperties.getFeederInSpeed();
+        agitatorReverseSpeed = behaviorProperties.getAgitatorInSpeed();
     }
 
-    public void setMotorSpeed() {
+    public void setShooterSpeed() {
         shooterMotor.set(shooterSpeed);
 
     }
 
-    public void setMotorSpeedFeeder() {
+    public void setFeederSpeed() {
         feederMotor.set(feederSpeed);
     }
 
-    public void setMotorSpeedAgitator() {
+    public void setAgitatorSpeed() {
         agitatorMotor.set(agitatorSpeed);
     }
 
-    public void setShooterMotorSpeedZero() {
+    public void setShooterSpeedZero() {
         shooterMotor.set(0);
     }
 
-    public void setFeederMotorSpeedZero() {
+    public void setFeederSpeedZero() {
         feederMotor.set(0);
 
     }
 
-    public void setAgitatorMotorSpeedZero() {
+    public void setAgitatorSpeedZero() {
         agitatorMotor.set(0);
     }
 

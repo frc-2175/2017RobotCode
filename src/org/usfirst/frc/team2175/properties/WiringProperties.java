@@ -16,8 +16,8 @@ public class WiringProperties extends BaseProperties {
     private int rightGearIntakeMotorDeviceNumber;
     private int gearIntakeSolenoidNumber;
 
-    private int fuelIntakeActuaterForwardNumber;
-    private int fuelIntakeActuaterReverseNumber;
+    private int fuelIntakeActuatorForwardNumber;
+    private int fuelIntakeActuatorReverseNumber;
     private int fuelIntakeMainMotorDeviceNumber;
 
     private int hopperForwardNumber;
@@ -41,6 +41,7 @@ public class WiringProperties extends BaseProperties {
                 "drivetrain.solenoid.driveshifters.forward");
         driveShiftersReverseNumber = getIntPropertyValue(
                 "drivetrain.solenoid.driveshifters.reverse");
+        
         leftMasterMotorNumber =
                 getIntPropertyValue("drivetrain.motor.left.master");
         leftSlaveMotorOneNumber =
@@ -61,10 +62,10 @@ public class WiringProperties extends BaseProperties {
                 getIntPropertyValue("gearintake.motor.right");
         gearIntakeSolenoidNumber = getIntPropertyValue("gearintake.solenoid");
 
-        fuelIntakeActuaterForwardNumber = getIntPropertyValue(
-                "fuelintake.solenoid.actuatesolenoid.forward");
-        fuelIntakeActuaterReverseNumber = getIntPropertyValue(
-                "fuelintake.solenoid.actuatesolenoid.reverse");
+        fuelIntakeActuatorForwardNumber = getIntPropertyValue(
+                "fuelintake.solenoid.actuator.forward");
+        fuelIntakeActuatorReverseNumber = getIntPropertyValue(
+                "fuelintake.solenoid.actuator.reverse");
         fuelIntakeMainMotorDeviceNumber =
                 getIntPropertyValue("fuelintake.motor.main");
 
@@ -142,11 +143,11 @@ public class WiringProperties extends BaseProperties {
     }
 
     public int getFuelIntakeActuaterForwardNumber() {
-        return fuelIntakeActuaterForwardNumber;
+        return fuelIntakeActuatorForwardNumber;
     }
 
     public int getFuelIntakeActuaterReverseNumber() {
-        return fuelIntakeActuaterReverseNumber;
+        return fuelIntakeActuatorReverseNumber;
     }
 
     public int getFuelIntakeMainMotorDeviceNumber() {
