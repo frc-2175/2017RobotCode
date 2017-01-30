@@ -33,7 +33,7 @@ public class ShooterSubsystem extends BaseSubsystem {
                 wiringProperties.getShooterAgitatorMotorDeviceNumber());
         shooterSpeed = behaviorProperties.getShooterOutSpeed();
         feederSpeed = behaviorProperties.getFeederOutSpeed();
-        agitatorSpeed = behaviorProperties.getAgitatorSpeed();
+        agitatorSpeed = behaviorProperties.getAgitatorOutSpeed();
         shooterReverseSpeed = behaviorProperties.getShooterInSpeed();
         feederReverseSpeed = behaviorProperties.getFeederInSpeed();
         agitatorReverseSpeed = behaviorProperties.getAgitatorInSpeed();
