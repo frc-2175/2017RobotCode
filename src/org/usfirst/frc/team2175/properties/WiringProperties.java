@@ -41,7 +41,7 @@ public class WiringProperties extends BaseProperties {
                 "drivetrain.solenoid.driveshifters.forward");
         driveShiftersReverseNumber = getIntPropertyValue(
                 "drivetrain.solenoid.driveshifters.reverse");
-        
+
         leftMasterMotorNumber =
                 getIntPropertyValue("drivetrain.motor.left.master");
         leftSlaveMotorOneNumber =
@@ -62,10 +62,10 @@ public class WiringProperties extends BaseProperties {
                 getIntPropertyValue("gearintake.motor.right");
         gearIntakeSolenoidNumber = getIntPropertyValue("gearintake.solenoid");
 
-        fuelIntakeActuatorForwardNumber = getIntPropertyValue(
-                "fuelintake.solenoid.actuator.forward");
-        fuelIntakeActuatorReverseNumber = getIntPropertyValue(
-                "fuelintake.solenoid.actuator.reverse");
+        fuelIntakeActuatorForwardNumber =
+                getIntPropertyValue("fuelintake.solenoid.actuator.forward");
+        fuelIntakeActuatorReverseNumber =
+                getIntPropertyValue("fuelintake.solenoid.actuator.reverse");
         fuelIntakeMainMotorDeviceNumber =
                 getIntPropertyValue("fuelintake.motor.main");
 
@@ -142,11 +142,11 @@ public class WiringProperties extends BaseProperties {
         return rightGearIntakeMotorDeviceNumber;
     }
 
-    public int getFuelIntakeActuaterForwardNumber() {
+    public int getFuelIntakeActuatorForwardNumber() {
         return fuelIntakeActuatorForwardNumber;
     }
 
-    public int getFuelIntakeActuaterReverseNumber() {
+    public int getFuelIntakeActuatorReverseNumber() {
         return fuelIntakeActuatorReverseNumber;
     }
 

@@ -23,8 +23,8 @@ public class FuelIntakeSubsystem extends BaseSubsystem {
         mainMotor = new CANTalon(
                 wiringProperties.getFuelIntakeMainMotorDeviceNumber());
         actuatorSolenoid = new DoubleSolenoid(
-                wiringProperties.getFuelIntakeActuaterForwardNumber(),
-                wiringProperties.getFuelIntakeActuaterReverseNumber());
+                wiringProperties.getFuelIntakeActuatorForwardNumber(),
+                wiringProperties.getFuelIntakeActuatorReverseNumber());
         hopperSolenoid =
                 new DoubleSolenoid(wiringProperties.getHopperForwardNumber(),
                         wiringProperties.getHopperReverseNumber());
