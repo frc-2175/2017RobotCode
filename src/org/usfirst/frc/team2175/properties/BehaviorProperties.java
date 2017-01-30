@@ -6,9 +6,9 @@ public class BehaviorProperties extends BaseProperties {
     private double gearIntakeOutSpeed;
     private double fuelIntakeOutSpeed;
     private double fuelIntakeInSpeed;
-    private double shooterSpeed;
+    private double shooterOutSpeed;
     private double shooterInSpeed;
-    private double feederSpeed;
+    private double feederOutSpeed;
     private double feederInSpeed;
     private double agitatorSpeed;
     private double agitatorInSpeed;
@@ -24,8 +24,8 @@ public class BehaviorProperties extends BaseProperties {
         gearIntakeInSpeed = getDoublePropertyValue("gearintake.speed.in");
         gearIntakeOutSpeed = getDoublePropertyValue("gearintake.speed.out");
         shooterInSpeed = getDoublePropertyValue("shooter.speed.in");
-        shooterSpeed = getDoublePropertyValue("shooter.speed");
-        feederSpeed = getDoublePropertyValue("feeder.speed");
+        shooterOutSpeed = getDoublePropertyValue("shooter.speed.out");
+        feederOutSpeed = getDoublePropertyValue("feeder.speed.out");
         feederInSpeed = getDoublePropertyValue("feeder.speed.in");
         agitatorSpeed = getDoublePropertyValue("agitator.speed");
         agitatorInSpeed = getDoublePropertyValue("agitator.speed.in");
@@ -54,16 +54,16 @@ public class BehaviorProperties extends BaseProperties {
         return gearIntakeOutSpeed;
     }
 
-    public double getShooterSpeed() {
-        return shooterSpeed;
+    public double getShooterOutSpeed() {
+        return shooterOutSpeed;
     }
 
     public double getShooterInSpeed() {
         return shooterInSpeed;
     }
 
-    public double getFeederSpeed() {
-        return feederSpeed;
+    public double getFeederOutSpeed() {
+        return feederOutSpeed;
     }
 
     public double getFeederInSpeed() {

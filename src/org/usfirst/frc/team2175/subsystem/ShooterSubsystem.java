@@ -31,8 +31,8 @@ public class ShooterSubsystem extends BaseSubsystem {
                 wiringProperties.getShooterFeederMotorDeviceNumber());
         agitatorMotor = new CANTalon(
                 wiringProperties.getShooterAgitatorMotorDeviceNumber());
-        shooterSpeed = behaviorProperties.getShooterSpeed();
-        feederSpeed = behaviorProperties.getFeederSpeed();
+        shooterSpeed = behaviorProperties.getShooterOutSpeed();
+        feederSpeed = behaviorProperties.getFeederOutSpeed();
         agitatorSpeed = behaviorProperties.getAgitatorSpeed();
         shooterReverseSpeed = behaviorProperties.getShooterInSpeed();
         feederReverseSpeed = behaviorProperties.getFeederInSpeed();
