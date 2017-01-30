@@ -4,6 +4,8 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.ShooterSubsystem;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class RunShooterCommand extends BaseCommand {
     private final ShooterSubsystem shooterSubsystem;
 
@@ -18,7 +20,7 @@ public class RunShooterCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-
+    	SmartDashboard.putNumber("Shooter speed", shooterSubsystem.getShooterSpeed());
     }
 
     @Override

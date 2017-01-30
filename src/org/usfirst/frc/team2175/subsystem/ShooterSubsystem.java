@@ -5,6 +5,7 @@ import org.usfirst.frc.team2175.properties.BehaviorProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
 
 public class ShooterSubsystem extends BaseSubsystem {
     private final CANTalon shooterMotor;
@@ -25,6 +26,8 @@ public class ShooterSubsystem extends BaseSubsystem {
                 ServiceLocator.get(WiringProperties.class);
         shooterMotor = new CANTalon(
                 wiringProperties.getShooterShooterMotorDeviceNumber());
+        shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        shooterMotor.reverseSensor(true);
         feederMotor = new CANTalon(
                 wiringProperties.getShooterFeederMotorDeviceNumber());
         agitatorMotor = new CANTalon(
@@ -74,4 +77,8 @@ public class ShooterSubsystem extends BaseSubsystem {
     public void setAgitatorReverseSpeed() {
         shooterMotor.set(agitatorReverseSpeed);
     }
+
+	public double getShooterSpeed() {
+		return shooterMotor.getSpeed();
+	}
 }
