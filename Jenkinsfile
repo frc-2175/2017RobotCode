@@ -143,11 +143,13 @@ node {
       ]) {
         def projectName = env.JOB_NAME.tokenize('/')[0]
         def buildDirectory = env.JENKINS_HOME + "\\jobs\\${projectName}\\branches\\${env.BRANCH_NAME}\\builds\\${env.BUILD_NUMBER}"
+        def archiveDirectory = "$ARCHIVEPATH/jobs/${projectName}/${env.BRANCH_NAME}/${env.BUILD_NUMBER}"
 
         echo "Switching to directory: ${buildDirectory}"
         dir (buildDirectory) {
           bat 'copy log log_archive.txt'
-          bat returnStatus: true, script: "pscp -r -v -pw $PASSWORD *.xml *.txt *.log $USERNAME@$ARCHIVEHOST:$ARCHIVEPATH/jobs/test"
+          bat "plink -ssh -pw $PASSWORD $USERNAME@$ARCHIVEHOST \"mkdir -p ${archiveDirectory}\""
+          bat returnStatus: true, script: "pscp -r -v -pw $PASSWORD *.xml *.txt *.log $USERNAME@$ARCHIVEHOST:${archiveDirectory}"
         }
       }
     }
