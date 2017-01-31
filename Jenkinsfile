@@ -147,7 +147,7 @@ node {
         echo "Switching to directory: ${buildDirectory}"
         dir (buildDirectory) {
           bat 'copy log log_archive.txt'
-          bat returnStatus: true, script: "pscp -r -v -pw $PASSWORD * $USERNAME@$ARCHIVEHOST:$ARCHIVEPATH/jobs/test"
+          bat returnStatus: true, script: "pscp -r -v -pw $PASSWORD *.xml *.txt *.log $USERNAME@$ARCHIVEHOST:$ARCHIVEPATH/jobs/test"
         }
       }
     }
