@@ -141,9 +141,9 @@ node {
         string(credentialsId: archivePathId, variable: 'ARCHIVEPATH'),
         usernamePassword(credentialsId: archiveCredentialsId, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')
       ]) {
-        def projectName = env.JOB_NAME.tokenize('/')[0].replaceAll("\\s", "_")
+        def projectName = env.JOB_NAME.tokenize('/')[0]
         def buildDirectory = env.JENKINS_HOME + "\\jobs\\${projectName}\\branches\\${env.BRANCH_NAME}\\builds\\${env.BUILD_NUMBER}"
-        def archiveDirectory = "$ARCHIVEPATH/jobs/${projectName}/${env.BRANCH_NAME}/${env.BUILD_NUMBER}"
+        def archiveDirectory = "$ARCHIVEPATH/jobs/${projectName}/${env.BRANCH_NAME}/${env.BUILD_NUMBER}".replaceAll("\\s", "_")
 
         echo "Switching to directory: ${buildDirectory}"
         dir (buildDirectory) {
