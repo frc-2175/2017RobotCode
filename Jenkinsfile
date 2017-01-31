@@ -146,9 +146,9 @@ node {
         echo "JOB_NAME: ${JOB_NAME}"
         echo "NODE_NAME: ${NODE_NAME}"
         dir (env.WORKSPACE) {
-          bat '''@echo off
+          bat """@echo off
           pscp -r -v -pw $PASSWORD * $USERNAME@$ARCHIVEHOST:$ARCHIVEPATH/jobs/test
-          '''
+          """
         }
       }
     }
