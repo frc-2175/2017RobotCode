@@ -137,13 +137,16 @@ node {
     }
     stage ('Upload to Archive') {
       withCredentials([
-        string(credentialsId: 'archive-host', variable: 'ARCHIVEHOST'),
-        string(credentialsId: 'archive-path', variable: 'ARCHIVEPATH'),
-        usernamePassword(credentialsId: 'archive-ssh', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')
+        string(credentialsId: archiveHostId, variable: 'ARCHIVEHOST'),
+        string(credentialsId: archivePathId, variable: 'ARCHIVEPATH'),
+        usernamePassword(credentialsId: archiveCredentialsId, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')
       ]) {
         echo "Switching to directory: ${env.WORKSPACE}"
+        echo "JENKINS_HOME: ${JENKINS_HOME}"
+        echo "JOB_NAME: ${JOB_NAME}"
+        echo "NODE_NAME: ${NODE_NAME}"
         dir (env.WORKSPACE) {
-          bat "pscp -r -pw ${PASSWORD} * ${USERNAME}@${ARCHIVEHOST}:${ARCHIVEPATH}/jobs/${env.BUILD_TAG}"
+          bat "@echo off; pscp -r -pw ${PASSWORD} * ${USERNAME}@${ARCHIVEHOST}:${ARCHIVEPATH}/jobs/${env.BUILD_TAG}"
         }
       }
     }
