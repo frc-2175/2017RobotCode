@@ -141,14 +141,12 @@ node {
         string(credentialsId: archivePathId, variable: 'ARCHIVEPATH'),
         usernamePassword(credentialsId: archiveCredentialsId, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')
       ]) {
-        echo "Switching to directory: ${env.WORKSPACE}"
-        echo "JENKINS_HOME: ${JENKINS_HOME}"
-        echo "JOB_NAME: ${JOB_NAME}"
-        echo "NODE_NAME: ${NODE_NAME}"
-        dir (env.WORKSPACE) {
-          bat """@echo off
-          pscp -r -v -pw $PASSWORD * $USERNAME@$ARCHIVEHOST:$ARCHIVEPATH/jobs/test
-          """
+        def projectName = env.JOB_NAME.tokenize('/')[0]
+        def buildDirectory = env.JENKINS_HOME + "\\jobs\\${projectName}\\branches\\${env.BRANCH_NAME}\\builds\\${env.BUILD_NUMBER}"
+
+        echo "Switching to directory: ${buildDirectory}"
+        dir (buildDirectory) {
+          bat "pscp -r -v -pw $PASSWORD * $USERNAME@$ARCHIVEHOST:$ARCHIVEPATH/jobs/test"
         }
       }
     }
