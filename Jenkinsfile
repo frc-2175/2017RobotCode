@@ -148,8 +148,8 @@ node {
         echo "Switching to directory: ${buildDirectory}"
         dir (buildDirectory) {
           bat 'copy log log_archive.txt'
-          bat "plink -ssh -pw $PASSWORD $USERNAME@$ARCHIVEHOST \"mkdir -p ${archiveDirectory}\""
-          bat returnStatus: true, script: "pscp -r -v -pw $PASSWORD *.xml *.txt *.log $USERNAME@$ARCHIVEHOST:${archiveDirectory}"
+          bat "plink -ssh -pw $PASSWORD $USERNAME@$ARCHIVEHOST \"mkdir -p \"${archiveDirectory}\"\""
+          bat returnStatus: true, script: "pscp -r -v -pw $PASSWORD *.xml *.txt *.log $USERNAME@$ARCHIVEHOST:\"${archiveDirectory}\""
         }
       }
     }
