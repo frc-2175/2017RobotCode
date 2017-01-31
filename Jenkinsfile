@@ -146,8 +146,8 @@ node {
         def archiveDirectory = "$ARCHIVEPATH/jobs/${projectName}/${env.BRANCH_NAME}/${env.BUILD_NUMBER}"
 
         archiveDirectory = archiveDirectory.replaceAll("\\s", "_")
-        archiveDirectory = archiveDirectory.replaceAll("\\(", "\\(")
-        archiveDirectory = archiveDirectory.replaceAll("\\)", "\\)")
+        archiveDirectory = archiveDirectory.replaceAll("\\(", "")
+        archiveDirectory = archiveDirectory.replaceAll("\\)", "")
 
         echo "Switching to directory: ${buildDirectory}"
         dir (buildDirectory) {
