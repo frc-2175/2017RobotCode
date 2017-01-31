@@ -24,7 +24,7 @@ int matchInt(String contents, String attributeName) {
   }
 }
 
-node ('master') {
+node {
   env.PATH = "${tool 'ant'}\\bin;${env.PATH}"
   withEnv(["JAVA_HOME=C:\\Program Files\\Java\\${jdk}"]) {
     int testCount = 0
@@ -135,22 +135,20 @@ node ('master') {
         slackSend channel: slackChannel, color: (overallSuccess ? 'good' : 'danger'), message: slackMessage
       }
     }
-  }
-}
+    stage ('Upload to Archive') {
+      withCredentials([
+        string(credentialsId: archiveHostId, variable: 'ARCHIVEHOST'),
+        string(credentialsId: archivePathId, variable: 'ARCHIVEPATH'),
+        usernamePassword(credentialsId: archiveCredentialsId, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')
+      ]) {
+        def projectName = env.JOB_NAME.tokenize('/')[0]
+        def buildDirectory = env.JENKINS_HOME + "\\jobs\\${projectName}\\branches\\${env.BRANCH_NAME}\\builds\\${env.BUILD_NUMBER}"
 
-node ('master') {
-  stage ('Upload to Archive') {
-    withCredentials([
-      string(credentialsId: archiveHostId, variable: 'ARCHIVEHOST'),
-      string(credentialsId: archivePathId, variable: 'ARCHIVEPATH'),
-      usernamePassword(credentialsId: archiveCredentialsId, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')
-    ]) {
-      def projectName = env.JOB_NAME.tokenize('/')[0]
-      def buildDirectory = env.JENKINS_HOME + "\\jobs\\${projectName}\\branches\\${env.BRANCH_NAME}\\builds\\${env.BUILD_NUMBER}"
-
-      echo "Switching to directory: ${buildDirectory}"
-      dir (buildDirectory) {
-        bat "pscp -r -v -pw $PASSWORD * $USERNAME@$ARCHIVEHOST:$ARCHIVEPATH/jobs/test"
+        echo "Switching to directory: ${buildDirectory}"
+        dir (buildDirectory) {
+          bat 'copy log log_archive.txt'
+          bat returnStatus: true, script: "pscp -r -v -pw $PASSWORD * $USERNAME@$ARCHIVEHOST:$ARCHIVEPATH/jobs/test"
+        }
       }
     }
   }
