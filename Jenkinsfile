@@ -1,6 +1,9 @@
 repoURL = 'https://github.com/frc-2175/2017RobotCode'
 jdk = 'jdk1.8.0_111'
 slackChannel = '#code'
+archiveCredentialsId = 'archive-ssh'
+archiveHostId = 'archive-host'
+archivePathId = 'archive-path'
 
 void setBuildStatus(String message, String state) {
   step([
@@ -130,6 +133,18 @@ node {
         }
         
         slackSend channel: slackChannel, color: (overallSuccess ? 'good' : 'danger'), message: slackMessage
+      }
+    }
+    stage ('Upload to Archive') {
+      withCredentials([
+        string(credentialsId: 'archive-host', variable: 'ARCHIVEHOST'),
+        string(credentialsId: 'archive-path', variable: 'ARCHIVEPATH'),
+        usernamePassword(credentialsId: 'archive-ssh', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')
+      ]) {
+        echo "Switching to directory: ${env.WORKSPACE}"
+        dir (env.WORKSPACE) {
+          bat "pscp -r -pw ${PASSWORD} * ${USERNAME}@${ARCHIVEHOST}:${ARCHIVEPATH}/jobs/${env.BUILD_TAG}"
+        }
       }
     }
   }
