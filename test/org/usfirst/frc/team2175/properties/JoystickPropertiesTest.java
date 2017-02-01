@@ -48,6 +48,20 @@ public class JoystickPropertiesTest extends TestBase {
     }
 
     @Test
+    public void testJoystickNames_Competition()
+            throws IllegalArgumentException, IllegalAccessException {
+        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_COMPETITION;
+        commonTestJoystickNames(propertyFileDirectory);
+    }
+
+    @Test
+    public void testJoystickNames_Practice()
+            throws IllegalArgumentException, IllegalAccessException {
+        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_PRACTICE;
+        commonTestJoystickNames(propertyFileDirectory);
+    }
+
+    @Test
     public void testJoystickPropertyValues_AboveZero_Competition()
             throws IllegalArgumentException, IllegalAccessException {
         final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_COMPETITION;
@@ -59,6 +73,24 @@ public class JoystickPropertiesTest extends TestBase {
             throws IllegalArgumentException, IllegalAccessException {
         final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_PRACTICE;
         commonTestPositiveProperties(propertyFileDirectory);
+    }
+
+    protected void assertJoystickNameCorrect(final Object sut)
+            throws IllegalArgumentException, IllegalAccessException {
+        HashMap<String, ButtonInfo> hashMap =
+                getFieldsOfType(ButtonInfo.class, sut);
+
+        for (Map.Entry<String, ButtonInfo> entry : hashMap.entrySet()) {
+            String key = entry.getKey();
+            ButtonInfo value = entry.getValue();
+            String joystickName = value.joystickName.trim();
+            final String assertMessage =
+                    "'" + joystickName + "' in ButtonInfo field " + key
+                            + " is not a valid Joystick name.";
+            assertTrue(assertMessage,
+                    joystickName.equals("left") || joystickName.equals("right")
+                            || joystickName.equals("gamepad"));
+        }
     }
 
     protected void assertButtonNumbersGreaterThanZero(final Object sut)
@@ -73,6 +105,14 @@ public class JoystickPropertiesTest extends TestBase {
                     "ButtonInfo field " + key + " was not greater than 0.";
             assertTrue(assertMessage, value.buttonNumber > 0);
         }
+    }
+
+    protected void commonTestJoystickNames(final String propertyFileDirectory)
+            throws IllegalArgumentException, IllegalAccessException {
+        BaseProperties.setPropertyFileDir(propertyFileDirectory);
+        final BaseProperties baseProperties = new JoystickProperties();
+
+        assertJoystickNameCorrect(baseProperties);
     }
 
     private void commonTestPositiveProperties(
