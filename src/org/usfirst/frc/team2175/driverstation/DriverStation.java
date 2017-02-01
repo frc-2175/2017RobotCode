@@ -10,10 +10,10 @@ public class DriverStation {
     private Joystick leftJoystick;
     private Joystick rightJoystick;
     private Joystick gamepad;
-    
+
     private double deadbandSize;
     private DeadbandCalculator deadbandCalculator;
-    
+
     private JoystickButton climbButton;
     private JoystickButton feedInButton;
     private JoystickButton feedOutButton;
@@ -36,32 +36,30 @@ public class DriverStation {
         rightJoystick = new Joystick(joystickProperties.getJoystickRightPort());
         gamepad = new Joystick(joystickProperties.getGamepadPort());
 
-        climbButton =
-        		buttonFromButtonInfo(joystickProperties.getClimberInfo());
+        climbButton = buttonFromButtonInfo(joystickProperties.getClimberInfo());
         feedInButton =
-        		buttonFromButtonInfo(joystickProperties.getFeederInInfo());
+                buttonFromButtonInfo(joystickProperties.getFeederInInfo());
         feedOutButton =
-        		buttonFromButtonInfo(joystickProperties.getFeederOutInfo());
+                buttonFromButtonInfo(joystickProperties.getFeederOutInfo());
         fuelIntakeActuateInButton = buttonFromButtonInfo(
-        		joystickProperties.getFuelIntakeActuateInInfo());
+                joystickProperties.getFuelIntakeActuateInInfo());
         fuelIntakeActuateOutButton = buttonFromButtonInfo(
-        		joystickProperties.getFuelIntakeActuateOutInfo());
+                joystickProperties.getFuelIntakeActuateOutInfo());
         fuelIntakeInButton =
-        		buttonFromButtonInfo(joystickProperties.getFuelIntakeInInfo());
+                buttonFromButtonInfo(joystickProperties.getFuelIntakeInInfo());
         fuelIntakeOutButton =
-        		buttonFromButtonInfo(joystickProperties.getFuelIntakeOutInfo());
+                buttonFromButtonInfo(joystickProperties.getFuelIntakeOutInfo());
         gearIntakeActuateOutButton = buttonFromButtonInfo(
-        		joystickProperties.getGearIntakeActuatorInfo());
+                joystickProperties.getGearIntakeActuatorInfo());
         gearIntakeInButton =
-        		buttonFromButtonInfo(joystickProperties.getGearIntakeInInfo());
+                buttonFromButtonInfo(joystickProperties.getGearIntakeInInfo());
         gearIntakeOutButton =
-        		buttonFromButtonInfo(joystickProperties.getGearIntakeOutInfo());
-        hopperButton =
-        		buttonFromButtonInfo(joystickProperties.getHopperInfo());
+                buttonFromButtonInfo(joystickProperties.getGearIntakeOutInfo());
+        hopperButton = buttonFromButtonInfo(joystickProperties.getHopperInfo());
         shiftButton =
                 buttonFromButtonInfo(joystickProperties.getShiftGearsInfo());
         shootInButton =
-        		buttonFromButtonInfo(joystickProperties.getShooterInInfo());
+                buttonFromButtonInfo(joystickProperties.getShooterInInfo());
         shootOutButton =
                 buttonFromButtonInfo(joystickProperties.getShooterOutInfo());
 
@@ -105,37 +103,37 @@ public class DriverStation {
                 deadbandCalculator.calcDeadbandedOutput(input, deadbandSize);
         return deadbandedOutput;
     }
-    
-    public JoystickButton getClimberSpinButton() {
-    	return climbButton;
+
+    public double getClimberSpinSpeed() {
+        return gamepad.getRawAxis(1) / 2;
     }
-    
+
     public JoystickButton getFeederInButton() {
-    	return feedInButton;
+        return feedInButton;
     }
-    
+
     public JoystickButton getFeederOutButton() {
-    	return feedOutButton;
+        return feedOutButton;
     }
 
     public JoystickButton getFuelIntakeActuateInButton() {
-    	return fuelIntakeActuateInButton;
+        return fuelIntakeActuateInButton;
     }
-    
+
     public JoystickButton getFuelIntakeActuateOutButton() {
-    	return fuelIntakeActuateOutButton;
+        return fuelIntakeActuateOutButton;
     }
-    
+
     public JoystickButton getFuelIntakeInButton() {
-    	return fuelIntakeInButton;
+        return fuelIntakeInButton;
     }
-    
+
     public JoystickButton getFuelIntakeOutButton() {
-    	return fuelIntakeOutButton;
+        return fuelIntakeOutButton;
     }
-    
+
     public JoystickButton getGearIntakeActuateOutButton() {
-    	return gearIntakeActuateOutButton;
+        return gearIntakeActuateOutButton;
     }
 
     public JoystickButton getGearIntakeInButton() {
@@ -149,16 +147,16 @@ public class DriverStation {
     public JoystickButton getHopperButton() {
         return hopperButton;
     }
-    
+
     public JoystickButton getShiftButton() {
-    	return shiftButton;
+        return shiftButton;
     }
-    
+
     public JoystickButton getShooterInButton() {
-    	return shootInButton;
+        return shootInButton;
     }
-    
+
     public JoystickButton getShooterOutButton() {
-    	return shootOutButton;
+        return shootOutButton;
     }
 }

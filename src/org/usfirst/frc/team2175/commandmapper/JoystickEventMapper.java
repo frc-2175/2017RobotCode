@@ -6,7 +6,6 @@ import org.usfirst.frc.team2175.command.single.ActuateGearIntakeOutCommand;
 import org.usfirst.frc.team2175.command.single.FuelIntakeActuateInCommand;
 import org.usfirst.frc.team2175.command.single.FuelIntakeActuateOutCommand;
 import org.usfirst.frc.team2175.command.single.LowerHopperCommand;
-import org.usfirst.frc.team2175.command.single.RunClimberCommand;
 import org.usfirst.frc.team2175.command.single.RunFeederAgitatorCommand;
 import org.usfirst.frc.team2175.command.single.RunFeederAgitatorReverseCommand;
 import org.usfirst.frc.team2175.command.single.RunFuelIntakeInCommand;
@@ -45,7 +44,6 @@ public class JoystickEventMapper {
                 .whileHeld(new RunFuelIntakeInCommand());
         driverStation.getFuelIntakeOutButton()
                 .whileHeld(new RunFuelIntakeOutCommand());
-        driverStation.getClimberSpinButton().whileHeld(new RunClimberCommand());
         driverStation.getFuelIntakeActuateInButton()
                 .whileHeld(new FuelIntakeActuateInCommand());
         driverStation.getFuelIntakeActuateOutButton()
