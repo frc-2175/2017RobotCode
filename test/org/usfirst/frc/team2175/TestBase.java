@@ -8,6 +8,7 @@ import static org.junit.Assert.assertThat;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -92,6 +93,24 @@ public abstract class TestBase {
                 assertNotEquals(assertMessage, 0.0, field.get(sut));
             }
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    protected <S> HashMap<String, S> getFieldsOfType(final Class<S> fieldType,
+            final Object sut)
+            throws IllegalArgumentException, IllegalAccessException {
+        final Field[] fields = sut.getClass().getDeclaredFields();
+        final HashMap<String, S> hashMap = new HashMap<>();
+
+        for (final Field field : fields) {
+            field.setAccessible(true);
+
+            final Class<?> type = field.getType();
+            if (type == fieldType) {
+                hashMap.put(field.getName(), (S) field.get(sut));
+            }
+        }
+        return hashMap;
     }
 
     protected void assertArraysNotZeroLength(final Object sut)
