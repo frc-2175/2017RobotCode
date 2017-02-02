@@ -2,6 +2,7 @@ package org.usfirst.frc.team2175.properties;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.usfirst.frc.team2175.TestBase;
 
@@ -28,8 +29,13 @@ public class BasePropertiesTest extends TestBase {
     private static final String STRING_KEY_WITH_BRACKETS_WITH_SPACES_LONGER =
             "string.with.brackets.with.spaces.longer";
 
-    private BasePropertiesImplementation sut =
-            new BasePropertiesImplementation();
+    private BasePropertiesImplementation sut;
+
+    @Before
+    public void setup() {
+        // Need to create after TestBase sets the property file dir
+        sut = new BasePropertiesImplementation();
+    }
 
     private void assertIntArrayMatches(final int[] expected,
             final int[] actual) {

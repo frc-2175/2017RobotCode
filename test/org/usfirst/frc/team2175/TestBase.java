@@ -36,7 +36,8 @@ public abstract class TestBase {
 
     public final double ALLOWED_DOUBLE_DELTA = 0.01;
 
-    static {
+    @Before
+    public void setPropertyFileDirToTestLocation() {
         BaseProperties.setPropertyFileDir(PROPERTY_FILE_DIR_SRC_TESTS);
         // RobotConfig mocks fire its static initializer so this not needed:
         // new LoggingConfig();
