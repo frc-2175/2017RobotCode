@@ -12,6 +12,8 @@ public class RunClimberCommand extends BaseCommand {
     public RunClimberCommand() {
         climberSubsystem = ServiceLocator.get(ClimberSubsystem.class);
         driverStation = ServiceLocator.get(DriverStation.class);
+
+        requires(climberSubsystem);
     }
 
     @Override
