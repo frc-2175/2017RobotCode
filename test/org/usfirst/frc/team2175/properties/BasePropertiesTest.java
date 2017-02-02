@@ -29,12 +29,17 @@ public class BasePropertiesTest extends TestBase {
     private static final String STRING_KEY_WITH_BRACKETS_WITH_SPACES_LONGER =
             "string.with.brackets.with.spaces.longer";
 
-    private BasePropertiesImplementation sut;
+    // Anything that works
+    private static final String PROPERTIES_FILE_NAME =
+            "basePropertiesTest.properties";
+
+    private GenericTestProperties sut;
 
     @Before
     public void setup() {
+        GenericTestProperties.setPropertiesFileName(PROPERTIES_FILE_NAME);
         // Need to create after TestBase sets the property file dir
-        sut = new BasePropertiesImplementation();
+        sut = new GenericTestProperties();
     }
 
     private void assertIntArrayMatches(final int[] expected,
@@ -121,16 +126,5 @@ public class BasePropertiesTest extends TestBase {
         final String[] actualLonger = sut.getStringArrayPropertyValue(
                 STRING_KEY_WITH_BRACKETS_WITH_SPACES_LONGER);
         assertStringArrayMatches(expectedArrayLonger, actualLonger);
-    }
-
-    private class BasePropertiesImplementation extends BaseProperties {
-        @Override
-        protected String getPropertyFileName() {
-            return "basePropertiesTest.properties"; // Anything that works
-        }
-
-        @Override
-        protected void populate() {
-        }
     }
 }
