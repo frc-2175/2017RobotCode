@@ -4,9 +4,9 @@ public class JoystickProperties extends BaseProperties {
     private int joystickLeftPort;
     private int joystickRightPort;
     private int gamepadPort;
-    
+
     private double deadbandSize;
-    
+
     private ButtonInfo climberInfo;
     private ButtonInfo feederInInfo;
     private ButtonInfo feederOutInfo;
@@ -42,19 +42,24 @@ public class JoystickProperties extends BaseProperties {
         joystickLeftPort = getIntPropertyValue("joystick.left.port");
         joystickRightPort = getIntPropertyValue("joystick.right.port");
         gamepadPort = getIntPropertyValue("joystick.gamepad.port");
-        
+
         deadbandSize = getDoublePropertyValue("deadband.value");
 
         climberInfo = buttonInfoFromPropertyValue("button.climber.spin");
         feederInInfo = buttonInfoFromPropertyValue("button.feeder.in");
         feederOutInfo = buttonInfoFromPropertyValue("button.feeder.out");
         fuelIntakeInInfo = buttonInfoFromPropertyValue("button.fuelintake.in");
-        fuelIntakeOutInfo = buttonInfoFromPropertyValue("button.fuelintake.out");
-        fuelIntakeActuateInInfo = buttonInfoFromPropertyValue("button.fuelintake.actuatein");
-        fuelIntakeActuateOutInfo = buttonInfoFromPropertyValue("button.fuelintake.actuateout");
+        fuelIntakeOutInfo =
+                buttonInfoFromPropertyValue("button.fuelintake.out");
+        fuelIntakeActuateInInfo =
+                buttonInfoFromPropertyValue("button.fuelintake.actuatein");
+        fuelIntakeActuateOutInfo =
+                buttonInfoFromPropertyValue("button.fuelintake.actuateout");
         gearIntakeInInfo = buttonInfoFromPropertyValue("button.gearintake.in");
-        gearIntakeOutInfo = buttonInfoFromPropertyValue("button.gearintake.out");
-        gearIntakeActuatorInfo = buttonInfoFromPropertyValue("button.gearintake.lower");
+        gearIntakeOutInfo =
+                buttonInfoFromPropertyValue("button.gearintake.out");
+        gearIntakeActuatorInfo =
+                buttonInfoFromPropertyValue("button.gearintake.lower");
         hopperInfo = buttonInfoFromPropertyValue("button.hopper.lower");
         shiftButtonInfo = buttonInfoFromPropertyValue("button.shift");
         shooterInInfo = buttonInfoFromPropertyValue("button.shooter.in");
@@ -66,11 +71,11 @@ public class JoystickProperties extends BaseProperties {
                 getButtonNumber(propertyValue));
     }
 
-    private String getJoystickName(String propertyName) {
+    public String getJoystickName(String propertyName) {
         return getStringArrayPropertyValue(propertyName)[0];
     }
 
-    private int getButtonNumber(String propertyName) {
+    public int getButtonNumber(String propertyName) {
         return Integer.parseInt(getStringArrayPropertyValue(propertyName)[1]);
     }
 
@@ -91,35 +96,35 @@ public class JoystickProperties extends BaseProperties {
     }
 
     public ButtonInfo getClimberInfo() {
-    	return climberInfo;
+        return climberInfo;
     }
-    
+
     public ButtonInfo getFeederInInfo() {
-    	return feederInInfo;
+        return feederInInfo;
     }
 
     public ButtonInfo getFeederOutInfo() {
         return feederOutInfo;
     }
-    
+
     public ButtonInfo getFuelIntakeActuateInInfo() {
-    	return fuelIntakeActuateInInfo;
+        return fuelIntakeActuateInInfo;
     }
-    
+
     public ButtonInfo getFuelIntakeActuateOutInfo() {
-    	return fuelIntakeActuateOutInfo;
+        return fuelIntakeActuateOutInfo;
     }
-    
+
     public ButtonInfo getFuelIntakeInInfo() {
-    	return fuelIntakeInInfo;
+        return fuelIntakeInInfo;
     }
-    
+
     public ButtonInfo getFuelIntakeOutInfo() {
-    	return fuelIntakeOutInfo;
+        return fuelIntakeOutInfo;
     }
-    
+
     public ButtonInfo getGearIntakeActuatorInfo() {
-    	return gearIntakeActuatorInfo;
+        return gearIntakeActuatorInfo;
     }
 
     public ButtonInfo getGearIntakeInInfo() {
@@ -133,17 +138,16 @@ public class JoystickProperties extends BaseProperties {
     public ButtonInfo getHopperInfo() {
         return hopperInfo;
     }
-    
+
     public ButtonInfo getShiftGearsInfo() {
-    	return shiftButtonInfo;
+        return shiftButtonInfo;
     }
-    
+
     public ButtonInfo getShooterInInfo() {
-    	return shooterInInfo;
+        return shooterInInfo;
     }
-    
+
     public ButtonInfo getShooterOutInfo() {
-    	return shooterOutInfo;
+        return shooterOutInfo;
     }
 }
-

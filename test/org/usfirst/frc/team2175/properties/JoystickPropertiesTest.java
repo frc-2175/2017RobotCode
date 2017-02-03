@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2175.properties;
 
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
@@ -45,6 +47,29 @@ public class JoystickPropertiesTest extends TestBase {
         final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_PRACTICE;
 
         commonTestUniqueProperties(propertyFileDirectory, propertyRegex);
+    }
+
+    @Test
+    public void testGetJoystickName() {
+        BaseProperties.setPropertyFileDir(PROPERTY_FILE_DIR_SRC_COMPETITION);
+        JoystickProperties joystickProperties = new JoystickProperties();
+
+        String assertMessage =
+                "getJoystickName() does not correctly give Joystick Name.";
+        assertNotNull(assertMessage,
+                joystickProperties.getJoystickName("button.shift"));
+    }
+
+    @Test
+    public void testGetButtonNumber() {
+        BaseProperties.setPropertyFileDir(PROPERTY_FILE_DIR_SRC_COMPETITION);
+        JoystickProperties joystickProperties = new JoystickProperties();
+
+        String assertMessage =
+                "getButtonNumber() does not correctly give Button Number.";
+        int buttonNumber = joystickProperties.getButtonNumber("button.shift");
+        assertNotNull(assertMessage, buttonNumber);
+        assertNotEquals(assertMessage, 0, buttonNumber);
     }
 
     @Test
