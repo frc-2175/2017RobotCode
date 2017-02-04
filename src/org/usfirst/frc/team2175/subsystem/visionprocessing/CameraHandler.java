@@ -66,11 +66,11 @@ public class CameraHandler {
         }
     }
 
-    public synchronized int getCurrentCameraNumber() {
+    public synchronized Integer getCurrentCameraNumber() {
         return currentCameraNumber;
     }
 
-    public synchronized void setCurrentCameraNumber(int newCameraNumber) {
+    public synchronized void setCurrentCameraNumber(Integer newCameraNumber) {
         currentCameraNumber = newCameraNumber;
     }
 
@@ -79,7 +79,7 @@ public class CameraHandler {
                 (determineNextCameraNumber(getCurrentCameraNumber())));
     }
 
-    public int determineNextCameraNumber(int currentCameraNumber) {
+    public Integer determineNextCameraNumber(Integer currentCameraNumber) {
         if (getTotalCameraCount() != 0) {
             return currentCameraNumber += 1 % getTotalCameraCount();
         } else {
