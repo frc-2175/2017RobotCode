@@ -10,6 +10,7 @@ import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
+import org.usfirst.frc.team2175.subsystem.visionprocessing.CameraHandler;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -48,6 +49,11 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         new JoystickEventMapper();
         schedulerLoop.start();
+        CameraHandler cameraHandler = new CameraHandler();
+        new Thread(() -> {
+        	cameraHandler.run();
+        }).start();
+        
     }
 
     /**

@@ -5,8 +5,8 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.visionprocessing.CameraHandler;
 
 public class CameraSwitchCommand extends BaseCommand {
-    CameraHandler cameraHandler;
-
+    private CameraHandler cameraHandler;
+    
     public CameraSwitchCommand() {
         cameraHandler = ServiceLocator.get(CameraHandler.class);
     }
@@ -22,7 +22,7 @@ public class CameraSwitchCommand extends BaseCommand {
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     @Override

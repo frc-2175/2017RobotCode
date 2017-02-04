@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2175.subsystem.visionprocessing;
 
 import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team2175.ServiceLocator;
 
 import edu.wpi.cscore.CvSink;
@@ -9,25 +10,32 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 
 public class CameraHandler {
-    private UsbCamera camera1;
-    private UsbCamera camera2;
-    private CvSink cvSink1;
-    private CvSink cvSink2;
-    private CvSource outputStream;
+	private final static int height = 480;
+	private final static int width = 640;
+	private int currentCameraNumber;
+	private int totalCameraCount;
+	
+	private CvSource outputStream;
+	private UsbCamera[] camera;
+	private CvSink[] cvSink;
+    
     private Mat source;
     private Mat output;
-    private int currentCameraNumber;
+    
+    
 
     public CameraHandler() {
-        camera1 = new UsbCamera("Camera 1", 0);
-        camera2 = new UsbCamera("Camera 2", 1);
-
-        camera1.setResolution(640, 480);
-        camera2.setResolution(640, 480);
-
-        cvSink1 = CameraServer.getInstance().getVideo(camera1);
-        cvSink2 = CameraServer.getInstance().getVideo(camera2);
-        outputStream = CameraServer.getInstance().putVideo("Blur", 640, 480);
+    	totalCameraCount = getTotalCameraCount();
+    	
+    	for (int c = 0; c < totalCameraCount; c++) {
+    		camera[c] = new UsbCamera("Camera " + c, c);
+    		camera[c].setResolution(width,  height);
+    		
+    		cvSink[c] = CameraServer.getInstance().getVideo(camera[c]);    		
+    	}
+    	
+    	
+    	outputStream = CameraServer.getInstance().putVideo("CameraOfChoice", width, height);
 
         source = new Mat();
         output = new Mat();
@@ -36,29 +44,29 @@ public class CameraHandler {
 
     public void run() {
         while (!Thread.interrupted()) {
-            if (currentCameraNumber == 0) {
-                cvSink2.grabFrame(source);
-            } else {
-                cvSink1.grabFrame(source);
-            }
+            cvSink[currentCameraNumber].grabFrame(source);
+            Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
             outputStream.putFrame(source);
         }
     }
 
-    public int getCurrentCameraNumber() {
+    public synchronized int getCurrentCameraNumber() {
         return currentCameraNumber;
     }
 
-    public void setCurrentCameraNumber(int newCameraNumber) {
+    public synchronized void setCurrentCameraNumber(int newCameraNumber) {
         currentCameraNumber = newCameraNumber;
     }
 
-    public void goToNextCameraNumber() {
-        currentCameraNumber++;
+    public synchronized void goToNextCameraNumber() {
+        setCurrentCameraNumber((determineNextCameraNumber(getCurrentCameraNumber()) + 1));
     }
 
-    public int determineNextCameraNumber() {
-        return 0;
+    public int determineNextCameraNumber(int currentCameraNumber) {
+        return currentCameraNumber++ % getTotalCameraCount();
+    }
+    public int getTotalCameraCount() {
+    	return UsbCamera.enumerateUsbCameras().length;
     }
 
 }
