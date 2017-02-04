@@ -21,7 +21,8 @@ import org.usfirst.frc.team2175.driverstation.DriverStation;
 public class JoystickEventMapper {
 
     public JoystickEventMapper() {
-        DriverStation driverStation = ServiceLocator.get(DriverStation.class);
+        final DriverStation driverStation =
+                ServiceLocator.get(DriverStation.class);
 
         driverStation.getShiftButton().whenPressed(new EmptyCommand());
         driverStation.getShiftButton().whenReleased(new EmptyCommand());
