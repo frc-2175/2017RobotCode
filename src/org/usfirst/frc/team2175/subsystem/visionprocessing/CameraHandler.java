@@ -26,10 +26,7 @@ public class CameraHandler {
         totalCameraCount = getTotalCameraCount();
 
         for (int c = 0; c < totalCameraCount; c++) {
-            camera[c] = new UsbCamera("Camera " + c, c);
-            camera[c].setResolution(width, height);
-
-            cvSink[c] = CameraServer.getInstance().getVideo(camera[c]);
+            createSpecificCamera(c);
         }
 
         currentCameraNumber = 0;
@@ -44,9 +41,28 @@ public class CameraHandler {
 
     public void run() {
         while (!Thread.interrupted()) {
-            cvSink[currentCameraNumber].grabFrame(source);
-            Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
-            outputStream.putFrame(source);
+            if (getTotalCameraCount() != 0) {
+                getAllConnectedCameras();
+                cvSink[currentCameraNumber].grabFrame(source);
+                Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
+                outputStream.putFrame(source);
+            }
+        }
+    }
+
+    public void createSpecificCamera(int c) {
+        camera[c] = new UsbCamera("Camera " + c, c);
+        camera[c].setResolution(width, height);
+
+        cvSink[c] = CameraServer.getInstance().getVideo(camera[c]);
+    }
+
+    public void getAllConnectedCameras() {
+        totalCameraCount = getTotalCameraCount();
+        for (int c = 0; c < totalCameraCount; c++) {
+            if (cvSink[c] == null) {
+                createSpecificCamera(c);
+            }
         }
     }
 
