@@ -1,20 +1,27 @@
 package org.usfirst.frc.team2175.subsystem.visionprocessing;
 
+import java.util.logging.Logger;
+
 import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team2175.ServiceLocator;
+import org.usfirst.frc.team2175.robot.Robot;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 
 public class CameraHandler {
+    private final static Logger log = Logger.getLogger(Robot.class.getName());
+
     private final static int WIDTH = 200;
     private final static int HEIGHT = 120;
 
     private final CvSource outputStream = CameraServer.getInstance()
             .putVideo("CameraOfChoice", WIDTH, HEIGHT);
+
+    private MjpegServer myServer;
 
     private Mat source = new Mat();
     private Mat output = new Mat();
@@ -24,9 +31,15 @@ public class CameraHandler {
 
     public CameraHandler() {
         final int totalCamCount = getTotalCameraCount();
+
         cvSinkList = new CvSink[totalCamCount];
 
-        configureCameras();
+        // configureCameras();
+
+        myServer = CameraServer.getInstance().addServer("CameraOutput");
+
+        log.info(myServer.getListenAddress());
+        log.info(myServer.getPort() + "");
 
         determineInitialCameraNumber();
 
@@ -54,8 +67,8 @@ public class CameraHandler {
 
     private UsbCamera makeUsbCamera(final int camNum) {
         final UsbCamera cam = new UsbCamera("Camera " + camNum, camNum);
-        cam.setResolution(WIDTH, HEIGHT);
-        cam.setFPS(10);
+        // cam.setResolution(WIDTH, HEIGHT);
+        // cam.setFPS(10);
         return cam;
     }
 
@@ -66,11 +79,10 @@ public class CameraHandler {
     public void run() {
         while (!Thread.interrupted()) {
             if (getTotalCameraCount() != 0) {
-                // configureCameras();
 
-                cvSinkList[currentCameraNumber].grabFrame(source);
-                Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
-                outputStream.putFrame(source);
+                myServer.setSource(makeUsbCamera(0));
+                log.info(myServer.getListenAddress());
+                log.info(myServer.getPort() + "");
             }
         }
     }
