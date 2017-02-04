@@ -1,4 +1,6 @@
-package org.usfirst.frc.team2175.subsystem;
+package org.usfirst.frc.team2175.subsystem.visionprocessing;
+
+import org.usfirst.frc.team2175.subsystem.BaseSubsystem;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 

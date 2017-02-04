@@ -28,6 +28,7 @@ public class DriverStation {
     private JoystickButton shiftButton;
     private JoystickButton shootInButton;
     private JoystickButton shootOutButton;
+    private JoystickButton cameraSwitchButton;
 
     public DriverStation() {
         JoystickProperties joystickProperties =
@@ -62,6 +63,8 @@ public class DriverStation {
                 buttonFromButtonInfo(joystickProperties.getShooterInInfo());
         shootOutButton =
                 buttonFromButtonInfo(joystickProperties.getShooterOutInfo());
+        cameraSwitchButton =
+                buttonFromButtonInfo(joystickProperties.getCameraSwitchInfo());
 
         deadbandSize = joystickProperties.getDeadbandValue();
         deadbandCalculator = new DeadbandCalculator();
@@ -158,5 +161,9 @@ public class DriverStation {
 
     public JoystickButton getShooterOutButton() {
         return shootOutButton;
+    }
+
+    public JoystickButton getCameraSwitchButton() {
+        return cameraSwitchButton;
     }
 }
