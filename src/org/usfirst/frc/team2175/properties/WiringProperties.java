@@ -28,7 +28,8 @@ public class WiringProperties extends BaseProperties {
     private int shooterAgitatorMotorDeviceNumber;
     private int drivetrainAnalogGyroDeviceNumber;
 
-    private int climberMainMotorNumber;
+    private int climberMotorOneNumber;
+    private int climberMotorTwoNumber;
 
     @Override
     protected String getPropertyFileName() {
@@ -82,12 +83,17 @@ public class WiringProperties extends BaseProperties {
         drivetrainAnalogGyroDeviceNumber =
                 getIntPropertyValue("drivetrain.analog.gyro");
 
-        climberMainMotorNumber = getIntPropertyValue("climber.motor.main");
+        climberMotorOneNumber = getIntPropertyValue("climber.motor.one");
+        climberMotorTwoNumber = getIntPropertyValue("climber.motor.two");
 
     }
 
-    public int getClimberMainMotorNumber() {
-        return climberMainMotorNumber;
+    public int getClimberMotorOneNumber() {
+        return climberMotorOneNumber;
+    }
+
+    public int getClimberMotorTwoNumber() {
+        return climberMotorTwoNumber;
     }
 
     public int getShooterShooterMotorDeviceNumber() {
