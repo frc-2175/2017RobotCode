@@ -25,18 +25,7 @@ public class Robot extends IterativeRobot {
     private final static Logger log = Logger.getLogger(Robot.class.getName());
 
     static {
-        try {
-            new LoggingConfig();
-            PropertiesFactory.makeAll();
-            SubsystemsFactory.makeAll();
-            new DriverStation();
-            DefaultCommandFactory.makeAll();
-        } catch (final Throwable e) {
-            final String msg =
-                    "ERROR in Robot class making all in static initializer";
-            log.log(Level.SEVERE, msg, e);
-            throw e;
-        }
+        new LoggingConfig();
     }
 
     SchedulerLoop schedulerLoop = new SchedulerLoop();
@@ -47,9 +36,20 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
+        final CameraHandler cameraHandler = new CameraHandler();
+        try {
+            PropertiesFactory.makeAll();
+            SubsystemsFactory.makeAll();
+            new DriverStation();
+            DefaultCommandFactory.makeAll();
+        } catch (final Throwable e) {
+            final String msg =
+                    "ERROR in Robot class making all in static initializer";
+            log.log(Level.SEVERE, msg, e);
+            throw e;
+        }
         new JoystickEventMapper();
         schedulerLoop.start();
-        CameraHandler cameraHandler = new CameraHandler();
         new Thread(() -> {
             cameraHandler.run();
         }).start();
