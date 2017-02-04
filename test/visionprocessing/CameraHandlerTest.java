@@ -4,16 +4,33 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.opencv.core.Mat;
 import org.usfirst.frc.team2175.TestBase;
 import org.usfirst.frc.team2175.subsystem.visionprocessing.CameraHandler;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
+import mockit.Mocked;
+import mockit.Tested;
+
 public class CameraHandlerTest extends TestBase {
-    //@Ignore("needs cscore lib, fix this")
+    @Mocked
+    private UsbCamera usbCamera;
+
+    @Mocked
+    private CameraServer cameraServer;
+
+    @Mocked
+    private Mat mat;
+
+    @Tested
+    private CameraHandler sut;
+
+    @Ignore("needs cscore lib, fix this")
     @Test
     public void testDetermineNextCameraNumber() {
-        CameraHandler sut = new CameraHandler();
-        int cameraNumber = sut.determineNextCameraNumber(0);
-        int expectedCameraNumber = 1;
+        final int cameraNumber = sut.determineNextCameraNumber(0);
+        final int expectedCameraNumber = 1;
         assertEquals("Wrong camera number found.", expectedCameraNumber,
                 cameraNumber);
     }
