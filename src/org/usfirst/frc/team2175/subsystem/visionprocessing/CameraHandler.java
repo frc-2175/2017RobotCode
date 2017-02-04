@@ -35,7 +35,8 @@ public class CameraHandler {
 
     protected void determineInitialCameraNumber() {
         if (getTotalCameraCount() > 0) {
-            currentCameraNumber = 1;
+            // have at least one camera, so select first one
+            currentCameraNumber = 0;
         }
     }
 
