@@ -81,9 +81,9 @@ public class CameraHandler {
 
     public Integer determineNextCameraNumber(Integer currentCameraNumber) {
         if (getTotalCameraCount() != 0) {
-            return currentCameraNumber += 1 % getTotalCameraCount();
+            return currentCameraNumber + 1 % getTotalCameraCount();
         } else {
-            return currentCameraNumber += 1;
+            return currentCameraNumber + 1;
         }
     }
 
