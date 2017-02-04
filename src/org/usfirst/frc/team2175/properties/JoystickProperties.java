@@ -65,7 +65,7 @@ public class JoystickProperties extends BaseProperties {
         shiftButtonInfo = buttonInfoFromPropertyValue("button.shift");
         shooterInInfo = buttonInfoFromPropertyValue("button.shooter.in");
         shooterOutInfo = buttonInfoFromPropertyValue("button.shooter.out");
-        cameraSwitchInfo = buttonInfoFromPropertyValue("button.climber.spin");
+        cameraSwitchInfo = buttonInfoFromPropertyValue("button.camera.switch");
     }
 
     protected ButtonInfo buttonInfoFromPropertyValue(String propertyValue) {
