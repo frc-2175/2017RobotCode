@@ -10,58 +10,66 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 
 public class CameraHandler {
-    private final static int height = 480;
-    private final static int width = 640;
+    private final static int WIDTH = 200;
+    private final static int HEIGHT = 120;
+
+    private final CvSource outputStream = CameraServer.getInstance()
+            .putVideo("CameraOfChoice", WIDTH, HEIGHT);
+
+    private Mat source = new Mat();
+    private Mat output = new Mat();
+
+    private CvSink[] cvSinkList;
     private Integer currentCameraNumber;
-    private int totalCameraCount;
-
-    private CvSource outputStream;
-    private UsbCamera[] camera;
-    private CvSink[] cvSink;
-
-    private Mat source;
-    private Mat output;
 
     public CameraHandler() {
-        totalCameraCount = getTotalCameraCount();
+        final int totalCamCount = getTotalCameraCount();
+        cvSinkList = new CvSink[totalCamCount];
 
-        for (int c = 0; c < totalCameraCount; c++) {
+        configureCameras();
+
+        determineInitialCameraNumber();
+
+        ServiceLocator.register(this);
+    }
+
+    protected void determineInitialCameraNumber() {
+        if (getTotalCameraCount() > 0) {
+            currentCameraNumber = 1;
+        }
+    }
+
+    private void configureCameras() {
+        for (int c = 0; c < getTotalCameraCount(); c++) {
             createSpecificCamera(c);
         }
+    }
 
-        currentCameraNumber = 0;
+    public void createSpecificCamera(final int camNum) {
+        final UsbCamera cam = makeUsbCamera(camNum);
 
-        outputStream = CameraServer.getInstance().putVideo("CameraOfChoice",
-                width, height);
+        makeCvSink(camNum, cam);
+    }
 
-        source = new Mat();
-        output = new Mat();
-        ServiceLocator.register(this);
+    private UsbCamera makeUsbCamera(final int camNum) {
+        final UsbCamera cam = new UsbCamera("Camera " + camNum, camNum);
+        cam.setResolution(WIDTH, HEIGHT);
+        cam.setFPS(10);
+        return cam;
+    }
+
+    private void makeCvSink(final int camNum, final UsbCamera cam) {
+        cvSinkList[camNum] = CameraServer.getInstance().getVideo(cam);
     }
 
     public void run() {
         while (!Thread.interrupted()) {
             if (getTotalCameraCount() != 0) {
-                getAllConnectedCameras();
-                cvSink[currentCameraNumber].grabFrame(source);
+                // configureCameras();
+
+                cvSinkList[currentCameraNumber].grabFrame(source);
                 Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
                 outputStream.putFrame(source);
-            }
-        }
-    }
-
-    public void createSpecificCamera(int c) {
-        camera[c] = new UsbCamera("Camera " + c, c);
-        camera[c].setResolution(width, height);
-
-        cvSink[c] = CameraServer.getInstance().getVideo(camera[c]);
-    }
-
-    public void getAllConnectedCameras() {
-        totalCameraCount = getTotalCameraCount();
-        for (int c = 0; c < totalCameraCount; c++) {
-            if (cvSink[c] == null) {
-                createSpecificCamera(c);
             }
         }
     }
@@ -70,25 +78,30 @@ public class CameraHandler {
         return currentCameraNumber;
     }
 
-    public synchronized void setCurrentCameraNumber(Integer newCameraNumber) {
+    public synchronized void setCurrentCameraNumber(
+            final Integer newCameraNumber) {
         currentCameraNumber = newCameraNumber;
     }
 
     public synchronized void goToNextCameraNumber() {
-        setCurrentCameraNumber(
-                (determineNextCameraNumber(getCurrentCameraNumber())));
+        final Integer currCamNumber = getCurrentCameraNumber();
+        final int totalCamCount = getTotalCameraCount();
+        final Integer nextCamNumber =
+                incrementCameraNumber(currCamNumber, totalCamCount);
+        setCurrentCameraNumber(nextCamNumber);
     }
 
-    public Integer determineNextCameraNumber(Integer currentCameraNumber) {
-        if (getTotalCameraCount() != 0) {
-            return currentCameraNumber + 1 % getTotalCameraCount();
+    protected Integer incrementCameraNumber(final Integer currentCameraNumber,
+            final int totalCameraCount) {
+        if (currentCameraNumber == null || totalCameraCount <= 0) {
+            return null;
         } else {
-            return currentCameraNumber + 1;
+            final Integer nextCamNum = currentCameraNumber + 1;
+            return nextCamNum % totalCameraCount;
         }
     }
 
     public int getTotalCameraCount() {
         return UsbCamera.enumerateUsbCameras().length;
     }
-
 }
