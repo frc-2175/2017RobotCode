@@ -6,7 +6,7 @@ import org.usfirst.frc.team2175.subsystem.visionprocessing.CameraHandler;
 
 public class CameraSwitchCommand extends BaseCommand {
     private CameraHandler cameraHandler;
-    
+
     public CameraSwitchCommand() {
         cameraHandler = ServiceLocator.get(CameraHandler.class);
     }

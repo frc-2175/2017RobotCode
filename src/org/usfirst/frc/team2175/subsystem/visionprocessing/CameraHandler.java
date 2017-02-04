@@ -10,32 +10,32 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 
 public class CameraHandler {
-	private final static int height = 480;
-	private final static int width = 640;
-	private int currentCameraNumber;
-	private int totalCameraCount;
-	
-	private CvSource outputStream;
-	private UsbCamera[] camera;
-	private CvSink[] cvSink;
-    
+    private final static int height = 480;
+    private final static int width = 640;
+    private Integer currentCameraNumber;
+    private int totalCameraCount;
+
+    private CvSource outputStream;
+    private UsbCamera[] camera;
+    private CvSink[] cvSink;
+
     private Mat source;
     private Mat output;
-    
-    
 
     public CameraHandler() {
-    	totalCameraCount = getTotalCameraCount();
-    	
-    	for (int c = 0; c < totalCameraCount; c++) {
-    		camera[c] = new UsbCamera("Camera " + c, c);
-    		camera[c].setResolution(width,  height);
-    		
-    		cvSink[c] = CameraServer.getInstance().getVideo(camera[c]);    		
-    	}
-    	
-    	
-    	outputStream = CameraServer.getInstance().putVideo("CameraOfChoice", width, height);
+        totalCameraCount = getTotalCameraCount();
+
+        for (int c = 0; c < totalCameraCount; c++) {
+            camera[c] = new UsbCamera("Camera " + c, c);
+            camera[c].setResolution(width, height);
+
+            cvSink[c] = CameraServer.getInstance().getVideo(camera[c]);
+        }
+
+        currentCameraNumber = 0;
+
+        outputStream = CameraServer.getInstance().putVideo("CameraOfChoice",
+                width, height);
 
         source = new Mat();
         output = new Mat();
@@ -59,14 +59,20 @@ public class CameraHandler {
     }
 
     public synchronized void goToNextCameraNumber() {
-        setCurrentCameraNumber((determineNextCameraNumber(getCurrentCameraNumber()) + 1));
+        setCurrentCameraNumber(
+                (determineNextCameraNumber(getCurrentCameraNumber())));
     }
 
     public int determineNextCameraNumber(int currentCameraNumber) {
-        return currentCameraNumber++ % getTotalCameraCount();
+        if (getTotalCameraCount() != 0) {
+
+        }
+        return currentCameraNumber++;
+        // return currentCameraNumber++ % getTotalCameraCount();
     }
+
     public int getTotalCameraCount() {
-    	return UsbCamera.enumerateUsbCameras().length;
+        return UsbCamera.enumerateUsbCameras().length;
     }
 
 }

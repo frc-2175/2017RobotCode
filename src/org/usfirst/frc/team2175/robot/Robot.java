@@ -51,9 +51,9 @@ public class Robot extends IterativeRobot {
         schedulerLoop.start();
         CameraHandler cameraHandler = new CameraHandler();
         new Thread(() -> {
-        	cameraHandler.run();
+            cameraHandler.run();
         }).start();
-        
+
     }
 
     /**

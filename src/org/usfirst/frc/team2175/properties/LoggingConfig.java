@@ -45,7 +45,8 @@ public class LoggingConfig extends BaseProperties {
         } catch (final FileNotFoundException e) {
             throw new IllegalStateException(
                     "Did not find logging properties file=" + propertyFile
-                            + ", msg=" + e.getMessage(), e);
+                            + ", msg=" + e.getMessage(),
+                    e);
         } catch (SecurityException | IOException e) {
             throw new IllegalStateException("Unable to read logging properties",
                     e);
@@ -75,7 +76,8 @@ public class LoggingConfig extends BaseProperties {
 
         final String socketHandlerHostname =
                 getStringPropertyValue("socket.handler.hostname");
-        final int socketHandlerPort = getIntPropertyValue("socket.handler.port");
+        final int socketHandlerPort =
+                getIntPropertyValue("socket.handler.port");
 
         log.config("host=" + socketHandlerHostname + ", port="
                 + socketHandlerPort);
@@ -85,12 +87,10 @@ public class LoggingConfig extends BaseProperties {
             handler =
                     new SocketHandler(socketHandlerHostname, socketHandlerPort);
         } catch (final IOException e) {
-            final String msg =
-                    "Lilith log viewer not running?"
-                            + " Error instantiating SocketHandler with host="
-                            + socketHandlerHostname + ", port="
-                            + socketHandlerPort + ", msg="
-                            + e.getClass().getName() + ": " + e.getMessage();
+            final String msg = "Lilith log viewer not running?"
+                    + " Error instantiating SocketHandler with host="
+                    + socketHandlerHostname + ", port=" + socketHandlerPort
+                    + ", msg=" + e.getClass().getName() + ": " + e.getMessage();
             log.info(msg);
         }
         return handler;
@@ -101,8 +101,8 @@ public class LoggingConfig extends BaseProperties {
         try {
             handler.setEncoding(handlerEncoding);
         } catch (SecurityException | UnsupportedEncodingException e) {
-            throw new IllegalStateException("Error setting handler encoding="
-                    + handlerEncoding, e);
+            throw new IllegalStateException(
+                    "Error setting handler encoding=" + handlerEncoding, e);
         }
 
         final Formatter socketHandlerFormatter = new XMLFormatter();

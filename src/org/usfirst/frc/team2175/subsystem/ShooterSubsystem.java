@@ -77,7 +77,7 @@ public class ShooterSubsystem extends BaseSubsystem {
         shooterMotor.set(agitatorReverseSpeed);
     }
 
-	public double getShooterSpeed() {
-		return shooterMotor.getSpeed();
-	}
+    public double getShooterSpeed() {
+        return shooterMotor.getSpeed();
+    }
 }
