@@ -15,9 +15,6 @@ public class VisionSubsystem extends BaseSubsystem {
     private double[] contourSolidity;
     private double[] defaultValue;
 
-    // TODO noahconnors: Why is this stuff commented out? This class isn't even
-    // in the SubsystemsFactory, so it shouldn't be doing any harm.
-
     public VisionSubsystem() {
         table = NetworkTable.getTable("Grip/myCountoursReport");
     }
