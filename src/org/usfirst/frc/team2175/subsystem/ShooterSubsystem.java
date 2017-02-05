@@ -8,6 +8,8 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
+import edu.wpi.first.wpilibj.Solenoid;
+
 public class ShooterSubsystem extends BaseSubsystem {
 
     private final CANTalon shooterMotor;
@@ -15,6 +17,8 @@ public class ShooterSubsystem extends BaseSubsystem {
     private final CANTalon feederMotorTwo;
     private final CANTalon shooterMotorTwo;
     private final CANTalon agitatorMotor;
+    private final Solenoid leftShooterSolenoid;
+    private final Solenoid rightShooterSolenoid;
     private final double shooterSpeed;
     private final double feederSpeed;
     private final double agitatorSpeed;
@@ -42,6 +46,10 @@ public class ShooterSubsystem extends BaseSubsystem {
                 wiringProperties.getShooterShooterMotorTwoDeviceNumber());
         feederMotorTwo = new CANTalon(
                 wiringProperties.getShooterFeederMotorTwoDeviceNumber());
+        leftShooterSolenoid = new Solenoid(
+                wiringProperties.getShooterActuatorLeftDeviceNumber());
+        rightShooterSolenoid = new Solenoid(
+                wiringProperties.getShooterActuatorRightDeviceNumber());
         shooterMotorTwo.changeControlMode(TalonControlMode.Follower);
         shooterMotorTwo.set(shooterMotor.getDeviceID());
         feederMotorTwo.changeControlMode(TalonControlMode.Follower);
@@ -95,4 +103,13 @@ public class ShooterSubsystem extends BaseSubsystem {
         return shooterMotor.getSpeed();
     }
 
+    public void actuateBothShootersOut() {
+        leftShooterSolenoid.set(true);
+        rightShooterSolenoid.set(true);
+    }
+
+    public void actuateBothShootersIn() {
+        leftShooterSolenoid.set(false);
+        rightShooterSolenoid.set(false);
+    }
 }
