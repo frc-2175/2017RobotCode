@@ -61,6 +61,10 @@ public class ShooterSubsystem extends BaseSubsystem {
         shooterReverseSpeed = behaviorProperties.getShooterInSpeed();
         feederReverseSpeed = behaviorProperties.getFeederInSpeed();
         agitatorReverseSpeed = behaviorProperties.getAgitatorInSpeed();
+        shooterMotor.changeControlMode(TalonControlMode.Speed);
+        shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        shooterMotor.setProfile(0);
+
     }
 
     public void setShooterDefaultSpeed() {
