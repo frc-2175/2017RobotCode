@@ -12,20 +12,18 @@ public class FuelIntakeForSecondsCommand extends BaseCommand {
 
     private final double timeToSpin;
 
-    public FuelIntakeForSecondsCommand(double timeToSpin) {
+    public FuelIntakeForSecondsCommand(final double timeToSpin) {
         super();
         fuelIntakeSubsystem = ServiceLocator.get(FuelIntakeSubsystem.class);
         this.timeToSpin = timeToSpin;
-
-        // TODO: Make this command require the fuel intake subsystem.
+        requires(fuelIntakeSubsystem);
     }
 
     @Override
     protected void initialize() {
         super.initialize();
-        // TODO: Do we really want to use the default *out* speed here?
         fuelIntakeSubsystem.setMotorSpeed(
-                fuelIntakeSubsystem.getMainMotorDefaultOutSpeed());
+                fuelIntakeSubsystem.getMainMotorDefaultInSpeed());
     }
 
     @Override

@@ -10,8 +10,7 @@ public class RunGearIntakeOutCommand extends BaseCommand {
 
     public RunGearIntakeOutCommand() {
         gearIntakeSubsystem = ServiceLocator.get(GearIntakeSubsystem.class);
-
-        // TODO: Make this command require the gear intake subsystem.
+        requires(gearIntakeSubsystem);
     }
 
     @Override

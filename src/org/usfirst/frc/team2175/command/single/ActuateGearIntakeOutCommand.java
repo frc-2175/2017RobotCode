@@ -1,19 +1,16 @@
 package org.usfirst.frc.team2175.command.single;
 
 import org.usfirst.frc.team2175.ServiceLocator;
+import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.GearIntakeSubsystem;
 
-import edu.wpi.first.wpilibj.command.Command;
-
-public class ActuateGearIntakeOutCommand extends Command {
-
-    // TODO: Make this class extend BaseCommand instead of Command
+public class ActuateGearIntakeOutCommand extends BaseCommand {
 
     GearIntakeSubsystem gearIntakeSubsystem;
 
     public ActuateGearIntakeOutCommand() {
         gearIntakeSubsystem = ServiceLocator.get(GearIntakeSubsystem.class);
-        // TODO: Require the gear intake subsystem
+        requires(gearIntakeSubsystem);
     }
 
     @Override

@@ -10,8 +10,7 @@ public class RunShooterReverseCommand extends BaseCommand {
 
     public RunShooterReverseCommand() {
         shooterSubsystem = ServiceLocator.get(ShooterSubsystem.class);
-
-        // TODO: Make this command require the shooter subsystem.
+        requires(shooterSubsystem);
     }
 
     @Override
