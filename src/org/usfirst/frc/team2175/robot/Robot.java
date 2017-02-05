@@ -10,6 +10,7 @@ import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
+import org.usfirst.frc.team2175.subsystem.visionprocessing.CameraHandler;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -40,7 +41,7 @@ public class Robot extends IterativeRobot {
         // Maybe make another branch, or make a stash on your computer, or
         // something. Let's keep the main file clean.
 
-        // final CameraHandler cameraHandler = new CameraHandler();
+        final CameraHandler cameraHandler = new CameraHandler();
 
         // TODO: Something to test - do we need this try/catch here any more? As
         // I recall, we put it in because errors in a static initializer weren't
