@@ -5,12 +5,12 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
 
-public class FuelIntakeFalsafeCommand extends BaseCommand {
+public class FuelIntakeFailsafeCommand extends BaseCommand {
 
     private final FuelIntakeSubsystem fuelIntakeSubsystem;
     private final DriverStation driverStation;
 
-    public FuelIntakeFalsafeCommand() {
+    public FuelIntakeFailsafeCommand() {
         fuelIntakeSubsystem = ServiceLocator.get(FuelIntakeSubsystem.class);
         driverStation = ServiceLocator.get(DriverStation.class);
 
