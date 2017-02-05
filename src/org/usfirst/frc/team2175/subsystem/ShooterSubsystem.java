@@ -6,6 +6,7 @@ import org.usfirst.frc.team2175.properties.WiringProperties;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
+import com.ctre.CANTalon.TalonControlMode;
 
 public class ShooterSubsystem extends BaseSubsystem {
     private final CANTalon shooterMotor;
@@ -34,6 +35,12 @@ public class ShooterSubsystem extends BaseSubsystem {
                 wiringProperties.getShooterAgitatorMotorDeviceNumber());
         shooterMotorTwo = new CANTalon(
                 wiringProperties.getShooterShooterMotorTwoDeviceNumber());
+        feederMotorTwo = new CANTalon(
+                wiringProperties.getShooterFeederMotorTwoDeviceNumber());
+        shooterMotorTwo.changeControlMode(TalonControlMode.Follower);
+        shooterMotorTwo.set(shooterMotor.getDeviceID());
+        feederMotorTwo.changeControlMode(TalonControlMode.Follower);
+        feederMotorTwo.set(feederMotor.getDeviceID());
         shooterSpeed = behaviorProperties.getShooterOutSpeed();
         feederSpeed = behaviorProperties.getFeederOutSpeed();
         agitatorSpeed = behaviorProperties.getAgitatorOutSpeed();
