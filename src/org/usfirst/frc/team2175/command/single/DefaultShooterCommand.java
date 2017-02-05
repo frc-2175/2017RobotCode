@@ -12,6 +12,7 @@ public class DefaultShooterCommand extends BaseCommand {
     public DefaultShooterCommand() {
         shooterSubsystem = ServiceLocator.get(ShooterSubsystem.class);
         driverStation = ServiceLocator.get(DriverStation.class);
+        requires(shooterSubsystem);
     }
 
     @Override

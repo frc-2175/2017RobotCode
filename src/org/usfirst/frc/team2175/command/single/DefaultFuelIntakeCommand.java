@@ -12,6 +12,7 @@ public class DefaultFuelIntakeCommand extends BaseCommand {
     public DefaultFuelIntakeCommand() {
         fuelIntakeSubsystem = ServiceLocator.get(FuelIntakeSubsystem.class);
         driverStation = ServiceLocator.get(DriverStation.class);
+        requires(fuelIntakeSubsystem);
     }
 
     @Override

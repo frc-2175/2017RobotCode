@@ -11,6 +11,7 @@ public class RunShooterCommand extends BaseCommand {
 
     public RunShooterCommand() {
         shooterSubsystem = ServiceLocator.get(ShooterSubsystem.class);
+        requires(shooterSubsystem);
     }
 
     @Override

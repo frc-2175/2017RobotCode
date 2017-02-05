@@ -10,6 +10,7 @@ public class RunFuelIntakeInCommand extends BaseCommand {
     public RunFuelIntakeInCommand() {
         super();
         fuelIntakeSubsystem = ServiceLocator.get(FuelIntakeSubsystem.class);
+        requires(fuelIntakeSubsystem);
     }
 
     @Override
