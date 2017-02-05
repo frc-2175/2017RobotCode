@@ -44,7 +44,7 @@ public class FuelIntakeSubsystem extends BaseSubsystem {
         hopperSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
-    public void setMotorSpeed(double speed) {
+    public void setMotorSpeed(final double speed) {
         mainMotor.set(speed);
     }
 

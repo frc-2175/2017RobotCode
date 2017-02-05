@@ -31,7 +31,7 @@ public class DriverStation {
     private JoystickButton cameraSwitchButton;
 
     public DriverStation() {
-        JoystickProperties joystickProperties =
+        final JoystickProperties joystickProperties =
                 ServiceLocator.get(JoystickProperties.class);
         leftJoystick = new Joystick(joystickProperties.getJoystickLeftPort());
         rightJoystick = new Joystick(joystickProperties.getJoystickRightPort());
@@ -72,12 +72,12 @@ public class DriverStation {
     }
 
     protected JoystickButton buttonFromButtonInfo(
-            JoystickProperties.ButtonInfo buttonInfo) {
+            final JoystickProperties.ButtonInfo buttonInfo) {
         return new JoystickButton(joystickForName(buttonInfo.joystickName),
                 buttonInfo.buttonNumber);
     }
 
-    private Joystick joystickForName(String name) {
+    private Joystick joystickForName(final String name) {
         Joystick joystickOfChoice = gamepad;
         switch (name) {
         case "left":
@@ -94,15 +94,15 @@ public class DriverStation {
     }
 
     public double getMoveValue() {
-        double input = leftJoystick.getY();
-        double deadbandedOutput =
+        final double input = leftJoystick.getY();
+        final double deadbandedOutput =
                 deadbandCalculator.calcDeadbandedOutput(input, deadbandSize);
         return deadbandedOutput;
     }
 
     public double getTurnValue() {
-        double input = rightJoystick.getX();
-        double deadbandedOutput =
+        final double input = rightJoystick.getX();
+        final double deadbandedOutput =
                 deadbandCalculator.calcDeadbandedOutput(input, deadbandSize);
         return deadbandedOutput;
     }
