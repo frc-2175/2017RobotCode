@@ -177,9 +177,7 @@ public class DriverStation {
         return climbButton;
     }
 
-    // TODO noahconnors: Do we really need these POV methods? (See comments in
-    // DefaultFuelIntakeCommand and DefaultShooterCommand.)
-    public boolean getRightPOVIsPressed() {
+    public boolean getShouldExecuteFuelIntakeFailsafe() {
         return gamepad.getPOV(90) > 0;
     }
 
@@ -187,7 +185,7 @@ public class DriverStation {
         return gamepad.getPOV(0) > 0;
     }
 
-    public boolean getDownPOVIsPressed() {
+    public boolean getShouldExecuteShooterFailsafe() {
         return gamepad.getPOV(180) > 0;
     }
 
