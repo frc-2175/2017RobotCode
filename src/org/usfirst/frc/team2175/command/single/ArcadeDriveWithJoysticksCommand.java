@@ -24,8 +24,8 @@ public class ArcadeDriveWithJoysticksCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-        double moveValue = driverStation.getMoveValue();
-        double turnValue = driverStation.getTurnValue();
+        final double moveValue = driverStation.getMoveValue();
+        final double turnValue = driverStation.getTurnValue();
         drivetrainSubsystem.arcadeDrive(moveValue, turnValue);
 
     }
@@ -38,8 +38,7 @@ public class ArcadeDriveWithJoysticksCommand extends BaseCommand {
     @Override
     protected void end() {
         super.end();
-        // TODO: Use the stopAllMotors method of DrivetrainSubsystem instead.
-        drivetrainSubsystem.arcadeDrive(0, 0);
+        drivetrainSubsystem.stopAllMotors();
     }
 
     @Override

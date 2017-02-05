@@ -55,20 +55,15 @@ public class ShooterSubsystem extends BaseSubsystem {
         agitatorReverseSpeed = behaviorProperties.getAgitatorInSpeed();
     }
 
-    // TODO: Rename this method. Calling it 'setShooterSpeed' makes me think I
-    // can set it to any arbitrary speed, when in fact it just uses a default.
-    // Maybe just 'setShooterDefaultSpeed' would be better.
-    public void setShooterSpeed() {
+    public void setShooterDefaultSpeed() {
         shooterMotor.set(shooterSpeed);
     }
 
-    // TODO: Ditto the above comment.
-    public void setFeederSpeed() {
+    public void setFeederDefaultSpeed() {
         feederMotor.set(feederSpeed);
     }
 
-    // TODO: Ditto the above two comments.
-    public void setAgitatorSpeed() {
+    public void setAgitatorDefaultSpeed() {
         agitatorMotor.set(agitatorSpeed);
     }
 

@@ -18,7 +18,7 @@ public class RunFeederAgitatorCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-        shooterSubsystem.setFeederSpeed();
+        shooterSubsystem.setFeederDefaultSpeed();
     }
 
     @Override
