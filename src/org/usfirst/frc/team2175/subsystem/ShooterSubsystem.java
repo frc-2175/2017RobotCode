@@ -10,6 +10,8 @@ import com.ctre.CANTalon.FeedbackDevice;
 public class ShooterSubsystem extends BaseSubsystem {
     private final CANTalon shooterMotor;
     private final CANTalon feederMotor;
+    private final CANTalon shooterMotorTwo;
+    private final CANTalon feederMotorTwo;
     private final CANTalon agitatorMotor;
     private final double shooterSpeed;
     private final double feederSpeed;
@@ -19,9 +21,9 @@ public class ShooterSubsystem extends BaseSubsystem {
     private final double agitatorReverseSpeed;
 
     public ShooterSubsystem() {
-        BehaviorProperties behaviorProperties =
+        final BehaviorProperties behaviorProperties =
                 ServiceLocator.get(BehaviorProperties.class);
-        WiringProperties wiringProperties =
+        final WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
         shooterMotor = new CANTalon(
                 wiringProperties.getShooterShooterMotorDeviceNumber());
@@ -31,6 +33,8 @@ public class ShooterSubsystem extends BaseSubsystem {
                 wiringProperties.getShooterFeederMotorDeviceNumber());
         agitatorMotor = new CANTalon(
                 wiringProperties.getShooterAgitatorMotorDeviceNumber());
+        shooterMotorTwo = new CANTalon(
+                wiringProperties.getShooterShooterMotorTwoDeviceNumber());
         shooterSpeed = behaviorProperties.getShooterOutSpeed();
         feederSpeed = behaviorProperties.getFeederOutSpeed();
         agitatorSpeed = behaviorProperties.getAgitatorOutSpeed();
