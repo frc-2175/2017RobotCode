@@ -35,10 +35,4 @@ public class RunFuelIntakeInCommand extends BaseCommand {
         super.end();
         fuelIntakeSubsystem.setMotorSpeed(0);
     }
-
-    @Override
-    protected void interrupted() {
-        // TODO: Do we really want interrupted() to be empty?
-    }
-
 }
