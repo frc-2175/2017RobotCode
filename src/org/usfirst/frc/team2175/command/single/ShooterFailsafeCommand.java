@@ -5,15 +5,12 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.subsystem.ShooterSubsystem;
 
-public class DefaultShooterCommand extends BaseCommand {
-
-    // TODO noahconnors: Give this command a more descriptive name. What does it
-    // actually do?
+public class ShooterFailsafeCommand extends BaseCommand {
 
     private final ShooterSubsystem shooterSubsystem;
     private final DriverStation driverStation;
 
-    public DefaultShooterCommand() {
+    public ShooterFailsafeCommand() {
         shooterSubsystem = ServiceLocator.get(ShooterSubsystem.class);
         driverStation = ServiceLocator.get(DriverStation.class);
 
@@ -26,9 +23,7 @@ public class DefaultShooterCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-        // TODO noahconnors: Like in DefaultFuelIntakeCommand, let's make a more
-        // descriptive method on DriverStation like `shouldRunShooterInReverse`.
-        if (driverStation.getDownPOVIsPressed()) {
+        if (driverStation.getShouldExecuteShooterFailsafe()) {
             shooterSubsystem.setShooterReverseSpeed();
         } else {
             shooterSubsystem.setShooterSpeedZero();

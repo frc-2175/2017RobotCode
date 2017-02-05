@@ -5,15 +5,12 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
 
-public class DefaultFuelIntakeCommand extends BaseCommand {
-
-    // TODO noahconnors: Give this command a more descriptive name. What does it
-    // actually do?
+public class FuelIntakeFalsafeCommand extends BaseCommand {
 
     private final FuelIntakeSubsystem fuelIntakeSubsystem;
     private final DriverStation driverStation;
 
-    public DefaultFuelIntakeCommand() {
+    public FuelIntakeFalsafeCommand() {
         fuelIntakeSubsystem = ServiceLocator.get(FuelIntakeSubsystem.class);
         driverStation = ServiceLocator.get(DriverStation.class);
 
@@ -26,10 +23,7 @@ public class DefaultFuelIntakeCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-        // TODO noahconnors: Using a method like `getRightPOVIsPressed` assumes
-        // we always want to run the fuel intake off the right POV. Let's make a
-        // method on DriverStation like 'shouldRunFuelIntakeOut' instead.
-        if (driverStation.getRightPOVIsPressed()) {
+        if (driverStation.getShouldExecuteFuelIntakeFailsafe()) {
             fuelIntakeSubsystem.setMotorSpeed(
                     fuelIntakeSubsystem.getMainMotorDefaultOutSpeed());
         } else {
