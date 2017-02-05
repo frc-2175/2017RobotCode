@@ -4,8 +4,6 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.EmptyCommand;
 import org.usfirst.frc.team2175.command.single.ActuateGearIntakeOutCommand;
 import org.usfirst.frc.team2175.command.single.CameraSwitchCommand;
-import org.usfirst.frc.team2175.command.single.FuelIntakeActuateInCommand;
-import org.usfirst.frc.team2175.command.single.FuelIntakeActuateOutCommand;
 import org.usfirst.frc.team2175.command.single.LowerHopperCommand;
 import org.usfirst.frc.team2175.command.single.RunFeederAgitatorCommand;
 import org.usfirst.frc.team2175.command.single.RunFeederAgitatorReverseCommand;
@@ -46,10 +44,6 @@ public class JoystickEventMapper {
                 .whileHeld(new RunFuelIntakeInCommand());
         driverStation.getFuelIntakeOutButton()
                 .whileHeld(new RunFuelIntakeOutCommand());
-        driverStation.getFuelIntakeActuateInButton()
-                .whileHeld(new FuelIntakeActuateInCommand());
-        driverStation.getFuelIntakeActuateOutButton()
-                .whileHeld(new FuelIntakeActuateOutCommand());
         driverStation.getGearIntakeActuateOutButton()
                 .toggleWhenPressed(new ActuateGearIntakeOutCommand());
         driverStation.getCameraSwitchButton()
