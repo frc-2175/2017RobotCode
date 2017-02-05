@@ -166,4 +166,9 @@ public class DriverStation {
     public JoystickButton getCameraSwitchButton() {
         return cameraSwitchButton;
     }
+
+    public JoystickButton getClimbButton() {
+        return climbButton;
+    }
+
 }
