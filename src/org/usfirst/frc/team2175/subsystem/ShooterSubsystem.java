@@ -13,16 +13,19 @@ import edu.wpi.first.wpilibj.Solenoid;
 public class ShooterSubsystem extends BaseSubsystem {
 
     private final CANTalon shooterMotor;
-    private final CANTalon feederMotor;
-    private final CANTalon feederMotorTwo;
     private final CANTalon shooterMotorTwo;
+    private final double shooterSpeed;
+    private final double shooterReverseSpeed;
+    private final CANTalon feederMotorTwo;
+    private final CANTalon feederMotor;
+
     private final CANTalon agitatorMotor;
     private final Solenoid leftShooterSolenoid;
     private final Solenoid rightShooterSolenoid;
-    private final double shooterSpeed;
+
     private final double feederSpeed;
     private final double agitatorSpeed;
-    private final double shooterReverseSpeed;
+
     private final double feederReverseSpeed;
     private final double agitatorReverseSpeed;
 
@@ -36,22 +39,21 @@ public class ShooterSubsystem extends BaseSubsystem {
                 wiringProperties.getShooterShooterMotorDeviceNumber());
         shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         shooterMotor.reverseSensor(true);
-
-        feederMotor = new CANTalon(
-                wiringProperties.getShooterFeederMotorDeviceNumber());
+        shooterMotor.changeControlMode(TalonControlMode.Speed);
+        shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        shooterMotor.setProfile(0);
+        shooterMotorTwo = new CANTalon(
+                wiringProperties.getShooterShooterMotorTwoDeviceNumber());
+        shooterMotorTwo.changeControlMode(TalonControlMode.Follower);
+        shooterMotorTwo.set(shooterMotor.getDeviceID());
         agitatorMotor = new CANTalon(
                 wiringProperties.getShooterAgitatorMotorDeviceNumber());
 
-        shooterMotorTwo = new CANTalon(
-                wiringProperties.getShooterShooterMotorTwoDeviceNumber());
+        feederMotor = new CANTalon(
+                wiringProperties.getShooterFeederMotorDeviceNumber());
         feederMotorTwo = new CANTalon(
                 wiringProperties.getShooterFeederMotorTwoDeviceNumber());
-        leftShooterSolenoid = new Solenoid(
-                wiringProperties.getShooterActuatorLeftDeviceNumber());
-        rightShooterSolenoid = new Solenoid(
-                wiringProperties.getShooterActuatorRightDeviceNumber());
-        shooterMotorTwo.changeControlMode(TalonControlMode.Follower);
-        shooterMotorTwo.set(shooterMotor.getDeviceID());
+
         feederMotorTwo.changeControlMode(TalonControlMode.Follower);
         feederMotorTwo.set(feederMotor.getDeviceID());
 
@@ -61,9 +63,10 @@ public class ShooterSubsystem extends BaseSubsystem {
         shooterReverseSpeed = behaviorProperties.getShooterInSpeed();
         feederReverseSpeed = behaviorProperties.getFeederInSpeed();
         agitatorReverseSpeed = behaviorProperties.getAgitatorInSpeed();
-        shooterMotor.changeControlMode(TalonControlMode.Speed);
-        shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        shooterMotor.setProfile(0);
+        leftShooterSolenoid = new Solenoid(
+                wiringProperties.getShooterActuatorLeftDeviceNumber());
+        rightShooterSolenoid = new Solenoid(
+                wiringProperties.getShooterActuatorRightDeviceNumber());
 
     }
 
