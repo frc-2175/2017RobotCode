@@ -15,9 +15,9 @@ public class FuelIntakeSubsystem extends BaseSubsystem {
     private final double mainMotorDefaultOutSpeed;
 
     public FuelIntakeSubsystem() {
-        WiringProperties wiringProperties =
+        final WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
-        BehaviorProperties behaviorProperties =
+        final BehaviorProperties behaviorProperties =
                 ServiceLocator.get(BehaviorProperties.class);
         mainMotor = new CANTalon(
                 wiringProperties.getFuelIntakeMainMotorDeviceNumber());
