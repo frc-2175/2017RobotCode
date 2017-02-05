@@ -11,7 +11,6 @@ public class ShooterSubsystem extends BaseSubsystem {
     private final CANTalon shooterMotor;
     private final CANTalon feederMotor;
     private final CANTalon shooterMotorTwo;
-    private final CANTalon feederMotorTwo;
     private final CANTalon agitatorMotor;
     private final double shooterSpeed;
     private final double feederSpeed;
