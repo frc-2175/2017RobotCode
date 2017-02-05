@@ -5,6 +5,7 @@ import org.usfirst.frc.team2175.properties.BehaviorProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.TalonControlMode;
 
 public class ClimberSubsystem extends BaseSubsystem {
     private final CANTalon motorOne;
@@ -13,22 +14,22 @@ public class ClimberSubsystem extends BaseSubsystem {
 
     public ClimberSubsystem() {
         super();
-        WiringProperties wiringProperties =
+        final WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
-        BehaviorProperties behaviorProperties =
+        final BehaviorProperties behaviorProperties =
                 ServiceLocator.get(BehaviorProperties.class);
         motorOne = new CANTalon(wiringProperties.getClimberMotorOneNumber());
         motorTwo = new CANTalon(wiringProperties.getClimberMotorTwoNumber());
+        motorTwo.changeControlMode(TalonControlMode.Follower);
+        motorTwo.set(motorOne.getDeviceID());
         mainMotorDefaultSpeed = behaviorProperties.getClimberMasterSpeed();
     }
 
-    public void setClimberSpeed(double speed) {
+    public void setClimberSpeed(final double speed) {
         motorOne.set(speed);
-        motorTwo.set(speed);
     }
 
     public double getMainMotorDefaultSpeed() {
         return mainMotorDefaultSpeed;
     }
-
 }
