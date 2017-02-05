@@ -171,4 +171,19 @@ public class DriverStation {
         return climbButton;
     }
 
+    public boolean getRightPOVIsPressed() {
+        return gamepad.getPOV(90) > 0;
+    }
+
+    public boolean getUpPOVIsPressed() {
+        return gamepad.getPOV(0) > 0;
+    }
+
+    public boolean getDownPOVIsPressed() {
+        return gamepad.getPOV(180) > 0;
+    }
+
+    public boolean getLeftPOVIsPressed() {
+        return gamepad.getPOV(270) > 0;
+    }
 }
