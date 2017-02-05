@@ -10,7 +10,6 @@ import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
-import org.usfirst.frc.team2175.subsystem.visionprocessing.CameraHandler;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -36,7 +35,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-        final CameraHandler cameraHandler = new CameraHandler();
+        // final CameraHandler cameraHandler = new CameraHandler();
         try {
             PropertiesFactory.makeAll();
             SubsystemsFactory.makeAll();
@@ -50,9 +49,9 @@ public class Robot extends IterativeRobot {
         }
         new JoystickEventMapper();
         schedulerLoop.start();
-        new Thread(() -> {
-            cameraHandler.run();
-        }).start();
+        // new Thread(() -> {
+        // cameraHandler.run();
+        // }).start();
 
     }
 
