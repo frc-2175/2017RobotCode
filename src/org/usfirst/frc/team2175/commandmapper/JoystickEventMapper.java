@@ -5,7 +5,6 @@ import org.usfirst.frc.team2175.command.EmptyCommand;
 import org.usfirst.frc.team2175.command.single.ActuateGearIntakeOutCommand;
 import org.usfirst.frc.team2175.command.single.CameraSwitchCommand;
 import org.usfirst.frc.team2175.command.single.LowerHopperCommand;
-import org.usfirst.frc.team2175.command.single.RunClimberCommand;
 import org.usfirst.frc.team2175.command.single.RunFeederAgitatorCommand;
 import org.usfirst.frc.team2175.command.single.RunFeederAgitatorReverseCommand;
 import org.usfirst.frc.team2175.command.single.RunFuelIntakeInCommand;
@@ -49,7 +48,6 @@ public class JoystickEventMapper {
                 .toggleWhenPressed(new ActuateGearIntakeOutCommand());
         driverStation.getCameraSwitchButton()
                 .toggleWhenPressed(new CameraSwitchCommand());
-        driverStation.getClimbButton().whileHeld(new RunClimberCommand());
     }
 
 }
