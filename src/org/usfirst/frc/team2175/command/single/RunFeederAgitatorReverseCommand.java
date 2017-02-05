@@ -5,6 +5,7 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.ShooterSubsystem;
 
 public class RunFeederAgitatorReverseCommand extends BaseCommand {
+
     private final ShooterSubsystem shooterSubsystem;
 
     public RunFeederAgitatorReverseCommand() {
@@ -17,7 +18,7 @@ public class RunFeederAgitatorReverseCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-        // TODO get speed value from properties file
+        // TODO: Do we even need to run the agitator in reverse?
         shooterSubsystem.setAgitatorReverseSpeed();
         shooterSubsystem.setFeederReverseSpeed();
     }
@@ -37,4 +38,5 @@ public class RunFeederAgitatorReverseCommand extends BaseCommand {
     protected void interrupted() {
         end();
     }
+
 }

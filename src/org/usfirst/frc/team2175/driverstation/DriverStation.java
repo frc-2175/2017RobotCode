@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class DriverStation {
+
     private Joystick leftJoystick;
     private Joystick rightJoystick;
     private Joystick gamepad;
@@ -68,6 +69,7 @@ public class DriverStation {
 
         deadbandSize = joystickProperties.getDeadbandValue();
         deadbandCalculator = new DeadbandCalculator();
+
         ServiceLocator.register(this);
     }
 
@@ -78,6 +80,10 @@ public class DriverStation {
     }
 
     private Joystick joystickForName(final String name) {
+        // TODO 4thwind: Using gamepad as a default seems like a bad idea. Why
+        // don't we make joystickOfChoice null by default, and throw an
+        // InvalidArgumentException if the name isn't "left", "right", or
+        // "gamepad"?
         Joystick joystickOfChoice = gamepad;
         switch (name) {
         case "left":
@@ -171,6 +177,8 @@ public class DriverStation {
         return climbButton;
     }
 
+    // TODO noahconnors: Do we really need these POV methods? (See comments in
+    // DefaultFuelIntakeCommand and DefaultShooterCommand.)
     public boolean getRightPOVIsPressed() {
         return gamepad.getPOV(90) > 0;
     }
@@ -186,4 +194,5 @@ public class DriverStation {
     public boolean getLeftPOVIsPressed() {
         return gamepad.getPOV(270) > 0;
     }
+
 }

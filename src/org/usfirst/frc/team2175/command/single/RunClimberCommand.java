@@ -6,6 +6,7 @@ import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.subsystem.ClimberSubsystem;
 
 public class RunClimberCommand extends BaseCommand {
+
     private final ClimberSubsystem climberSubsystem;
     private final DriverStation driverStation;
 
@@ -36,4 +37,5 @@ public class RunClimberCommand extends BaseCommand {
         super.end();
         climberSubsystem.setClimberSpeed(0);
     }
+
 }

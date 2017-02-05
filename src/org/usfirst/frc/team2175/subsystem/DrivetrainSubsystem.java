@@ -22,12 +22,11 @@ public class DrivetrainSubsystem extends BaseSubsystem {
 
     private DoubleSolenoid driveShifters;
 
+    // TODO (later): Switch to using the NavX MXP
     private AnalogGyro analogGyro;
 
     public DrivetrainSubsystem() {
-        super();
-
-        WiringProperties wiringProperties =
+        final WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
 
         leftMasterMotor =
@@ -67,11 +66,11 @@ public class DrivetrainSubsystem extends BaseSubsystem {
                 wiringProperties.getDrivetrainAnalogGyroDeviceNumber());
     }
 
-    public void arcadeDrive(double moveValue, double rotateValue) {
+    public void arcadeDrive(final double moveValue, final double rotateValue) {
         robotDrive.arcadeDrive(moveValue, rotateValue);
     }
 
-    private void setGear(DoubleSolenoid.Value value) {
+    private void setGear(final DoubleSolenoid.Value value) {
         driveShifters.set(value);
     }
 
@@ -95,4 +94,5 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     public void resetGyro() {
         analogGyro.reset();
     }
+
 }

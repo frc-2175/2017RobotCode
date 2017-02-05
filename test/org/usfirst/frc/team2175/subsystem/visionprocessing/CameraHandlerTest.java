@@ -37,8 +37,8 @@ public class CameraHandlerTest extends TestBase {
                 sutMocked.getCurrentCameraNumber());
     }
 
-    // TODO total one curren one, total one current zero, total two current null
-    // TODO refactor these into parameterized test
+    // total one current one, total one current zero, total two current null
+    // TODO jeffjensen: refactor these into parameterized test
 
     @Test
     public void testCameraHandlerConstructor() {

@@ -5,6 +5,7 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
 
 public class LowerHopperCommand extends BaseCommand {
+
     FuelIntakeSubsystem fuelIntakeSubsystem;
 
     public LowerHopperCommand() {
@@ -31,4 +32,5 @@ public class LowerHopperCommand extends BaseCommand {
         super.end();
         fuelIntakeSubsystem.raiseHopper();
     }
+
 }

@@ -8,12 +8,12 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
 public class ClimberSubsystem extends BaseSubsystem {
+
     private final CANTalon motorOne;
     private final CANTalon motorTwo;
     private final double mainMotorDefaultSpeed;
 
     public ClimberSubsystem() {
-        super();
         final WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
         final BehaviorProperties behaviorProperties =
@@ -32,4 +32,5 @@ public class ClimberSubsystem extends BaseSubsystem {
     public double getMainMotorDefaultSpeed() {
         return mainMotorDefaultSpeed;
     }
+
 }

@@ -14,7 +14,6 @@ public class RunFeederAgitatorCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
-
     }
 
     @Override
@@ -30,6 +29,7 @@ public class RunFeederAgitatorCommand extends BaseCommand {
     @Override
     protected void end() {
         shooterSubsystem.setFeederSpeedZero();
+        // TODO: Figure out how the agitator fits into this these days.
         // shooterSubsystem.setAgitatorMotorSpeedZero();
     }
 
@@ -37,4 +37,5 @@ public class RunFeederAgitatorCommand extends BaseCommand {
     protected void interrupted() {
         end();
     }
+
 }

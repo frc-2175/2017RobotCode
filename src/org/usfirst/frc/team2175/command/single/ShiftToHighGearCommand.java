@@ -8,6 +8,7 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
 
 public class ShiftToHighGearCommand extends BaseCommand {
+
     private final DrivetrainSubsystem drivetrainSubsystem;
     private final Logger log = Logger.getLogger(getClass().getName());
 
@@ -48,4 +49,5 @@ public class ShiftToHighGearCommand extends BaseCommand {
     protected void interrupted() {
         end();
     }
+
 }

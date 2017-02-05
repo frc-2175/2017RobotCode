@@ -5,10 +5,13 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.GearIntakeSubsystem;
 
 public class RunGearIntakeInCommand extends BaseCommand {
+
     private final GearIntakeSubsystem gearIntakeSubsystem;
 
     public RunGearIntakeInCommand() {
         gearIntakeSubsystem = ServiceLocator.get(GearIntakeSubsystem.class);
+
+        // TODO: Make this command require the gear intake subsystem.
     }
 
     @Override
@@ -36,4 +39,5 @@ public class RunGearIntakeInCommand extends BaseCommand {
     protected void interrupted() {
         end();
     }
+
 }

@@ -88,4 +88,5 @@ public class DeadbandCalculator {
 
         return pointY + slope * (input - pointX);
     }
+
 }

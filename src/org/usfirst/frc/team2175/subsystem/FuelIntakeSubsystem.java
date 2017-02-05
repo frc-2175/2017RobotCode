@@ -9,6 +9,7 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class FuelIntakeSubsystem extends BaseSubsystem {
+
     private final CANTalon mainMotor;
     private DoubleSolenoid hopperSolenoid;
     private final double mainMotorDefaultInSpeed;

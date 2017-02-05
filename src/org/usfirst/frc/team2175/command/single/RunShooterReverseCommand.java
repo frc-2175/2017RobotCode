@@ -10,6 +10,8 @@ public class RunShooterReverseCommand extends BaseCommand {
 
     public RunShooterReverseCommand() {
         shooterSubsystem = ServiceLocator.get(ShooterSubsystem.class);
+
+        // TODO: Make this command require the shooter subsystem.
     }
 
     @Override
@@ -18,7 +20,6 @@ public class RunShooterReverseCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-        // TODO get speed value from properties file
         shooterSubsystem.setShooterReverseSpeed();
     }
 
@@ -36,4 +37,5 @@ public class RunShooterReverseCommand extends BaseCommand {
     protected void interrupted() {
         end();
     }
+
 }

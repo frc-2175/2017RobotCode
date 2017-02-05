@@ -10,7 +10,9 @@ import org.usfirst.frc.team2175.ServiceLocator;
  * Base class for configuration, loading values from properties file.
  */
 public abstract class BaseProperties {
+
     private final Logger log = Logger.getLogger(getClass().getName());
+
     /** This is the default directory set by the WPILib. */
     private static final String PROPERTY_FILE_DIR_DEFAULT = "/home/lvuser/";
     private static String propertyFileDir = PROPERTY_FILE_DIR_DEFAULT;
@@ -18,6 +20,7 @@ public abstract class BaseProperties {
 
     public BaseProperties() {
         log.info("Configuring class '" + getClass() + "'");
+
         final String propertyFileName = getFullyQualifiedPropertyFileName();
         properties = new PropertiesLoader().loadProperties(propertyFileName);
         try {
@@ -27,6 +30,7 @@ public abstract class BaseProperties {
             log.log(Level.SEVERE, msg, e);
             throw e;
         }
+
         ServiceLocator.register(this);
         log.info("Finished configuring class '" + getClass() + "'");
     }
@@ -62,6 +66,10 @@ public abstract class BaseProperties {
         return value;
     }
 
+    // TODO 4thwind (later): This method duplicates a lot of what
+    // getStringArrayPropertyValue is doing. How about we simplify this one by
+    // calling getStringArrayPropertyValue, then looping through the resulting
+    // string array converting the strings to ints?
     protected int[] getIntArrayPropertyValue(final String propertyName) {
         final String propertyValue = getStringPropertyValue(propertyName);
         String rawValues = propertyValue;
@@ -99,4 +107,5 @@ public abstract class BaseProperties {
     public Properties getProperties() {
         return properties;
     }
+
 }

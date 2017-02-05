@@ -5,11 +5,12 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
 
 public class RunFuelIntakeInCommand extends BaseCommand {
+
     private final FuelIntakeSubsystem fuelIntakeSubsystem;
 
     public RunFuelIntakeInCommand() {
-        super();
         fuelIntakeSubsystem = ServiceLocator.get(FuelIntakeSubsystem.class);
+
         requires(fuelIntakeSubsystem);
     }
 
@@ -37,5 +38,7 @@ public class RunFuelIntakeInCommand extends BaseCommand {
 
     @Override
     protected void interrupted() {
+        // TODO: Do we really want interrupted() to be empty?
     }
+
 }

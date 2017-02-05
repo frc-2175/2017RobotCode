@@ -5,6 +5,7 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
 
 public class TurnDegreesCommand extends BaseCommand {
+
     private final DrivetrainSubsystem drivetrainSubsystem;
 
     private final double degreesToTurn;
@@ -43,12 +44,12 @@ public class TurnDegreesCommand extends BaseCommand {
     @Override
     protected void execute() {
         if (degreesToTurn > 0) {
-            // TODO get speed value from properties file
+            // TODO (later): get speed value from properties file
             drivetrainSubsystem.arcadeDrive(0, 1);
         }
 
         else if (degreesToTurn < 0) {
-            // TODO get speed value from properties file
+            // TODO (later): get speed value from properties file
             drivetrainSubsystem.arcadeDrive(0, -1);
         }
     }
@@ -73,4 +74,5 @@ public class TurnDegreesCommand extends BaseCommand {
         super.end();
         drivetrainSubsystem.stopAllMotors();
     }
+
 }

@@ -5,6 +5,9 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
 
 public class FuelIntakeForSecondsCommand extends BaseCommand {
+
+    // TODO: Is this command even necessary?
+
     private final FuelIntakeSubsystem fuelIntakeSubsystem;
 
     private final double timeToSpin;
@@ -13,11 +16,14 @@ public class FuelIntakeForSecondsCommand extends BaseCommand {
         super();
         fuelIntakeSubsystem = ServiceLocator.get(FuelIntakeSubsystem.class);
         this.timeToSpin = timeToSpin;
+
+        // TODO: Make this command require the fuel intake subsystem.
     }
 
     @Override
     protected void initialize() {
         super.initialize();
+        // TODO: Do we really want to use the default *out* speed here?
         fuelIntakeSubsystem.setMotorSpeed(
                 fuelIntakeSubsystem.getMainMotorDefaultOutSpeed());
     }
@@ -41,4 +47,5 @@ public class FuelIntakeForSecondsCommand extends BaseCommand {
     protected void interrupted() {
         end();
     }
+
 }

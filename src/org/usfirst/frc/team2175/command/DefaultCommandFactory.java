@@ -13,6 +13,9 @@ import org.usfirst.frc.team2175.subsystem.ShooterSubsystem;
 public class DefaultCommandFactory {
 
     public static void makeAll() {
+        // TODO: Combine these variable declarations with their assignments
+        // below. There is really no need to define them on one line, and
+        // assign them on another.
         DrivetrainSubsystem drivetrainSubsystem;
         ClimberSubsystem climberSubsystem;
         ShooterSubsystem shooterSubsystem;

@@ -5,10 +5,13 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
 
 public class RunFuelIntakeOutCommand extends BaseCommand {
+
     private final FuelIntakeSubsystem fuelIntakeSubsystem;
 
     public RunFuelIntakeOutCommand() {
         fuelIntakeSubsystem = ServiceLocator.get(FuelIntakeSubsystem.class);
+
+        // TODO: Make this command require the fuel intake subsystem.
     }
 
     @Override
@@ -32,4 +35,5 @@ public class RunFuelIntakeOutCommand extends BaseCommand {
         super.end();
         fuelIntakeSubsystem.setMotorSpeed(0);
     }
+
 }

@@ -38,6 +38,7 @@ public class ArcadeDriveWithJoysticksCommand extends BaseCommand {
     @Override
     protected void end() {
         super.end();
+        // TODO: Use the stopAllMotors method of DrivetrainSubsystem instead.
         drivetrainSubsystem.arcadeDrive(0, 0);
     }
 

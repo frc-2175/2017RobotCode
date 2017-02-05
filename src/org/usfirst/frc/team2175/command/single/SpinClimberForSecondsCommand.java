@@ -5,6 +5,9 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.ClimberSubsystem;
 
 public class SpinClimberForSecondsCommand extends BaseCommand {
+
+    // TODO: Is this command even necessary?
+
     private final ClimberSubsystem climberSubsystem;
     private final double timeToSpin;
 
@@ -34,4 +37,5 @@ public class SpinClimberForSecondsCommand extends BaseCommand {
         super.end();
         climberSubsystem.setClimberSpeed(0);
     }
+
 }

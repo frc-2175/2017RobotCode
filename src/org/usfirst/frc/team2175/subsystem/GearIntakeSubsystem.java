@@ -8,9 +8,6 @@ import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.Solenoid;
 
-/**
- *
- */
 public class GearIntakeSubsystem extends BaseSubsystem {
 
     private CANTalon leftIntakeMotor;
@@ -21,9 +18,9 @@ public class GearIntakeSubsystem extends BaseSubsystem {
     private double gearIntakeOutSpeed;
 
     public GearIntakeSubsystem() {
-        WiringProperties wiringProperties =
+        final WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
-        BehaviorProperties behaviorProperties =
+        final BehaviorProperties behaviorProperties =
                 ServiceLocator.get(BehaviorProperties.class);
         leftIntakeMotor =
                 new CANTalon(wiringProperties.getLeftGearIntakeDeviceNumber());
@@ -58,4 +55,5 @@ public class GearIntakeSubsystem extends BaseSubsystem {
         leftIntakeMotor.set(0);
         rightIntakeMotor.set(0);
     }
+
 }

@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PropertiesLoader {
+
     private final Logger log = Logger.getLogger(getClass().getName());
 
     private static final String CAN_T_CONTINUE_MSG = "; can't continue";
@@ -70,4 +71,5 @@ public class PropertiesLoader {
             throw new IllegalStateException(msg);
         }
     }
+
 }

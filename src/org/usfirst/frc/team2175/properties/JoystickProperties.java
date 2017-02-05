@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2175.properties;
 
 public class JoystickProperties extends BaseProperties {
+
     private int joystickLeftPort;
     private int joystickRightPort;
     private int gamepadPort;
@@ -156,4 +157,5 @@ public class JoystickProperties extends BaseProperties {
     public ButtonInfo getCameraSwitchInfo() {
         return cameraSwitchInfo;
     }
+
 }

@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * directory.
  */
 public class Robot extends IterativeRobot {
+
     private final static Logger log = Logger.getLogger(Robot.class.getName());
 
     static {
@@ -35,7 +36,17 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
+        // TODO 4thwind: Clean up this commented-out camera switching stuff.
+        // Maybe make another branch, or make a stash on your computer, or
+        // something. Let's keep the main file clean.
+
         // final CameraHandler cameraHandler = new CameraHandler();
+
+        // TODO: Something to test - do we need this try/catch here any more? As
+        // I recall, we put it in because errors in a static initializer weren't
+        // showing up nicely in the console. But now that we do this in
+        // robotInit, we might not need to catch, log, and re-throw the errors
+        // ourselves.
         try {
             PropertiesFactory.makeAll();
             SubsystemsFactory.makeAll();
@@ -52,20 +63,8 @@ public class Robot extends IterativeRobot {
         // new Thread(() -> {
         // cameraHandler.run();
         // }).start();
-
     }
 
-    /**
-     * This autonomous (along with the chooser code above) shows how to select
-     * between different autonomous modes using the dashboard. The sendable
-     * chooser code works with the Java SmartDashboard. If you prefer the
-     * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-     * getString line to get the auto name from the text box below the Gyro
-     *
-     * You can add additional auto modes by adding additional comparisons to the
-     * switch structure below with additional strings. If using the
-     * SendableChooser make sure to add them to the chooser code above as well.
-     */
     @Override
     public void autonomousInit() {
     }
@@ -90,4 +89,5 @@ public class Robot extends IterativeRobot {
     @Override
     public void testPeriodic() {
     }
+
 }

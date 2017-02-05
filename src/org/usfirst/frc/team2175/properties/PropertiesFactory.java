@@ -6,7 +6,7 @@ public class PropertiesFactory {
         new JoystickProperties();
         new BehaviorProperties();
         new WiringProperties();
-        // etc.
+        // Add any new properties classes here.
     }
 
 }

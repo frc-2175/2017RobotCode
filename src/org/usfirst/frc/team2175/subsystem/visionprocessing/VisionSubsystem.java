@@ -3,6 +3,7 @@ package org.usfirst.frc.team2175.subsystem.visionprocessing;
 import org.usfirst.frc.team2175.subsystem.BaseSubsystem;
 
 public class VisionSubsystem extends BaseSubsystem {
+
     // private final NetworkTable table;
     private double[] contourArea;
     private double[] contourCenterX;
@@ -11,6 +12,9 @@ public class VisionSubsystem extends BaseSubsystem {
     private double[] contourWidth;
     private double[] contourSolidity;
     private double[] defaultValue;
+
+    // TODO noahconnors: Why is this stuff commented out? This class isn't even
+    // in the SubsystemsFactory, so it shouldn't be doing any harm.
 
     // public VisionSubsystem() {
     // table = NetworkTable.getTable("Grip/myCountoursReport");
