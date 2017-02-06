@@ -144,7 +144,7 @@ node {
           }
         }
 
-        def buildUrl = urlSanitize("http://fightingcalculators.org/ci/${getProjectName()}/${env.BRANCH_NAME}/${env.BUILD_NUMBER}/log")
+        def buildUrl = urlSanitize("http://fightingcalculators.org/ci/${getProjectName()}/${env.BRANCH_NAME}/${env.BUILD_NUMBER}")
         slackMessage += "\n\nLink: ${buildUrl}"
         
         slackSend channel: slackChannel, color: (overallSuccess ? 'good' : 'danger'), message: slackMessage
