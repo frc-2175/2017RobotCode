@@ -2,7 +2,6 @@ package org.usfirst.frc.team2175.commandmapper;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.single.ActuateGearIntakeOutCommand;
-import org.usfirst.frc.team2175.command.single.CameraSwitchCommand;
 import org.usfirst.frc.team2175.command.single.LowerHopperCommand;
 import org.usfirst.frc.team2175.command.single.RunFeederAgitatorCommand;
 import org.usfirst.frc.team2175.command.single.RunFeederAgitatorReverseCommand;
@@ -46,8 +45,8 @@ public class JoystickEventMapper {
 
         // TODO 4thwind: With the current state of camera switching, do we want
         // this button mapping active in our main code?
-        driverStation.getCameraSwitchButton()
-                .toggleWhenPressed(new CameraSwitchCommand());
+        // driverStation.getCameraSwitchButton()
+        // .toggleWhenPressed(new CameraSwitchCommand());
     }
 
 }

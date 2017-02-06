@@ -5,7 +5,6 @@ import org.usfirst.frc.team2175.properties.BehaviorProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties;
 
 import com.ctre.CANTalon;
-import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.Solenoid;
@@ -37,15 +36,15 @@ public class ShooterSubsystem extends BaseSubsystem {
 
         shooterMotor = new CANTalon(
                 wiringProperties.getShooterShooterMotorDeviceNumber());
-        shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        shooterMotor.reverseSensor(true);
-        shooterMotor.changeControlMode(TalonControlMode.Speed);
-        shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        shooterMotor.setProfile(0);
+        // shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        // shooterMotor.reverseSensor(true);
+        // shooterMotor.changeControlMode(TalonControlMode.Speed);
+        // shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        // shooterMotor.setProfile(0);
         shooterMotorTwo = new CANTalon(
                 wiringProperties.getShooterShooterMotorTwoDeviceNumber());
-        shooterMotorTwo.changeControlMode(TalonControlMode.Follower);
-        shooterMotorTwo.set(shooterMotor.getDeviceID());
+        // shooterMotorTwo.changeControlMode(TalonControlMode.Follower);
+        // shooterMotorTwo.set(shooterMotor.getDeviceID());
         agitatorMotor = new CANTalon(
                 wiringProperties.getShooterAgitatorMotorDeviceNumber());
 

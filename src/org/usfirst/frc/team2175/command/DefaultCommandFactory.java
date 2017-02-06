@@ -2,8 +2,6 @@ package org.usfirst.frc.team2175.command;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.single.ArcadeDriveWithJoysticksCommand;
-import org.usfirst.frc.team2175.command.single.FuelIntakeFailsafeCommand;
-import org.usfirst.frc.team2175.command.single.ShooterFailsafeCommand;
 import org.usfirst.frc.team2175.command.single.RunClimberCommand;
 import org.usfirst.frc.team2175.subsystem.ClimberSubsystem;
 import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
@@ -28,8 +26,9 @@ public class DefaultCommandFactory {
         drivetrainSubsystem
                 .setDefaultCommand(new ArcadeDriveWithJoysticksCommand());
         climberSubsystem.setDefaultCommand(new RunClimberCommand());
-        shooterSubsystem.setDefaultCommand(new ShooterFailsafeCommand());
-        fuelIntakeSubsystem.setDefaultCommand(new FuelIntakeFailsafeCommand());
+        // shooterSubsystem.setDefaultCommand(new ShooterFailsafeCommand());
+        // fuelIntakeSubsystem.setDefaultCommand(new
+        // FuelIntakeFailsafeCommand());
     }
 
 }

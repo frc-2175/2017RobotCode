@@ -10,7 +10,6 @@ import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
-import org.usfirst.frc.team2175.subsystem.visionprocessing.CameraHandler;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -27,6 +26,17 @@ public class Robot extends IterativeRobot {
 
     static {
         new LoggingConfig();
+        try {
+            PropertiesFactory.makeAll();
+            SubsystemsFactory.makeAll();
+            new DriverStation();
+            DefaultCommandFactory.makeAll();
+        } catch (final Throwable e) {
+            final String msg =
+                    "ERROR in Robot class making all in static initializer";
+            log.log(Level.SEVERE, msg, e);
+            throw e;
+        }
     }
 
     SchedulerLoop schedulerLoop = new SchedulerLoop();
@@ -41,24 +51,14 @@ public class Robot extends IterativeRobot {
         // Maybe make another branch, or make a stash on your computer, or
         // something. Let's keep the main file clean.
 
-        final CameraHandler cameraHandler = new CameraHandler();
+        // final CameraHandler cameraHandler = new CameraHandler();
 
         // TODO: Something to test - do we need this try/catch here any more? As
         // I recall, we put it in because errors in a static initializer weren't
         // showing up nicely in the console. But now that we do this in
         // robotInit, we might not need to catch, log, and re-throw the errors
         // ourselves.
-        try {
-            PropertiesFactory.makeAll();
-            SubsystemsFactory.makeAll();
-            new DriverStation();
-            DefaultCommandFactory.makeAll();
-        } catch (final Throwable e) {
-            final String msg =
-                    "ERROR in Robot class making all in static initializer";
-            log.log(Level.SEVERE, msg, e);
-            throw e;
-        }
+
         new JoystickEventMapper();
         schedulerLoop.start();
         // new Thread(() -> {
