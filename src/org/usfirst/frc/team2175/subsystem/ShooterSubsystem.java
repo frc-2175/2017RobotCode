@@ -70,6 +70,10 @@ public class ShooterSubsystem extends BaseSubsystem {
 
     }
 
+    public void setShooterTwoSpeed() {
+        shooterMotorTwo.set(shooterSpeed);
+    }
+
     public void setShooterDefaultSpeed() {
         shooterMotor.set(shooterSpeed);
     }

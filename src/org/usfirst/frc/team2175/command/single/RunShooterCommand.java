@@ -23,7 +23,7 @@ public class RunShooterCommand extends BaseCommand {
     @Override
     protected void execute() {
         shooterSubsystem.setShooterDefaultSpeed();
-
+        shooterSubsystem.setShooterTwoSpeed();
         SmartDashboard.putNumber("Shooter speed",
                 shooterSubsystem.getShooterSpeed());
     }
