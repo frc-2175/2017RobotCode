@@ -64,6 +64,8 @@ public class Robot extends IterativeRobot {
         // new Thread(() -> {
         // cameraHandler.run();
         // }).start();
+
+        log.info("Robot program successfully initialized!");
     }
 
     @Override

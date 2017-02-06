@@ -16,7 +16,7 @@ public class NetConsoleReceiver {
             socket = new DatagramSocket(null);
             socket.setReuseAddress(true);
             socket.bind(new InetSocketAddress(6666));
-        } catch (SocketException e) {
+        } catch (final SocketException e) {
             e.printStackTrace();
             if (socket != null) {
                 socket.close();
@@ -26,44 +26,44 @@ public class NetConsoleReceiver {
         return socket;
     }
 
-    public static byte[] getPacket(DatagramSocket socket, DatagramPacket buf) {
+    public static byte[] getPacket(final DatagramSocket socket,
+            final DatagramPacket buf) {
         try {
             socket.receive(buf);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             return null;
         }
-        byte[] ret = new byte[buf.getLength()];
+        final byte[] ret = new byte[buf.getLength()];
         System.arraycopy(buf.getData(), 0, ret, 0, ret.length);
         return ret;
     }
 
-    public static void main(String[] args) throws IOException,
-            InterruptedException {
-        listener = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                DatagramSocket socket = makeRecvSocket();
-                if (socket == null) {
-                    return;
-                }
-                byte[] buf = new byte[4096];
-                DatagramPacket datagram = new DatagramPacket(buf, buf.length);
-                while (!Thread.interrupted()) {
-                    byte[] s = getPacket(socket, datagram);
-                    if (s != null) {
-                        String msg = new String(s);
-                        System.out.print(msg);
+    public static void main(final String[] args)
+            throws IOException, InterruptedException {
+        listener = new Thread((Runnable) () -> {
+            final DatagramSocket socket = makeRecvSocket();
+            if (socket == null) {
+                return;
+            }
+            final byte[] buf = new byte[4096];
+            final DatagramPacket datagram = new DatagramPacket(buf, buf.length);
+            while (!Thread.interrupted()) {
+                final byte[] s = getPacket(socket, datagram);
+                if (s != null) {
+                    final String msg = new String(s);
+                    System.out.print(msg);
 
-                        if (msg.indexOf("********** Robot program starting **********") > -1) {
-                            exit(0, "Robot program started successfully!");
-                        }
-                        if (msg.indexOf("ERROR: Could not instantiate robot org.usfirst.frc.team2175.robot.Robot!") > -1) {
-                            exit(1, "Robot program failed to start!");
-                        }
+                    if (msg.indexOf(
+                            "Robot program successfully initialized!") > -1) {
+                        exit(0, "Robot program started successfully!");
+                    }
+                    if (msg.indexOf(
+                            "ERROR: Could not instantiate robot org.usfirst.frc.team2175.robot.Robot!") > -1) {
+                        exit(1, "Robot program failed to start!");
                     }
                 }
-                socket.close();
             }
+            socket.close();
         }, "Netconsole-Listener");
         listener.start();
 
@@ -71,7 +71,7 @@ public class NetConsoleReceiver {
         listener.join();
     }
 
-    public static void exit(int code, String message) {
+    public static void exit(final int code, final String message) {
         listener.interrupt();
         System.out.println();
         System.out.println(message);
