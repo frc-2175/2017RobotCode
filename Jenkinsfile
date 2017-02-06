@@ -11,7 +11,7 @@ void setBuildStatus(String message, String state) {
       reposSource: [$class: 'ManuallyEnteredRepositorySource', url: repoURL],
       errorHandlers: [[$class: 'ChangingBuildStatusErrorHandler', result: 'UNSTABLE']],
       statusResultSource: [ $class: 'ConditionalStatusResultSource', results: [[$class: 'AnyBuildResult', message: message, state: state]] ]
-  ]);
+  ])
 }
 
 int matchInt(String contents, String attributeName) {
@@ -22,6 +22,18 @@ int matchInt(String contents, String attributeName) {
   } else {
     return 0
   }
+}
+
+String getProjectName() {
+  return env.JOB_NAME.tokenize('/')[0]
+}
+
+String urlSanitize(String str) {
+  str = str.replaceAll("\\s", "_")
+  str = str.replaceAll("\\(", "")
+  str = str.replaceAll("\\)", "")
+
+  return str
 }
 
 node {
@@ -131,6 +143,9 @@ node {
             }
           }
         }
+
+        def buildUrl = urlSanitize("http://fightingcalculators.org/ci/${getProjectName()}/${env.BRANCH_NAME}/${env.BUILD_NUMBER}/log")
+        slackMessage += "\n\nLink: ${buildUrl}"
         
         slackSend channel: slackChannel, color: (overallSuccess ? 'good' : 'danger'), message: slackMessage
       }
@@ -141,13 +156,9 @@ node {
         string(credentialsId: archivePathId, variable: 'ARCHIVEPATH'),
         usernamePassword(credentialsId: archiveCredentialsId, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')
       ]) {
-        def projectName = env.JOB_NAME.tokenize('/')[0]
+        def projectName = getProjectName()
         def buildDirectory = env.JENKINS_HOME + "\\jobs\\${projectName}\\branches\\${env.BRANCH_NAME}\\builds\\${env.BUILD_NUMBER}"
-        def archiveDirectory = "$ARCHIVEPATH/jobs/${projectName}/${env.BRANCH_NAME}/${env.BUILD_NUMBER}"
-
-        archiveDirectory = archiveDirectory.replaceAll("\\s", "_")
-        archiveDirectory = archiveDirectory.replaceAll("\\(", "")
-        archiveDirectory = archiveDirectory.replaceAll("\\)", "")
+        def archiveDirectory = urlSanitize("$ARCHIVEPATH/jobs/${projectName}/${env.BRANCH_NAME}/${env.BUILD_NUMBER}")
 
         echo "Switching to directory: ${buildDirectory}"
         dir (buildDirectory) {
