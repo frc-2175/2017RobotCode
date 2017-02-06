@@ -58,7 +58,7 @@ public class NetConsoleReceiver {
                         exit(0, "Robot program started successfully!");
                     }
                     if (msg.indexOf(
-                            "ERROR: Could not instantiate robot org.usfirst.frc.team2175.robot.Robot!") > -1) {
+                            "---> The startCompetition() method (or methods called by it) should have handled the exception above.") > -1) {
                         exit(1, "Robot program failed to start!");
                     }
                 }
