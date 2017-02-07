@@ -43,8 +43,8 @@ public class ShooterSubsystem extends BaseSubsystem {
         // shooterMotor.setProfile(0);
         shooterMotorTwo = new CANTalon(
                 wiringProperties.getShooterShooterMotorTwoDeviceNumber());
-        // shooterMotorTwo.changeControlMode(TalonControlMode.Follower);
-        // shooterMotorTwo.set(shooterMotor.getDeviceID());
+        shooterMotorTwo.changeControlMode(TalonControlMode.Follower);
+        shooterMotorTwo.set(-shooterMotor.getDeviceID());
         agitatorMotor = new CANTalon(
                 wiringProperties.getShooterAgitatorMotorDeviceNumber());
 
@@ -67,10 +67,6 @@ public class ShooterSubsystem extends BaseSubsystem {
         rightShooterSolenoid = new Solenoid(
                 wiringProperties.getShooterActuatorRightDeviceNumber());
 
-    }
-
-    public void setShooterTwoSpeed() {
-        shooterMotorTwo.set(shooterSpeed);
     }
 
     public void setShooterDefaultSpeed() {
