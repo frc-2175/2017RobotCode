@@ -114,7 +114,7 @@ public class DriverStation {
     }
 
     public double getClimberSpinSpeed() {
-        return gamepad.getRawAxis(1);
+        return gamepad.getRawAxis(1) / 2;
     }
 
     public JoystickButton getFeederInButton() {
