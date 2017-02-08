@@ -10,7 +10,6 @@ import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
-import org.usfirst.frc.team2175.subsystem.visionprocessing.CameraHandler;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -37,17 +36,6 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-        // TODO 4thwind: Clean up this commented-out camera switching stuff.
-        // Maybe make another branch, or make a stash on your computer, or
-        // something. Let's keep the main file clean.
-
-        final CameraHandler cameraHandler = new CameraHandler();
-
-        // TODO: Something to test - do we need this try/catch here any more? As
-        // I recall, we put it in because errors in a static initializer weren't
-        // showing up nicely in the console. But now that we do this in
-        // robotInit, we might not need to catch, log, and re-throw the errors
-        // ourselves.
         try {
             PropertiesFactory.makeAll();
             SubsystemsFactory.makeAll();
@@ -59,6 +47,18 @@ public class Robot extends IterativeRobot {
             log.log(Level.SEVERE, msg, e);
             throw e;
         }
+        // TODO 4thwind: Clean up this commented-out camera switching stuff.
+        // Maybe make another branch, or make a stash on your computer, or
+        // something. Let's keep the main file clean.
+
+        // final CameraHandler cameraHandler = new CameraHandler();
+
+        // TODO: Something to test - do we need this try/catch here any more? As
+        // I recall, we put it in because errors in a static initializer weren't
+        // showing up nicely in the console. But now that we do this in
+        // robotInit, we might not need to catch, log, and re-throw the errors
+        // ourselves.
+
         new JoystickEventMapper();
         schedulerLoop.start();
         // new Thread(() -> {

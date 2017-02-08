@@ -21,11 +21,11 @@ public class WiringProperties extends BaseProperties {
     private int hopperForwardNumber;
     private int hopperReverseNumber;
 
-    private int shooterShooterMotorDeviceNumber;
-    private int shooterFeederMotorDeviceNumber;
+    private int leftShooterMotorDeviceNumber;
+    private int leftFeederMotorDeviceNumber;
     private int shooterAgitatorMotorDeviceNumber;
-    private int shooterShooterMotorTwoDeviceNumber;
-    private int shooterFeederMotorTwoDeviceNumber;
+    private int rightShooterMotorDeviceNumber;
+    private int rightFeederMotorDeviceNumber;
     private int shooterActuatorLeftDeviceNumber;
     private int shooterActuatorRightDeviceNumber;
 
@@ -71,9 +71,9 @@ public class WiringProperties extends BaseProperties {
         hopperForwardNumber = getIntPropertyValue("hopper.solenoid.forward");
         hopperReverseNumber = getIntPropertyValue("hopper.solenoid.reverse");
 
-        shooterShooterMotorDeviceNumber =
+        leftShooterMotorDeviceNumber =
                 getIntPropertyValue("shooter.motor.shooter");
-        shooterFeederMotorDeviceNumber =
+        leftFeederMotorDeviceNumber =
                 getIntPropertyValue("shooter.motor.feeder");
         shooterAgitatorMotorDeviceNumber =
                 getIntPropertyValue("shooter.motor.agitator");
@@ -84,9 +84,9 @@ public class WiringProperties extends BaseProperties {
         climberMotorOneNumber = getIntPropertyValue("climber.motor.one");
         climberMotorTwoNumber = getIntPropertyValue("climber.motor.two");
 
-        shooterShooterMotorTwoDeviceNumber =
+        rightShooterMotorDeviceNumber =
                 getIntPropertyValue("shooter.motor.shootertwo");
-        shooterFeederMotorTwoDeviceNumber =
+        rightFeederMotorDeviceNumber =
                 getIntPropertyValue("shooter.motor.feedertwo");
         shooterActuatorLeftDeviceNumber =
                 getIntPropertyValue("shooter.solenoid.actuator.left");
@@ -102,12 +102,12 @@ public class WiringProperties extends BaseProperties {
         return climberMotorTwoNumber;
     }
 
-    public int getShooterShooterMotorDeviceNumber() {
-        return shooterShooterMotorDeviceNumber;
+    public int getLeftShooterMotorDeviceNumber() {
+        return leftShooterMotorDeviceNumber;
     }
 
-    public int getShooterFeederMotorDeviceNumber() {
-        return shooterFeederMotorDeviceNumber;
+    public int getLeftFeederMotorDeviceNumber() {
+        return leftFeederMotorDeviceNumber;
     }
 
     public int getShooterAgitatorMotorDeviceNumber() {
@@ -174,12 +174,12 @@ public class WiringProperties extends BaseProperties {
         return gearIntakeSolenoidNumber;
     }
 
-    public int getShooterShooterMotorTwoDeviceNumber() {
-        return shooterShooterMotorTwoDeviceNumber;
+    public int getRightShooterMotorDeviceNumber() {
+        return rightShooterMotorDeviceNumber;
     }
 
-    public int getShooterFeederMotorTwoDeviceNumber() {
-        return shooterFeederMotorTwoDeviceNumber;
+    public int getRightFeederMotorDeviceNumber() {
+        return rightFeederMotorDeviceNumber;
     }
 
     public int getShooterActuatorLeftDeviceNumber() {

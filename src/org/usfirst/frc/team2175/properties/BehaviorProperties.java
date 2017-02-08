@@ -54,7 +54,11 @@ public class BehaviorProperties extends BaseProperties {
         return gearIntakeOutSpeed;
     }
 
-    public double getShooterOutSpeed() {
+    public double getLeftShooterOutSpeed() {
+        return -shooterOutSpeed;
+    }
+
+    public double getRightShooterOutSpeed() {
         return shooterOutSpeed;
     }
 
@@ -62,8 +66,12 @@ public class BehaviorProperties extends BaseProperties {
         return shooterInSpeed;
     }
 
-    public double getFeederOutSpeed() {
+    public double getLeftFeederOutSpeed() {
         return feederOutSpeed;
+    }
+
+    public double getRightFeederOutSpeed() {
+        return -feederOutSpeed;
     }
 
     public double getFeederInSpeed() {

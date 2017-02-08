@@ -114,7 +114,9 @@ public class DriverStation {
     }
 
     public double getClimberSpinSpeed() {
-        return gamepad.getRawAxis(1);
+        // TODO: Get this scaling value from a properties file. Something like
+        // "climber max speed", maybe?
+        return gamepad.getRawAxis(1) / 2;
     }
 
     public JoystickButton getFeederInButton() {
