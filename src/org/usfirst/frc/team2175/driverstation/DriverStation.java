@@ -180,10 +180,10 @@ public class DriverStation {
     }
 
     public boolean getShouldExecuteFuelIntakeFailsafe() {
-        return gamepad.getPOV(90) > 0;
+        return gamepad.getPOV() == 90;
     }
 
     public boolean getShouldExecuteShooterFailsafe() {
-        return gamepad.getPOV(180) > 0;
+        return gamepad.getPOV() == 270;
     }
 }
