@@ -35,6 +35,9 @@ public class ShooterSubsystem extends BaseSubsystem {
         final WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
 
+        // TODO: Provide a way of turning PID control on and off at runtime.
+        // TODO: Provide a way of configuring both our shooter motor controllers
+        // the same way without duplicate code.
         leftShooterMotor = new CANTalon(
                 wiringProperties.getLeftShooterMotorDeviceNumber());
         // shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
@@ -44,6 +47,7 @@ public class ShooterSubsystem extends BaseSubsystem {
         // shooterMotor.setProfile(0);
         rightShooterMotor = new CANTalon(
                 wiringProperties.getRightShooterMotorDeviceNumber());
+
         agitatorMotor = new CANTalon(
                 wiringProperties.getShooterAgitatorMotorDeviceNumber());
 
