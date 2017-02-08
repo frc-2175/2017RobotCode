@@ -13,18 +13,15 @@ import org.usfirst.frc.team2175.subsystem.ShooterSubsystem;
 public class DefaultCommandFactory {
 
     public static void makeAll() {
-        // TODO: Combine these variable declarations with their assignments
-        // below. There is really no need to define them on one line, and
-        // assign them on another.
-        DrivetrainSubsystem drivetrainSubsystem;
-        ClimberSubsystem climberSubsystem;
-        ShooterSubsystem shooterSubsystem;
-        FuelIntakeSubsystem fuelIntakeSubsystem;
+        final DrivetrainSubsystem drivetrainSubsystem =
+                ServiceLocator.get(DrivetrainSubsystem.class);
+        final ClimberSubsystem climberSubsystem =
+                ServiceLocator.get(ClimberSubsystem.class);
+        final ShooterSubsystem shooterSubsystem =
+                ServiceLocator.get(ShooterSubsystem.class);
+        final FuelIntakeSubsystem fuelIntakeSubsystem =
+                ServiceLocator.get(FuelIntakeSubsystem.class);
 
-        drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
-        climberSubsystem = ServiceLocator.get(ClimberSubsystem.class);
-        shooterSubsystem = ServiceLocator.get(ShooterSubsystem.class);
-        fuelIntakeSubsystem = ServiceLocator.get(FuelIntakeSubsystem.class);
         drivetrainSubsystem
                 .setDefaultCommand(new ArcadeDriveWithJoysticksCommand());
         climberSubsystem.setDefaultCommand(new RunClimberCommand());
