@@ -22,7 +22,7 @@ public class BaseSubsystem extends Subsystem {
     }
 
     @Override
-    public void setDefaultCommand(Command command) {
+    public void setDefaultCommand(final Command command) {
         super.setDefaultCommand(command);
     }
 

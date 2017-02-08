@@ -33,7 +33,7 @@ public class JoystickProperties extends BaseProperties {
         public final String joystickName;
         public final int buttonNumber;
 
-        private ButtonInfo(String joystickName, int buttonNumber) {
+        private ButtonInfo(final String joystickName, final int buttonNumber) {
             this.joystickName = joystickName;
             this.buttonNumber = buttonNumber;
         }
@@ -69,16 +69,17 @@ public class JoystickProperties extends BaseProperties {
         cameraSwitchInfo = buttonInfoFromPropertyValue("button.camera.switch");
     }
 
-    protected ButtonInfo buttonInfoFromPropertyValue(String propertyValue) {
+    protected ButtonInfo buttonInfoFromPropertyValue(
+            final String propertyValue) {
         return new ButtonInfo(getJoystickName(propertyValue),
                 getButtonNumber(propertyValue));
     }
 
-    public String getJoystickName(String propertyName) {
+    public String getJoystickName(final String propertyName) {
         return getStringArrayPropertyValue(propertyName)[0];
     }
 
-    public int getButtonNumber(String propertyName) {
+    public int getButtonNumber(final String propertyName) {
         return Integer.parseInt(getStringArrayPropertyValue(propertyName)[1]);
     }
 

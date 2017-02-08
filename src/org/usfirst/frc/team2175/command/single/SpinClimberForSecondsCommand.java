@@ -11,7 +11,7 @@ public class SpinClimberForSecondsCommand extends BaseCommand {
     private final ClimberSubsystem climberSubsystem;
     private final double timeToSpin;
 
-    public SpinClimberForSecondsCommand(double timeToSpin) {
+    public SpinClimberForSecondsCommand(final double timeToSpin) {
         climberSubsystem = ServiceLocator.get(ClimberSubsystem.class);
         this.timeToSpin = timeToSpin;
     }

@@ -13,7 +13,7 @@ public class TurnDegreesCommand extends BaseCommand {
     // 0 for clockwise, 1 for counter clockwise, 2 for none
     private int turnDirection;
 
-    public TurnDegreesCommand(double degreesToTurn) {
+    public TurnDegreesCommand(final double degreesToTurn) {
         super();
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
         this.degreesToTurn = degreesToTurn;

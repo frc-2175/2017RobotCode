@@ -18,7 +18,8 @@ public class DriveInchesCommand extends BaseCommand {
     private final PIDController pidController;
     private final double distance;
 
-    public DriveInchesCommand(double distance, PIDController pidController) {
+    public DriveInchesCommand(final double distance,
+            final PIDController pidController) {
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
         requires(drivetrainSubsystem);
 
