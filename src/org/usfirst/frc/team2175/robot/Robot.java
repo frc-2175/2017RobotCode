@@ -26,6 +26,16 @@ public class Robot extends IterativeRobot {
 
     static {
         new LoggingConfig();
+    }
+
+    SchedulerLoop schedulerLoop = new SchedulerLoop();
+
+    /**
+     * This function is run when the robot is first started up and should be
+     * used for any initialization code.
+     */
+    @Override
+    public void robotInit() {
         try {
             PropertiesFactory.makeAll();
             SubsystemsFactory.makeAll();
@@ -37,16 +47,6 @@ public class Robot extends IterativeRobot {
             log.log(Level.SEVERE, msg, e);
             throw e;
         }
-    }
-
-    SchedulerLoop schedulerLoop = new SchedulerLoop();
-
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
-    @Override
-    public void robotInit() {
         // TODO 4thwind: Clean up this commented-out camera switching stuff.
         // Maybe make another branch, or make a stash on your computer, or
         // something. Let's keep the main file clean.
