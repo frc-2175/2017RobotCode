@@ -42,11 +42,6 @@ public class JoystickEventMapper {
                 .whileHeld(new RunFuelIntakeOutCommand());
         driverStation.getGearIntakeActuateOutButton()
                 .toggleWhenPressed(new ActuateGearIntakeOutCommand());
-
-        // TODO 4thwind: With the current state of camera switching, do we want
-        // this button mapping active in our main code?
-        // driverStation.getCameraSwitchButton()
-        // .toggleWhenPressed(new CameraSwitchCommand());
     }
 
 }
