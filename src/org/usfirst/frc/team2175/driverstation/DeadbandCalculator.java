@@ -87,8 +87,12 @@ public class DeadbandCalculator {
             pointX = 1;
             pointY = 1;
         }
-
-        return pointY + slope * (input - pointX);
+        final double resultingOutput = pointY + slope * (input - pointX);
+        if (Double.isNaN(resultingOutput)) {
+            return 0;
+        } else {
+            return resultingOutput;
+        }
     }
 
 }
