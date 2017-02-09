@@ -66,21 +66,13 @@ public abstract class BaseProperties {
         return value;
     }
 
-    // TODO 4thwind (later): This method duplicates a lot of what
-    // getStringArrayPropertyValue is doing. How about we simplify this one by
-    // calling getStringArrayPropertyValue, then looping through the resulting
-    // string array converting the strings to ints?
     protected int[] getIntArrayPropertyValue(final String propertyName) {
-        final String propertyValue = getStringPropertyValue(propertyName);
-        String rawValues = propertyValue;
-        rawValues = rawValues.replace("[", "");
-        rawValues = rawValues.replace("]", "");
-        final String[] splitValues = rawValues.split(",");
-        final int[] returnValues = new int[splitValues.length];
-        for (int i = 0; i < splitValues.length; i++) {
-            returnValues[i] = Integer.parseInt(splitValues[i].trim());
+        final String[] returnValues = getStringArrayPropertyValue(propertyName);
+        final int[] intValues = new int[returnValues.length];
+        for (int i = 0; i < returnValues.length; i++) {
+            intValues[i] = Integer.parseInt(returnValues[i]);
         }
-        return returnValues;
+        return intValues;
     }
 
     protected String[] getStringArrayPropertyValue(final String propertyName) {
