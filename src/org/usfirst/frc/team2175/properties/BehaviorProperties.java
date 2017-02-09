@@ -12,7 +12,7 @@ public class BehaviorProperties extends BaseProperties {
     private double feederInSpeed;
     private double agitatorOutSpeed;
     private double agitatorInSpeed;
-    private double climberMasterSpeed;
+    private double maxClimberSpeed;
 
     @Override
     protected String getPropertyFileName() {
@@ -31,7 +31,7 @@ public class BehaviorProperties extends BaseProperties {
         agitatorInSpeed = getDoublePropertyValue("agitator.speed.in");
         fuelIntakeOutSpeed = getDoublePropertyValue("fuelintake.speed.out");
         fuelIntakeInSpeed = getDoublePropertyValue("fuelintake.speed.in");
-        climberMasterSpeed = getDoublePropertyValue("climber.speed.master");
+        maxClimberSpeed = getDoublePropertyValue("climber.speed.max");
     }
 
     public double getFuelIntakeOutSpeed() {
@@ -40,10 +40,6 @@ public class BehaviorProperties extends BaseProperties {
 
     public double getFuelIntakeInSpeed() {
         return fuelIntakeInSpeed;
-    }
-
-    public double getClimberMasterSpeed() {
-        return climberMasterSpeed;
     }
 
     public double getGearIntakeInSpeed() {
@@ -86,4 +82,7 @@ public class BehaviorProperties extends BaseProperties {
         return agitatorInSpeed;
     }
 
+    public double getMaxClimberSpeed() {
+        return maxClimberSpeed;
+    }
 }

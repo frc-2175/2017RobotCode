@@ -11,7 +11,7 @@ public class ClimberSubsystem extends BaseSubsystem {
 
     private final CANTalon motorOne;
     private final CANTalon motorTwo;
-    private final double mainMotorDefaultSpeed;
+    private final double maxClimberSpeed;
 
     public ClimberSubsystem() {
         final WiringProperties wiringProperties =
@@ -22,15 +22,14 @@ public class ClimberSubsystem extends BaseSubsystem {
         motorTwo = new CANTalon(wiringProperties.getClimberMotorTwoNumber());
         motorTwo.changeControlMode(TalonControlMode.Follower);
         motorTwo.set(motorOne.getDeviceID());
-        mainMotorDefaultSpeed = behaviorProperties.getClimberMasterSpeed();
+        maxClimberSpeed = behaviorProperties.getMaxClimberSpeed();
+    }
+
+    public double getMaxClimberSpeed() {
+        return maxClimberSpeed;
     }
 
     public void setClimberSpeed(final double speed) {
         motorOne.set(speed);
     }
-
-    public double getMainMotorDefaultSpeed() {
-        return mainMotorDefaultSpeed;
-    }
-
 }

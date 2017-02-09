@@ -2,6 +2,7 @@ package org.usfirst.frc.team2175.driverstation;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.properties.JoystickProperties;
+import org.usfirst.frc.team2175.subsystem.ClimberSubsystem;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -31,9 +32,14 @@ public class DriverStation {
     private JoystickButton shootOutButton;
     private JoystickButton cameraSwitchButton;
 
+    private double maxClimberSpeed;
+
     public DriverStation() {
         final JoystickProperties joystickProperties =
                 ServiceLocator.get(JoystickProperties.class);
+        final ClimberSubsystem climberSubsystem =
+                ServiceLocator.get(ClimberSubsystem.class);
+
         leftJoystick = new Joystick(joystickProperties.getJoystickLeftPort());
         rightJoystick = new Joystick(joystickProperties.getJoystickRightPort());
         gamepad = new Joystick(joystickProperties.getGamepadPort());
@@ -70,6 +76,8 @@ public class DriverStation {
         deadbandSize = joystickProperties.getDeadbandValue();
         deadbandCalculator = new DeadbandCalculator();
 
+        maxClimberSpeed = climberSubsystem.getMaxClimberSpeed();
+
         ServiceLocator.register(this);
     }
 
@@ -80,11 +88,7 @@ public class DriverStation {
     }
 
     private Joystick joystickForName(final String name) {
-        // TODO 4thwind: Using gamepad as a default seems like a bad idea. Why
-        // don't we make joystickOfChoice null by default, and throw an
-        // InvalidArgumentException if the name isn't "left", "right", or
-        // "gamepad"?
-        Joystick joystickOfChoice = gamepad;
+        Joystick joystickOfChoice = null;
         switch (name) {
         case "left":
             joystickOfChoice = leftJoystick;
@@ -114,9 +118,7 @@ public class DriverStation {
     }
 
     public double getClimberSpinSpeed() {
-        // TODO: Get this scaling value from a properties file. Something like
-        // "climber max speed", maybe?
-        return gamepad.getRawAxis(1) / 2;
+        return gamepad.getRawAxis(1) * maxClimberSpeed;
     }
 
     public JoystickButton getFeederInButton() {
