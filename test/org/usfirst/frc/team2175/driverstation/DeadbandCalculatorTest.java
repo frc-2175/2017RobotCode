@@ -19,7 +19,13 @@ public class DeadbandCalculatorTest extends TestBase {
 
     @Test
     public void testCalcLinearOutput() {
-        /* Write this */
+        final DeadbandCalculator sut = new DeadbandCalculator();
+        final double EXPECTED_OUTPUT_VALUE = 0;
+        final double INPUT_VALUE = 1;
+        final double INPUT_DEADBAND_SIZE = 1;
+        final double realValue =
+                sut.calcDeadbandedOutput(INPUT_VALUE, INPUT_DEADBAND_SIZE);
+        assertEquals(EXPECTED_OUTPUT_VALUE, realValue, 0.0001);
     }
 
     @Test
