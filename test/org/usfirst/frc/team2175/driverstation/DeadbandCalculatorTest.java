@@ -22,14 +22,20 @@ public class DeadbandCalculatorTest extends TestBase {
         final DeadbandCalculator sut = new DeadbandCalculator();
         final double EXPECTED_OUTPUT_VALUE = 0;
         final double INPUT_VALUE = 1;
-        final double INPUT_DEADBAND_SIZE = 1;
+        final double INPUT_SLOPE = 1;
         final double realValue =
-                sut.calcDeadbandedOutput(INPUT_VALUE, INPUT_DEADBAND_SIZE);
+                sut.calcDeadbandedOutput(INPUT_VALUE, INPUT_SLOPE);
         assertEquals(EXPECTED_OUTPUT_VALUE, realValue, 0.0001);
     }
 
     @Test
     public void testCalcDeadbandedOutput() {
-        /* Write this */
+        final DeadbandCalculator sut = new DeadbandCalculator();
+        final double EXPECTED_OUTPUT_VALUE = 0;
+        final double INPUT_VALUE = 0.05;
+        final double INPUT_DEADBAND_SIZE = 0.1;
+        final double realValue =
+                sut.calcDeadbandedOutput(INPUT_VALUE, INPUT_DEADBAND_SIZE);
+        assertEquals(EXPECTED_OUTPUT_VALUE, realValue, 0.0001);
     }
 }
