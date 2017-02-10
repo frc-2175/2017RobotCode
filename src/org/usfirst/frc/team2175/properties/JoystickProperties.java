@@ -23,6 +23,7 @@ public class JoystickProperties extends BaseProperties {
     private ButtonInfo shooterInInfo;
     private ButtonInfo shooterOutInfo;
     private ButtonInfo cameraSwitchInfo;
+    private ButtonInfo gearIntakeOutAndSpinInfo;
 
     @Override
     protected String getPropertyFileName() {
@@ -67,6 +68,8 @@ public class JoystickProperties extends BaseProperties {
         shooterInInfo = buttonInfoFromPropertyValue("button.shooter.in");
         shooterOutInfo = buttonInfoFromPropertyValue("button.shooter.out");
         cameraSwitchInfo = buttonInfoFromPropertyValue("button.camera.switch");
+        gearIntakeOutAndSpinInfo =
+                buttonInfoFromPropertyValue("button.gearintake.outandspin");
     }
 
     protected ButtonInfo buttonInfoFromPropertyValue(
@@ -159,4 +162,7 @@ public class JoystickProperties extends BaseProperties {
         return cameraSwitchInfo;
     }
 
+    public ButtonInfo getGearIntakeOutAndSpinInfo() {
+        return gearIntakeOutAndSpinInfo;
+    }
 }
