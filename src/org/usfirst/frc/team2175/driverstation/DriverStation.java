@@ -1,13 +1,17 @@
 package org.usfirst.frc.team2175.driverstation;
 
+import java.util.logging.Logger;
+
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.properties.JoystickProperties;
+import org.usfirst.frc.team2175.robot.Robot;
 import org.usfirst.frc.team2175.subsystem.ClimberSubsystem;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class DriverStation {
+    private final static Logger log = Logger.getLogger(Robot.class.getName());
 
     private Joystick leftJoystick;
     private Joystick rightJoystick;
@@ -102,6 +106,12 @@ public class DriverStation {
         case "gamepad":
             joystickOfChoice = gamepad;
             break;
+        default:
+            final String msg =
+                    "Joystick name parameter is not valid. Joystick name is="
+                            + name;
+            log.severe(msg);
+            throw new IllegalArgumentException(msg);
         }
         return joystickOfChoice;
     }
