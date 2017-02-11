@@ -19,15 +19,11 @@ public class ShooterFailsafeCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
+        shooterSubsystem.setShooterReverseSpeed();
     }
 
     @Override
     protected void execute() {
-        if (driverStation.getShouldExecuteShooterFailsafe()) {
-            shooterSubsystem.setShooterReverseSpeed();
-        } else {
-            shooterSubsystem.setShooterSpeedZero();
-        }
     }
 
     @Override
@@ -39,9 +35,4 @@ public class ShooterFailsafeCommand extends BaseCommand {
     protected void end() {
         shooterSubsystem.setShooterSpeedZero();
     }
-
-    // TODO: This might be a command where we want to handle interrupts
-    // differently. If another command takes over the shooter, do we really want
-    // to call end() and stop the shooter wheels?
-
 }

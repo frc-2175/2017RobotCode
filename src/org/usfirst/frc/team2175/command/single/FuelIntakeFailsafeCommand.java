@@ -19,16 +19,12 @@ public class FuelIntakeFailsafeCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
+        fuelIntakeSubsystem.setMotorSpeed(
+                fuelIntakeSubsystem.getMainMotorDefaultInSpeed());
     }
 
     @Override
     protected void execute() {
-        if (driverStation.getShouldExecuteFuelIntakeFailsafe()) {
-            fuelIntakeSubsystem.setMotorSpeed(
-                    fuelIntakeSubsystem.getMainMotorDefaultOutSpeed());
-        } else {
-            fuelIntakeSubsystem.setMotorSpeed(0);
-        }
     }
 
     @Override

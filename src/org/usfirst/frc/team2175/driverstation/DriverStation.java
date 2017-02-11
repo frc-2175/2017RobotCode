@@ -37,6 +37,9 @@ public class DriverStation {
     private JoystickButton cameraSwitchButton;
     private JoystickButton gearIntakeOutAndSpinButton;
 
+    private POVTrigger shooterInPOV;
+    private POVTrigger fuelInPOV;
+
     private double maxClimberSpeed;
 
     public DriverStation() {
@@ -79,6 +82,9 @@ public class DriverStation {
                 buttonFromButtonInfo(joystickProperties.getCameraSwitchInfo());
         gearIntakeOutAndSpinButton = buttonFromButtonInfo(
                 joystickProperties.getGearIntakeOutAndSpinInfo());
+
+        shooterInPOV = new POVTrigger(gamepad, 270);
+        fuelInPOV = new POVTrigger(gamepad, 90);
 
         deadbandSize = joystickProperties.getDeadbandValue();
         deadbandCalculator = new DeadbandCalculator();
@@ -194,12 +200,12 @@ public class DriverStation {
         return climbButton;
     }
 
-    public boolean getShouldExecuteFuelIntakeFailsafe() {
-        return gamepad.getPOV() == 90;
+    public POVTrigger getFuelInPOV() {
+        return fuelInPOV;
     }
 
-    public boolean getShouldExecuteShooterFailsafe() {
-        return gamepad.getPOV() == 270;
+    public POVTrigger getShooterInPOV() {
+        return shooterInPOV;
     }
 
     public JoystickButton getGearIntakeOutAndSpinButton() {
