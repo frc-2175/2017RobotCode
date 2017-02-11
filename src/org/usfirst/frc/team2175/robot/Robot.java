@@ -3,6 +3,7 @@ package org.usfirst.frc.team2175.robot;
 import java.util.logging.Logger;
 
 import org.usfirst.frc.team2175.command.DefaultCommandFactory;
+import org.usfirst.frc.team2175.command.group.DriveForwardForSecondsCommandGroup;
 import org.usfirst.frc.team2175.commandmapper.JoystickEventMapper;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.loop.SchedulerLoop;
@@ -11,6 +12,7 @@ import org.usfirst.frc.team2175.properties.PropertiesFactory;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -48,6 +50,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        Scheduler.getInstance().add(new DriveForwardForSecondsCommandGroup(1));
     }
 
     /**

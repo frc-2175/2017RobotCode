@@ -138,7 +138,7 @@ public class ShooterSubsystem extends BaseSubsystem {
 
     public boolean isShooterRunning() {
         // If we need to run one shooter and not the other, we need to change
-        // this
+        // this to check the shooter being used
         return leftShooterMotor.get() != 0;
     }
 }
