@@ -6,11 +6,11 @@ import org.usfirst.frc.team2175.subsystem.ShooterSubsystem;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class RunShooterCommand extends BaseCommand {
+public class RunShooterPercentVbusCommand extends BaseCommand {
 
     private final ShooterSubsystem shooterSubsystem;
 
-    public RunShooterCommand() {
+    public RunShooterPercentVbusCommand() {
         shooterSubsystem = ServiceLocator.get(ShooterSubsystem.class);
 
         requires(shooterSubsystem);
@@ -18,6 +18,7 @@ public class RunShooterCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
+        shooterSubsystem.switchToPercentVbus();
     }
 
     @Override

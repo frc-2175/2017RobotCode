@@ -5,6 +5,8 @@ import org.usfirst.frc.team2175.properties.BehaviorProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
+import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -35,16 +37,10 @@ public class ShooterSubsystem extends BaseSubsystem {
         final WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
 
-        // TODO: Provide a way of turning PID control on and off at runtime.
         // TODO: Provide a way of configuring both our shooter motor controllers
         // the same way without duplicate code.
         leftShooterMotor = new CANTalon(
                 wiringProperties.getLeftShooterMotorDeviceNumber());
-        // shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        // shooterMotor.reverseSensor(true);
-        // shooterMotor.changeControlMode(TalonControlMode.Speed);
-        // shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        // shooterMotor.setProfile(0);
         rightShooterMotor = new CANTalon(
                 wiringProperties.getRightShooterMotorDeviceNumber());
 
@@ -55,10 +51,7 @@ public class ShooterSubsystem extends BaseSubsystem {
                 new CANTalon(wiringProperties.getLeftFeederMotorDeviceNumber());
         rightFeederMotor = new CANTalon(
                 wiringProperties.getRightFeederMotorDeviceNumber());
-
-        // rightFeederMotor.changeControlMode(TalonControlMode.Follower);
-        // rightFeederMotor.set(leftFeederMotor.getDeviceID());
-
+        switchToPercentVbus();
         leftShooterSpeed = behaviorProperties.getLeftShooterOutSpeed();
         rightShooterSpeed = behaviorProperties.getRightShooterOutSpeed();
         leftFeederSpeed = behaviorProperties.getLeftFeederOutSpeed();
@@ -71,7 +64,6 @@ public class ShooterSubsystem extends BaseSubsystem {
                 wiringProperties.getShooterActuatorLeftDeviceNumber());
         rightShooterSolenoid = new Solenoid(
                 wiringProperties.getShooterActuatorRightDeviceNumber());
-
     }
 
     public void setShooterDefaultSpeed() {
@@ -126,5 +118,21 @@ public class ShooterSubsystem extends BaseSubsystem {
     public void actuateBothShootersIn() {
         leftShooterSolenoid.set(false);
         rightShooterSolenoid.set(false);
+    }
+
+    public void switchToPIDMode() {
+        leftShooterMotor.changeControlMode(TalonControlMode.Speed);
+        leftShooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        leftShooterMotor.reverseSensor(true);
+        leftShooterMotor.setProfile(0);
+        rightShooterMotor.changeControlMode(TalonControlMode.Speed);
+        rightShooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        rightShooterMotor.reverseSensor(true);
+        rightShooterMotor.setProfile(0);
+    }
+
+    public void switchToPercentVbus() {
+        leftShooterMotor.changeControlMode(TalonControlMode.PercentVbus);
+        rightShooterMotor.changeControlMode(TalonControlMode.PercentVbus);
     }
 }
