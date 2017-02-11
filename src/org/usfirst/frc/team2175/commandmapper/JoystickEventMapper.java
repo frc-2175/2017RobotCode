@@ -10,7 +10,6 @@ import org.usfirst.frc.team2175.command.single.RunFuelIntakeInCommand;
 import org.usfirst.frc.team2175.command.single.RunGearIntakeInCommand;
 import org.usfirst.frc.team2175.command.single.RunGearIntakeOutCommand;
 import org.usfirst.frc.team2175.command.single.RunShooterCommand;
-import org.usfirst.frc.team2175.command.single.RunShooterReverseCommand;
 import org.usfirst.frc.team2175.command.single.ShiftToHighGearCommand;
 import org.usfirst.frc.team2175.command.single.ShooterFailsafeCommand;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
@@ -31,8 +30,6 @@ public class JoystickEventMapper {
                 .toggleWhenPressed(new RunShooterCommand());
         driverStation.getFeederOutButton()
                 .toggleWhenPressed(new RunFeederAgitatorCommand());
-        driverStation.getShooterInButton()
-                .whileHeld(new RunShooterReverseCommand());
         driverStation.getHopperButton()
                 .toggleWhenPressed(new LowerHopperCommand());
         driverStation.getFuelIntakeInButton()

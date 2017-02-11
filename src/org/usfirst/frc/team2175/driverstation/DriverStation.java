@@ -169,10 +169,6 @@ public class DriverStation {
         return shiftButton;
     }
 
-    public JoystickButton getShooterInButton() {
-        return shootInButton;
-    }
-
     public JoystickButton getShooterOutButton() {
         return shootOutButton;
     }
