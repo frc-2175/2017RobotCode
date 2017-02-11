@@ -33,8 +33,6 @@ public class JoystickEventMapper {
                 .toggleWhenPressed(new RunShooterCommand());
         driverStation.getFeederOutButton()
                 .toggleWhenPressed(new RunFeederAgitatorCommand());
-        driverStation.getFeederInButton()
-                .whileHeld(new RunFeederReverseCommand());
         driverStation.getShooterInButton()
                 .whileHeld(new RunShooterReverseCommand());
         driverStation.getHopperButton()

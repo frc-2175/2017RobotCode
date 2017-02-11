@@ -21,7 +21,6 @@ public class DriverStation {
     private DeadbandCalculator deadbandCalculator;
 
     private JoystickButton climbButton;
-    private JoystickButton feedInButton;
     private JoystickButton feedOutButton;
     private JoystickButton fuelIntakeActuateInButton;
     private JoystickButton fuelIntakeActuateOutButton;
@@ -38,7 +37,7 @@ public class DriverStation {
     private JoystickButton gearIntakeOutAndSpinButton;
 
     private POVTrigger shooterInPOV;
-    private POVTrigger fuelInPOV;
+    private POVTrigger fuelOutPOV;
 
     private double maxClimberSpeed;
 
@@ -53,8 +52,6 @@ public class DriverStation {
         gamepad = new Joystick(joystickProperties.getGamepadPort());
 
         climbButton = buttonFromButtonInfo(joystickProperties.getClimberInfo());
-        feedInButton =
-                buttonFromButtonInfo(joystickProperties.getFeederInInfo());
         feedOutButton =
                 buttonFromButtonInfo(joystickProperties.getFeederOutInfo());
         fuelIntakeActuateInButton = buttonFromButtonInfo(
@@ -83,8 +80,10 @@ public class DriverStation {
         gearIntakeOutAndSpinButton = buttonFromButtonInfo(
                 joystickProperties.getGearIntakeOutAndSpinInfo());
 
-        shooterInPOV = new POVTrigger(gamepad, 270);
-        fuelInPOV = new POVTrigger(gamepad, 90);
+        shooterInPOV =
+                new POVTrigger(gamepad, joystickProperties.getShooterInPOV());
+        fuelOutPOV = new POVTrigger(gamepad,
+                joystickProperties.getFuelIntakeOutPOV());
 
         deadbandSize = joystickProperties.getDeadbandValue();
         deadbandCalculator = new DeadbandCalculator();
@@ -138,10 +137,6 @@ public class DriverStation {
 
     public double getClimberSpinSpeed() {
         return gamepad.getRawAxis(1) * maxClimberSpeed;
-    }
-
-    public JoystickButton getFeederInButton() {
-        return feedInButton;
     }
 
     public JoystickButton getFeederOutButton() {
@@ -201,7 +196,7 @@ public class DriverStation {
     }
 
     public POVTrigger getFuelInPOV() {
-        return fuelInPOV;
+        return fuelOutPOV;
     }
 
     public POVTrigger getShooterInPOV() {
