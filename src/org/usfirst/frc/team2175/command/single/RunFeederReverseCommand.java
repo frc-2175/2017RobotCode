@@ -4,11 +4,11 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.ShooterSubsystem;
 
-public class RunFeederAgitatorReverseCommand extends BaseCommand {
+public class RunFeederReverseCommand extends BaseCommand {
 
     private final ShooterSubsystem shooterSubsystem;
 
-    public RunFeederAgitatorReverseCommand() {
+    public RunFeederReverseCommand() {
         shooterSubsystem = ServiceLocator.get(ShooterSubsystem.class);
     }
 
@@ -18,8 +18,6 @@ public class RunFeederAgitatorReverseCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-        // TODO: Do we even need to run the agitator in reverse?
-        shooterSubsystem.setAgitatorReverseSpeed();
         shooterSubsystem.setFeederReverseSpeed();
     }
 
@@ -30,7 +28,6 @@ public class RunFeederAgitatorReverseCommand extends BaseCommand {
 
     @Override
     protected void end() {
-        shooterSubsystem.setAgitatorSpeedZero();
         shooterSubsystem.setFeederSpeedZero();
     }
 
