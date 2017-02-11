@@ -10,7 +10,7 @@ public class ActuateGearIntakeOutCommand extends BaseCommand {
 
     public ActuateGearIntakeOutCommand() {
         gearIntakeSubsystem = ServiceLocator.get(GearIntakeSubsystem.class);
-        requires(gearIntakeSubsystem);
+        // requires(gearIntakeSubsystem);
     }
 
     @Override

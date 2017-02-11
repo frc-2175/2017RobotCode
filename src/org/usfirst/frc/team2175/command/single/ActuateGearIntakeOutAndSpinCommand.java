@@ -17,7 +17,7 @@ public class ActuateGearIntakeOutAndSpinCommand extends BaseCommand {
     protected void initialize() {
         super.initialize();
         gearIntakeSubsystem.lowerIntake();
-        gearIntakeSubsystem.runIn();
+        gearIntakeSubsystem.runOut();
     }
 
     @Override
