@@ -56,4 +56,8 @@ public class GearIntakeSubsystem extends BaseSubsystem {
         rightIntakeMotor.set(0);
     }
 
+    public void toggleActuation() {
+        gearIntakeActuator.set(!gearIntakeActuator.get());
+    }
+
 }

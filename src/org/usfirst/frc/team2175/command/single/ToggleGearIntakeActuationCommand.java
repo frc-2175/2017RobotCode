@@ -4,11 +4,11 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.GearIntakeSubsystem;
 
-public class ActuateGearIntakeOutCommand extends BaseCommand {
+public class ToggleGearIntakeActuationCommand extends BaseCommand {
 
     GearIntakeSubsystem gearIntakeSubsystem;
 
-    public ActuateGearIntakeOutCommand() {
+    public ToggleGearIntakeActuationCommand() {
         gearIntakeSubsystem = ServiceLocator.get(GearIntakeSubsystem.class);
         // requires(gearIntakeSubsystem);
     }
@@ -16,7 +16,7 @@ public class ActuateGearIntakeOutCommand extends BaseCommand {
     @Override
     protected void initialize() {
         super.initialize();
-        gearIntakeSubsystem.lowerIntake();
+        gearIntakeSubsystem.toggleActuation();
     }
 
     @Override
@@ -25,13 +25,12 @@ public class ActuateGearIntakeOutCommand extends BaseCommand {
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     @Override
     protected void end() {
         super.end();
-        gearIntakeSubsystem.raiseIntake();
     }
 
 }
