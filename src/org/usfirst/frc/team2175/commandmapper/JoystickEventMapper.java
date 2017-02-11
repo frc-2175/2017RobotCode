@@ -6,9 +6,7 @@ import org.usfirst.frc.team2175.command.single.ActuateGearIntakeOutCommand;
 import org.usfirst.frc.team2175.command.single.FuelIntakeFailsafeCommand;
 import org.usfirst.frc.team2175.command.single.LowerHopperCommand;
 import org.usfirst.frc.team2175.command.single.RunFeederAgitatorCommand;
-import org.usfirst.frc.team2175.command.single.RunFeederReverseCommand;
 import org.usfirst.frc.team2175.command.single.RunFuelIntakeInCommand;
-import org.usfirst.frc.team2175.command.single.RunFuelIntakeOutCommand;
 import org.usfirst.frc.team2175.command.single.RunGearIntakeInCommand;
 import org.usfirst.frc.team2175.command.single.RunGearIntakeOutCommand;
 import org.usfirst.frc.team2175.command.single.RunShooterCommand;
@@ -39,14 +37,12 @@ public class JoystickEventMapper {
                 .toggleWhenPressed(new LowerHopperCommand());
         driverStation.getFuelIntakeInButton()
                 .whileHeld(new RunFuelIntakeInCommand());
-        driverStation.getFuelIntakeOutButton()
-                .whileHeld(new RunFuelIntakeOutCommand());
         driverStation.getGearIntakeActuateOutButton()
                 .toggleWhenPressed(new ActuateGearIntakeOutCommand());
         driverStation.getGearIntakeOutAndSpinButton()
                 .whileHeld(new ActuateGearIntakeOutAndSpinCommand());
 
-        driverStation.getFuelInPOV()
+        driverStation.getFuelOutPOV()
                 .whileActive(new FuelIntakeFailsafeCommand());
         driverStation.getShooterInPOV()
                 .whileActive(new ShooterFailsafeCommand());

@@ -25,7 +25,6 @@ public class DriverStation {
     private JoystickButton fuelIntakeActuateInButton;
     private JoystickButton fuelIntakeActuateOutButton;
     private JoystickButton fuelIntakeInButton;
-    private JoystickButton fuelIntakeOutButton;
     private JoystickButton gearIntakeActuateOutButton;
     private JoystickButton gearIntakeInButton;
     private JoystickButton gearIntakeOutButton;
@@ -51,7 +50,6 @@ public class DriverStation {
         rightJoystick = new Joystick(joystickProperties.getJoystickRightPort());
         gamepad = new Joystick(joystickProperties.getGamepadPort());
 
-        climbButton = buttonFromButtonInfo(joystickProperties.getClimberInfo());
         feedOutButton =
                 buttonFromButtonInfo(joystickProperties.getFeederOutInfo());
         fuelIntakeActuateInButton = buttonFromButtonInfo(
@@ -60,8 +58,6 @@ public class DriverStation {
                 joystickProperties.getFuelIntakeActuateOutInfo());
         fuelIntakeInButton =
                 buttonFromButtonInfo(joystickProperties.getFuelIntakeInInfo());
-        fuelIntakeOutButton =
-                buttonFromButtonInfo(joystickProperties.getFuelIntakeOutInfo());
         gearIntakeActuateOutButton = buttonFromButtonInfo(
                 joystickProperties.getGearIntakeActuatorInfo());
         gearIntakeInButton =
@@ -71,8 +67,6 @@ public class DriverStation {
         hopperButton = buttonFromButtonInfo(joystickProperties.getHopperInfo());
         shiftButton =
                 buttonFromButtonInfo(joystickProperties.getShiftGearsInfo());
-        shootInButton =
-                buttonFromButtonInfo(joystickProperties.getShooterInInfo());
         shootOutButton =
                 buttonFromButtonInfo(joystickProperties.getShooterOutInfo());
         cameraSwitchButton =
@@ -155,10 +149,6 @@ public class DriverStation {
         return fuelIntakeInButton;
     }
 
-    public JoystickButton getFuelIntakeOutButton() {
-        return fuelIntakeOutButton;
-    }
-
     public JoystickButton getGearIntakeActuateOutButton() {
         return gearIntakeActuateOutButton;
     }
@@ -195,7 +185,7 @@ public class DriverStation {
         return climbButton;
     }
 
-    public POVTrigger getFuelInPOV() {
+    public POVTrigger getFuelOutPOV() {
         return fuelOutPOV;
     }
 

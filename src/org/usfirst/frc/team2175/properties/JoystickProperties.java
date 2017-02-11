@@ -8,11 +8,8 @@ public class JoystickProperties extends BaseProperties {
 
     private double deadbandSize;
 
-    private ButtonInfo climberInfo;
-    private ButtonInfo feederInInfo;
     private ButtonInfo feederOutInfo;
     private ButtonInfo fuelIntakeInInfo;
-    private ButtonInfo fuelIntakeOutInfo;
     private ButtonInfo fuelIntakeActuateInInfo;
     private ButtonInfo fuelIntakeActuateOutInfo;
     private ButtonInfo gearIntakeInInfo;
@@ -20,7 +17,6 @@ public class JoystickProperties extends BaseProperties {
     private ButtonInfo gearIntakeActuatorInfo;
     private ButtonInfo hopperInfo;
     private ButtonInfo shiftButtonInfo;
-    private ButtonInfo shooterInInfo;
     private ButtonInfo shooterOutInfo;
     private ButtonInfo cameraSwitchInfo;
     private ButtonInfo gearIntakeOutAndSpinInfo;
@@ -51,12 +47,8 @@ public class JoystickProperties extends BaseProperties {
 
         deadbandSize = getDoublePropertyValue("deadband.value");
 
-        climberInfo = buttonInfoFromPropertyValue("button.climber.spin");
-        feederInInfo = buttonInfoFromPropertyValue("button.feeder.in");
         feederOutInfo = buttonInfoFromPropertyValue("button.feeder.out");
         fuelIntakeInInfo = buttonInfoFromPropertyValue("button.fuelintake.in");
-        fuelIntakeOutInfo =
-                buttonInfoFromPropertyValue("button.fuelintake.out");
         fuelIntakeActuateInInfo =
                 buttonInfoFromPropertyValue("button.fuelintake.actuatein");
         fuelIntakeActuateOutInfo =
@@ -68,7 +60,6 @@ public class JoystickProperties extends BaseProperties {
                 buttonInfoFromPropertyValue("button.gearintake.lower");
         hopperInfo = buttonInfoFromPropertyValue("button.hopper.lower");
         shiftButtonInfo = buttonInfoFromPropertyValue("button.shift");
-        shooterInInfo = buttonInfoFromPropertyValue("button.shooter.in");
         shooterOutInfo = buttonInfoFromPropertyValue("button.shooter.out");
         cameraSwitchInfo = buttonInfoFromPropertyValue("button.camera.switch");
         gearIntakeOutAndSpinInfo =
@@ -108,14 +99,6 @@ public class JoystickProperties extends BaseProperties {
         return deadbandSize;
     }
 
-    public ButtonInfo getClimberInfo() {
-        return climberInfo;
-    }
-
-    public ButtonInfo getFeederInInfo() {
-        return feederInInfo;
-    }
-
     public ButtonInfo getFeederOutInfo() {
         return feederOutInfo;
     }
@@ -130,10 +113,6 @@ public class JoystickProperties extends BaseProperties {
 
     public ButtonInfo getFuelIntakeInInfo() {
         return fuelIntakeInInfo;
-    }
-
-    public ButtonInfo getFuelIntakeOutInfo() {
-        return fuelIntakeOutInfo;
     }
 
     public ButtonInfo getGearIntakeActuatorInfo() {
@@ -154,10 +133,6 @@ public class JoystickProperties extends BaseProperties {
 
     public ButtonInfo getShiftGearsInfo() {
         return shiftButtonInfo;
-    }
-
-    public ButtonInfo getShooterInInfo() {
-        return shooterInInfo;
     }
 
     public ButtonInfo getShooterOutInfo() {
