@@ -10,7 +10,7 @@ public class ToggleGearIntakeActuationCommand extends BaseCommand {
 
     public ToggleGearIntakeActuationCommand() {
         gearIntakeSubsystem = ServiceLocator.get(GearIntakeSubsystem.class);
-        // requires(gearIntakeSubsystem);
+        requires(gearIntakeSubsystem);
     }
 
     @Override
