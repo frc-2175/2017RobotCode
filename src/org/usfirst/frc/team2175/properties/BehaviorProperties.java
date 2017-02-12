@@ -6,13 +6,13 @@ public class BehaviorProperties extends BaseProperties {
     private double gearIntakeOutSpeed;
     private double fuelIntakeOutSpeed;
     private double fuelIntakeInSpeed;
-    private double shooterOutSpeed;
-    private double shooterInSpeed;
-    private double feederOutSpeed;
-    private double feederInSpeed;
-    private double agitatorOutSpeed;
-    private double agitatorInSpeed;
+    private double agitatorSpeed;
     private double maxClimberSpeed;
+
+    private double shooterSpeed;
+    private double feederSpeed;
+    private double shooterReverseSpeed;
+    private double feederReverseSpeed;
 
     @Override
     protected String getPropertyFileName() {
@@ -23,12 +23,11 @@ public class BehaviorProperties extends BaseProperties {
     protected void populate() {
         gearIntakeInSpeed = getDoublePropertyValue("gearintake.speed.in");
         gearIntakeOutSpeed = getDoublePropertyValue("gearintake.speed.out");
-        shooterInSpeed = getDoublePropertyValue("shooter.speed.in");
-        shooterOutSpeed = getDoublePropertyValue("shooter.speed.out");
-        feederOutSpeed = getDoublePropertyValue("feeder.speed.out");
-        feederInSpeed = getDoublePropertyValue("feeder.speed.in");
-        agitatorOutSpeed = getDoublePropertyValue("agitator.speed.out");
-        agitatorInSpeed = getDoublePropertyValue("agitator.speed.in");
+        shooterSpeed = getDoublePropertyValue("shooter.speed");
+        shooterReverseSpeed = getDoublePropertyValue("shooter.speed.reverse");
+        feederSpeed = getDoublePropertyValue("feeder.speed");
+        feederReverseSpeed = getDoublePropertyValue("feeder.speed.reverse");
+        agitatorSpeed = getDoublePropertyValue("agitator.speed");
         fuelIntakeOutSpeed = getDoublePropertyValue("fuelintake.speed.out");
         fuelIntakeInSpeed = getDoublePropertyValue("fuelintake.speed.in");
         maxClimberSpeed = getDoublePropertyValue("climber.speed.max");
@@ -50,36 +49,24 @@ public class BehaviorProperties extends BaseProperties {
         return gearIntakeOutSpeed;
     }
 
-    public double getLeftShooterOutSpeed() {
-        return -shooterOutSpeed;
+    public double getShooterSpeed() {
+        return shooterSpeed;
     }
 
-    public double getRightShooterOutSpeed() {
-        return shooterOutSpeed;
+    public double getShooterReverseSpeed() {
+        return shooterReverseSpeed;
     }
 
-    public double getShooterInSpeed() {
-        return shooterInSpeed;
+    public double getFeederSpeed() {
+        return feederSpeed;
     }
 
-    public double getLeftFeederOutSpeed() {
-        return feederOutSpeed;
+    public double getFeederReverseSpeed() {
+        return feederReverseSpeed;
     }
 
-    public double getRightFeederOutSpeed() {
-        return -feederOutSpeed;
-    }
-
-    public double getFeederInSpeed() {
-        return feederInSpeed;
-    }
-
-    public double getAgitatorOutSpeed() {
-        return agitatorOutSpeed;
-    }
-
-    public double getAgitatorInSpeed() {
-        return agitatorInSpeed;
+    public double getAgitatorSpeed() {
+        return agitatorSpeed;
     }
 
     public double getMaxClimberSpeed() {
