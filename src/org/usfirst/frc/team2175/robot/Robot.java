@@ -3,10 +3,10 @@ package org.usfirst.frc.team2175.robot;
 import java.util.logging.Logger;
 
 import org.usfirst.frc.team2175.command.DefaultCommandFactory;
-import org.usfirst.frc.team2175.command.group.DriveForwardForSecondsCommandGroup;
 import org.usfirst.frc.team2175.commandmapper.JoystickEventMapper;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.loop.SchedulerLoop;
+import org.usfirst.frc.team2175.loop.SmartDashboardLoop;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+    private SmartDashboardLoop smartDashboardLoop;
     private final static Logger log = Logger.getLogger(Robot.class.getName());
 
     static {
@@ -44,13 +44,15 @@ public class Robot extends IterativeRobot {
 
         new JoystickEventMapper();
         schedulerLoop.start();
+        smartDashboardLoop = new SmartDashboardLoop();
+        smartDashboardLoop.start();
 
         log.info("Robot program successfully initialized!");
     }
 
     @Override
     public void autonomousInit() {
-        Scheduler.getInstance().add(new DriveForwardForSecondsCommandGroup(1));
+        Scheduler.getInstance().add(smartDashboardLoop.getAuton());
     }
 
     /**
