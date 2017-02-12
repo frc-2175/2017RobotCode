@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2175.subsystem;
 
+import org.usfirst.frc.team2175.ReversibleTalon;
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.properties.BehaviorProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties;
@@ -47,9 +48,9 @@ public class ShooterSubsystem extends BaseSubsystem {
         agitatorMotor = new CANTalon(
                 wiringProperties.getShooterAgitatorMotorDeviceNumber());
 
-        leftFeederMotor =
-                new CANTalon(wiringProperties.getLeftFeederMotorDeviceNumber());
-        rightFeederMotor = new CANTalon(
+        leftFeederMotor = new ReversibleTalon(
+                wiringProperties.getLeftFeederMotorDeviceNumber());
+        rightFeederMotor = new ReversibleTalon(
                 wiringProperties.getRightFeederMotorDeviceNumber());
         switchToPercentVbus();
         leftShooterSpeed = behaviorProperties.getLeftShooterOutSpeed();
@@ -64,6 +65,8 @@ public class ShooterSubsystem extends BaseSubsystem {
                 wiringProperties.getShooterActuatorLeftDeviceNumber());
         rightShooterSolenoid = new Solenoid(
                 wiringProperties.getShooterActuatorRightDeviceNumber());
+        rightFeederMotor.reverseOutput(true);
+        leftFeederMotor.reverseOutput(true);
     }
 
     public void setShooterDefaultSpeed() {
@@ -96,14 +99,16 @@ public class ShooterSubsystem extends BaseSubsystem {
 
     public void setShooterReverseSpeed() {
         leftShooterMotor.set(shooterReverseSpeed);
+        rightShooterMotor.set(shooterReverseSpeed);
     }
 
     public void setFeederReverseSpeed() {
-        leftShooterMotor.set(feederReverseSpeed);
+        leftFeederMotor.set(feederReverseSpeed);
+        rightFeederMotor.set(feederReverseSpeed);
     }
 
     public void setAgitatorReverseSpeed() {
-        leftShooterMotor.set(agitatorReverseSpeed);
+        agitatorMotor.set(agitatorReverseSpeed);
     }
 
     public double getShooterSpeed() {
