@@ -30,6 +30,10 @@ public class ClimberSubsystem extends BaseSubsystem {
     }
 
     public void setClimberSpeed(final double speed) {
-        motorOne.set(speed);
+        if (speed > 0) {
+            motorOne.set(speed);
+        } else {
+            motorOne.set(0);
+        }
     }
 }
