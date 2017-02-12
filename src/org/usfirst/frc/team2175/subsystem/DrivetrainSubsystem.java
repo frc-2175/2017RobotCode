@@ -64,12 +64,10 @@ public class DrivetrainSubsystem extends BaseSubsystem {
 
         analogGyro = new AnalogGyro(
                 wiringProperties.getDrivetrainAnalogGyroDeviceNumber());
-        leftMasterMotor.reverseOutput(true);
-        rightMasterMotor.reverseOutput(true);
     }
 
     public void arcadeDrive(final double moveValue, final double rotateValue) {
-        robotDrive.arcadeDrive(moveValue, rotateValue);
+        robotDrive.arcadeDrive(-moveValue, rotateValue);
     }
 
     private void setGear(final DoubleSolenoid.Value value) {

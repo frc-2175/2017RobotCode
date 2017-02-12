@@ -119,7 +119,7 @@ public class DriverStation {
         final double input = leftJoystick.getY();
         final double deadbandedOutput =
                 deadbandCalculator.calcDeadbandedOutput(input, deadbandSize);
-        return deadbandedOutput;
+        return -deadbandedOutput;
     }
 
     public double getTurnValue() {
