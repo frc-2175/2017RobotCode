@@ -7,153 +7,87 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.usfirst.frc.team2175.TestBase;
 import org.usfirst.frc.team2175.properties.JoystickProperties.ButtonInfo;
 
 public class JoystickPropertiesTest extends TestBase {
+    protected static JoystickProperties sut;
 
-    @Test
-    public void testJoystickProperties_Competition()
-            throws IllegalArgumentException, IllegalAccessException {
-        commonTestJoystickProperties(PROPERTY_FILE_DIR_SRC_COMPETITION);
+    @BeforeClass
+    public static void createJoystickProperties() {
+        BaseProperties.setPropertyFileDir(PROPERTY_FILE_DIR_SRC);
+        sut = new JoystickProperties();
     }
 
     @Test
-    public void testJoystickProperties_Practice()
+    public void testJoystickProperties()
             throws IllegalArgumentException, IllegalAccessException {
-        commonTestJoystickProperties(PROPERTY_FILE_DIR_SRC_PRACTICE);
-    }
-
-    public void commonTestJoystickProperties(final String propertyFileDirectory)
-            throws IllegalArgumentException, IllegalAccessException {
-        BaseProperties.setPropertyFileDir(propertyFileDirectory);
-        final JoystickProperties sut = new JoystickProperties();
         assertInstanceVariablesNotNull(sut);
         assertArraysNotZeroLength(sut);
     }
 
     @Test
-    public void testJoystickProperties_UniquePropertiesSequence_Motor_Competition() {
+    public void testJoystickProperties_UniquePropertiesSequence_Motor() {
         final String propertyRegex = "button[.].*";
-        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_COMPETITION;
 
-        commonTestUniqueProperties(propertyFileDirectory, propertyRegex);
-    }
-
-    @Test
-    public void testJoystickProperties_UniquePropertiesSequence_Motor_Practice() {
-        final String propertyRegex = "button[.].*";
-        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_PRACTICE;
-
-        commonTestUniqueProperties(propertyFileDirectory, propertyRegex);
+        assertNoDuplicatePropertyValues(propertyRegex, sut);
     }
 
     @Test
     public void testGetJoystickName() {
-        BaseProperties.setPropertyFileDir(PROPERTY_FILE_DIR_SRC_COMPETITION);
-        JoystickProperties joystickProperties = new JoystickProperties();
-
-        String assertMessage =
+        final String assertMessage =
                 "getJoystickName() does not correctly give Joystick Name.";
-        assertNotNull(assertMessage,
-                joystickProperties.getJoystickName("button.shift"));
+        assertNotNull(assertMessage, sut.getJoystickName("button.shift"));
     }
 
     @Test
     public void testGetButtonNumber() {
-        BaseProperties.setPropertyFileDir(PROPERTY_FILE_DIR_SRC_COMPETITION);
-        JoystickProperties joystickProperties = new JoystickProperties();
-
-        String assertMessage =
+        final String assertMessage =
                 "getButtonNumber() does not correctly give Button Number.";
-        int buttonNumber = joystickProperties.getButtonNumber("button.shift");
+        final int buttonNumber = sut.getButtonNumber("button.shift");
         assertNotNull(assertMessage, buttonNumber);
         assertNotEquals(assertMessage, 0, buttonNumber);
     }
 
     @Test
-    public void testJoystickNames_Competition()
+    public void testJoystickNamesAndValues()
             throws IllegalArgumentException, IllegalAccessException {
-        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_COMPETITION;
-        commonTestJoystickNames(propertyFileDirectory);
+        assertJoystickValuesCorrect(sut);
     }
 
-    @Test
-    public void testJoystickNames_Practice()
+    protected void assertJoystickValuesCorrect(final Object sut)
             throws IllegalArgumentException, IllegalAccessException {
-        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_PRACTICE;
-        commonTestJoystickNames(propertyFileDirectory);
-    }
-
-    @Test
-    public void testJoystickPropertyValues_AboveZero_Competition()
-            throws IllegalArgumentException, IllegalAccessException {
-        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_COMPETITION;
-        commonTestPositiveProperties(propertyFileDirectory);
-    }
-
-    @Test
-    public void testJoystickPropertyValues_AboveZero_Practice()
-            throws IllegalArgumentException, IllegalAccessException {
-        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_PRACTICE;
-        commonTestPositiveProperties(propertyFileDirectory);
-    }
-
-    protected void assertJoystickNameCorrect(final Object sut)
-            throws IllegalArgumentException, IllegalAccessException {
-        HashMap<String, ButtonInfo> hashMap =
+        final HashMap<String, ButtonInfo> hashMap =
                 getFieldsOfType(ButtonInfo.class, sut);
 
-        for (Map.Entry<String, ButtonInfo> entry : hashMap.entrySet()) {
-            String key = entry.getKey();
-            ButtonInfo value = entry.getValue();
-            String joystickName = value.joystickName.trim();
-            final String assertMessage =
-                    "'" + joystickName + "' in ButtonInfo field " + key
-                            + " is not a valid Joystick name.";
-            assertTrue(assertMessage,
-                    joystickName.equals("left") || joystickName.equals("right")
-                            || joystickName.equals("gamepad"));
+        for (final Map.Entry<String, ButtonInfo> entry : hashMap.entrySet()) {
+            final String key = entry.getKey();
+            final ButtonInfo value = entry.getValue();
+            final String joystickName = value.joystickName.trim();
+            final int buttonValue = value.buttonNumber;
+
+            checkJoystickName(joystickName, key);
+            checkButtonNumberAboveZero(buttonValue, key);
         }
     }
 
-    protected void assertButtonNumbersGreaterThanZero(final Object sut)
-            throws IllegalArgumentException, IllegalAccessException {
-        HashMap<String, ButtonInfo> hashMap =
-                getFieldsOfType(ButtonInfo.class, sut);
-
-        for (Map.Entry<String, ButtonInfo> entry : hashMap.entrySet()) {
-            String key = entry.getKey();
-            ButtonInfo value = entry.getValue();
-            final String assertMessage =
-                    "ButtonInfo field " + key + " was not greater than 0.";
-            assertTrue(assertMessage, value.buttonNumber > 0);
-        }
+    protected void checkJoystickName(final String joystickName,
+            final String key) {
+        final String assertMessage =
+                "'" + joystickName + "' in ButtonInfo field " + key
+                        + " is not a valid Joystick name.";
+        assertTrue(assertMessage,
+                joystickName.equals("left") || joystickName.equals("right")
+                        || joystickName.equals("gamepad"));
     }
 
-    protected void commonTestJoystickNames(final String propertyFileDirectory)
-            throws IllegalArgumentException, IllegalAccessException {
-        BaseProperties.setPropertyFileDir(propertyFileDirectory);
-        final BaseProperties baseProperties = new JoystickProperties();
-
-        assertJoystickNameCorrect(baseProperties);
+    protected void checkButtonNumberAboveZero(final int buttonValue,
+            final String key) {
+        final String assertMessage =
+                "ButtonInfo field " + key + " was not greater than 0.";
+        assertTrue(assertMessage, buttonValue > 0);
     }
 
-    private void commonTestPositiveProperties(
-            final String propertyFileDirectory)
-            throws IllegalArgumentException, IllegalAccessException {
-        BaseProperties.setPropertyFileDir(propertyFileDirectory);
-        final BaseProperties baseProperties = new JoystickProperties();
-
-        assertButtonNumbersGreaterThanZero(baseProperties);
-    }
-
-    private void commonTestUniqueProperties(final String propertyFileDirectory,
-            final String propertyRegex) {
-        BaseProperties.setPropertyFileDir(propertyFileDirectory);
-        final BaseProperties baseProperties = new JoystickProperties();
-
-        assertNoDuplicatePropertyValues(propertyRegex, baseProperties);
-    }
 }
