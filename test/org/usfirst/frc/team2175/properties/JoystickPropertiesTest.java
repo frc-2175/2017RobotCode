@@ -68,12 +68,12 @@ public class JoystickPropertiesTest extends TestBase {
             final String joystickName = value.joystickName.trim();
             final int buttonValue = value.buttonNumber;
 
-            checkJoystickNames(joystickName, key);
-            checkButtonNumbersAboveZero(buttonValue, key);
+            checkJoystickName(joystickName, key);
+            checkButtonNumberAboveZero(buttonValue, key);
         }
     }
 
-    protected void checkJoystickNames(final String joystickName,
+    protected void checkJoystickName(final String joystickName,
             final String key) {
         final String assertMessage =
                 "'" + joystickName + "' in ButtonInfo field " + key
@@ -83,7 +83,7 @@ public class JoystickPropertiesTest extends TestBase {
                         || joystickName.equals("gamepad"));
     }
 
-    protected void checkButtonNumbersAboveZero(final int buttonValue,
+    protected void checkButtonNumberAboveZero(final int buttonValue,
             final String key) {
         final String assertMessage =
                 "ButtonInfo field " + key + " was not greater than 0.";
