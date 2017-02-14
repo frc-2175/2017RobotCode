@@ -18,7 +18,7 @@ public class LoggingConfigTest extends TestBase {
      */
     @Test
     public void testConfigAndDisplay() {
-        BaseProperties.setPropertyFileDir(PROPERTY_FILE_DIR_SRC_COMPETITION);
+        BaseProperties.setPropertyFileDir(PROPERTY_FILE_DIR_SRC);
         new LoggingConfig();
 
         final Logger log = Logger.getLogger(getClass().getName());

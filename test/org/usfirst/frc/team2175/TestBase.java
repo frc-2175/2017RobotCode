@@ -27,6 +27,7 @@ import org.usfirst.frc.team2175.properties.BaseProperties;
 public abstract class TestBase {
     private final Logger log = Logger.getLogger(getClass().getName());
 
+    public static final String PROPERTY_FILE_DIR_SRC = "src/properties/";
     public static final String PROPERTY_FILE_DIR_SRC_COMPETITION =
             "src/properties/competitionbot/";
     public static final String PROPERTY_FILE_DIR_SRC_PRACTICE =
