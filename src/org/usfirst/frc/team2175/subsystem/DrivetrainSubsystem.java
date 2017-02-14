@@ -4,6 +4,8 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.properties.WiringProperties;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
+import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -64,6 +66,7 @@ public class DrivetrainSubsystem extends BaseSubsystem {
 
         analogGyro = new AnalogGyro(
                 wiringProperties.getDrivetrainAnalogGyroDeviceNumber());
+        switchToPID();
     }
 
     public void arcadeDrive(final double moveValue, final double rotateValue) {
@@ -95,4 +98,17 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         analogGyro.reset();
     }
 
+    public void switchToPID() {
+        leftMasterMotor.changeControlMode(TalonControlMode.Speed);
+        leftMasterMotor.setProfile(0);
+        leftMasterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        rightMasterMotor.changeControlMode(TalonControlMode.Speed);
+        rightMasterMotor.setProfile(0);
+        rightMasterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    }
+
+    public void switchToPercentVbus() {
+        leftMasterMotor.changeControlMode(TalonControlMode.PercentVbus);
+        rightMasterMotor.changeControlMode(TalonControlMode.PercentVbus);
+    }
 }
