@@ -59,8 +59,8 @@ public class ShooterSubsystem extends BaseSubsystem {
         leftShooterMotor.reverseOutput(true);
         rightShooterSpeed = behaviorProperties.getShooterSpeed();
         leftFeederSpeed = behaviorProperties.getFeederSpeed();
-        leftFeederMotor.reverseOutput(true);
         rightFeederSpeed = behaviorProperties.getFeederSpeed();
+        rightFeederMotor.reverseOutput(true);
 
         leftShooterReverseSpeed = behaviorProperties.getShooterReverseSpeed();
         rightShooterReverseSpeed = behaviorProperties.getShooterReverseSpeed();
