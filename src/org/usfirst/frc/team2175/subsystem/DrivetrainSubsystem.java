@@ -66,7 +66,7 @@ public class DrivetrainSubsystem extends BaseSubsystem {
 
         analogGyro = new AnalogGyro(
                 wiringProperties.getDrivetrainAnalogGyroDeviceNumber());
-        switchToPID();
+        switchToPercentVbus();
     }
 
     public void arcadeDrive(final double moveValue, final double rotateValue) {
