@@ -10,6 +10,7 @@ import org.usfirst.frc.team2175.loop.SmartDashboardLoop;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
+import org.usfirst.frc.team2175.subsystem.visionprocessing.CameraHandler;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -43,6 +44,7 @@ public class Robot extends IterativeRobot {
         DefaultCommandFactory.makeAll();
 
         new JoystickEventMapper();
+        new CameraHandler();
         schedulerLoop.start();
         smartDashboardLoop = new SmartDashboardLoop();
         smartDashboardLoop.start();
