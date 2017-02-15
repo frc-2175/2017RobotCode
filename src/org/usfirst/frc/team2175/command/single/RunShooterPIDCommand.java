@@ -13,19 +13,21 @@ public class RunShooterPIDCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
-        // TODO put pid stuff here
+        shooterSubsystem.switchToPIDMode();
     }
 
     @Override
     protected void execute() {
+        shooterSubsystem.setShooterDefaultSetpoint();
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     @Override
     protected void end() {
+        shooterSubsystem.setShooterSpeedZero();
     }
 }

@@ -10,6 +10,7 @@ import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ShooterSubsystem extends BaseSubsystem {
 
@@ -78,6 +79,15 @@ public class ShooterSubsystem extends BaseSubsystem {
     public void setShooterDefaultSpeed() {
         leftShooterMotor.set(leftShooterSpeed);
         rightShooterMotor.set(rightShooterSpeed);
+    }
+
+    public double getShooterSetpoint() {
+        return SmartDashboard.getNumber("setpoint", 0);
+    }
+
+    public void setShooterDefaultSetpoint() {
+        rightShooterMotor.set(getShooterSetpoint());
+        leftShooterMotor.set(getShooterSetpoint());
     }
 
     public void setFeederDefaultSpeed() {
