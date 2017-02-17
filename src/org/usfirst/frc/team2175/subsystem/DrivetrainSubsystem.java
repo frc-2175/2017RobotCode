@@ -115,4 +115,10 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     public double getCurrentEncPosition() {
         return leftMasterMotor.getEncPosition();
     }
+
+    public void setSetpoints(final double leftSetpoint,
+            final double rightSetpoint) {
+        leftMasterMotor.setSetpoint(leftSetpoint);
+        rightMasterMotor.setSetpoint(rightSetpoint);
+    }
 }
