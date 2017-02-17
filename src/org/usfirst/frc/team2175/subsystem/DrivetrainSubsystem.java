@@ -6,12 +6,15 @@ import org.usfirst.frc.team2175.properties.WiringProperties;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
+import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SPI;
 
 public class DrivetrainSubsystem extends BaseSubsystem {
+
+    public static final double RADIUSOFTURN = 29.2371 / 2;
 
     private CANTalon leftMasterMotor;
     private CANTalon rightMasterMotor;
@@ -24,8 +27,7 @@ public class DrivetrainSubsystem extends BaseSubsystem {
 
     private DoubleSolenoid driveShifters;
 
-    // TODO (later): Switch to using the NavX MXP
-    private AnalogGyro analogGyro;
+    private AHRS navXGyro;
 
     public DrivetrainSubsystem() {
         final WiringProperties wiringProperties =
@@ -64,8 +66,7 @@ public class DrivetrainSubsystem extends BaseSubsystem {
 
         robotDrive = new RobotDrive(leftMasterMotor, rightMasterMotor);
 
-        analogGyro = new AnalogGyro(
-                wiringProperties.getDrivetrainAnalogGyroDeviceNumber());
+        navXGyro = new AHRS(SPI.Port.kMXP);
         switchToPercentVbus();
     }
 
@@ -91,11 +92,11 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     }
 
     public double getGyroAngle() {
-        return analogGyro.getAngle();
+        return navXGyro.getAngle();
     }
 
     public void resetGyro() {
-        analogGyro.reset();
+        navXGyro.reset();
     }
 
     public void switchToPID() {

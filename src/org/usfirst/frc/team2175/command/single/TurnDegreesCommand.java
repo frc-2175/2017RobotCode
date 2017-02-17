@@ -9,64 +9,54 @@ public class TurnDegreesCommand extends BaseCommand {
     private final DrivetrainSubsystem drivetrainSubsystem;
 
     private final double degreesToTurn;
-
-    // 0 for clockwise, 1 for counter clockwise, 2 for none
     private int turnDirection;
+    private double setpointOfTurn;
 
     public TurnDegreesCommand(final double degreesToTurn) {
         super();
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
-        this.degreesToTurn = degreesToTurn;
-        requires(drivetrainSubsystem);
 
+        this.degreesToTurn = degreesToTurn;
+
+        requires(drivetrainSubsystem);
     }
 
     @Override
     protected void initialize() {
         super.initialize();
-        // this sets drivetrain speed turning based on
-        // the degrees to turn and also sets the turn direction ^^
-        // for later
 
-        if (degreesToTurn > 0) {
-            turnDirection = 0;
-        }
-
-        else if (degreesToTurn < 0) {
-            turnDirection = 1;
+        // Clockwise is negative, CounterClockwise is positive
+        if (degreesToTurn != 0) {
+            turnDirection = (int) (degreesToTurn / Math.abs(degreesToTurn));
         } else {
-            turnDirection = 2;
+            end();
         }
 
         drivetrainSubsystem.resetGyro();
+
+        setpointOfTurn = getSetpointOfTurn(degreesToTurn);
+        final double endPosition =
+                turnDirection * getSetpointOfTurn(degreesToTurn);
+        drivetrainSubsystem.setSetpoints(-endPosition, endPosition);
+    }
+
+    private double getSetpointOfTurn(final double degreesToTurn) {
+        // Circumference = 2 * pi * radius
+        // Degrees to radians = degrees * pi / 180
+        // Distance using circumference = degreesToRadians * pi * radius
+        final double radiansToTurn = degreesToTurn * Math.PI / 180;
+        return radiansToTurn * Math.PI * drivetrainSubsystem.RADIUSOFTURN;
     }
 
     @Override
     protected void execute() {
-        if (degreesToTurn > 0) {
-            // TODO (later): get speed value from properties file
-            drivetrainSubsystem.arcadeDrive(0, 1);
-        }
-
-        else if (degreesToTurn < 0) {
-            // TODO (later): get speed value from properties file
-            drivetrainSubsystem.arcadeDrive(0, -1);
-        }
+        drivetrainSubsystem.arcadeDrive(0, -turnDirection * 0.05);
     }
 
     @Override
     protected boolean isFinished() {
-        if (turnDirection == 0) {
-            return drivetrainSubsystem.getGyroAngle() >= degreesToTurn;
-        }
-
-        else if (turnDirection == 1) {
-            return drivetrainSubsystem.getGyroAngle() <= degreesToTurn;
-        }
-
-        else {
-            return true;
-        }
+        final double gyroAngle = drivetrainSubsystem.getGyroAngle();
+        return turnDirection * gyroAngle >= turnDirection * degreesToTurn;
     }
 
     @Override
