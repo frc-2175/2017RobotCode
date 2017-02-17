@@ -99,10 +99,10 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     }
 
     public void switchToPID() {
-        leftMasterMotor.changeControlMode(TalonControlMode.Speed);
+        leftMasterMotor.changeControlMode(TalonControlMode.Position);
         leftMasterMotor.setProfile(0);
         leftMasterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        rightMasterMotor.changeControlMode(TalonControlMode.Speed);
+        rightMasterMotor.changeControlMode(TalonControlMode.Position);
         rightMasterMotor.setProfile(0);
         rightMasterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     }
