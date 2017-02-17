@@ -2,6 +2,7 @@ package org.usfirst.frc.team2175.robot;
 
 import java.util.logging.Logger;
 
+import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.DefaultCommandFactory;
 import org.usfirst.frc.team2175.commandmapper.JoystickEventMapper;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
@@ -9,6 +10,7 @@ import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.loop.SmartDashboardLoop;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
+import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -67,6 +69,8 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void teleopPeriodic() {
+        log.info("Current Encoder Position = " + ServiceLocator
+                .get(DrivetrainSubsystem.class).getCurrentEncPosition());
     }
 
     /**

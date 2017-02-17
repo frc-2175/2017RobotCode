@@ -111,4 +111,8 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         leftMasterMotor.changeControlMode(TalonControlMode.PercentVbus);
         rightMasterMotor.changeControlMode(TalonControlMode.PercentVbus);
     }
+
+    public double getCurrentEncPosition() {
+        return leftMasterMotor.getEncPosition();
+    }
 }
