@@ -6,8 +6,6 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
 
-import edu.wpi.first.wpilibj.PIDController;
-
 /**
  *
  */
@@ -17,8 +15,7 @@ public class DriveInchesCommand extends BaseCommand {
     private final DrivetrainSubsystem drivetrainSubsystem;
     private final double distance;
 
-    public DriveInchesCommand(final double distance,
-            final PIDController pidController) {
+    public DriveInchesCommand(final double distance) {
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
         requires(drivetrainSubsystem);
 
@@ -45,7 +42,6 @@ public class DriveInchesCommand extends BaseCommand {
     @Override
     protected void end() {
         super.end();
-
         log.info("DriveInches: end");
     }
 
