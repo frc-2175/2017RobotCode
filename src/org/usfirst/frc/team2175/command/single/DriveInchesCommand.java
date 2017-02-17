@@ -15,7 +15,6 @@ public class DriveInchesCommand extends BaseCommand {
     private final Logger log = Logger.getLogger(getClass().getName());
 
     private final DrivetrainSubsystem drivetrainSubsystem;
-    private final PIDController pidController;
     private final double distance;
 
     public DriveInchesCommand(final double distance,
@@ -25,16 +24,13 @@ public class DriveInchesCommand extends BaseCommand {
 
         this.distance = distance;
 
-        this.pidController = pidController;
-
         log.finer("DriveInchesCommand distance=" + distance);
     }
 
     @Override
     protected void initialize() {
         super.initialize();
-        pidController.setSetpoint(distance);
-        pidController.enable();
+        drivetrainSubsystem.setSetpoints(distance, distance);
     }
 
     @Override
@@ -43,11 +39,7 @@ public class DriveInchesCommand extends BaseCommand {
 
     @Override
     protected boolean isFinished() {
-
-        log.info("PID controller error=" + pidController.getError());
-        log.info("PID controller avg error=" + pidController.getAvgError());
-
-        return pidController.onTarget();
+        return true;
     }
 
     @Override
@@ -55,11 +47,6 @@ public class DriveInchesCommand extends BaseCommand {
         super.end();
 
         log.info("DriveInches: end");
-
-        log.info("PID controller error=" + pidController.getError());
-        log.info("PID controller avg error=" + pidController.getAvgError());
-
-        pidController.disable();
     }
 
     @Override
