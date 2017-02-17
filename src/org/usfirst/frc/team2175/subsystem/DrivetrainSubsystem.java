@@ -118,7 +118,14 @@ public class DrivetrainSubsystem extends BaseSubsystem {
 
     public void setSetpoints(final double leftSetpoint,
             final double rightSetpoint) {
-        leftMasterMotor.setSetpoint(leftSetpoint);
-        rightMasterMotor.setSetpoint(rightSetpoint);
+        leftMasterMotor.setSetpoint(convertFromInchesToClicks(leftSetpoint));
+        rightMasterMotor.setSetpoint(convertFromInchesToClicks(rightSetpoint));
+    }
+
+    // TODO make this method actually return the number of clicks per inches
+    // given. Right now, we cannot see how many clicks there are per inch
+    // driven.
+    public double convertFromInchesToClicks(final double inches) {
+        return inches * 1;
     }
 }
