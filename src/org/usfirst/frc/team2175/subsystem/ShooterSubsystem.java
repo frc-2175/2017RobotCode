@@ -53,6 +53,7 @@ public class ShooterSubsystem extends BaseSubsystem {
 
         agitatorMotor = new CANTalon(
                 wiringProperties.getShooterAgitatorMotorDeviceNumber());
+        agitatorMotor.setInverted(true);
 
         switchToPercentVbus();
         leftShooterSpeed = behaviorProperties.getShooterSpeed();
