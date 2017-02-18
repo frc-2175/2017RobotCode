@@ -138,4 +138,8 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         return inches * 1;
     }
 
+    public double getOutputCurrent() {
+        return leftMasterMotor.getOutputCurrent();
+    }
+
 }
