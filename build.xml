@@ -38,14 +38,13 @@
 
   <target name="compile-test" depends="compile" description="Compile the tests code.">
     <mkdir dir="${build.test.dir}"/>
-    <property name="userLibs">${wpilib.lib}/cscore.jar:${wpilib.lib}/opencv.jar:${userLibs.dir}/CTRLib.jar:${userLibs.dir}/navx_frc.jar</property>
-    <echo>[athena-compile] Compiling ${src.test.dir} with classpath=${classpath}:${userLibs}:${test.libs}:${build.dir} to ${build.test.dir}</echo>
+    <echo>[athena-compile] Compiling ${src.test.dir} with classpath=${classpath}:${external.libs}:${test.libs}:${build.dir} to ${build.test.dir}</echo>
 
     <javac srcdir="${src.test.dir}"
      destdir="${build.test.dir}"
      includeAntRuntime="no"
      includeJavaRuntime="no"
-     classpath="${classpath}:${userLibs}:${test.libs}:${build.dir}"
+     classpath="${classpath}:${external.libs}:${test.libs}:${build.dir}"
      target="${ant.java.version}"
      source="${ant.java.version}"
      compiler="javac${ant.java.version}"
