@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.DefaultCommandFactory;
-import org.usfirst.frc.team2175.command.group.DriveForwardToCrossBaselineCommandGroup;
 import org.usfirst.frc.team2175.commandmapper.JoystickEventMapper;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.loop.SchedulerLoop;
@@ -55,8 +54,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
-        Scheduler.getInstance()
-                .add(new DriveForwardToCrossBaselineCommandGroup());
+        Scheduler.getInstance().add(smartDashboardLoop.getAuton());
     }
 
     /**
@@ -69,6 +67,11 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during operator control
      */
+    @Override
+    public void teleopInit() {
+        // Scheduler.getInstance().removeAll();
+    }
+
     @Override
     public void teleopPeriodic() {
         log.info("Current Encoder Position = " + ServiceLocator
