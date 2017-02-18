@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2175.subsystem;
 
-import org.usfirst.frc.team2175.ReversibleTalon;
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.properties.BehaviorProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties;
@@ -42,14 +41,14 @@ public class ShooterSubsystem extends BaseSubsystem {
         // TODO: Provide a way of configuring both our shooter motor controllers
         // the same way without duplicate code.
 
-        leftShooterMotor = new ReversibleTalon(
+        leftShooterMotor = new CANTalon(
                 wiringProperties.getLeftShooterMotorDeviceNumber());
-        rightShooterMotor = new ReversibleTalon(
+        rightShooterMotor = new CANTalon(
                 wiringProperties.getRightShooterMotorDeviceNumber());
 
-        leftFeederMotor = new ReversibleTalon(
-                wiringProperties.getLeftFeederMotorDeviceNumber());
-        rightFeederMotor = new ReversibleTalon(
+        leftFeederMotor =
+                new CANTalon(wiringProperties.getLeftFeederMotorDeviceNumber());
+        rightFeederMotor = new CANTalon(
                 wiringProperties.getRightFeederMotorDeviceNumber());
 
         agitatorMotor = new CANTalon(
@@ -57,11 +56,12 @@ public class ShooterSubsystem extends BaseSubsystem {
 
         switchToPercentVbus();
         leftShooterSpeed = behaviorProperties.getShooterSpeed();
-        leftShooterMotor.reverseOutput(true);
+        leftShooterMotor.setInverted(true);
         rightShooterSpeed = behaviorProperties.getShooterSpeed();
+
         leftFeederSpeed = behaviorProperties.getFeederSpeed();
         rightFeederSpeed = behaviorProperties.getFeederSpeed();
-        rightFeederMotor.reverseOutput(true);
+        rightFeederMotor.setInverted(true);
 
         leftShooterReverseSpeed = behaviorProperties.getShooterReverseSpeed();
         rightShooterReverseSpeed = behaviorProperties.getShooterReverseSpeed();
