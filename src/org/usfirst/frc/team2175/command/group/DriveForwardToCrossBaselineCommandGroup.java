@@ -6,6 +6,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class DriveForwardToCrossBaselineCommandGroup extends CommandGroup {
     public DriveForwardToCrossBaselineCommandGroup() {
-        addSequential(new DriveInchesCommand(93.0));
+        addSequential(new DriveInchesCommand(95.0));
     }
 }
