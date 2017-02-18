@@ -38,7 +38,7 @@
 
   <target name="compile-test" depends="compile" description="Compile the tests code.">
     <mkdir dir="${build.test.dir}"/>
-    <property name="userLibs">${wpilib.lib}/cscore.jar:${wpilib.lib}/opencv.jar</property>
+    <property name="userLibs">${wpilib.lib}/cscore.jar:${wpilib.lib}/opencv.jar:${userLibs.dir}/CTRLib.jar:${userLibs.dir}/navx_frc.jar</property>
     <echo>[athena-compile] Compiling ${src.test.dir} with classpath=${classpath}:${userLibs}:${test.libs}:${build.dir} to ${build.test.dir}</echo>
 
     <javac srcdir="${src.test.dir}"
