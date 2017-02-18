@@ -4,7 +4,7 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
 
-public class TurnDegreesCommand extends BaseCommand {
+public class TurnDegreesWithEncodersCommand extends BaseCommand {
 
     private final DrivetrainSubsystem drivetrainSubsystem;
 
@@ -12,7 +12,7 @@ public class TurnDegreesCommand extends BaseCommand {
     private int turnDirection;
     private double setpointOfTurn;
 
-    public TurnDegreesCommand(final double degreesToTurn) {
+    public TurnDegreesWithEncodersCommand(final double degreesToTurn) {
         super();
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
 
@@ -32,6 +32,7 @@ public class TurnDegreesCommand extends BaseCommand {
             end();
         }
 
+        drivetrainSubsystem.resetEncoders();
         drivetrainSubsystem.resetGyro();
 
         setpointOfTurn = getSetpointOfTurn(degreesToTurn);
@@ -50,7 +51,9 @@ public class TurnDegreesCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-        drivetrainSubsystem.arcadeDrive(0, -turnDirection * 0.05);
+        final double encPos = drivetrainSubsystem.getCurrentEncPosition();
+        final double driveFactor = Math.abs(setpointOfTurn - encPos);
+        drivetrainSubsystem.arcadeDrive(0, -turnDirection * 0.02 / driveFactor);
     }
 
     @Override

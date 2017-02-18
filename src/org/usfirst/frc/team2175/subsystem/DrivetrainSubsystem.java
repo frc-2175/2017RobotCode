@@ -115,6 +115,12 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         rightMasterMotor.changeControlMode(TalonControlMode.PercentVbus);
     }
 
+    public void resetEncoders() {
+        leftMasterMotor.setEncPosition(0);
+        rightMasterMotor.setEncPosition(0);
+
+    }
+
     public double getCurrentEncPosition() {
         return leftMasterMotor.getEncPosition();
     }
@@ -131,4 +137,5 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     public double convertFromInchesToClicks(final double inches) {
         return inches * 1;
     }
+
 }
