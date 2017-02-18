@@ -1,7 +1,8 @@
 package org.usfirst.frc.team2175.loop;
 
 import org.usfirst.frc.team2175.ServiceLocator;
-import org.usfirst.frc.team2175.command.group.DriveForwardForSecondsCommandGroup;
+import org.usfirst.frc.team2175.command.autonomous.DriveForwardAndPlaceGearOnPegAutonomous;
+import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
 import org.usfirst.frc.team2175.subsystem.GearIntakeSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -32,6 +33,8 @@ public class SmartDashboardLoop extends ControlLoop {
     @Override
     protected void runTask() {
         showGearIntakeInfo();
+        SmartDashboard.putNumber("CurrentDraw", ServiceLocator
+                .get(DrivetrainSubsystem.class).getOutputCurrent());
     }
 
     protected void showGearIntakeInfo() {
@@ -42,8 +45,8 @@ public class SmartDashboardLoop extends ControlLoop {
     }
 
     private void populateAutonSelector() {
-        autonSelector.addObject("Drive Forward for 3 Seconds",
-                new DriveForwardForSecondsCommandGroup(3));
+        autonSelector.addDefault("Drive Forward and place gear on peg",
+                new DriveForwardAndPlaceGearOnPegAutonomous());
     }
 
     public Command getAuton() {
