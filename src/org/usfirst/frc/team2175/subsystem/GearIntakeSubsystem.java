@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2175.subsystem;
 
-import org.usfirst.frc.team2175.ReversibleTalon;
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.properties.BehaviorProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties;
@@ -25,14 +24,14 @@ public class GearIntakeSubsystem extends BaseSubsystem {
                 ServiceLocator.get(BehaviorProperties.class);
         leftIntakeMotor =
                 new CANTalon(wiringProperties.getLeftGearIntakeDeviceNumber());
-        rightIntakeMotor = new ReversibleTalon(
-                wiringProperties.getRightGearIntakeDeviceNumber());
+        rightIntakeMotor =
+                new CANTalon(wiringProperties.getRightGearIntakeDeviceNumber());
         gearIntakeActuator =
                 new Solenoid(wiringProperties.getGearIntakeSolenoidNumber());
 
         gearIntakeInSpeed = behaviorProperties.getGearIntakeInSpeed();
         gearIntakeOutSpeed = behaviorProperties.getGearIntakeOutSpeed();
-        rightIntakeMotor.reverseOutput(true);
+        rightIntakeMotor.setInverted(true);
     }
 
     public void runIn() {
