@@ -14,23 +14,39 @@ public class ArcadeDriveForAutonCommand extends BaseCommand {
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
         this.moveValue = moveValue;
         this.rotateValue = rotateValue;
+
+        drivetrainSubsystem.resetGyro();
+
+        requires(drivetrainSubsystem);
     }
 
     @Override
     protected void initialize() {
+        drivetrainSubsystem.resetGyro();
     }
 
     @Override
     protected void execute() {
-        drivetrainSubsystem.arcadeDrive(moveValue, rotateValue);
+
+        if (rotateValue != 0) {
+            drivetrainSubsystem.arcadeDrive(moveValue, rotateValue);
+        } else {
+            drivetrainSubsystem.arcadeDrive(moveValue,
+                    -(drivetrainSubsystem.getGyroAngle() / 20));
+        }
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        if (timeSinceInitialized() > 1.5) {
+            return drivetrainSubsystem.getOutputCurrent() > 3;
+        } else {
+            return false;
+        }
     }
 
     @Override
     protected void end() {
+        super.end();
     }
 }
