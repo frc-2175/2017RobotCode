@@ -1,12 +1,18 @@
 package org.usfirst.frc.team2175.subsystem.visionprocessing;
 
+import java.util.ArrayList;
+
+import org.opencv.core.MatOfPoint;
 import org.usfirst.frc.team2175.subsystem.BaseSubsystem;
 
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.vision.VisionRunner;
+import edu.wpi.first.wpilibj.vision.VisionThread;
 
-public class VisionSubsystem extends BaseSubsystem {
+public class VisionSubsystem extends BaseSubsystem
+        implements VisionRunner.Listener<GripPipeline> {
 
-    private final NetworkTable table;
     private double[] contourArea;
     private double[] contourCenterX;
     private double[] contourCenterY;
@@ -16,19 +22,19 @@ public class VisionSubsystem extends BaseSubsystem {
     private double[] defaultValue;
 
     public VisionSubsystem() {
-        table = NetworkTable.getTable("Grip/myCountoursReport");
-        new CameraHandler();
+        CameraServer.getInstance().startAutomaticCapture();
+        final UsbCamera camera = new UsbCamera("GearCam", 0);
+        final GripPipeline gripPipeline = new GripPipeline();
+
+        final VisionThread visionThread =
+                new VisionThread(camera, gripPipeline, this);
+        visionThread.start();
     }
 
-    public void updateAllValues() {
-        synchronized (table) {
-            contourArea = table.getNumberArray("area", defaultValue);
-            contourCenterX = table.getNumberArray("centerX", defaultValue);
-            contourCenterY = table.getNumberArray("centerY", defaultValue);
-            contourHeight = table.getNumberArray("height", defaultValue);
-            contourWidth = table.getNumberArray("width", defaultValue);
-            contourSolidity = table.getNumberArray("solidity", defaultValue);
-        }
+    @Override
+    public void copyPipelineOutputs(final GripPipeline pipeline) {
+        final ArrayList<MatOfPoint> contours = pipeline.filterContoursOutput();
+        // TODO Add more later
     }
 
     public double[] getContourArea() {
@@ -57,7 +63,6 @@ public class VisionSubsystem extends BaseSubsystem {
 
     public double calculateDistanceFromRetroTape() {
         double distanceFromTape;
-        updateAllValues();
         distanceFromTape = 0;
         return distanceFromTape;
     }
