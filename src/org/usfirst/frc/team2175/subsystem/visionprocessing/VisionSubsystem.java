@@ -17,6 +17,7 @@ public class VisionSubsystem extends BaseSubsystem {
 
     public VisionSubsystem() {
         table = NetworkTable.getTable("Grip/myCountoursReport");
+        new CameraHandler();
     }
 
     public void updateAllValues() {
