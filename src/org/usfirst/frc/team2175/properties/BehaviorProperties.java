@@ -14,6 +14,11 @@ public class BehaviorProperties extends BaseProperties {
     private double shooterReverseSpeed;
     private double feederReverseSpeed;
 
+    private double gyroP;
+    private double gyroI;
+    private double gyroD;
+    private double gyroF;
+
     @Override
     protected String getPropertyFileName() {
         return "behavior.properties";
@@ -31,6 +36,11 @@ public class BehaviorProperties extends BaseProperties {
         fuelIntakeOutSpeed = getDoublePropertyValue("fuelintake.speed.out");
         fuelIntakeInSpeed = getDoublePropertyValue("fuelintake.speed.in");
         maxClimberSpeed = getDoublePropertyValue("climber.speed.max");
+
+        gyroP = getDoublePropertyValue("gyro.p");
+        gyroI = getDoublePropertyValue("gyro.i");
+        gyroD = getDoublePropertyValue("gyro.d");
+        gyroF = getDoublePropertyValue("gyro.f");
     }
 
     public double getFuelIntakeOutSpeed() {
@@ -72,4 +82,21 @@ public class BehaviorProperties extends BaseProperties {
     public double getMaxClimberSpeed() {
         return maxClimberSpeed;
     }
+
+    public double getGyroP() {
+        return gyroP;
+    }
+
+    public double getGyroI() {
+        return gyroI;
+    }
+
+    public double getGyroD() {
+        return gyroD;
+    }
+
+    public double getGyroF() {
+        return gyroF;
+    }
+
 }

@@ -2,6 +2,7 @@ package org.usfirst.frc.team2175.loop;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.autonomous.DriveForwardAndPlaceGearOnPegAutonomous;
+import org.usfirst.frc.team2175.command.autonomous.TurnLeftAutonomous;
 import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
 import org.usfirst.frc.team2175.subsystem.GearIntakeSubsystem;
 
@@ -47,6 +48,7 @@ public class SmartDashboardLoop extends ControlLoop {
     private void populateAutonSelector() {
         autonSelector.addDefault("Drive Forward and place gear on peg",
                 new DriveForwardAndPlaceGearOnPegAutonomous());
+        autonSelector.addObject("Turn Left Auton", new TurnLeftAutonomous());
     }
 
     public Command getAuton() {

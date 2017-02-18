@@ -1,12 +1,24 @@
 package org.usfirst.frc.team2175.pid;
 
+import org.usfirst.frc.team2175.ServiceLocator;
+import org.usfirst.frc.team2175.properties.BehaviorProperties;
+import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
+
 import edu.wpi.first.wpilibj.PIDSourceType;
 
 public class GyroTurnPIDController extends PIDControllerComplete {
+    private DrivetrainSubsystem drivetrainSubsystem;
 
     public GyroTurnPIDController() {
+        drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
+        BehaviorProperties behaviorProperties =
+                ServiceLocator.get(BehaviorProperties.class);
+        double p = behaviorProperties.getGyroP();
+        double i = behaviorProperties.getGyroI();
+        double d = behaviorProperties.getGyroD();
+        double f = behaviorProperties.getGyroF();
         // Get PID values from a properties file and set them here.
-        setPID(0, 0, 0, 0);
+        setPID(p, i, d, f);
 
         // Set the minimum and maximum outputs here.
         setOutputRange(-1, 1);
@@ -23,12 +35,12 @@ public class GyroTurnPIDController extends PIDControllerComplete {
     public double pidGet() {
         // Return the gyro angle from this method. The PIDController class will
         // use this as the sensor value.
-        return 0;
+        return drivetrainSubsystem.getGyroAngle();
     }
 
     @Override
     public void pidWrite(final double output) {
-        // Actually make stuff happen here! For example, turning by "output".
+        drivetrainSubsystem.arcadeDrive(0, output);
     }
 
 }

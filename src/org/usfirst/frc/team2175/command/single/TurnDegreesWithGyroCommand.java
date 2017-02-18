@@ -24,6 +24,7 @@ public class TurnDegreesWithGyroCommand extends Command {
     protected void initialize() {
         super.initialize();
 
+        drivetrainSubsystem.resetGyro();
         controller.setSetpoint(setpoint);
         controller.enable();
     }
