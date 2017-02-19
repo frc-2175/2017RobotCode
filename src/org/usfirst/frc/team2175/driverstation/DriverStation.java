@@ -117,16 +117,21 @@ public class DriverStation {
 
     public double getMoveValue() {
         final double input = leftJoystick.getY();
-        final double deadbandedOutput =
-                deadbandCalculator.calcDeadbandedOutput(input, deadbandSize);
+        final double deadbandedOutput = deadbandCalculator
+                .calcDeadbandedOutput(squareInput(input), deadbandSize);
         return -deadbandedOutput;
     }
 
     public double getTurnValue() {
         final double input = rightJoystick.getX();
-        final double deadbandedOutput =
-                deadbandCalculator.calcDeadbandedOutput(input, deadbandSize);
+        final double deadbandedOutput = deadbandCalculator
+                .calcDeadbandedOutput(squareInput(input), deadbandSize);
         return deadbandedOutput;
+    }
+
+    protected static double squareInput(final double input) {
+        final double sign = Math.signum(input);
+        return sign * input * input;
     }
 
     public double getClimberSpinSpeed() {
