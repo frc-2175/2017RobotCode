@@ -38,7 +38,6 @@ public class CameraHandlerTest extends TestBase {
     @Test
     public void testCameraHandlerConstructor() {
         ServiceLocator.clear();
-        new CameraHandler();
     }
 
     @Ignore
