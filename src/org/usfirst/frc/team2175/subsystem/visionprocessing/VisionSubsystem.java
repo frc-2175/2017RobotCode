@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.opencv.core.MatOfPoint;
 import org.usfirst.frc.team2175.subsystem.BaseSubsystem;
 
+import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,6 +14,8 @@ import edu.wpi.first.wpilibj.vision.VisionThread;
 
 public class VisionSubsystem extends BaseSubsystem
         implements VisionRunner.Listener<GripPipeline> {
+
+    private CvSource output;
 
     private double[] contourArea;
     private double[] contourCenterX;
@@ -23,7 +26,7 @@ public class VisionSubsystem extends BaseSubsystem
     private double[] defaultValue;
 
     public VisionSubsystem() {
-        CameraServer.getInstance().startAutomaticCapture();
+        // CameraServer.getInstance().startAutomaticCapture();
         final UsbCamera camera = new UsbCamera("GearCam", 0);
         camera.setExposureManual(10);
         final GripPipeline gripPipeline = new GripPipeline();
@@ -31,10 +34,15 @@ public class VisionSubsystem extends BaseSubsystem
         final VisionThread visionThread =
                 new VisionThread(camera, gripPipeline, this);
         visionThread.start();
+
+        output = CameraServer.getInstance().putVideo("Pipeline Output", 640,
+                480);
     }
 
     @Override
     public void copyPipelineOutputs(final GripPipeline pipeline) {
+        output.putFrame(pipeline.hsvThresholdOutput());
+
         final ArrayList<MatOfPoint> contours = pipeline.filterContoursOutput();
         SmartDashboard.putNumber("Contour Count", contours.size());
     }
