@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.vision.VisionThread;
 public class VisionSubsystem extends BaseSubsystem
         implements VisionRunner.Listener<GripPipeline> {
 
-    private CvSource output;
+    private CvSource processOutput;
 
     private double[] contourArea;
     private double[] contourCenterX;
@@ -26,22 +26,30 @@ public class VisionSubsystem extends BaseSubsystem
     private double[] defaultValue;
 
     public VisionSubsystem() {
-        // CameraServer.getInstance().startAutomaticCapture();
+        startAutomaticCapture();
+        // startGripPipelineCapture();
+    }
+
+    private void startAutomaticCapture() {
+        CameraServer.getInstance().startAutomaticCapture();
+    }
+
+    private void startGripPipelineCapture() {
         final UsbCamera camera = new UsbCamera("GearCam", 0);
-        camera.setExposureManual(10);
+        camera.setExposureManual(1);
         final GripPipeline gripPipeline = new GripPipeline();
 
         final VisionThread visionThread =
                 new VisionThread(camera, gripPipeline, this);
         visionThread.start();
 
-        output = CameraServer.getInstance().putVideo("Pipeline Output", 640,
-                480);
+        processOutput =
+                CameraServer.getInstance().putVideo("Process Output", 320, 240);
     }
 
     @Override
     public void copyPipelineOutputs(final GripPipeline pipeline) {
-        output.putFrame(pipeline.hsvThresholdOutput());
+        processOutput.putFrame(pipeline.hsvThresholdOutput());
 
         final ArrayList<MatOfPoint> contours = pipeline.filterContoursOutput();
         SmartDashboard.putNumber("Contour Count", contours.size());

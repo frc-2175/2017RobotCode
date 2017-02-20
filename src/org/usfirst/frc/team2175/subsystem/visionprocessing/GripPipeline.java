@@ -11,7 +11,6 @@ import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
-import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.first.wpilibj.vision.VisionPipeline;
@@ -27,14 +26,10 @@ import edu.wpi.first.wpilibj.vision.VisionPipeline;
 public class GripPipeline implements VisionPipeline {
 
     // Outputs
-    private Mat blurOutput = new Mat();
     private Mat hsvThresholdOutput = new Mat();
-    private ArrayList<MatOfPoint> findContoursOutput =
-            new ArrayList<>();
-    private ArrayList<MatOfPoint> convexHullsOutput =
-            new ArrayList<>();
-    private ArrayList<MatOfPoint> filterContoursOutput =
-            new ArrayList<>();
+    private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<>();
+    private ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<>();
+    private ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<>();
 
     static {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -45,45 +40,38 @@ public class GripPipeline implements VisionPipeline {
      * outputs.
      */
     @Override
-    public void process(final Mat source0) {
-        // Step Blur0:
-        final Mat blurInput = source0;
-        final BlurType blurType = BlurType.get("Gaussian Blur");
-        final double blurRadius = 0.0;
-        blur(blurInput, blurType, blurRadius, blurOutput);
-
+    public void process(Mat source0) {
         // Step HSV_Threshold0:
-        final Mat hsvThresholdInput = blurOutput;
-        final double[] hsvThresholdHue =
-                { 82.55395683453237, 100.13651877133107 };
-        final double[] hsvThresholdSaturation = { 68.79496402877697, 255.0 };
-        final double[] hsvThresholdValue = { 201.79856115107913, 255.0 };
+        Mat hsvThresholdInput = source0;
+        double[] hsvThresholdHue = { 40.46762589928058, 106.19712483193712 };
+        double[] hsvThresholdSaturation = { 50.44964028776978, 255.0 };
+        double[] hsvThresholdValue = { 215.5575539568345, 255.0 };
         hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation,
                 hsvThresholdValue, hsvThresholdOutput);
 
         // Step Find_Contours0:
-        final Mat findContoursInput = hsvThresholdOutput;
-        final boolean findContoursExternalOnly = false;
+        Mat findContoursInput = hsvThresholdOutput;
+        boolean findContoursExternalOnly = false;
         findContours(findContoursInput, findContoursExternalOnly,
                 findContoursOutput);
 
         // Step Convex_Hulls0:
-        final ArrayList<MatOfPoint> convexHullsContours = findContoursOutput;
+        ArrayList<MatOfPoint> convexHullsContours = findContoursOutput;
         convexHulls(convexHullsContours, convexHullsOutput);
 
         // Step Filter_Contours0:
-        final ArrayList<MatOfPoint> filterContoursContours = convexHullsOutput;
-        final double filterContoursMinArea = 500.0;
-        final double filterContoursMinPerimeter = 0.0;
-        final double filterContoursMinWidth = 0.0;
-        final double filterContoursMaxWidth = 1000.0;
-        final double filterContoursMinHeight = 0.0;
-        final double filterContoursMaxHeight = 1000.0;
-        final double[] filterContoursSolidity = { 0.0, 100.0 };
-        final double filterContoursMaxVertices = 1000000.0;
-        final double filterContoursMinVertices = 0.0;
-        final double filterContoursMinRatio = 0.0;
-        final double filterContoursMaxRatio = 1000.0;
+        ArrayList<MatOfPoint> filterContoursContours = convexHullsOutput;
+        double filterContoursMinArea = 500.0;
+        double filterContoursMinPerimeter = 0.0;
+        double filterContoursMinWidth = 0.0;
+        double filterContoursMaxWidth = 1000.0;
+        double filterContoursMinHeight = 0.0;
+        double filterContoursMaxHeight = 1000.0;
+        double[] filterContoursSolidity = { 0.0, 100.0 };
+        double filterContoursMaxVertices = 1000000.0;
+        double filterContoursMinVertices = 0.0;
+        double filterContoursMinRatio = 0.0;
+        double filterContoursMaxRatio = 1000.0;
         filterContours(filterContoursContours, filterContoursMinArea,
                 filterContoursMinPerimeter, filterContoursMinWidth,
                 filterContoursMaxWidth, filterContoursMinHeight,
@@ -92,15 +80,6 @@ public class GripPipeline implements VisionPipeline {
                 filterContoursMinRatio, filterContoursMaxRatio,
                 filterContoursOutput);
 
-    }
-
-    /**
-     * This method is a generated getter for the output of a Blur.
-     * 
-     * @return Mat output from Blur.
-     */
-    public Mat blurOutput() {
-        return blurOutput;
     }
 
     /**
@@ -140,74 +119,6 @@ public class GripPipeline implements VisionPipeline {
     }
 
     /**
-     * An indication of which type of filter to use for a blur. Choices are BOX,
-     * GAUSSIAN, MEDIAN, and BILATERAL
-     */
-    enum BlurType {
-        BOX("Box Blur"), GAUSSIAN("Gaussian Blur"), MEDIAN(
-                "Median Filter"), BILATERAL("Bilateral Filter");
-
-        private final String label;
-
-        BlurType(final String label) {
-            this.label = label;
-        }
-
-        public static BlurType get(final String type) {
-            if (BILATERAL.label.equals(type)) {
-                return BILATERAL;
-            } else if (GAUSSIAN.label.equals(type)) {
-                return GAUSSIAN;
-            } else if (MEDIAN.label.equals(type)) {
-                return MEDIAN;
-            } else {
-                return BOX;
-            }
-        }
-
-        @Override
-        public String toString() {
-            return this.label;
-        }
-    }
-
-    /**
-     * Softens an image using one of several filters.
-     * 
-     * @param input
-     *            The image on which to perform the blur.
-     * @param type
-     *            The blurType to perform.
-     * @param doubleRadius
-     *            The radius for the blur.
-     * @param output
-     *            The image in which to store the output.
-     */
-    private void blur(final Mat input, final BlurType type,
-            final double doubleRadius, final Mat output) {
-        final int radius = (int) (doubleRadius + 0.5);
-        int kernelSize;
-        switch (type) {
-        case BOX:
-            kernelSize = 2 * radius + 1;
-            Imgproc.blur(input, output, new Size(kernelSize, kernelSize));
-            break;
-        case GAUSSIAN:
-            kernelSize = 6 * radius + 1;
-            Imgproc.GaussianBlur(input, output,
-                    new Size(kernelSize, kernelSize), radius);
-            break;
-        case MEDIAN:
-            kernelSize = 2 * radius + 1;
-            Imgproc.medianBlur(input, output, kernelSize);
-            break;
-        case BILATERAL:
-            Imgproc.bilateralFilter(input, output, -1, radius, radius);
-            break;
-        }
-    }
-
-    /**
      * Segment an image based on hue, saturation, and value ranges.
      *
      * @param input
@@ -221,8 +132,8 @@ public class GripPipeline implements VisionPipeline {
      * @param output
      *            The image in which to store the output.
      */
-    private void hsvThreshold(final Mat input, final double[] hue,
-            final double[] sat, final double[] val, final Mat out) {
+    private void hsvThreshold(Mat input, double[] hue, double[] sat,
+            double[] val, Mat out) {
         Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2HSV);
         Core.inRange(out, new Scalar(hue[0], sat[0], val[0]),
                 new Scalar(hue[1], sat[1], val[1]), out);
@@ -241,9 +152,9 @@ public class GripPipeline implements VisionPipeline {
      * @param output
      *            The image in which to store the output.
      */
-    private void findContours(final Mat input, final boolean externalOnly,
-            final List<MatOfPoint> contours) {
-        final Mat hierarchy = new Mat();
+    private void findContours(Mat input, boolean externalOnly,
+            List<MatOfPoint> contours) {
+        Mat hierarchy = new Mat();
         contours.clear();
         int mode;
         if (externalOnly) {
@@ -251,7 +162,7 @@ public class GripPipeline implements VisionPipeline {
         } else {
             mode = Imgproc.RETR_LIST;
         }
-        final int method = Imgproc.CHAIN_APPROX_SIMPLE;
+        int method = Imgproc.CHAIN_APPROX_SIMPLE;
         Imgproc.findContours(input, contours, hierarchy, mode, method);
     }
 
@@ -263,8 +174,8 @@ public class GripPipeline implements VisionPipeline {
      * @param outputContours
      *            The contours where the output will be stored.
      */
-    private void convexHulls(final List<MatOfPoint> inputContours,
-            final ArrayList<MatOfPoint> outputContours) {
+    private void convexHulls(List<MatOfPoint> inputContours,
+            ArrayList<MatOfPoint> outputContours) {
         final MatOfInt hull = new MatOfInt();
         outputContours.clear();
         for (int i = 0; i < inputContours.size(); i++) {
@@ -273,8 +184,8 @@ public class GripPipeline implements VisionPipeline {
             Imgproc.convexHull(contour, hull);
             mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
             for (int j = 0; j < hull.size().height; j++) {
-                final int index = (int) hull.get(j, 0)[0];
-                final double[] point = new double[] { contour.get(index, 0)[0],
+                int index = (int) hull.get(j, 0)[0];
+                double[] point = new double[] { contour.get(index, 0)[0],
                         contour.get(index, 0)[1] };
                 mopHull.put(j, 0, point);
             }
@@ -312,13 +223,11 @@ public class GripPipeline implements VisionPipeline {
      * @param maxRatio
      *            maximum ratio of width to height
      */
-    private void filterContours(final List<MatOfPoint> inputContours,
-            final double minArea, final double minPerimeter,
-            final double minWidth, final double maxWidth,
-            final double minHeight, final double maxHeight,
-            final double[] solidity, final double maxVertexCount,
-            final double minVertexCount, final double minRatio,
-            final double maxRatio, final List<MatOfPoint> output) {
+    private void filterContours(List<MatOfPoint> inputContours, double minArea,
+            double minPerimeter, double minWidth, double maxWidth,
+            double minHeight, double maxHeight, double[] solidity,
+            double maxVertexCount, double minVertexCount, double minRatio,
+            double maxRatio, List<MatOfPoint> output) {
         final MatOfInt hull = new MatOfInt();
         output.clear();
         // operation
@@ -340,11 +249,11 @@ public class GripPipeline implements VisionPipeline {
                 continue;
             }
             Imgproc.convexHull(contour, hull);
-            final MatOfPoint mopHull = new MatOfPoint();
+            MatOfPoint mopHull = new MatOfPoint();
             mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
             for (int j = 0; j < hull.size().height; j++) {
-                final int index = (int) hull.get(j, 0)[0];
-                final double[] point = new double[] { contour.get(index, 0)[0],
+                int index = (int) hull.get(j, 0)[0];
+                double[] point = new double[] { contour.get(index, 0)[0],
                         contour.get(index, 0)[1] };
                 mopHull.put(j, 0, point);
             }
