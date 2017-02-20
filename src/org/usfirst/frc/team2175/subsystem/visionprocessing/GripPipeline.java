@@ -11,6 +11,7 @@ import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.first.wpilibj.vision.VisionPipeline;
@@ -26,10 +27,14 @@ import edu.wpi.first.wpilibj.vision.VisionPipeline;
 public class GripPipeline implements VisionPipeline {
 
     // Outputs
+    private Mat blurOutput = new Mat();
     private Mat hsvThresholdOutput = new Mat();
-    private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<>();
-    private ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<>();
-    private ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<>();
+    private ArrayList<MatOfPoint> findContoursOutput =
+            new ArrayList<>();
+    private ArrayList<MatOfPoint> convexHullsOutput =
+            new ArrayList<>();
+    private ArrayList<MatOfPoint> filterContoursOutput =
+            new ArrayList<>();
 
     static {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -41,8 +46,14 @@ public class GripPipeline implements VisionPipeline {
      */
     @Override
     public void process(final Mat source0) {
+        // Step Blur0:
+        final Mat blurInput = source0;
+        final BlurType blurType = BlurType.get("Gaussian Blur");
+        final double blurRadius = 0.0;
+        blur(blurInput, blurType, blurRadius, blurOutput);
+
         // Step HSV_Threshold0:
-        final Mat hsvThresholdInput = source0;
+        final Mat hsvThresholdInput = blurOutput;
         final double[] hsvThresholdHue =
                 { 82.55395683453237, 100.13651877133107 };
         final double[] hsvThresholdSaturation = { 68.79496402877697, 255.0 };
@@ -84,6 +95,15 @@ public class GripPipeline implements VisionPipeline {
     }
 
     /**
+     * This method is a generated getter for the output of a Blur.
+     * 
+     * @return Mat output from Blur.
+     */
+    public Mat blurOutput() {
+        return blurOutput;
+    }
+
+    /**
      * This method is a generated getter for the output of a HSV_Threshold.
      * 
      * @return Mat output from HSV_Threshold.
@@ -117,6 +137,74 @@ public class GripPipeline implements VisionPipeline {
      */
     public ArrayList<MatOfPoint> filterContoursOutput() {
         return filterContoursOutput;
+    }
+
+    /**
+     * An indication of which type of filter to use for a blur. Choices are BOX,
+     * GAUSSIAN, MEDIAN, and BILATERAL
+     */
+    enum BlurType {
+        BOX("Box Blur"), GAUSSIAN("Gaussian Blur"), MEDIAN(
+                "Median Filter"), BILATERAL("Bilateral Filter");
+
+        private final String label;
+
+        BlurType(final String label) {
+            this.label = label;
+        }
+
+        public static BlurType get(final String type) {
+            if (BILATERAL.label.equals(type)) {
+                return BILATERAL;
+            } else if (GAUSSIAN.label.equals(type)) {
+                return GAUSSIAN;
+            } else if (MEDIAN.label.equals(type)) {
+                return MEDIAN;
+            } else {
+                return BOX;
+            }
+        }
+
+        @Override
+        public String toString() {
+            return this.label;
+        }
+    }
+
+    /**
+     * Softens an image using one of several filters.
+     * 
+     * @param input
+     *            The image on which to perform the blur.
+     * @param type
+     *            The blurType to perform.
+     * @param doubleRadius
+     *            The radius for the blur.
+     * @param output
+     *            The image in which to store the output.
+     */
+    private void blur(final Mat input, final BlurType type,
+            final double doubleRadius, final Mat output) {
+        final int radius = (int) (doubleRadius + 0.5);
+        int kernelSize;
+        switch (type) {
+        case BOX:
+            kernelSize = 2 * radius + 1;
+            Imgproc.blur(input, output, new Size(kernelSize, kernelSize));
+            break;
+        case GAUSSIAN:
+            kernelSize = 6 * radius + 1;
+            Imgproc.GaussianBlur(input, output,
+                    new Size(kernelSize, kernelSize), radius);
+            break;
+        case MEDIAN:
+            kernelSize = 2 * radius + 1;
+            Imgproc.medianBlur(input, output, kernelSize);
+            break;
+        case BILATERAL:
+            Imgproc.bilateralFilter(input, output, -1, radius, radius);
+            break;
+        }
     }
 
     /**
