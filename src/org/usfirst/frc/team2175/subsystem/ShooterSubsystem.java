@@ -52,7 +52,7 @@ public class ShooterSubsystem extends BaseSubsystem {
 
         agitatorMotor = new CANTalon(
                 wiringProperties.getShooterAgitatorMotorDeviceNumber());
-        agitatorMotor.setInverted(true);
+        agitatorMotor.setInverted(false);
 
         switchToPercentVbus();
         leftShooterSpeed = behaviorProperties.getShooterSpeed();
@@ -84,8 +84,8 @@ public class ShooterSubsystem extends BaseSubsystem {
     }
 
     public void setShooterDefaultSetpoint() {
-        rightShooterMotor.set(getShooterSetpoint());
-        leftShooterMotor.set(getShooterSetpoint());
+        rightShooterMotor.setSetpoint(.845);
+        leftShooterMotor.setSetpoint(.845);
     }
 
     public void setFeederDefaultSpeed() {
