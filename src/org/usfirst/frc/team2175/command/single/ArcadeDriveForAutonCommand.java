@@ -22,6 +22,7 @@ public class ArcadeDriveForAutonCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
+        super.initialize();
         drivetrainSubsystem.resetGyro();
     }
 

@@ -13,6 +13,7 @@ public class RunShooterPIDCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
+        super.initialize();
         shooterSubsystem.switchToPIDMode();
     }
 
@@ -28,6 +29,7 @@ public class RunShooterPIDCommand extends BaseCommand {
 
     @Override
     protected void end() {
+        super.end();
         shooterSubsystem.setShooterSpeedZero();
     }
 }

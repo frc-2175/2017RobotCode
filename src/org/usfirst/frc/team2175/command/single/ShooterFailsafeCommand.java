@@ -19,6 +19,7 @@ public class ShooterFailsafeCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
+        super.initialize();
         shooterSubsystem.setShooterReverseSpeed();
         shooterSubsystem.setFeederReverseSpeed();
     }
@@ -34,6 +35,7 @@ public class ShooterFailsafeCommand extends BaseCommand {
 
     @Override
     protected void end() {
+        super.end();
         shooterSubsystem.setShooterSpeedZero();
         shooterSubsystem.setFeederSpeedZero();
     }

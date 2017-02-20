@@ -34,9 +34,4 @@ public class RunGearIntakeOutCommand extends BaseCommand {
         gearIntakeSubsystem.stop();
     }
 
-    @Override
-    protected void interrupted() {
-        end();
-    }
-
 }

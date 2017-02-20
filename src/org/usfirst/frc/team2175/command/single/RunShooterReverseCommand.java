@@ -15,6 +15,7 @@ public class RunShooterReverseCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
+        super.initialize();
     }
 
     @Override
@@ -29,12 +30,8 @@ public class RunShooterReverseCommand extends BaseCommand {
 
     @Override
     protected void end() {
+        super.end();
         shooterSubsystem.setShooterSpeedZero();
-    }
-
-    @Override
-    protected void interrupted() {
-        end();
     }
 
 }
