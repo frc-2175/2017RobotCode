@@ -44,9 +44,4 @@ public class DriveInchesCommand extends BaseCommand {
         super.end();
         log.info("DriveInches: end");
     }
-
-    @Override
-    protected void interrupted() {
-        end();
-    }
 }

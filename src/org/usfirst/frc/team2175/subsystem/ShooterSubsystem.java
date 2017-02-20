@@ -8,8 +8,9 @@ import org.usfirst.frc.team2175.properties.WiringProperties;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Solenoid;
+
 
 public class ShooterSubsystem extends BaseSubsystem {
 
@@ -55,12 +56,12 @@ public class ShooterSubsystem extends BaseSubsystem {
         agitatorMotor.setInverted(false);
 
         switchToPercentVbus();
-        leftShooterSpeed = behaviorProperties.getShooterSpeed();
+        leftShooterSpeed = behaviorProperties.getLeftShooterSpeed();
         leftShooterMotor.setInverted(true);
-        rightShooterSpeed = behaviorProperties.getShooterSpeed();
+        rightShooterSpeed = behaviorProperties.getRightShooterSpeed();
 
-        leftFeederSpeed = behaviorProperties.getFeederSpeed();
-        rightFeederSpeed = behaviorProperties.getFeederSpeed();
+        leftFeederSpeed = behaviorProperties.getLeftFeederSpeed();
+        rightFeederSpeed = behaviorProperties.getRightFeederSpeed();
         rightFeederMotor.setInverted(true);
 
         leftShooterReverseSpeed = behaviorProperties.getShooterReverseSpeed();
@@ -79,13 +80,9 @@ public class ShooterSubsystem extends BaseSubsystem {
         rightShooterMotor.set(rightShooterSpeed);
     }
 
-    public double getShooterSetpoint() {
-        return SmartDashboard.getNumber("setpoint", 0);
-    }
-
     public void setShooterDefaultSetpoint() {
-        rightShooterMotor.setSetpoint(.845);
-        leftShooterMotor.setSetpoint(.845);
+        rightShooterMotor.set(leftShooterSpeed);
+        leftShooterMotor.set(rightShooterSpeed);
     }
 
     public void setFeederDefaultSpeed() {

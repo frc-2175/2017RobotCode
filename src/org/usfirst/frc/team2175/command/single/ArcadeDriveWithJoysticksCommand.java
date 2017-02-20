@@ -41,9 +41,4 @@ public class ArcadeDriveWithJoysticksCommand extends BaseCommand {
         drivetrainSubsystem.stopAllMotors();
     }
 
-    @Override
-    protected void interrupted() {
-        end();
-    }
-
 }

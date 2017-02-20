@@ -18,6 +18,7 @@ public class RunShooterPercentVbusCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
+        super.initialize();
         shooterSubsystem.switchToPercentVbus();
     }
 
@@ -35,12 +36,8 @@ public class RunShooterPercentVbusCommand extends BaseCommand {
 
     @Override
     protected void end() {
+        super.end();
         shooterSubsystem.setShooterSpeedZero();
-    }
-
-    @Override
-    protected void interrupted() {
-        end();
     }
 
 }

@@ -13,6 +13,7 @@ public class ActuateBothShootersOutCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
+        super.initialize();
         shooterSubsystem.actuateBothShootersOut();
     }
 
@@ -27,6 +28,7 @@ public class ActuateBothShootersOutCommand extends BaseCommand {
 
     @Override
     protected void end() {
+        super.end();
         shooterSubsystem.actuateBothShootersIn();
     }
 }

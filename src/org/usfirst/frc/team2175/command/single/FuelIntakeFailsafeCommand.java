@@ -19,6 +19,7 @@ public class FuelIntakeFailsafeCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
+        super.initialize();
         fuelIntakeSubsystem.setMotorSpeed(
                 -(fuelIntakeSubsystem.getMainMotorDefaultInSpeed()));
     }
@@ -34,6 +35,7 @@ public class FuelIntakeFailsafeCommand extends BaseCommand {
 
     @Override
     protected void end() {
+        super.end();
         fuelIntakeSubsystem.setMotorSpeed(0);
     }
 

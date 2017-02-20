@@ -14,6 +14,7 @@ public class RunFeederReverseCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
+        super.initialize();
     }
 
     @Override
@@ -28,12 +29,8 @@ public class RunFeederReverseCommand extends BaseCommand {
 
     @Override
     protected void end() {
+        super.end();
         shooterSubsystem.setFeederSpeedZero();
-    }
-
-    @Override
-    protected void interrupted() {
-        end();
     }
 
 }

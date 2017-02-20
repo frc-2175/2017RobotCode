@@ -14,6 +14,7 @@ public class ActuateGearIntakeOutCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
+        super.initialize();
         gearIntakeSubsystem.lowerIntake();
     }
 
@@ -28,5 +29,6 @@ public class ActuateGearIntakeOutCommand extends BaseCommand {
 
     @Override
     protected void end() {
+        super.end();
     }
 }

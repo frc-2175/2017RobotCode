@@ -9,8 +9,10 @@ public class BehaviorProperties extends BaseProperties {
     private double agitatorSpeed;
     private double maxClimberSpeed;
 
-    private double shooterSpeed;
-    private double feederSpeed;
+    private double leftShooterSpeed;
+    private double rightShooterSpeed;
+    private double leftFeederSpeed;
+    private double rightFeederSpeed;
     private double shooterReverseSpeed;
     private double feederReverseSpeed;
 
@@ -28,9 +30,11 @@ public class BehaviorProperties extends BaseProperties {
     protected void populate() {
         gearIntakeInSpeed = getDoublePropertyValue("gearintake.speed.in");
         gearIntakeOutSpeed = getDoublePropertyValue("gearintake.speed.out");
-        shooterSpeed = getDoublePropertyValue("shooter.speed");
+        leftShooterSpeed = getDoublePropertyValue("shooter.speed.left");
+        rightShooterSpeed = getDoublePropertyValue("shooter.speed.right");
         shooterReverseSpeed = getDoublePropertyValue("shooter.speed.reverse");
-        feederSpeed = getDoublePropertyValue("feeder.speed");
+        leftFeederSpeed = getDoublePropertyValue("feeder.speed.left");
+        rightFeederSpeed = getDoublePropertyValue("feeder.speed.right");
         feederReverseSpeed = getDoublePropertyValue("feeder.speed.reverse");
         agitatorSpeed = getDoublePropertyValue("agitator.speed");
         fuelIntakeOutSpeed = getDoublePropertyValue("fuelintake.speed.out");
@@ -59,16 +63,24 @@ public class BehaviorProperties extends BaseProperties {
         return gearIntakeOutSpeed;
     }
 
-    public double getShooterSpeed() {
-        return shooterSpeed;
+    public double getLeftShooterSpeed() {
+        return leftShooterSpeed;
+    }
+
+    public double getRightShooterSpeed() {
+        return rightShooterSpeed;
     }
 
     public double getShooterReverseSpeed() {
         return shooterReverseSpeed;
     }
 
-    public double getFeederSpeed() {
-        return feederSpeed;
+    public double getLeftFeederSpeed() {
+        return leftFeederSpeed;
+    }
+
+    public double getRightFeederSpeed() {
+        return rightFeederSpeed;
     }
 
     public double getFeederReverseSpeed() {
