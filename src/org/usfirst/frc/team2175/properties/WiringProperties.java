@@ -8,26 +8,21 @@ public class WiringProperties extends BaseProperties {
     private int leftSlaveMotorTwoNumber;
     private int rightSlaveMotorOneNumber;
     private int rightSlaveMotorTwoNumber;
-
-    private int driveShiftersForwardNumber;
-    private int driveShiftersReverseNumber;
+    private String[] driveShiftersSolenoidInfo;
 
     private int leftGearIntakeMotorDeviceNumber;
     private int rightGearIntakeMotorDeviceNumber;
-    private int gearIntakeSolenoidNumber;
+    private String[] gearIntakeSolenoidInfo;
 
     private int fuelIntakeMainMotorDeviceNumber;
-
-    private int hopperForwardNumber;
-    private int hopperReverseNumber;
+    private String[] hopperSolenoidInfo;
 
     private int leftShooterMotorDeviceNumber;
     private int leftFeederMotorDeviceNumber;
     private int shooterAgitatorMotorDeviceNumber;
     private int rightShooterMotorDeviceNumber;
     private int rightFeederMotorDeviceNumber;
-    private int shooterActuatorLeftDeviceNumber;
-    private int shooterActuatorRightDeviceNumber;
+    private String[] shooterActuatorSolenoidInfo;
 
     private int drivetrainAnalogGyroDeviceNumber;
 
@@ -41,10 +36,8 @@ public class WiringProperties extends BaseProperties {
 
     @Override
     protected void populate() {
-        driveShiftersForwardNumber = getIntPropertyValue(
-                "drivetrain.solenoid.driveshifters.forward");
-        driveShiftersReverseNumber = getIntPropertyValue(
-                "drivetrain.solenoid.driveshifters.reverse");
+        driveShiftersSolenoidInfo = getStringArrayPropertyValue(
+                "drivetrain.solenoid.driveshifters");
 
         leftMasterMotorNumber =
                 getIntPropertyValue("drivetrain.motor.left.master");
@@ -64,12 +57,12 @@ public class WiringProperties extends BaseProperties {
                 getIntPropertyValue("gearintake.motor.left");
         rightGearIntakeMotorDeviceNumber =
                 getIntPropertyValue("gearintake.motor.right");
-        gearIntakeSolenoidNumber = getIntPropertyValue("gearintake.solenoid");
+        gearIntakeSolenoidInfo =
+                getStringArrayPropertyValue("gearintake.solenoid");
         fuelIntakeMainMotorDeviceNumber =
                 getIntPropertyValue("fuelintake.motor.main");
 
-        hopperForwardNumber = getIntPropertyValue("hopper.solenoid.forward");
-        hopperReverseNumber = getIntPropertyValue("hopper.solenoid.reverse");
+        hopperSolenoidInfo = getStringArrayPropertyValue("hopper.solenoid");
 
         leftShooterMotorDeviceNumber =
                 getIntPropertyValue("shooter.motor.shooter");
@@ -88,10 +81,8 @@ public class WiringProperties extends BaseProperties {
                 getIntPropertyValue("shooter.motor.shootertwo");
         rightFeederMotorDeviceNumber =
                 getIntPropertyValue("shooter.motor.feedertwo");
-        shooterActuatorLeftDeviceNumber =
-                getIntPropertyValue("shooter.solenoid.actuator.left");
-        shooterActuatorRightDeviceNumber =
-                getIntPropertyValue("shooter.solenoid.actuator.right");
+        shooterActuatorSolenoidInfo =
+                getStringArrayPropertyValue("shooter.solenoid.actuator");
     }
 
     public int getClimberMotorOneNumber() {
@@ -114,12 +105,8 @@ public class WiringProperties extends BaseProperties {
         return shooterAgitatorMotorDeviceNumber;
     }
 
-    public int getDriveShiftersForwardNumber() {
-        return driveShiftersForwardNumber;
-    }
-
-    public int getDriveShiftersReverseNumber() {
-        return driveShiftersReverseNumber;
+    public String[] getDriveShiftersSolenoidInfo() {
+        return driveShiftersSolenoidInfo;
     }
 
     public int getLeftMasterMotorNumber() {
@@ -162,16 +149,12 @@ public class WiringProperties extends BaseProperties {
         return drivetrainAnalogGyroDeviceNumber;
     }
 
-    public int getHopperForwardNumber() {
-        return hopperForwardNumber;
+    public String[] getHopperSolenoidInfo() {
+        return hopperSolenoidInfo;
     }
 
-    public int getHopperReverseNumber() {
-        return hopperReverseNumber;
-    }
-
-    public int getGearIntakeSolenoidNumber() {
-        return gearIntakeSolenoidNumber;
+    public String[] getGearIntakeSolenoidNumber() {
+        return gearIntakeSolenoidInfo;
     }
 
     public int getRightShooterMotorDeviceNumber() {
@@ -182,11 +165,7 @@ public class WiringProperties extends BaseProperties {
         return rightFeederMotorDeviceNumber;
     }
 
-    public int getShooterActuatorLeftDeviceNumber() {
-        return shooterActuatorLeftDeviceNumber;
-    }
-
-    public int getShooterActuatorRightDeviceNumber() {
-        return shooterActuatorRightDeviceNumber;
+    public String[] getShooterActuatorSolenoidInfo() {
+        return shooterActuatorSolenoidInfo;
     }
 }

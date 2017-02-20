@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2175.subsystem;
 
 import org.usfirst.frc.team2175.ServiceLocator;
+import org.usfirst.frc.team2175.SolenoidWrapper;
 import org.usfirst.frc.team2175.properties.BehaviorProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties;
 
@@ -8,7 +9,6 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ShooterSubsystem extends BaseSubsystem {
@@ -28,8 +28,7 @@ public class ShooterSubsystem extends BaseSubsystem {
     private final double rightFeederReverseSpeed;
 
     private final CANTalon agitatorMotor;
-    private final Solenoid leftShooterSolenoid;
-    private final Solenoid rightShooterSolenoid;
+    private final SolenoidWrapper shooterSolenoid;
     private final double agitatorSpeed;
 
     public ShooterSubsystem() {
@@ -71,10 +70,8 @@ public class ShooterSubsystem extends BaseSubsystem {
 
         agitatorSpeed = behaviorProperties.getAgitatorSpeed();
 
-        leftShooterSolenoid = new Solenoid(
-                wiringProperties.getShooterActuatorLeftDeviceNumber());
-        rightShooterSolenoid = new Solenoid(
-                wiringProperties.getShooterActuatorRightDeviceNumber());
+        shooterSolenoid = new SolenoidWrapper(
+                wiringProperties.getShooterActuatorSolenoidInfo());
     }
 
     public void setShooterDefaultSpeed() {
@@ -129,13 +126,11 @@ public class ShooterSubsystem extends BaseSubsystem {
     }
 
     public void actuateBothShootersOut() {
-        leftShooterSolenoid.set(true);
-        rightShooterSolenoid.set(true);
+        shooterSolenoid.set(true);
     }
 
     public void actuateBothShootersIn() {
-        leftShooterSolenoid.set(false);
-        rightShooterSolenoid.set(false);
+        shooterSolenoid.set(false);
     }
 
     public void switchToPIDMode() {

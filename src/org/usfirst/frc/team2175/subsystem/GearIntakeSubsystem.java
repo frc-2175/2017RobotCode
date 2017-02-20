@@ -1,18 +1,17 @@
 package org.usfirst.frc.team2175.subsystem;
 
 import org.usfirst.frc.team2175.ServiceLocator;
+import org.usfirst.frc.team2175.SolenoidWrapper;
 import org.usfirst.frc.team2175.properties.BehaviorProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties;
 
 import com.ctre.CANTalon;
 
-import edu.wpi.first.wpilibj.Solenoid;
-
 public class GearIntakeSubsystem extends BaseSubsystem {
 
     private CANTalon leftIntakeMotor;
     private CANTalon rightIntakeMotor;
-    private Solenoid gearIntakeActuator;
+    private SolenoidWrapper gearIntakeActuator;
 
     private double gearIntakeInSpeed;
     private double gearIntakeOutSpeed;
@@ -26,8 +25,8 @@ public class GearIntakeSubsystem extends BaseSubsystem {
                 new CANTalon(wiringProperties.getLeftGearIntakeDeviceNumber());
         rightIntakeMotor =
                 new CANTalon(wiringProperties.getRightGearIntakeDeviceNumber());
-        gearIntakeActuator =
-                new Solenoid(wiringProperties.getGearIntakeSolenoidNumber());
+        gearIntakeActuator = new SolenoidWrapper(
+                wiringProperties.getGearIntakeSolenoidNumber());
 
         gearIntakeInSpeed = behaviorProperties.getGearIntakeInSpeed();
         gearIntakeOutSpeed = behaviorProperties.getGearIntakeOutSpeed();
