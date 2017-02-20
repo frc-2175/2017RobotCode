@@ -7,6 +7,7 @@ import org.usfirst.frc.team2175.subsystem.BaseSubsystem;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.VisionRunner;
 import edu.wpi.first.wpilibj.vision.VisionThread;
 
@@ -24,6 +25,7 @@ public class VisionSubsystem extends BaseSubsystem
     public VisionSubsystem() {
         CameraServer.getInstance().startAutomaticCapture();
         final UsbCamera camera = new UsbCamera("GearCam", 0);
+        camera.setExposureManual(10);
         final GripPipeline gripPipeline = new GripPipeline();
 
         final VisionThread visionThread =
@@ -34,7 +36,7 @@ public class VisionSubsystem extends BaseSubsystem
     @Override
     public void copyPipelineOutputs(final GripPipeline pipeline) {
         final ArrayList<MatOfPoint> contours = pipeline.filterContoursOutput();
-        // TODO Add more later
+        SmartDashboard.putNumber("Contour Count", contours.size());
     }
 
     public double[] getContourArea() {
