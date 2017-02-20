@@ -1,17 +1,16 @@
 package org.usfirst.frc.team2175.subsystem;
 
 import org.usfirst.frc.team2175.ServiceLocator;
+import org.usfirst.frc.team2175.SolenoidWrapper;
 import org.usfirst.frc.team2175.properties.BehaviorProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties;
 
 import com.ctre.CANTalon;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-
 public class FuelIntakeSubsystem extends BaseSubsystem {
 
     private final CANTalon mainMotor;
-    private DoubleSolenoid hopperSolenoid;
+    private SolenoidWrapper hopperSolenoid;
     private final double mainMotorDefaultInSpeed;
     private final double mainMotorDefaultOutSpeed;
 
@@ -23,8 +22,7 @@ public class FuelIntakeSubsystem extends BaseSubsystem {
         mainMotor = new CANTalon(
                 wiringProperties.getFuelIntakeMainMotorDeviceNumber());
         hopperSolenoid =
-                new DoubleSolenoid(wiringProperties.getHopperForwardNumber(),
-                        wiringProperties.getHopperReverseNumber());
+                new SolenoidWrapper(wiringProperties.getHopperSolenoidInfo());
         mainMotorDefaultInSpeed = behaviorProperties.getFuelIntakeInSpeed();
         mainMotorDefaultOutSpeed = behaviorProperties.getFuelIntakeOutSpeed();
     }
@@ -38,11 +36,11 @@ public class FuelIntakeSubsystem extends BaseSubsystem {
     }
 
     public void raiseHopper() {
-        hopperSolenoid.set(DoubleSolenoid.Value.kForward);
+        hopperSolenoid.set(true);
     }
 
     public void lowerHopper() {
-        hopperSolenoid.set(DoubleSolenoid.Value.kReverse);
+        hopperSolenoid.set(false);
     }
 
     public void setMotorSpeed(final double speed) {

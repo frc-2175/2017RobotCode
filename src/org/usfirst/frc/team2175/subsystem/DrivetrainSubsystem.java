@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2175.subsystem;
 
 import org.usfirst.frc.team2175.ServiceLocator;
+import org.usfirst.frc.team2175.SolenoidWrapper;
 import org.usfirst.frc.team2175.properties.WiringProperties;
 
 import com.ctre.CANTalon;
@@ -8,7 +9,6 @@ import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 public class DrivetrainSubsystem extends BaseSubsystem {
@@ -24,7 +24,7 @@ public class DrivetrainSubsystem extends BaseSubsystem {
 
     private RobotDrive robotDrive;
 
-    private DoubleSolenoid driveShifters;
+    private SolenoidWrapper driveShifters;
 
     private AnalogGyro analogGyro;
 
@@ -59,9 +59,8 @@ public class DrivetrainSubsystem extends BaseSubsystem {
                 .changeControlMode(CANTalon.TalonControlMode.Follower);
         rightSlaveMotorTwo.set(rightMasterMotor.getDeviceID());
 
-        driveShifters = new DoubleSolenoid(
-                wiringProperties.getDriveShiftersForwardNumber(),
-                wiringProperties.getDriveShiftersReverseNumber());
+        driveShifters = new SolenoidWrapper(
+                wiringProperties.getDriveShiftersSolenoidInfo());
 
         robotDrive = new RobotDrive(leftMasterMotor, rightMasterMotor);
 
@@ -76,16 +75,16 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         robotDrive.arcadeDrive(-moveValue, rotateValue);
     }
 
-    private void setGear(final DoubleSolenoid.Value value) {
-        driveShifters.set(value);
+    private void setGear(final boolean forward) {
+        driveShifters.set(forward);
     }
 
     public void shiftToHighGear() {
-        setGear(DoubleSolenoid.Value.kForward);
+        setGear(true);
     }
 
     public void shiftToLowGear() {
-        setGear(DoubleSolenoid.Value.kReverse);
+        setGear(false);
     }
 
     public void stopAllMotors() {
