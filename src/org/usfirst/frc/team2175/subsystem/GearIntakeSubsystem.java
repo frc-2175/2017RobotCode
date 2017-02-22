@@ -30,7 +30,7 @@ public class GearIntakeSubsystem extends BaseSubsystem {
 
         gearIntakeInSpeed = behaviorProperties.getGearIntakeInSpeed();
         gearIntakeOutSpeed = behaviorProperties.getGearIntakeOutSpeed();
-        rightIntakeMotor.setInverted(true);
+        leftIntakeMotor.setInverted(true);
     }
 
     public void runIn() {
