@@ -36,6 +36,10 @@ public class SmartDashboardLoop extends ControlLoop {
         showGearIntakeInfo();
         SmartDashboard.putNumber("CurrentDraw", ServiceLocator
                 .get(DrivetrainSubsystem.class).getOutputCurrent());
+        SmartDashboard.putNumber("Gyro",
+                ServiceLocator.get(DrivetrainSubsystem.class).getGyroAngle());
+        SmartDashboard.putNumber("GyroGraph",
+                ServiceLocator.get(DrivetrainSubsystem.class).getGyroAngle());
     }
 
     protected void showGearIntakeInfo() {
