@@ -77,7 +77,7 @@ public class ShooterSubsystem extends BaseSubsystem {
 
     public void setShooterDefaultSpeed() {
         leftShooterMotor.set(leftShooterSpeed);
-        rightShooterMotor.set(rightShooterSpeed);
+        rightShooterMotor.set(-rightShooterSpeed);
     }
 
     public void setShooterDefaultSetpoint() {
