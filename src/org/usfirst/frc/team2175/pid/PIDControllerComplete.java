@@ -16,6 +16,8 @@ public abstract class PIDControllerComplete extends PIDController
     // shut up.
     private PIDSourceType pidSourceType = PIDSourceType.kDisplacement;
 
+    private boolean isDisabling = true;
+
     private static final PIDSource TEMPORARY_SOURCE = new PIDSource() {
         @Override
         public double pidGet() {
@@ -59,10 +61,18 @@ public abstract class PIDControllerComplete extends PIDController
         log.info("Enabled PID Controller: " + getClass().getName());
     }
 
+    public synchronized void clearTotalIntegral() {
+        isDisabling = false;
+        reset();
+        isDisabling = true;
+    }
+
     @Override
-    public void disable() {
-        super.disable();
-        log.info("Disabled PID Controller: " + getClass().getName());
+    public synchronized void disable() {
+        if (isDisabling) {
+            super.disable();
+            log.info("Disabled PID Controller: " + getClass().getName());
+        }
     }
 
     @Override

@@ -29,8 +29,13 @@ public class TurnDegreesWithGyroCommand extends Command {
         controller.enable();
     }
 
-    // No need for an execute method, because the PID controller will be doing
-    // the output stuff on its own timer.
+    @Override
+    protected void execute() {
+        // TODO Make as a instance
+        if (Math.abs(controller.getError()) > 10) {
+            controller.clearTotalIntegral();
+        }
+    }
 
     @Override
     protected boolean isFinished() {

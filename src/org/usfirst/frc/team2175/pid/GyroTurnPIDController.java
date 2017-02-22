@@ -25,7 +25,8 @@ public class GyroTurnPIDController extends PIDControllerComplete {
 
         // Set the "close enough" value here. If our sensor reading is less than
         // that, we'll consider ourselves done with this PID.
-        setAbsoluteTolerance(0.01);
+        // TODO Make absolute tolerance a property
+        setAbsoluteTolerance(0.3);
 
         // Set the type of PID controller here - either kDisplacement or kRate.
         setPIDSourceType(PIDSourceType.kDisplacement);
