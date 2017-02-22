@@ -34,6 +34,7 @@ public class DriverStation {
     private JoystickButton shootOutButton;
     private JoystickButton cameraSwitchButton;
     private JoystickButton gearIntakeOutAndSpinButton;
+    private JoystickButton shooterActuatorButton;
 
     private POVTrigger shooterInPOV;
     private POVTrigger fuelOutPOV;
@@ -73,6 +74,8 @@ public class DriverStation {
                 buttonFromButtonInfo(joystickProperties.getCameraSwitchInfo());
         gearIntakeOutAndSpinButton = buttonFromButtonInfo(
                 joystickProperties.getGearIntakeOutAndSpinInfo());
+        shooterActuatorButton = buttonFromButtonInfo(
+                joystickProperties.getShooterActuatorInfo());
 
         shooterInPOV =
                 new POVTrigger(gamepad, joystickProperties.getShooterInPOV());
@@ -197,4 +200,9 @@ public class DriverStation {
     public JoystickButton getGearIntakeOutAndSpinButton() {
         return gearIntakeOutAndSpinButton;
     }
+
+    public JoystickButton getShooterActuatorButton() {
+        return shooterActuatorButton;
+    }
+
 }

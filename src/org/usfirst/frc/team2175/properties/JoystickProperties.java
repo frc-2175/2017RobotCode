@@ -20,6 +20,7 @@ public class JoystickProperties extends BaseProperties {
     private ButtonInfo shooterOutInfo;
     private ButtonInfo cameraSwitchInfo;
     private ButtonInfo gearIntakeOutAndSpinInfo;
+    private ButtonInfo shooterActuatorInfo;
 
     private int shooterInPOVAngle;
     private int fuelOutPOVAngle;
@@ -64,6 +65,8 @@ public class JoystickProperties extends BaseProperties {
         cameraSwitchInfo = buttonInfoFromPropertyValue("button.camera.switch");
         gearIntakeOutAndSpinInfo =
                 buttonInfoFromPropertyValue("button.gearintake.outandspin");
+        shooterActuatorInfo =
+                buttonInfoFromPropertyValue("button.shooter.actuator");
 
         shooterInPOVAngle = getIntPropertyValue("pov.shooter.angle");
         fuelOutPOVAngle = getIntPropertyValue("pov.fuel.angle");
@@ -145,6 +148,10 @@ public class JoystickProperties extends BaseProperties {
 
     public ButtonInfo getGearIntakeOutAndSpinInfo() {
         return gearIntakeOutAndSpinInfo;
+    }
+
+    public ButtonInfo getShooterActuatorInfo() {
+        return shooterActuatorInfo;
     }
 
     public int getShooterInPOV() {
