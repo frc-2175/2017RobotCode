@@ -8,9 +8,6 @@ import org.usfirst.frc.team2175.properties.WiringProperties;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Solenoid;
-
 
 public class ShooterSubsystem extends BaseSubsystem {
 
@@ -41,28 +38,25 @@ public class ShooterSubsystem extends BaseSubsystem {
         // TODO: Provide a way of configuring both our shooter motor controllers
         // the same way without duplicate code.
 
-        leftShooterMotor = new CANTalon(
-                wiringProperties.getLeftShooterMotorDeviceNumber());
-        rightShooterMotor = new CANTalon(
-                wiringProperties.getRightShooterMotorDeviceNumber());
+        leftShooterMotor =
+                motorFromInfo(wiringProperties.getLeftShooterMotorInfo());
+        rightShooterMotor =
+                motorFromInfo(wiringProperties.getRightShooterMotorInfo());
 
         leftFeederMotor =
-                new CANTalon(wiringProperties.getLeftFeederMotorDeviceNumber());
-        rightFeederMotor = new CANTalon(
-                wiringProperties.getRightFeederMotorDeviceNumber());
+                motorFromInfo(wiringProperties.getLeftFeederMotorInfo());
+        rightFeederMotor =
+                motorFromInfo(wiringProperties.getRightFeederMotorInfo());
 
-        agitatorMotor = new CANTalon(
-                wiringProperties.getShooterAgitatorMotorDeviceNumber());
-        agitatorMotor.setInverted(false);
+        agitatorMotor =
+                motorFromInfo(wiringProperties.getShooterAgitatorMotorInfo());
 
         switchToPercentVbus();
         leftShooterSpeed = behaviorProperties.getLeftShooterSpeed();
-        leftShooterMotor.setInverted(true);
         rightShooterSpeed = behaviorProperties.getRightShooterSpeed();
 
         leftFeederSpeed = behaviorProperties.getLeftFeederSpeed();
         rightFeederSpeed = behaviorProperties.getRightFeederSpeed();
-        rightFeederMotor.setInverted(true);
 
         leftShooterReverseSpeed = behaviorProperties.getShooterReverseSpeed();
         rightShooterReverseSpeed = behaviorProperties.getShooterReverseSpeed();

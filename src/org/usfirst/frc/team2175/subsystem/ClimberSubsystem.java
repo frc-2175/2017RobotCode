@@ -18,12 +18,11 @@ public class ClimberSubsystem extends BaseSubsystem {
                 ServiceLocator.get(WiringProperties.class);
         final BehaviorProperties behaviorProperties =
                 ServiceLocator.get(BehaviorProperties.class);
-        motorOne = new CANTalon(wiringProperties.getClimberMotorOneNumber());
-        motorTwo = new CANTalon(wiringProperties.getClimberMotorTwoNumber());
+        motorOne = motorFromInfo(wiringProperties.getClimberMotorOneInfo());
+        motorTwo = motorFromInfo(wiringProperties.getClimberMotorTwoInfo());
         motorTwo.changeControlMode(TalonControlMode.Follower);
         motorTwo.set(motorOne.getDeviceID());
         maxClimberSpeed = behaviorProperties.getMaxClimberSpeed();
-        motorOne.setInverted(true);
     }
 
     public double getMaxClimberSpeed() {

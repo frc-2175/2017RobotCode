@@ -33,17 +33,17 @@ public class DrivetrainSubsystem extends BaseSubsystem {
                 ServiceLocator.get(WiringProperties.class);
 
         leftMasterMotor =
-                new CANTalon(wiringProperties.getLeftMasterMotorNumber());
+                motorFromInfo(wiringProperties.getLeftMasterMotorInfo());
         leftSlaveMotorOne =
-                new CANTalon(wiringProperties.getLeftSlaveMotorOneNumber());
+                motorFromInfo(wiringProperties.getLeftSlaveMotorOneInfo());
         leftSlaveMotorTwo =
-                new CANTalon(wiringProperties.getLeftSlaveMotorTwoNumber());
+                motorFromInfo(wiringProperties.getLeftSlaveMotorTwoInfo());
         rightMasterMotor =
-                new CANTalon(wiringProperties.getRightMasterMotorNumber());
+                motorFromInfo(wiringProperties.getRightMasterMotorInfo());
         rightSlaveMotorOne =
-                new CANTalon(wiringProperties.getRightSlaveMotorOneNumber());
+                motorFromInfo(wiringProperties.getRightSlaveMotorOneInfo());
         rightSlaveMotorTwo =
-                new CANTalon(wiringProperties.getRightSlaveMotorTwoNumber());
+                motorFromInfo(wiringProperties.getRightSlaveMotorTwoInfo());
 
         leftSlaveMotorOne.changeControlMode(CANTalon.TalonControlMode.Follower);
         leftSlaveMotorOne.set(leftMasterMotor.getDeviceID());

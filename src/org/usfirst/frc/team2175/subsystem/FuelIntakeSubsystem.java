@@ -19,8 +19,8 @@ public class FuelIntakeSubsystem extends BaseSubsystem {
                 ServiceLocator.get(WiringProperties.class);
         final BehaviorProperties behaviorProperties =
                 ServiceLocator.get(BehaviorProperties.class);
-        mainMotor = new CANTalon(
-                wiringProperties.getFuelIntakeMainMotorDeviceNumber());
+        mainMotor =
+                motorFromInfo(wiringProperties.getFuelIntakeMainMotorInfo());
         hopperSolenoid =
                 new SolenoidWrapper(wiringProperties.getHopperSolenoidInfo());
         mainMotorDefaultInSpeed = behaviorProperties.getFuelIntakeInSpeed();

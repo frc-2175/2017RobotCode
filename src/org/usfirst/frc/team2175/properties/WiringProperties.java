@@ -2,36 +2,46 @@ package org.usfirst.frc.team2175.properties;
 
 public class WiringProperties extends BaseProperties {
 
-    private int leftMasterMotorNumber;
-    private int rightMasterMotorNumber;
-    private int leftSlaveMotorOneNumber;
-    private int leftSlaveMotorTwoNumber;
-    private int rightSlaveMotorOneNumber;
-    private int rightSlaveMotorTwoNumber;
+    private MotorInfo leftMasterMotorInfo;
+    private MotorInfo rightMasterMotorInfo;
+    private MotorInfo leftSlaveMotorOneInfo;
+    private MotorInfo leftSlaveMotorTwoInfo;
+    private MotorInfo rightSlaveMotorOneInfo;
+    private MotorInfo rightSlaveMotorTwoInfo;
     private String[] driveShiftersSolenoidInfo;
 
-    private int leftGearIntakeMotorDeviceNumber;
-    private int rightGearIntakeMotorDeviceNumber;
+    private MotorInfo leftGearIntakeMotorInfo;
+    private MotorInfo rightGearIntakeMotorInfo;
     private String[] gearIntakeSolenoidInfo;
 
-    private int fuelIntakeMainMotorDeviceNumber;
+    private MotorInfo fuelIntakeMainMotorInfo;
     private String[] hopperSolenoidInfo;
 
-    private int leftShooterMotorDeviceNumber;
-    private int leftFeederMotorDeviceNumber;
-    private int shooterAgitatorMotorDeviceNumber;
-    private int rightShooterMotorDeviceNumber;
-    private int rightFeederMotorDeviceNumber;
+    private MotorInfo leftShooterMotorInfo;
+    private MotorInfo leftFeederMotorInfo;
+    private MotorInfo shooterAgitatorMotorInfo;
+    private MotorInfo rightShooterMotorInfo;
+    private MotorInfo rightFeederMotorInfo;
     private String[] shooterActuatorSolenoidInfo;
 
     private int drivetrainAnalogGyroDeviceNumber;
 
-    private int climberMotorOneNumber;
-    private int climberMotorTwoNumber;
+    private MotorInfo climberMotorOneInfo;
+    private MotorInfo climberMotorTwoInfo;
 
     @Override
     protected String getPropertyFileName() {
         return "wiring.properties";
+    }
+
+    public static class MotorInfo {
+        public final int deviceNumber;
+        public final boolean isInverted;
+
+        private MotorInfo(final int deviceNumber, final boolean isInverted) {
+            this.deviceNumber = deviceNumber;
+            this.isInverted = isInverted;
+        }
     }
 
     @Override
@@ -39,133 +49,147 @@ public class WiringProperties extends BaseProperties {
         driveShiftersSolenoidInfo = getStringArrayPropertyValue(
                 "drivetrain.solenoid.driveshifters");
 
-        leftMasterMotorNumber =
-                getIntPropertyValue("drivetrain.motor.left.master");
-        leftSlaveMotorOneNumber =
-                getIntPropertyValue("drivetrain.motor.left.slaveone");
-        leftSlaveMotorTwoNumber =
-                getIntPropertyValue("drivetrain.motor.left.slavetwo");
+        leftMasterMotorInfo =
+                motorInfoFromPropertyValue("drivetrain.motor.left.master");
+        leftSlaveMotorOneInfo =
+                motorInfoFromPropertyValue("drivetrain.motor.left.slaveone");
+        leftSlaveMotorTwoInfo =
+                motorInfoFromPropertyValue("drivetrain.motor.left.slavetwo");
 
-        rightMasterMotorNumber =
-                getIntPropertyValue("drivetrain.motor.right.master");
-        rightSlaveMotorOneNumber =
-                getIntPropertyValue("drivetrain.motor.right.slaveone");
-        rightSlaveMotorTwoNumber =
-                getIntPropertyValue("drivetrain.motor.right.slavetwo");
+        rightMasterMotorInfo =
+                motorInfoFromPropertyValue("drivetrain.motor.right.master");
+        rightSlaveMotorOneInfo =
+                motorInfoFromPropertyValue("drivetrain.motor.right.slaveone");
+        rightSlaveMotorTwoInfo =
+                motorInfoFromPropertyValue("drivetrain.motor.right.slavetwo");
 
-        leftGearIntakeMotorDeviceNumber =
-                getIntPropertyValue("gearintake.motor.left");
-        rightGearIntakeMotorDeviceNumber =
-                getIntPropertyValue("gearintake.motor.right");
+        leftGearIntakeMotorInfo =
+                motorInfoFromPropertyValue("gearintake.motor.left");
+        rightGearIntakeMotorInfo =
+                motorInfoFromPropertyValue("gearintake.motor.right");
         gearIntakeSolenoidInfo =
                 getStringArrayPropertyValue("gearintake.solenoid");
-        fuelIntakeMainMotorDeviceNumber =
-                getIntPropertyValue("fuelintake.motor.main");
+        fuelIntakeMainMotorInfo =
+                motorInfoFromPropertyValue("fuelintake.motor.main");
 
         hopperSolenoidInfo = getStringArrayPropertyValue("hopper.solenoid");
 
-        leftShooterMotorDeviceNumber =
-                getIntPropertyValue("shooter.motor.shooter");
-        leftFeederMotorDeviceNumber =
-                getIntPropertyValue("shooter.motor.feeder");
-        shooterAgitatorMotorDeviceNumber =
-                getIntPropertyValue("shooter.motor.agitator");
+        leftShooterMotorInfo =
+                motorInfoFromPropertyValue("shooter.motor.shooter");
+        leftFeederMotorInfo =
+                motorInfoFromPropertyValue("shooter.motor.feeder");
+        shooterAgitatorMotorInfo =
+                motorInfoFromPropertyValue("shooter.motor.agitator");
 
         drivetrainAnalogGyroDeviceNumber =
                 getIntPropertyValue("drivetrain.analog.gyro");
 
-        climberMotorOneNumber = getIntPropertyValue("climber.motor.one");
-        climberMotorTwoNumber = getIntPropertyValue("climber.motor.two");
+        climberMotorOneInfo = motorInfoFromPropertyValue("climber.motor.one");
+        climberMotorTwoInfo = motorInfoFromPropertyValue("climber.motor.two");
 
-        rightShooterMotorDeviceNumber =
-                getIntPropertyValue("shooter.motor.shootertwo");
-        rightFeederMotorDeviceNumber =
-                getIntPropertyValue("shooter.motor.feedertwo");
+        rightShooterMotorInfo =
+                motorInfoFromPropertyValue("shooter.motor.shootertwo");
+        rightFeederMotorInfo =
+                motorInfoFromPropertyValue("shooter.motor.feedertwo");
         shooterActuatorSolenoidInfo =
                 getStringArrayPropertyValue("shooter.solenoid.actuator");
     }
 
-    public int getClimberMotorOneNumber() {
-        return climberMotorOneNumber;
+    protected MotorInfo motorInfoFromPropertyValue(final String propertyName) {
+        final String[] info = getStringArrayPropertyValue(propertyName);
+        return new MotorInfo(getDeviceNumber(info), getIsInverted(info));
     }
 
-    public int getClimberMotorTwoNumber() {
-        return climberMotorTwoNumber;
+    public int getDeviceNumber(final String[] info) {
+        return Integer.parseInt(info[0]);
     }
 
-    public int getLeftShooterMotorDeviceNumber() {
-        return leftShooterMotorDeviceNumber;
-    }
-
-    public int getLeftFeederMotorDeviceNumber() {
-        return leftFeederMotorDeviceNumber;
-    }
-
-    public int getShooterAgitatorMotorDeviceNumber() {
-        return shooterAgitatorMotorDeviceNumber;
+    public boolean getIsInverted(final String[] info) {
+        return Boolean.parseBoolean(info[1]);
     }
 
     public String[] getDriveShiftersSolenoidInfo() {
         return driveShiftersSolenoidInfo;
     }
 
-    public int getLeftMasterMotorNumber() {
-        return leftMasterMotorNumber;
+    public MotorInfo getLeftMasterMotorInfo() {
+        return leftMasterMotorInfo;
     }
 
-    public int getRightMasterMotorNumber() {
-        return rightMasterMotorNumber;
+    public MotorInfo getRightMasterMotorInfo() {
+        return rightMasterMotorInfo;
     }
 
-    public int getLeftSlaveMotorOneNumber() {
-        return leftSlaveMotorOneNumber;
+    public MotorInfo getLeftSlaveMotorOneInfo() {
+        return leftSlaveMotorOneInfo;
     }
 
-    public int getLeftSlaveMotorTwoNumber() {
-        return leftSlaveMotorTwoNumber;
+    public MotorInfo getLeftSlaveMotorTwoInfo() {
+        return leftSlaveMotorTwoInfo;
     }
 
-    public int getRightSlaveMotorOneNumber() {
-        return rightSlaveMotorOneNumber;
+    public MotorInfo getRightSlaveMotorOneInfo() {
+        return rightSlaveMotorOneInfo;
     }
 
-    public int getRightSlaveMotorTwoNumber() {
-        return rightSlaveMotorTwoNumber;
+    public MotorInfo getRightSlaveMotorTwoInfo() {
+        return rightSlaveMotorTwoInfo;
     }
 
-    public int getLeftGearIntakeDeviceNumber() {
-        return leftGearIntakeMotorDeviceNumber;
+    public MotorInfo getLeftGearIntakeMotorInfo() {
+        return leftGearIntakeMotorInfo;
     }
 
-    public int getRightGearIntakeDeviceNumber() {
-        return rightGearIntakeMotorDeviceNumber;
+    public MotorInfo getRightGearIntakeMotorInfo() {
+        return rightGearIntakeMotorInfo;
     }
 
-    public int getFuelIntakeMainMotorDeviceNumber() {
-        return fuelIntakeMainMotorDeviceNumber;
+    public String[] getGearIntakeSolenoidInfo() {
+        return gearIntakeSolenoidInfo;
     }
 
-    public int getDrivetrainAnalogGyroDeviceNumber() {
-        return drivetrainAnalogGyroDeviceNumber;
+    public MotorInfo getFuelIntakeMainMotorInfo() {
+        return fuelIntakeMainMotorInfo;
     }
 
     public String[] getHopperSolenoidInfo() {
         return hopperSolenoidInfo;
     }
 
-    public String[] getGearIntakeSolenoidNumber() {
-        return gearIntakeSolenoidInfo;
+    public MotorInfo getLeftShooterMotorInfo() {
+        return leftShooterMotorInfo;
     }
 
-    public int getRightShooterMotorDeviceNumber() {
-        return rightShooterMotorDeviceNumber;
+    public MotorInfo getLeftFeederMotorInfo() {
+        return leftFeederMotorInfo;
     }
 
-    public int getRightFeederMotorDeviceNumber() {
-        return rightFeederMotorDeviceNumber;
+    public MotorInfo getShooterAgitatorMotorInfo() {
+        return shooterAgitatorMotorInfo;
+    }
+
+    public MotorInfo getRightShooterMotorInfo() {
+        return rightShooterMotorInfo;
+    }
+
+    public MotorInfo getRightFeederMotorInfo() {
+        return rightFeederMotorInfo;
     }
 
     public String[] getShooterActuatorSolenoidInfo() {
         return shooterActuatorSolenoidInfo;
     }
+
+    public int getDrivetrainAnalogGyroDeviceNumber() {
+        return drivetrainAnalogGyroDeviceNumber;
+    }
+
+    public MotorInfo getClimberMotorOneInfo() {
+        return climberMotorOneInfo;
+    }
+
+    public MotorInfo getClimberMotorTwoInfo() {
+        return climberMotorTwoInfo;
+    }
+
 }

@@ -22,15 +22,14 @@ public class GearIntakeSubsystem extends BaseSubsystem {
         final BehaviorProperties behaviorProperties =
                 ServiceLocator.get(BehaviorProperties.class);
         leftIntakeMotor =
-                new CANTalon(wiringProperties.getLeftGearIntakeDeviceNumber());
+                motorFromInfo(wiringProperties.getLeftGearIntakeMotorInfo());
         rightIntakeMotor =
-                new CANTalon(wiringProperties.getRightGearIntakeDeviceNumber());
+                motorFromInfo(wiringProperties.getRightGearIntakeMotorInfo());
         gearIntakeActuator = new SolenoidWrapper(
-                wiringProperties.getGearIntakeSolenoidNumber());
+                wiringProperties.getGearIntakeSolenoidInfo());
 
         gearIntakeInSpeed = behaviorProperties.getGearIntakeInSpeed();
         gearIntakeOutSpeed = behaviorProperties.getGearIntakeOutSpeed();
-        leftIntakeMotor.setInverted(true);
     }
 
     public void runIn() {
