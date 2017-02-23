@@ -8,21 +8,21 @@ public class WiringProperties extends BaseProperties {
     private MotorInfo leftSlaveMotorTwoInfo;
     private MotorInfo rightSlaveMotorOneInfo;
     private MotorInfo rightSlaveMotorTwoInfo;
-    private String[] driveShiftersSolenoidInfo;
+    private SolenoidInfo driveShiftersSolenoidInfo;
 
     private MotorInfo leftGearIntakeMotorInfo;
     private MotorInfo rightGearIntakeMotorInfo;
-    private String[] gearIntakeSolenoidInfo;
+    private SolenoidInfo gearIntakeSolenoidInfo;
 
     private MotorInfo fuelIntakeMainMotorInfo;
-    private String[] hopperSolenoidInfo;
+    private SolenoidInfo hopperSolenoidInfo;
 
     private MotorInfo leftShooterMotorInfo;
     private MotorInfo leftFeederMotorInfo;
     private MotorInfo shooterAgitatorMotorInfo;
     private MotorInfo rightShooterMotorInfo;
     private MotorInfo rightFeederMotorInfo;
-    private String[] shooterActuatorSolenoidInfo;
+    private SolenoidInfo shooterActuatorSolenoidInfo;
 
     private int drivetrainAnalogGyroDeviceNumber;
 
@@ -44,9 +44,20 @@ public class WiringProperties extends BaseProperties {
         }
     }
 
+    public static class SolenoidInfo {
+        public final String type;
+        public int[] ports = new int[2];
+
+        private SolenoidInfo(final String type, final int[] ports) {
+            this.type = type;
+            this.ports = ports;
+        }
+
+    }
+
     @Override
     protected void populate() {
-        driveShiftersSolenoidInfo = getStringArrayPropertyValue(
+        driveShiftersSolenoidInfo = solenoidInfoFromPropertyValue(
                 "drivetrain.solenoid.driveshifters");
 
         leftMasterMotorInfo =
@@ -68,11 +79,12 @@ public class WiringProperties extends BaseProperties {
         rightGearIntakeMotorInfo =
                 motorInfoFromPropertyValue("gearintake.motor.right");
         gearIntakeSolenoidInfo =
-                getStringArrayPropertyValue("gearintake.solenoid");
+                solenoidInfoFromPropertyValue("gearintake.solenoid");
+
         fuelIntakeMainMotorInfo =
                 motorInfoFromPropertyValue("fuelintake.motor.main");
 
-        hopperSolenoidInfo = getStringArrayPropertyValue("hopper.solenoid");
+        hopperSolenoidInfo = solenoidInfoFromPropertyValue("hopper.solenoid");
 
         leftShooterMotorInfo =
                 motorInfoFromPropertyValue("shooter.motor.shooter");
@@ -92,12 +104,28 @@ public class WiringProperties extends BaseProperties {
         rightFeederMotorInfo =
                 motorInfoFromPropertyValue("shooter.motor.feedertwo");
         shooterActuatorSolenoidInfo =
-                getStringArrayPropertyValue("shooter.solenoid.actuator");
+                solenoidInfoFromPropertyValue("shooter.solenoid.actuator");
     }
 
     protected MotorInfo motorInfoFromPropertyValue(final String propertyName) {
         final String[] info = getStringArrayPropertyValue(propertyName);
         return new MotorInfo(getDeviceNumber(info), getIsInverted(info));
+    }
+
+    protected SolenoidInfo solenoidInfoFromPropertyValue(
+            final String propertyName) {
+        final String[] info = getStringArrayPropertyValue(propertyName);
+
+        return new SolenoidInfo(info[0], getPorts(info));
+    }
+
+    public int[] getPorts(final String[] info) {
+        final int[] returnedPorts = new int[2];
+        returnedPorts[0] = Integer.parseInt(info[1]);
+        if (info.length > 2) {
+            returnedPorts[1] = Integer.parseInt(info[2]);
+        }
+        return returnedPorts;
     }
 
     public int getDeviceNumber(final String[] info) {
@@ -108,7 +136,7 @@ public class WiringProperties extends BaseProperties {
         return Boolean.parseBoolean(info[1]);
     }
 
-    public String[] getDriveShiftersSolenoidInfo() {
+    public SolenoidInfo getDriveShiftersSolenoidInfo() {
         return driveShiftersSolenoidInfo;
     }
 
@@ -144,7 +172,7 @@ public class WiringProperties extends BaseProperties {
         return rightGearIntakeMotorInfo;
     }
 
-    public String[] getGearIntakeSolenoidInfo() {
+    public SolenoidInfo getGearIntakeSolenoidInfo() {
         return gearIntakeSolenoidInfo;
     }
 
@@ -152,7 +180,7 @@ public class WiringProperties extends BaseProperties {
         return fuelIntakeMainMotorInfo;
     }
 
-    public String[] getHopperSolenoidInfo() {
+    public SolenoidInfo getHopperSolenoidInfo() {
         return hopperSolenoidInfo;
     }
 
@@ -176,7 +204,7 @@ public class WiringProperties extends BaseProperties {
         return rightFeederMotorInfo;
     }
 
-    public String[] getShooterActuatorSolenoidInfo() {
+    public SolenoidInfo getShooterActuatorSolenoidInfo() {
         return shooterActuatorSolenoidInfo;
     }
 
