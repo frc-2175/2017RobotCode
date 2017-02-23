@@ -9,6 +9,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.usfirst.frc.team2175.TestBase;
 import org.usfirst.frc.team2175.properties.WiringProperties.MotorInfo;
+import org.usfirst.frc.team2175.properties.WiringProperties.SolenoidInfo;
 
 public class WiringPropertiesTest extends TestBase {
     @Test
@@ -96,6 +97,55 @@ public class WiringPropertiesTest extends TestBase {
         BaseProperties.setPropertyFileDir(propertyFileDirectory);
         final WiringProperties sut = new WiringProperties();
         assertDeviceValuesCorrect(sut);
+    }
+
+    @Test
+    public void testSolenoidTypesAndPorts_Competition()
+            throws IllegalArgumentException, IllegalAccessException {
+        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_COMPETITION;
+        BaseProperties.setPropertyFileDir(propertyFileDirectory);
+        final WiringProperties sut = new WiringProperties();
+        assertSolenoidTypesCorrect(sut);
+    }
+
+    @Test
+    public void testSolenoidTypesAndPorts_Practice()
+            throws IllegalArgumentException, IllegalAccessException {
+        final String propertyFileDirectory = PROPERTY_FILE_DIR_SRC_PRACTICE;
+        BaseProperties.setPropertyFileDir(propertyFileDirectory);
+        final WiringProperties sut = new WiringProperties();
+        assertSolenoidTypesCorrect(sut);
+    }
+
+    protected void assertSolenoidTypesCorrect(final Object sut)
+            throws IllegalArgumentException, IllegalAccessException {
+        final HashMap<String, SolenoidInfo> hashMap =
+                getFieldsOfType(SolenoidInfo.class, sut);
+
+        for (final Map.Entry<String, SolenoidInfo> entry : hashMap.entrySet()) {
+            final String key = entry.getKey();
+            final SolenoidInfo value = entry.getValue();
+            final String type = value.type;
+            final int[] ports = value.ports;
+
+            checkSolenoidTypes(type, key);
+            checkSolenoidPorts(ports, key);
+        }
+    }
+
+    protected void checkSolenoidTypes(final String type, final String key) {
+        final String assertMessage = "'" + type + "' in ButtonInfo field " + key
+                + " is not a valid Joystick name.";
+        assertTrue(assertMessage,
+                type.equals("single") || type.equals("double"));
+    }
+
+    protected void checkSolenoidPorts(final int[] ports, final String key) {
+        final String assertMessage =
+                "ButtonInfo field " + key + " was not greater than 0.";
+        for (int i = 0; i < ports.length; i++) {
+            assertTrue(assertMessage, ports[i] >= 0 && ports[i] < 8);
+        }
     }
 
     @Test
