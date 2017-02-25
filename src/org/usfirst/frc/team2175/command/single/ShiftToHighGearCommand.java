@@ -20,8 +20,8 @@ public class ShiftToHighGearCommand extends BaseCommand {
     @Override
     protected void initialize() {
         super.initialize();
-        drivetrainSubsystem.shiftToHighGear();
-        log.log(Level.FINE, "Shifting to high gear");
+        log.log(Level.FINE, "Shifting to low gear");
+        drivetrainSubsystem.shiftToLowGear();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -39,8 +39,8 @@ public class ShiftToHighGearCommand extends BaseCommand {
     @Override
     protected void end() {
         super.end();
-        log.log(Level.FINE, "Shifting to low gear");
-        drivetrainSubsystem.shiftToLowGear();
+        drivetrainSubsystem.shiftToHighGear();
+        log.log(Level.FINE, "Shifting to high gear");
     }
 
 }

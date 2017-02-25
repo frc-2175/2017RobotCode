@@ -88,6 +88,10 @@ public class ShooterSubsystem extends BaseSubsystem {
         agitatorMotor.set(agitatorSpeed);
     }
 
+    public void setAgitatorReverseSpeed() {
+        agitatorMotor.set(-agitatorSpeed);
+    }
+
     public void setShooterSpeedZero() {
         leftShooterMotor.set(0);
         rightShooterMotor.set(0);

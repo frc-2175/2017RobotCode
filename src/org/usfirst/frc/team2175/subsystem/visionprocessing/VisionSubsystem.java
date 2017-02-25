@@ -26,7 +26,7 @@ public class VisionSubsystem extends BaseSubsystem
     private double[] defaultValue;
 
     public VisionSubsystem() {
-        startAutomaticCapture();
+        // startAutomaticCapture();
         // startGripPipelineCapture();
     }
 

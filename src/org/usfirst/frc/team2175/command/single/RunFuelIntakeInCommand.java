@@ -23,7 +23,7 @@ public class RunFuelIntakeInCommand extends BaseCommand {
         super.initialize();
         fuelIntakeSubsystem.setMotorSpeed(
                 fuelIntakeSubsystem.getMainMotorDefaultInSpeed());
-        shooterSubsystem.setAgitatorDefaultSpeed();
+        shooterSubsystem.setAgitatorReverseSpeed();
     }
 
     @Override

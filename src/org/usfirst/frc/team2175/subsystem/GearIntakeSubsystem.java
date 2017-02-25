@@ -63,4 +63,8 @@ public class GearIntakeSubsystem extends BaseSubsystem {
         return leftIntakeMotor.getOutputCurrent();
     }
 
+    public boolean getIsGearIntakeOut() {
+        return gearIntakeActuator.get();
+    }
+
 }
