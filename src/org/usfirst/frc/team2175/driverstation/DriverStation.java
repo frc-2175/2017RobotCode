@@ -13,9 +13,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class DriverStation {
     private final static Logger log = Logger.getLogger(Robot.class.getName());
 
-    private Joystick leftJoystick;
-    private Joystick rightJoystick;
-    private Joystick gamepad;
+    private Joystick driverGamepad;
+    private Joystick weaponsGamepad;
 
     private double deadbandSize;
     private DeadbandCalculator deadbandCalculator;
@@ -47,9 +46,9 @@ public class DriverStation {
         final ClimberSubsystem climberSubsystem =
                 ServiceLocator.get(ClimberSubsystem.class);
 
-        leftJoystick = new Joystick(joystickProperties.getJoystickLeftPort());
-        rightJoystick = new Joystick(joystickProperties.getJoystickRightPort());
-        gamepad = new Joystick(joystickProperties.getGamepadPort());
+        driverGamepad = new Joystick(joystickProperties.getDriverGamepadPort());
+        weaponsGamepad =
+                new Joystick(joystickProperties.getWeaponsGamepadPort());
 
         feedOutButton =
                 buttonFromButtonInfo(joystickProperties.getFeederOutInfo());
@@ -77,9 +76,9 @@ public class DriverStation {
         shooterActuatorButton = buttonFromButtonInfo(
                 joystickProperties.getShooterActuatorInfo());
 
-        shooterInPOV =
-                new POVTrigger(gamepad, joystickProperties.getShooterInPOV());
-        fuelOutPOV = new POVTrigger(gamepad,
+        shooterInPOV = new POVTrigger(weaponsGamepad,
+                joystickProperties.getShooterInPOV());
+        fuelOutPOV = new POVTrigger(weaponsGamepad,
                 joystickProperties.getFuelIntakeOutPOV());
 
         deadbandSize = joystickProperties.getDeadbandValue();
@@ -99,14 +98,11 @@ public class DriverStation {
     private Joystick joystickForName(final String name) {
         Joystick joystickOfChoice = null;
         switch (name) {
-        case "left":
-            joystickOfChoice = leftJoystick;
+        case "driver":
+            joystickOfChoice = driverGamepad;
             break;
-        case "right":
-            joystickOfChoice = rightJoystick;
-            break;
-        case "gamepad":
-            joystickOfChoice = gamepad;
+        case "weapons":
+            joystickOfChoice = weaponsGamepad;
             break;
         default:
             final String msg =
@@ -119,26 +115,26 @@ public class DriverStation {
     }
 
     public double getMoveValue() {
-        final double input = leftJoystick.getY();
+        final double input = driverGamepad.getRawAxis(1);
         final double deadbandedOutput = deadbandCalculator
-                .calcDeadbandedOutput(squareInput(input), deadbandSize);
+                .calcDeadbandedOutput(squareRootInput(input), deadbandSize);
         return -deadbandedOutput;
     }
 
     public double getTurnValue() {
-        final double input = rightJoystick.getX();
+        final double input = driverGamepad.getRawAxis(2);
         final double deadbandedOutput = deadbandCalculator
-                .calcDeadbandedOutput(squareInput(input), deadbandSize);
+                .calcDeadbandedOutput(squareRootInput(input), deadbandSize);
         return deadbandedOutput;
     }
 
-    protected static double squareInput(final double input) {
+    protected static double squareRootInput(final double input) {
         final double sign = Math.signum(input);
-        return sign * input * input;
+        return sign * Math.sqrt(Math.abs(input));
     }
 
     public double getClimberSpinSpeed() {
-        return -(gamepad.getRawAxis(1) * maxClimberSpeed);
+        return -(weaponsGamepad.getRawAxis(1) * maxClimberSpeed);
     }
 
     public JoystickButton getFeederOutButton() {
