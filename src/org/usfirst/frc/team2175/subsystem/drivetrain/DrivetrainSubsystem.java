@@ -1,14 +1,16 @@
-package org.usfirst.frc.team2175.subsystem;
+package org.usfirst.frc.team2175.subsystem.drivetrain;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.SolenoidWrapper;
 import org.usfirst.frc.team2175.properties.WiringProperties;
+import org.usfirst.frc.team2175.subsystem.BaseSubsystem;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 public class DrivetrainSubsystem extends BaseSubsystem {
@@ -21,6 +23,8 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     private CANTalon leftSlaveMotorTwo;
     private CANTalon rightSlaveMotorOne;
     private CANTalon rightSlaveMotorTwo;
+
+    private Encoder oldEncoder;
 
     private RobotDrive robotDrive;
 
@@ -67,12 +71,28 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         analogGyro = new AnalogGyro(
                 wiringProperties.getDrivetrainAnalogGyroDeviceNumber());
 
+        // oldEncoder = new Encoder(sourceA, sourceB);
+
         // navXGyro = new AHRS(SPI.Port.kMXP);
         switchToPercentVbus();
+        // TODO Propertize
+        oldEncoder = new Encoder(5, 3, true);
+        oldEncoder.setDistancePerPulse(1);
+
     }
 
     public void arcadeDrive(final double moveValue, final double rotateValue) {
         robotDrive.arcadeDrive(-moveValue, rotateValue);
+    }
+
+    public void straightArcadeDrive(final double moveValue,
+            final double rotateValue) {
+        if (!(Math.abs(getGyroAngle()) > .25)) {
+            arcadeDrive(moveValue, rotateValue);
+        } else {
+            arcadeDrive(moveValue, -(getGyroAngle() / 45));
+        }
+
     }
 
     private void setGear(final boolean forward) {
@@ -114,14 +134,8 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         rightMasterMotor.changeControlMode(TalonControlMode.PercentVbus);
     }
 
-    public void resetEncoders() {
-        leftMasterMotor.setEncPosition(0);
-        rightMasterMotor.setEncPosition(0);
-
-    }
-
     public double getCurrentEncPosition() {
-        return leftMasterMotor.getEncPosition();
+        return rightMasterMotor.getEncPosition();
     }
 
     public void setSetpoints(final double leftSetpoint,
@@ -135,6 +149,18 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     // driven.
     public double convertFromInchesToClicks(final double inches) {
         return inches * 1;
+    }
+
+    public void resetEncoders() {
+        oldEncoder.reset();
+    }
+
+    public double getLeftEncoderDistance() {
+        return oldEncoder.getDistance();
+    }
+
+    public double getLeftEncoderSpeed() {
+        return oldEncoder.getRate();
     }
 
     public double getOutputCurrent() {

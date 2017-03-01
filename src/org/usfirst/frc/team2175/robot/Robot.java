@@ -10,8 +10,9 @@ import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.loop.SmartDashboardLoop;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
-import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
+import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
+import org.usfirst.frc.team2175.subsystem.drivetrain.TrapezoidalMotionProfile;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -42,6 +43,7 @@ public class Robot extends IterativeRobot {
         PropertiesFactory.makeAll();
         SubsystemsFactory.makeAll();
         new DriverStation();
+        new TrapezoidalMotionProfile();
         DefaultCommandFactory.makeAll();
 
         new JoystickEventMapper();
