@@ -3,73 +3,78 @@ package org.usfirst.frc.team2175.subsystem.drivetrain;
 import org.usfirst.frc.team2175.ServiceLocator;
 
 public class TrapezoidalMotionProfile {
+    public static final double INCHES_TO_TICKS = 11.047;
+
     private double percentToReachMaxSpeed = .2;
+    private double percentComplement = 1 - percentToReachMaxSpeed;
     private double maxSpeed = .9;
-    private double ticksToDrive;
-    private double inchesDriven;
     private double currentSpeed;
+    private double tickDistance;
+    private double direction;
+
     private DrivetrainSubsystem drivetrainSubsystem;
 
     public TrapezoidalMotionProfile() {
         ServiceLocator.register(this);
     }
 
-    public void setupDrive(final double inchesToDrive) {
+    public void setUpDrive(final double inchesToDrive) {
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
-        this.ticksToDrive = inchesToTicks(inchesToDrive);
-        inchesDriven = 0;
+        tickDistance = inchesToTicks(inchesToDrive);
+        direction = Math.signum(inchesToDrive);
     }
 
     protected double inchesToTicks(final double inches) {
-        return inches / 111.5 * 1231.75;
+        return inches * INCHES_TO_TICKS;
     }
 
     public double getCurrentSpeed() {
-        currentSpeed = getNextSpeed() + .01;
+        currentSpeed = getNextSpeed();
         return currentSpeed;
-    }
-
-    public boolean getIsFinishedMoving() {
-        return getPercentComplete() > .98 && getPercentComplete() < 1.02;
     }
 
     private double getNextSpeed() {
-        if (!(hitMaxSpeed())) {
-            if (isAccelerating()) {
-                currentSpeed = maxSpeed * getPercentAccelerated();
-            } else if (isDecelerating()) {
-                currentSpeed = maxSpeed * -getPercentDecelerated();
-            }
+        final double percentSpeed;
+        if (!(atMaxSpeed())) {
+            percentSpeed = nextPercentOfMax(getSpecificTail());
+        } else {
+            percentSpeed = 1;
         }
+        currentSpeed = direction * maxSpeed * percentSpeed;
         return currentSpeed;
     }
 
-    private boolean hitMaxSpeed() {
-        return getPercentComplete() > percentToReachMaxSpeed
-                || getPercentComplete() < 1 - getPercentComplete();
+    private double nextPercentOfMax(final boolean isLeftTail) {
+        if (isLeftTail) {
+            return getPastSpeedZero(getPercentCompleted())
+                    / percentToReachMaxSpeed;
+        } else {
+            return (1 - getPercentCompleted()) / percentToReachMaxSpeed;
+        }
     }
 
-    private double getPercentComplete() {
-        return getInchesDriven() / ticksToDrive;
+    private boolean getSpecificTail() {
+        return getPercentCompleted() <= percentToReachMaxSpeed;
     }
 
-    private boolean isAccelerating() {
-        return getPercentComplete() < percentToReachMaxSpeed;
+    private boolean atMaxSpeed() {
+        return percentToReachMaxSpeed < getPercentCompleted()
+                && getPercentCompleted() < percentComplement;
     }
 
-    private boolean isDecelerating() {
-        return getPercentComplete() > (1 - percentToReachMaxSpeed);
+    private double getPastSpeedZero(final double percentComplete) {
+        if (percentComplete < .02) {
+            return percentComplete + .02;
+        } else {
+            return percentComplete;
+        }
     }
 
-    private double getPercentAccelerated() {
-        return getPercentComplete() / percentToReachMaxSpeed;
+    private double getPercentCompleted() {
+        return drivetrainSubsystem.getLeftEncoderDistance() / tickDistance;
     }
 
-    private double getPercentDecelerated() {
-        return getPercentComplete() / (1 - percentToReachMaxSpeed);
-    }
-
-    private double getInchesDriven() {
-        return drivetrainSubsystem.getLeftEncoderDistance();
+    public boolean isFinishedMoving() {
+        return getPercentCompleted() > .98 && getPercentCompleted() < 1.02;
     }
 }

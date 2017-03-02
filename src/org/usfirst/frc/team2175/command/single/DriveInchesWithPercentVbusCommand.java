@@ -9,15 +9,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveInchesWithPercentVbusCommand extends BaseCommand {
     private DrivetrainSubsystem drivetrainSubsystem;
-    private TrapezoidalMotionProfile trapezoidalMotionProfile;
-    private final double inches;
+    private TrapezoidalMotionProfile motionProfile;
 
     public DriveInchesWithPercentVbusCommand(final double inches) {
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
-        // trapezoidalMotionProfile =
-        ServiceLocator.get(TrapezoidalMotionProfile.class).setupDrive(inches);
-        // trapezoidalMotionProfile.setupDrive(inches, .9, .15);
-        this.inches = inches;
+        motionProfile = ServiceLocator.get(TrapezoidalMotionProfile.class);
+        motionProfile.setUpDrive(inches);
+
         drivetrainSubsystem.resetEncoders();
         drivetrainSubsystem.resetGyro();
     }
@@ -28,16 +26,15 @@ public class DriveInchesWithPercentVbusCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-        drivetrainSubsystem.straightArcadeDrive(ServiceLocator
-                .get(TrapezoidalMotionProfile.class).getCurrentSpeed(), 0);
+        drivetrainSubsystem.straightArcadeDrive(motionProfile.getCurrentSpeed(),
+                0);
 
-        SmartDashboard.putNumber("Curr Speed", ServiceLocator
-                .get(TrapezoidalMotionProfile.class).getCurrentSpeed());
+        SmartDashboard.putNumber("Curr Speed", motionProfile.getCurrentSpeed());
     }
 
     @Override
     protected boolean isFinished() {
-        return trapezoidalMotionProfile.getIsFinishedMoving();
+        return motionProfile.isFinishedMoving();
     }
 
     @Override
