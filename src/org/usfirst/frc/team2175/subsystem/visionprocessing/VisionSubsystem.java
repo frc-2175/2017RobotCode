@@ -7,12 +7,10 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.subsystem.BaseSubsystem;
 
 import edu.wpi.cscore.CvSource;
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.VisionRunner;
-import edu.wpi.first.wpilibj.vision.VisionThread;
 
 public class VisionSubsystem extends BaseSubsystem
         implements VisionRunner.Listener<GripPipeline> {
@@ -39,18 +37,18 @@ public class VisionSubsystem extends BaseSubsystem
         CameraServer.getInstance().startAutomaticCapture();
     }
 
-    private void startGripPipelineCapture() {
-        final UsbCamera camera = new UsbCamera("GearCam", 0);
-        camera.setExposureManual(1);
-        final GripPipeline gripPipeline = new GripPipeline();
-
-        final VisionThread visionThread =
-                new VisionThread(camera, gripPipeline, this);
-        visionThread.start();
-
-        processOutput =
-                CameraServer.getInstance().putVideo("Process Output", 320, 240);
-    }
+    // private void startGripPipelineCapture() {
+    // final UsbCamera camera = new UsbCamera("GearCam", 0);
+    // camera.setExposureManual(1);
+    // final GripPipeline gripPipeline = new GripPipeline();
+    //
+    // final VisionThread visionThread =
+    // new VisionThread(camera, gripPipeline, this);
+    // visionThread.start();
+    //
+    // processOutput =
+    // CameraServer.getInstance().putVideo("Process Output", 320, 240);
+    // }
 
     @Override
     public void copyPipelineOutputs(final GripPipeline pipeline) {
