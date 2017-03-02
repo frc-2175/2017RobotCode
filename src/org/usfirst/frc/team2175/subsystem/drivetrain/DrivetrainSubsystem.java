@@ -69,8 +69,6 @@ public class DrivetrainSubsystem extends BaseSubsystem {
 
         robotDrive = new RobotDrive(leftMasterMotor, rightMasterMotor);
 
-        // oldEncoder = new Encoder(sourceA, sourceB);
-
         navXGyro = new AHRS(SPI.Port.kMXP);
         switchToPercentVbus();
         // TODO Propertize
