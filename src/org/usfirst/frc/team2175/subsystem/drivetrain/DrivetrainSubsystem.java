@@ -8,10 +8,11 @@ import org.usfirst.frc.team2175.subsystem.BaseSubsystem;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
+import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SPI;
 
 public class DrivetrainSubsystem extends BaseSubsystem {
 
@@ -24,13 +25,13 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     private CANTalon rightSlaveMotorOne;
     private CANTalon rightSlaveMotorTwo;
 
-    private Encoder oldEncoder;
-
+    private Encoder leftEncoder;
+    private Encoder rightEncoder;
     private RobotDrive robotDrive;
 
     private SolenoidWrapper driveShifters;
 
-    private AnalogGyro analogGyro;
+    private AHRS navXGyro;
 
     public DrivetrainSubsystem() {
         final WiringProperties wiringProperties =
@@ -68,16 +69,15 @@ public class DrivetrainSubsystem extends BaseSubsystem {
 
         robotDrive = new RobotDrive(leftMasterMotor, rightMasterMotor);
 
-        analogGyro = new AnalogGyro(
-                wiringProperties.getDrivetrainAnalogGyroDeviceNumber());
-
         // oldEncoder = new Encoder(sourceA, sourceB);
 
-        // navXGyro = new AHRS(SPI.Port.kMXP);
+        navXGyro = new AHRS(SPI.Port.kMXP);
         switchToPercentVbus();
         // TODO Propertize
-        oldEncoder = new Encoder(5, 3, true);
-        oldEncoder.setDistancePerPulse(1);
+        leftEncoder = new Encoder(0, 1, true);
+        leftEncoder.setDistancePerPulse(1);
+        rightEncoder = new Encoder(0, 1, true);
+        rightEncoder.setDistancePerPulse(1);
 
     }
 
@@ -85,10 +85,9 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         robotDrive.arcadeDrive(-moveValue, rotateValue);
     }
 
-    public void straightArcadeDrive(final double moveValue,
-            final double rotateValue) {
-        if (!(Math.abs(getGyroAngle()) > .25)) {
-            arcadeDrive(moveValue, rotateValue);
+    public void straightArcadeDrive(final double moveValue) {
+        if (Math.abs(getGyroAngle()) <= .25) {
+            arcadeDrive(moveValue, 0);
         } else {
             arcadeDrive(moveValue, -(getGyroAngle() / 45));
         }
@@ -113,11 +112,11 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     }
 
     public double getGyroAngle() {
-        return analogGyro.getAngle();
+        return navXGyro.getAngle();
     }
 
     public void resetGyro() {
-        analogGyro.reset();
+        navXGyro.reset();
     }
 
     public void switchToPID() {
@@ -134,10 +133,6 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         rightMasterMotor.changeControlMode(TalonControlMode.PercentVbus);
     }
 
-    public double getCurrentEncPosition() {
-        return rightMasterMotor.getEncPosition();
-    }
-
     public void setSetpoints(final double leftSetpoint,
             final double rightSetpoint) {
         leftMasterMotor.setSetpoint(convertFromInchesToClicks(leftSetpoint));
@@ -152,19 +147,27 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     }
 
     public void resetEncoders() {
-        oldEncoder.reset();
+        rightEncoder.reset();
+        leftEncoder.reset();
     }
 
     public double getLeftEncoderDistance() {
-        return oldEncoder.getDistance();
+        return leftEncoder.getDistance();
     }
 
     public double getLeftEncoderSpeed() {
-        return oldEncoder.getRate();
+        return leftEncoder.getRate();
     }
 
     public double getOutputCurrent() {
         return leftMasterMotor.getOutputCurrent();
     }
 
+    public double getRightEncoderDistance() {
+        return leftEncoder.getDistance();
+    }
+
+    public double getRightEncoderSpeed() {
+        return leftEncoder.getRate();
+    }
 }

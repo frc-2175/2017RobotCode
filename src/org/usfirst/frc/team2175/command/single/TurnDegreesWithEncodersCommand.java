@@ -51,7 +51,7 @@ public class TurnDegreesWithEncodersCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-        final double encPos = drivetrainSubsystem.getCurrentEncPosition();
+        final double encPos = drivetrainSubsystem.getLeftEncoderDistance();
         final double driveFactor = Math.abs(setpointOfTurn - encPos);
         drivetrainSubsystem.arcadeDrive(0, -turnDirection * 0.02 / driveFactor);
     }

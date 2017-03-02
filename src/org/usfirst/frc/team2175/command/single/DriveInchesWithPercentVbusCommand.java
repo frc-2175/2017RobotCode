@@ -26,8 +26,8 @@ public class DriveInchesWithPercentVbusCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-        drivetrainSubsystem.straightArcadeDrive(motionProfile.getCurrentSpeed(),
-                0);
+        drivetrainSubsystem
+                .straightArcadeDrive(motionProfile.getCurrentSpeed());
 
         SmartDashboard.putNumber("Curr Speed", motionProfile.getCurrentSpeed());
     }

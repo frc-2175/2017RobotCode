@@ -44,5 +44,6 @@ public class DriveInchesCommand extends BaseCommand {
     protected void end() {
         super.end();
         log.info("DriveInches: end");
+        drivetrainSubsystem.switchToPercentVbus();
     }
 }

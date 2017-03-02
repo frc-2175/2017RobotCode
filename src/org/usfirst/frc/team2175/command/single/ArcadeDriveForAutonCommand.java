@@ -31,7 +31,7 @@ public class ArcadeDriveForAutonCommand extends BaseCommand {
     @Override
     protected void execute() {
 
-        drivetrainSubsystem.straightArcadeDrive(moveValue, rotateValue);
+        drivetrainSubsystem.straightArcadeDrive(moveValue);
 
     }
 
