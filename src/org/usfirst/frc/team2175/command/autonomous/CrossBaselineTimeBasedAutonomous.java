@@ -6,6 +6,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class CrossBaselineTimeBasedAutonomous extends CommandGroup {
     public CrossBaselineTimeBasedAutonomous() {
-        addSequential(new ArcadeDriveForAutonCommand(0.8, 0), 5);
+        addSequential(new ArcadeDriveForAutonCommand(0.8, 0), 3);
     }
 }

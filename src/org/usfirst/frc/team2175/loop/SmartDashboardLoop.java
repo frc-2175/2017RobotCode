@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2175.loop;
 
 import org.usfirst.frc.team2175.ServiceLocator;
-import org.usfirst.frc.team2175.command.autonomous.DriveInchesWithArcadeDriveForAutonAutonomous;
+import org.usfirst.frc.team2175.command.autonomous.CrossBaselineTimeBasedAutonomous;
 import org.usfirst.frc.team2175.subsystem.GearIntakeSubsystem;
 import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 
@@ -55,8 +55,8 @@ public class SmartDashboardLoop extends ControlLoop {
     private void populateAutonSelector() {
         // autonSelector.addDefault("Drive Forward and place gear on peg",
         // new DriveInchesWithPercentVbusCommand(12));
-        autonSelector.addDefault("Default",
-                new DriveInchesWithArcadeDriveForAutonAutonomous());
+        autonSelector.addDefault("Cross Baseline",
+                new CrossBaselineTimeBasedAutonomous());
     }
 
     public Command getAuton() {
