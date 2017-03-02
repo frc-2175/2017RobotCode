@@ -72,7 +72,7 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         navXGyro = new AHRS(SPI.Port.kMXP);
         switchToPercentVbus();
         // TODO Propertize
-        leftEncoder = new Encoder(0, 1, true);
+        leftEncoder = new Encoder(2, 3, true);
         leftEncoder.setDistancePerPulse(1);
         rightEncoder = new Encoder(0, 1, true);
         rightEncoder.setDistancePerPulse(1);
