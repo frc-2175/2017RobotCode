@@ -2,7 +2,7 @@ package org.usfirst.frc.team2175.command.single;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.BaseCommand;
-import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
+import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 
 public class TurnDegreesWithEncodersCommand extends BaseCommand {
 
@@ -51,7 +51,7 @@ public class TurnDegreesWithEncodersCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-        final double encPos = drivetrainSubsystem.getCurrentEncPosition();
+        final double encPos = drivetrainSubsystem.getLeftEncoderDistance();
         final double driveFactor = Math.abs(setpointOfTurn - encPos);
         drivetrainSubsystem.arcadeDrive(0, -turnDirection * 0.02 / driveFactor);
     }

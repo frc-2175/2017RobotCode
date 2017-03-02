@@ -2,7 +2,7 @@ package org.usfirst.frc.team2175.command.single;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.BaseCommand;
-import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
+import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 
 public class ArcadeDriveForAutonCommand extends BaseCommand {
     private final DrivetrainSubsystem drivetrainSubsystem;
@@ -16,6 +16,7 @@ public class ArcadeDriveForAutonCommand extends BaseCommand {
         this.rotateValue = rotateValue;
 
         drivetrainSubsystem.resetGyro();
+        drivetrainSubsystem.resetEncoders();
 
         requires(drivetrainSubsystem);
     }
@@ -24,17 +25,14 @@ public class ArcadeDriveForAutonCommand extends BaseCommand {
     protected void initialize() {
         super.initialize();
         drivetrainSubsystem.resetGyro();
+        drivetrainSubsystem.resetEncoders();
     }
 
     @Override
     protected void execute() {
 
-        if (rotateValue != 0) {
-            drivetrainSubsystem.arcadeDrive(moveValue, rotateValue);
-        } else {
-            drivetrainSubsystem.arcadeDrive(moveValue,
-                    -(drivetrainSubsystem.getGyroAngle() / 20));
-        }
+        drivetrainSubsystem.straightArcadeDrive(moveValue);
+
     }
 
     @Override

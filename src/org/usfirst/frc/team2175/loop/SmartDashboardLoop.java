@@ -1,10 +1,9 @@
 package org.usfirst.frc.team2175.loop;
 
 import org.usfirst.frc.team2175.ServiceLocator;
-import org.usfirst.frc.team2175.command.autonomous.DriveForwardAndPlaceGearOnPegAutonomous;
-import org.usfirst.frc.team2175.command.autonomous.TurnLeftAutonomous;
-import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
+import org.usfirst.frc.team2175.command.autonomous.CrossBaselineTimeBasedAutonomous;
 import org.usfirst.frc.team2175.subsystem.GearIntakeSubsystem;
+import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -42,6 +41,8 @@ public class SmartDashboardLoop extends ControlLoop {
                 ServiceLocator.get(DrivetrainSubsystem.class).getGyroAngle());
         SmartDashboard.putBoolean("GearActuatorOut", ServiceLocator
                 .get(GearIntakeSubsystem.class).getIsGearIntakeOut());
+        SmartDashboard.putNumber("Encoder", ServiceLocator
+                .get(DrivetrainSubsystem.class).getLeftEncoderDistance());
     }
 
     protected void showGearIntakeInfo() {
@@ -52,9 +53,10 @@ public class SmartDashboardLoop extends ControlLoop {
     }
 
     private void populateAutonSelector() {
-        autonSelector.addDefault("Drive Forward and place gear on peg",
-                new DriveForwardAndPlaceGearOnPegAutonomous());
-        autonSelector.addObject("Turn Left Auton", new TurnLeftAutonomous());
+        // autonSelector.addDefault("Drive Forward and place gear on peg",
+        // new DriveInchesWithPercentVbusCommand(12));
+        autonSelector.addDefault("Cross Baseline",
+                new CrossBaselineTimeBasedAutonomous());
     }
 
     public Command getAuton() {

@@ -4,7 +4,7 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.single.ArcadeDriveWithJoysticksCommand;
 import org.usfirst.frc.team2175.command.single.RunClimberCommand;
 import org.usfirst.frc.team2175.subsystem.ClimberSubsystem;
-import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
+import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 
 public class DefaultCommandFactory {
 
