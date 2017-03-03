@@ -85,11 +85,11 @@ public class ShooterSubsystem extends BaseSubsystem {
     }
 
     public void setAgitatorDefaultSpeed() {
-        agitatorMotor.set(agitatorSpeed);
+        agitatorMotor.set(-agitatorSpeed);
     }
 
     public void setAgitatorReverseSpeed() {
-        agitatorMotor.set(-agitatorSpeed);
+        agitatorMotor.set(agitatorSpeed);
     }
 
     public void setShooterSpeedZero() {
@@ -121,11 +121,11 @@ public class ShooterSubsystem extends BaseSubsystem {
     }
 
     public void actuateBothShootersOut() {
-        shooterSolenoid.set(true);
+        shooterSolenoid.set(false);
     }
 
     public void actuateBothShootersIn() {
-        shooterSolenoid.set(false);
+        shooterSolenoid.set(true);
     }
 
     public void switchToPIDMode() {

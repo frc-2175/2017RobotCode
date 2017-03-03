@@ -87,7 +87,7 @@ public class WiringProperties extends BaseProperties {
         hopperSolenoidInfo = solenoidInfoFromPropertyValue("hopper.solenoid");
 
         leftShooterMotorInfo = motorInfoFromPropertyValue("shooter.motor.left");
-        leftFeederMotorInfo = motorInfoFromPropertyValue("shooter.motor.left");
+        leftFeederMotorInfo = motorInfoFromPropertyValue("feeder.motor.left");
         shooterAgitatorMotorInfo =
                 motorInfoFromPropertyValue("shooter.motor.agitator");
 
@@ -99,8 +99,7 @@ public class WiringProperties extends BaseProperties {
 
         rightShooterMotorInfo =
                 motorInfoFromPropertyValue("shooter.motor.right");
-        rightFeederMotorInfo =
-                motorInfoFromPropertyValue("shooter.motor.right");
+        rightFeederMotorInfo = motorInfoFromPropertyValue("feeder.motor.right");
         shooterActuatorSolenoidInfo =
                 solenoidInfoFromPropertyValue("shooter.solenoid.actuator");
     }
