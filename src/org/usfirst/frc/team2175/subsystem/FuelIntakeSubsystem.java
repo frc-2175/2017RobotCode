@@ -47,4 +47,8 @@ public class FuelIntakeSubsystem extends BaseSubsystem {
         mainMotor.set(speed);
     }
 
+    public boolean isHopperUp() {
+        return hopperSolenoid.get();
+    }
+
 }

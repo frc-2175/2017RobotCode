@@ -2,6 +2,7 @@ package org.usfirst.frc.team2175.loop;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.autonomous.CrossBaselineTimeBasedAutonomous;
+import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
 import org.usfirst.frc.team2175.subsystem.GearIntakeSubsystem;
 import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 
@@ -43,6 +44,8 @@ public class SmartDashboardLoop extends ControlLoop {
                 .get(GearIntakeSubsystem.class).getIsGearIntakeOut());
         SmartDashboard.putNumber("Encoder", ServiceLocator
                 .get(DrivetrainSubsystem.class).getLeftEncoderDistance());
+        SmartDashboard.putBoolean("Is Hopper Up",
+                ServiceLocator.get(FuelIntakeSubsystem.class).isHopperUp());
     }
 
     protected void showGearIntakeInfo() {
