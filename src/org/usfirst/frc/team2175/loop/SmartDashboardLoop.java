@@ -2,6 +2,8 @@ package org.usfirst.frc.team2175.loop;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.autonomous.CrossBaselineTimeBasedAutonomous;
+import org.usfirst.frc.team2175.command.autonomous.DoNothingAutonomous;
+import org.usfirst.frc.team2175.command.autonomous.DriveForwardAndPlaceGearOnPegAutonomous;
 import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
 import org.usfirst.frc.team2175.subsystem.GearIntakeSubsystem;
 import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
@@ -52,15 +54,15 @@ public class SmartDashboardLoop extends ControlLoop {
         SmartDashboard.putNumber("Current",
                 gearIntakeSubsystem.getLeftMotorCurrent());
         SmartDashboard.putBoolean("Gear in Gear Intake",
-                gearIntakeSubsystem.getLeftMotorCurrent() > 2.5);
+                gearIntakeSubsystem.isCancelled());
     }
 
     private void populateAutonSelector() {
-        // autonSelector.addDefault("Drive Forward and place gear on peg",
-        // new DriveInchesWithPercentVbusCommand(12));
-        autonSelector.addDefault("Cross Baseline",
+        autonSelector.addDefault("No Auton", new DoNothingAutonomous());
+        autonSelector.addObject("Cross Baseline",
                 new CrossBaselineTimeBasedAutonomous());
-        autonSelector.addObject("No Auton", null);
+        autonSelector.addObject("Center Peg Auton",
+                new DriveForwardAndPlaceGearOnPegAutonomous());
     }
 
     public Command getAuton() {
