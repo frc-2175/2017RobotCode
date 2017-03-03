@@ -33,7 +33,8 @@ public class DriverStation {
     private JoystickButton shootOutButton;
     private JoystickButton cameraSwitchButton;
     private JoystickButton gearIntakeOutAndSpinButton;
-    private JoystickButton shooterActuatorButton;
+    private JoystickButton shooterActuatorInButton;
+    private JoystickButton shooterActuatorOutButton;
 
     private POVTrigger shooterInPOV;
     private POVTrigger fuelOutPOV;
@@ -73,8 +74,8 @@ public class DriverStation {
                 buttonFromButtonInfo(joystickProperties.getCameraSwitchInfo());
         gearIntakeOutAndSpinButton = buttonFromButtonInfo(
                 joystickProperties.getGearIntakeOutAndSpinInfo());
-        shooterActuatorButton = buttonFromButtonInfo(
-                joystickProperties.getShooterActuatorInfo());
+        shooterActuatorInButton = buttonFromButtonInfo(
+                joystickProperties.getShooterActuatorInInfo());
 
         shooterInPOV = new POVTrigger(weaponsGamepad,
                 joystickProperties.getShooterInPOV());
@@ -85,7 +86,8 @@ public class DriverStation {
         deadbandCalculator = new DeadbandCalculator();
 
         maxClimberSpeed = climberSubsystem.getMaxClimberSpeed();
-
+        shooterActuatorOutButton = buttonFromButtonInfo(
+                joystickProperties.getShooterActuatorOutInfo());
         ServiceLocator.register(this);
     }
 
@@ -197,8 +199,11 @@ public class DriverStation {
         return gearIntakeOutAndSpinButton;
     }
 
-    public JoystickButton getShooterActuatorButton() {
-        return shooterActuatorButton;
+    public JoystickButton getShooterActuateInButton() {
+        return shooterActuatorInButton;
     }
 
+    public JoystickButton getShooterActuatorOutButton() {
+        return shooterActuatorOutButton;
+    }
 }
