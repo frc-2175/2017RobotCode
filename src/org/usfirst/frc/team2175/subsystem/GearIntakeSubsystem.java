@@ -93,4 +93,8 @@ public class GearIntakeSubsystem extends BaseSubsystem {
         return gearIntakeActuator.get();
     }
 
+    public boolean isCancelled() {
+        return isCancelled;
+    }
+
 }
