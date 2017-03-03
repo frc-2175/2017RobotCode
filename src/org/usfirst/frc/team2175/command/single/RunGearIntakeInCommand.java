@@ -16,11 +16,11 @@ public class RunGearIntakeInCommand extends BaseCommand {
     @Override
     protected void initialize() {
         super.initialize();
-        gearIntakeSubsystem.runIn();
     }
 
     @Override
     protected void execute() {
+        gearIntakeSubsystem.runIn();
     }
 
     @Override

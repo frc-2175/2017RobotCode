@@ -16,6 +16,12 @@ public class GearIntakeSubsystem extends BaseSubsystem {
     private double gearIntakeInSpeed;
     private double gearIntakeOutSpeed;
 
+    private double timeWhenInitialized;
+
+    private boolean isFirstTimeRunningIn;
+
+    private boolean isCancelled;
+
     public GearIntakeSubsystem() {
         final WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
@@ -30,11 +36,29 @@ public class GearIntakeSubsystem extends BaseSubsystem {
 
         gearIntakeInSpeed = behaviorProperties.getGearIntakeInSpeed();
         gearIntakeOutSpeed = behaviorProperties.getGearIntakeOutSpeed();
+        isFirstTimeRunningIn = true;
+        isCancelled = false;
     }
 
     public void runIn() {
-        leftIntakeMotor.set(gearIntakeInSpeed);
-        rightIntakeMotor.set(-gearIntakeInSpeed);
+        if (!isCancelled) {
+            if (isFirstTimeRunningIn) {
+                timeWhenInitialized = System.nanoTime() / 1000000000.0;
+            }
+            if (getLeftMotorCurrent() <= 3.5) {
+                leftIntakeMotor.set(gearIntakeInSpeed);
+                rightIntakeMotor.set(-gearIntakeInSpeed);
+            } else if (System.nanoTime() / 1000000000.0 > timeWhenInitialized
+                    + 0.75) {
+                leftIntakeMotor.set(0);
+                rightIntakeMotor.set(0);
+                isCancelled = true;
+            }
+            isFirstTimeRunningIn = false;
+        } else {
+            leftIntakeMotor.set(0);
+            rightIntakeMotor.set(0);
+        }
     }
 
     public void runOut() {
@@ -53,6 +77,8 @@ public class GearIntakeSubsystem extends BaseSubsystem {
     public void stop() {
         leftIntakeMotor.set(0);
         rightIntakeMotor.set(0);
+        isFirstTimeRunningIn = true;
+        isCancelled = false;
     }
 
     public void toggleActuation() {
