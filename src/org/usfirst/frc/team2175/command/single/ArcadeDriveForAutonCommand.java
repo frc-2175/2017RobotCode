@@ -37,7 +37,7 @@ public class ArcadeDriveForAutonCommand extends BaseCommand {
 
     @Override
     protected boolean isFinished() {
-        if (timeSinceInitialized() > 1.5) {
+        if (timeSinceInitialized() > .75) {
             return drivetrainSubsystem.getOutputCurrent() > 3;
         } else {
             return false;
