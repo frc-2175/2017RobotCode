@@ -34,11 +34,11 @@ public class GearIntakeSubsystem extends BaseSubsystem {
 
     public void runIn() {
         leftIntakeMotor.set(gearIntakeInSpeed);
-        rightIntakeMotor.set(gearIntakeInSpeed);
+        rightIntakeMotor.set(-gearIntakeInSpeed);
     }
 
     public void runOut() {
-        leftIntakeMotor.set(gearIntakeOutSpeed);
+        leftIntakeMotor.set(-gearIntakeOutSpeed);
         rightIntakeMotor.set(gearIntakeOutSpeed);
     }
 

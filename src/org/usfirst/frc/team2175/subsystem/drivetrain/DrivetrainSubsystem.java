@@ -97,11 +97,11 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     }
 
     public void shiftToHighGear() {
-        setGear(true);
+        setGear(false);
     }
 
     public void shiftToLowGear() {
-        setGear(false);
+        setGear(true);
     }
 
     public void stopAllMotors() {
