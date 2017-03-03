@@ -10,12 +10,14 @@ import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.loop.SmartDashboardLoop;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
+import org.usfirst.frc.team2175.subsystem.ClimberSubsystem;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
 import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 import org.usfirst.frc.team2175.subsystem.drivetrain.TrapezoidalMotionProfile;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -78,6 +80,8 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         log.info("Current Encoder Position = " + ServiceLocator
                 .get(DrivetrainSubsystem.class).getLeftEncoderDistance());
+        SmartDashboard.putNumber("Current Output",
+                ServiceLocator.get(ClimberSubsystem.class).getOutputCurrent());
     }
 
     /**

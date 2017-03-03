@@ -36,4 +36,8 @@ public class ClimberSubsystem extends BaseSubsystem {
             motorOne.set(0);
         }
     }
+
+    public double getOutputCurrent() {
+        return motorOne.getOutputCurrent();
+    }
 }

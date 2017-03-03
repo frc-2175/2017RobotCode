@@ -57,6 +57,7 @@ public class SmartDashboardLoop extends ControlLoop {
         // new DriveInchesWithPercentVbusCommand(12));
         autonSelector.addDefault("Cross Baseline",
                 new CrossBaselineTimeBasedAutonomous());
+        autonSelector.addObject("No Auton", null);
     }
 
     public Command getAuton() {
