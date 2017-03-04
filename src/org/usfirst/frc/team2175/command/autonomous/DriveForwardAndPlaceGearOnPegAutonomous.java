@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class DriveForwardAndPlaceGearOnPegAutonomous extends CommandGroup {
     public DriveForwardAndPlaceGearOnPegAutonomous() {
-        addSequential(new ArcadeDriveForAutonCommand(-0.7, 0), 4);
-        addSequential(new ActuateGearIntakeOutAndSpinCommand(), .8);
+        addSequential(new ArcadeDriveForAutonCommand(-0.6, 0), 4);
+        addSequential(new ActuateGearIntakeOutAndSpinCommand(), 1.8);
         addSequential(new ArcadeDriveForAutonCommand(0.7, 0), 1);
         addSequential(new ActuateGearIntakeInCommand());
     }
