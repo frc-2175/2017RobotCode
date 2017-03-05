@@ -71,7 +71,7 @@ public class TrapezoidalMotionProfile {
     }
 
     private double getPercentCompleted() {
-        return drivetrainSubsystem.getLeftEncoderDistance() / tickDistance;
+        return drivetrainSubsystem.getEncoderDistance() / tickDistance;
     }
 
     public boolean isFinishedMoving() {

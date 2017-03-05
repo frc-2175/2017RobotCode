@@ -24,10 +24,16 @@ public class ArcadeDriveWithJoysticksCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-        final double moveValue = driverStation.getMoveValue();
-        final double turnValue = driverStation.getTurnValue();
+        double moveValue;
+        double turnValue;
+        if (driverStation.isPrecisionButtonPressed()) {
+            moveValue = driverStation.getMoveValue() / 2;
+            turnValue = driverStation.getTurnValue() / 2;
+        } else {
+            moveValue = driverStation.getMoveValue();
+            turnValue = driverStation.getTurnValue();
+        }
         drivetrainSubsystem.arcadeDrive(moveValue, turnValue);
-
     }
 
     @Override

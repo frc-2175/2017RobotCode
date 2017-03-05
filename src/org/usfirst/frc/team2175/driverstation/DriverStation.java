@@ -206,4 +206,8 @@ public class DriverStation {
     public JoystickButton getShooterActuatorOutButton() {
         return shooterActuatorOutButton;
     }
+
+    public boolean isPrecisionButtonPressed() {
+        return driverGamepad.getRawButton(7);
+    }
 }

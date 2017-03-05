@@ -48,6 +48,8 @@ public class SmartDashboardLoop extends ControlLoop {
                 .get(DrivetrainSubsystem.class).getLeftEncoderDistance());
         SmartDashboard.putBoolean("Is Hopper Up",
                 ServiceLocator.get(FuelIntakeSubsystem.class).isHopperUp());
+        SmartDashboard.putNumber("Right Encoder", ServiceLocator
+                .get(DrivetrainSubsystem.class).getRightEncoderDistance());
     }
 
     protected void showGearIntakeInfo() {

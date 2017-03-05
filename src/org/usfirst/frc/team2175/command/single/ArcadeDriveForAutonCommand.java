@@ -8,12 +8,19 @@ public class ArcadeDriveForAutonCommand extends BaseCommand {
     private final DrivetrainSubsystem drivetrainSubsystem;
     private final double moveValue;
     private final double rotateValue;
+    final boolean shouldStopIfHitsSomething;
 
     public ArcadeDriveForAutonCommand(final double moveValue,
             final double rotateValue) {
+        this(moveValue, rotateValue, true);
+    }
+
+    public ArcadeDriveForAutonCommand(final double moveValue,
+            final double rotateValue, final boolean shouldStopIfHitsSomething) {
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
         this.moveValue = moveValue;
         this.rotateValue = rotateValue;
+        this.shouldStopIfHitsSomething = shouldStopIfHitsSomething;
 
         drivetrainSubsystem.resetGyro();
         drivetrainSubsystem.resetEncoders();
@@ -37,8 +44,12 @@ public class ArcadeDriveForAutonCommand extends BaseCommand {
 
     @Override
     protected boolean isFinished() {
-        if (timeSinceInitialized() > .75) {
-            return drivetrainSubsystem.getOutputCurrent() > 3;
+        if (shouldStopIfHitsSomething) {
+            if (timeSinceInitialized() > .75) {
+                return drivetrainSubsystem.getOutputCurrent() > 3;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
