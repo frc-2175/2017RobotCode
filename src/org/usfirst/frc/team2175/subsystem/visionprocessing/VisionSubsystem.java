@@ -4,11 +4,12 @@ import org.usfirst.frc.team2175.subsystem.BaseSubsystem;
 
 import edu.wpi.cscore.CvSource;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class VisionSubsystem extends BaseSubsystem {
 
     private CvSource processOutput;
-    // private NetworkTable table;
+    private NetworkTable table;
     private double[] contourArea;
     private double[] contourCenterX;
     private double[] contourCenterY;
@@ -21,6 +22,7 @@ public class VisionSubsystem extends BaseSubsystem {
     public VisionSubsystem() {
         startAutomaticCapture();
         // startGripPipelineCapture();
+        table = NetworkTable.getTable("myContourReport");
     }
 
     private void startAutomaticCapture() {
@@ -45,7 +47,8 @@ public class VisionSubsystem extends BaseSubsystem {
     }
 
     public double[] getContourCenterX() {
-        return contourCenterX;
+        final double[] defaultValue = { 175, 175 };
+        return table.getNumberArray("centerX", defaultValue);
     }
 
     public double[] getContourCenterY() {
@@ -62,5 +65,28 @@ public class VisionSubsystem extends BaseSubsystem {
 
     public double[] getContourSolidity() {
         return contourSolidity;
+    }
+
+    public double getDegreeFromPixel(final double pixel) {
+        return -67.25407 + 0.39355 * pixel;
+    }
+
+    public double[] getFirstTwoCenterX() {
+        final double[] contourX = getContourCenterX();
+        final double[] valueToReturn = { 175, 175 };
+        if (getContourCenterX().length == 2) {
+            valueToReturn[0] = contourX[0];
+            valueToReturn[1] = contourX[1];
+        }
+        return valueToReturn;
+    }
+
+    public double getCenterPegInPixels() {
+        final double[] firstTwoCenterX = getFirstTwoCenterX();
+        return (firstTwoCenterX[0] + firstTwoCenterX[1]) / 2;
+    }
+
+    public double getDegreesToTurnToPeg() {
+        return getDegreeFromPixel(getCenterPegInPixels());
     }
 }
