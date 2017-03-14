@@ -4,7 +4,6 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.autonomous.CrossBaselineTimeBasedAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.DoNothingAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.DriveForwardAndPlaceGearOnPegAutonomous;
-import org.usfirst.frc.team2175.command.autonomous.DriveForwardForTenSecondsAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.DriveOneFootForwardSimpleAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.TurnDegreesFromUDP;
 import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
@@ -76,8 +75,6 @@ public class SmartDashboardLoop extends ControlLoop {
                 new TurnDegreesFromUDP());
         autonSelector.addObject("Drive Two Feet Forward",
                 new DriveOneFootForwardSimpleAutonomous());
-        autonSelector.addObject("Drive Forward For Ten Seconds Straight",
-                new DriveForwardForTenSecondsAutonomous());
     }
 
     public Command getAuton() {
