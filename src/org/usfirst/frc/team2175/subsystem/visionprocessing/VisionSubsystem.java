@@ -3,6 +3,7 @@ package org.usfirst.frc.team2175.subsystem.visionprocessing;
 import org.usfirst.frc.team2175.subsystem.BaseSubsystem;
 
 import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
@@ -18,9 +19,12 @@ public class VisionSubsystem extends BaseSubsystem {
     private double[] contourSolidity;
     private double[] defaultValue;
     private double degrees;
+    UsbCamera camera;
 
     public VisionSubsystem() {
-        startAutomaticCapture();
+        camera = new UsbCamera("GearCam", 0);
+        camera.setExposureManual(0);
+        CameraServer.getInstance().startAutomaticCapture(camera);
         // startGripPipelineCapture();
         table = NetworkTable.getTable("myContourReport");
     }
