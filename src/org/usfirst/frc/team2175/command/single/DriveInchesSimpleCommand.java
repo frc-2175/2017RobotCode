@@ -7,27 +7,31 @@ import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 public class DriveInchesSimpleCommand extends BaseCommand {
     private DrivetrainSubsystem drivetrainSubsystem;
     private double ticksToDrive;
+    private double sign;
 
-    public DriveInchesSimpleCommand(double inchesToDrive) {
+    public DriveInchesSimpleCommand(final double inchesToDrive) {
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
         this.ticksToDrive =
                 drivetrainSubsystem.convertFromInchesToClicks(inchesToDrive);
         requires(drivetrainSubsystem);
+        sign = Math.signum(inchesToDrive);
     }
 
     @Override
     protected void initialize() {
         drivetrainSubsystem.resetEncoders();
+        drivetrainSubsystem.resetGyro();
     }
 
     @Override
     protected void execute() {
-        drivetrainSubsystem.arcadeDrive(0.7, 0);
+        drivetrainSubsystem.straightArcadeDrive(0.85 * sign);
     }
 
     @Override
     protected boolean isFinished() {
-        return drivetrainSubsystem.getEncoderDistance() > ticksToDrive;
+        return Math.abs(drivetrainSubsystem.getEncoderDistance()) > Math
+                .abs(ticksToDrive);
     }
 
     @Override
