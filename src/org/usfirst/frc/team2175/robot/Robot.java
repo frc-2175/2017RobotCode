@@ -52,7 +52,7 @@ public class Robot extends IterativeRobot {
         schedulerLoop.start();
         smartDashboardLoop = new SmartDashboardLoop();
         smartDashboardLoop.start();
-
+        ServiceLocator.get(DrivetrainSubsystem.class).resetEncoders();
         log.info("Robot program successfully initialized!");
     }
 
@@ -73,6 +73,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void teleopInit() {
+        ServiceLocator.get(DrivetrainSubsystem.class).resetEncoders();
         // Scheduler.getInstance().removeAll();
     }
 
