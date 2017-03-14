@@ -74,7 +74,7 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         // TODO Propertize
         leftEncoder = new Encoder(2, 3, true);
         leftEncoder.setDistancePerPulse(1);
-        rightEncoder = new Encoder(0, 1, true);
+        rightEncoder = new Encoder(0, 1, false);
         rightEncoder.setDistancePerPulse(1);
 
     }
@@ -141,7 +141,7 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     // given. Right now, we cannot see how many clicks there are per inch
     // driven.
     public double convertFromInchesToClicks(final double inches) {
-        return inches * 1;
+        return inches * 54.518;
     }
 
     public void resetEncoders() {
