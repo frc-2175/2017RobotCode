@@ -4,8 +4,12 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.autonomous.CrossBaselineTimeBasedAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.DoNothingAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.DriveForwardAndPlaceGearOnPegAutonomous;
+import org.usfirst.frc.team2175.command.autonomous.DriveForwardForTenSecondsAutonomous;
+import org.usfirst.frc.team2175.command.autonomous.DriveOneFootForwardSimpleAutonomous;
+import org.usfirst.frc.team2175.command.autonomous.TurnDegreesFromUDP;
 import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
 import org.usfirst.frc.team2175.subsystem.GearIntakeSubsystem;
+import org.usfirst.frc.team2175.subsystem.communications.CommunicationSubsystem;
 import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -50,6 +54,9 @@ public class SmartDashboardLoop extends ControlLoop {
                 ServiceLocator.get(FuelIntakeSubsystem.class).isHopperUp());
         SmartDashboard.putNumber("Right Encoder", ServiceLocator
                 .get(DrivetrainSubsystem.class).getRightEncoderDistance());
+
+        SmartDashboard.putNumber("GyroVal",
+                ServiceLocator.get(CommunicationSubsystem.class).getSetpoint());
     }
 
     protected void showGearIntakeInfo() {
@@ -60,11 +67,17 @@ public class SmartDashboardLoop extends ControlLoop {
     }
 
     private void populateAutonSelector() {
-        autonSelector.addDefault("No Auton", new DoNothingAutonomous());
+        autonSelector.addObject("No Auton", new DoNothingAutonomous());
         autonSelector.addObject("Cross Baseline",
                 new CrossBaselineTimeBasedAutonomous());
         autonSelector.addObject("Center Peg Auton",
                 new DriveForwardAndPlaceGearOnPegAutonomous());
+        autonSelector.addDefault("Turn Degrees From UDP",
+                new TurnDegreesFromUDP());
+        autonSelector.addObject("Drive Two Feet Forward",
+                new DriveOneFootForwardSimpleAutonomous());
+        autonSelector.addObject("Drive Forward For Ten Seconds Straight",
+                new DriveForwardForTenSecondsAutonomous());
     }
 
     public Command getAuton() {
