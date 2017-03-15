@@ -7,24 +7,24 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
-import org.usfirst.frc.team2175.command.single.TurnDegreesWithGyroCommand;
-
 public class UDPServer {
     DatagramSocket sock = null;
+    private double setpoint;
+    private static int defaultPortNum = 7777;
 
     public static void main(String args[]) {
         new UDPServer();
     }
 
     public UDPServer() {
-        this(7777);
+        this(defaultPortNum);
     }
 
     public UDPServer(int port) {
 
         try {
             // 1. creating a server socket, parameter is local port number
-            sock = new DatagramSocket(7777);
+            sock = new DatagramSocket(port);
 
             // buffer to receive incoming data
             byte[] buffer = new byte[65536];
@@ -32,45 +32,40 @@ public class UDPServer {
 
             // 2. Wait for an incoming data
             echo("Server socket created. Waiting for incoming data...");
-            processMessage(incoming);
 
-        }
+            new Thread(() -> {
+                processMessage(incoming);
+            }).start();
 
-        catch (IOException e) {
+        } catch (IOException e) {
             System.err.println("IOException " + e);
         }
-    }
-
-    // simple function to echo data to terminal
-    public static void echo(String msg) {
-        System.out.println(msg);
     }
 
     public void processMessage(DatagramPacket incoming) {
         try {
             // communication loop
-            while (true) {
+            while (!Thread.interrupted()) {
                 sock.receive(incoming);
                 byte[] data = incoming.getData();
                 String s = new String(data, 0, incoming.getLength());
 
                 //
-                // Ths code is not robust - it should make sure the parameter
+                // This code is not robust - it should make sure the parameter
                 // passed in is a double
                 boolean isDouble = false;
-                double setpoint = 0.0;
+                setpoint = 0.0;
 
                 try {
                     setpoint = Double.parseDouble(s);
-
+                    isDouble = true;
                 } catch (Exception e) {
                     // TODO: handle exception
-                    isDouble = false;
                 }
 
                 if (isDouble) {
-                    TurnDegreesWithGyroCommand command =
-                            new TurnDegreesWithGyroCommand(setpoint);
+                    // TurnDegreesWithGyroCommand command =
+                    // new TurnDegreesWithGyroCommand(setpoint);
                 }
 
                 //
@@ -91,6 +86,15 @@ public class UDPServer {
         } catch (IOException e) {
             System.err.println("IOException " + e);
         }
+    }
+
+    // simple function to echo data to terminal
+    public static void echo(String msg) {
+        System.out.println(msg);
+    }
+
+    public double getSetpoint() {
+        return setpoint;
     }
 
 }

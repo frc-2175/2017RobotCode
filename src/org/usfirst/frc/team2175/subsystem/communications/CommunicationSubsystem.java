@@ -8,7 +8,11 @@ public class CommunicationSubsystem extends BaseSubsystem {
     public CommunicationSubsystem() {
         // change port number to be read from the property files
         // make sure it is one that frc allows
-        // udpServer = new UDPServer(7777);
+        udpServer = new UDPServer(7777);
+    }
+
+    public double getSetpoint() {
+        return udpServer.getSetpoint();
     }
 
 }
