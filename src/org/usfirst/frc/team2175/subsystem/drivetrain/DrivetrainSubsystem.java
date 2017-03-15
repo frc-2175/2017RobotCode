@@ -3,6 +3,7 @@ package org.usfirst.frc.team2175.subsystem.drivetrain;
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.SolenoidWrapper;
 import org.usfirst.frc.team2175.properties.WiringProperties;
+import org.usfirst.frc.team2175.properties.WiringProperties.EncoderInfo;
 import org.usfirst.frc.team2175.subsystem.BaseSubsystem;
 
 import com.ctre.CANTalon;
@@ -50,33 +51,32 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         rightSlaveMotorTwo =
                 motorFromInfo(wiringProperties.getRightSlaveMotorTwoInfo());
 
-        leftSlaveMotorOne.changeControlMode(CANTalon.TalonControlMode.Follower);
-        leftSlaveMotorOne.set(leftMasterMotor.getDeviceID());
-
-        leftSlaveMotorTwo.changeControlMode(CANTalon.TalonControlMode.Follower);
-        leftSlaveMotorTwo.set(leftMasterMotor.getDeviceID());
-
-        rightSlaveMotorOne
-                .changeControlMode(CANTalon.TalonControlMode.Follower);
-        rightSlaveMotorOne.set(rightMasterMotor.getDeviceID());
-
-        rightSlaveMotorTwo
-                .changeControlMode(CANTalon.TalonControlMode.Follower);
-        rightSlaveMotorTwo.set(rightMasterMotor.getDeviceID());
+        setSlave(leftSlaveMotorOne, leftMasterMotor);
+        setSlave(leftSlaveMotorTwo, leftMasterMotor);
+        setSlave(rightSlaveMotorOne, rightMasterMotor);
+        setSlave(rightSlaveMotorTwo, rightMasterMotor);
 
         driveShifters = new SolenoidWrapper(
                 wiringProperties.getDriveShiftersSolenoidInfo());
 
         robotDrive = new RobotDrive(leftMasterMotor, rightMasterMotor);
+        switchToPercentVbus();
 
         navXGyro = new AHRS(SPI.Port.kMXP);
-        switchToPercentVbus();
-        // TODO Propertize
-        leftEncoder = new Encoder(2, 3, true);
-        leftEncoder.setDistancePerPulse(1);
-        rightEncoder = new Encoder(0, 1, false);
-        rightEncoder.setDistancePerPulse(1);
+        leftEncoder = encoderFromInfo(wiringProperties.getLeftEncoderInfo());
+        rightEncoder = encoderFromInfo(wiringProperties.getRightEncoderInfo());
+    }
 
+    protected void setSlave(final CANTalon slave, final CANTalon master) {
+        slave.changeControlMode(CANTalon.TalonControlMode.Follower);
+        slave.set(master.getDeviceID());
+    }
+
+    protected Encoder encoderFromInfo(final EncoderInfo encoderInfo) {
+        final Encoder encoder = new Encoder(encoderInfo.sourceA,
+                encoderInfo.sourceB, encoderInfo.isInverted);
+        encoder.setDistancePerPulse(1);
+        return encoder;
     }
 
     public void arcadeDrive(final double moveValue, final double rotateValue) {
@@ -137,9 +137,6 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         rightMasterMotor.setSetpoint(convertFromInchesToClicks(rightSetpoint));
     }
 
-    // TODO make this method actually return the number of clicks per inches
-    // given. Right now, we cannot see how many clicks there are per inch
-    // driven.
     public double convertFromInchesToClicks(final double inches) {
         return inches * 54.518;
     }
@@ -147,6 +144,11 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     public void resetEncoders() {
         rightEncoder.reset();
         leftEncoder.reset();
+    }
+
+    public void resetSensors() {
+        resetEncoders();
+        resetGyro();
     }
 
     public double getLeftEncoderDistance() {

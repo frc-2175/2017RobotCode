@@ -25,6 +25,8 @@ public class WiringProperties extends BaseProperties {
     private SolenoidInfo shooterActuatorSolenoidInfo;
 
     private int drivetrainAnalogGyroDeviceNumber;
+    private EncoderInfo leftEncoderInfo;
+    private EncoderInfo rightEncoderInfo;
 
     private MotorInfo climberMotorOneInfo;
     private MotorInfo climberMotorTwoInfo;
@@ -52,7 +54,19 @@ public class WiringProperties extends BaseProperties {
             this.type = type;
             this.ports = ports;
         }
+    }
 
+    public static class EncoderInfo {
+        public final int sourceA;
+        public final int sourceB;
+        public final boolean isInverted;
+
+        private EncoderInfo(final int sourceA, final int sourceB,
+                final boolean isInverted) {
+            this.sourceA = sourceA;
+            this.sourceB = sourceB;
+            this.isInverted = isInverted;
+        }
     }
 
     @Override
@@ -93,6 +107,10 @@ public class WiringProperties extends BaseProperties {
 
         drivetrainAnalogGyroDeviceNumber =
                 getIntPropertyValue("drivetrain.analog.gyro");
+        leftEncoderInfo =
+                encoderInfoFromPropertyValue("drivetrain.digital.encoder.left");
+        rightEncoderInfo = encoderInfoFromPropertyValue(
+                "drivetrain.digital.encoder.right");
 
         climberMotorOneInfo = motorInfoFromPropertyValue("climber.motor.one");
         climberMotorTwoInfo = motorInfoFromPropertyValue("climber.motor.two");
@@ -106,7 +124,7 @@ public class WiringProperties extends BaseProperties {
 
     protected MotorInfo motorInfoFromPropertyValue(final String propertyName) {
         final String[] info = getStringArrayPropertyValue(propertyName);
-        return new MotorInfo(getDeviceNumber(info), getIsInverted(info));
+        return new MotorInfo(getDeviceNumber(info), getIsInverted(info, 1));
     }
 
     protected SolenoidInfo solenoidInfoFromPropertyValue(
@@ -114,6 +132,14 @@ public class WiringProperties extends BaseProperties {
         final String[] info = getStringArrayPropertyValue(propertyName);
 
         return new SolenoidInfo(info[0], getPorts(info));
+    }
+
+    protected EncoderInfo encoderInfoFromPropertyValue(
+            final String propertyName) {
+        final String[] info = getStringArrayPropertyValue(propertyName);
+
+        return new EncoderInfo(getSource(info, 0), getSource(info, 1),
+                getIsInverted(info, 2));
     }
 
     public int[] getPorts(final String[] info) {
@@ -129,8 +155,12 @@ public class WiringProperties extends BaseProperties {
         return Integer.parseInt(info[0]);
     }
 
-    public boolean getIsInverted(final String[] info) {
-        return Boolean.parseBoolean(info[1]);
+    public int getSource(final String[] info, final int arrayPos) {
+        return Integer.parseInt(info[arrayPos]);
+    }
+
+    public boolean getIsInverted(final String[] info, final int arrayPos) {
+        return Boolean.parseBoolean(info[arrayPos]);
     }
 
     public SolenoidInfo getDriveShiftersSolenoidInfo() {
@@ -207,6 +237,14 @@ public class WiringProperties extends BaseProperties {
 
     public int getDrivetrainAnalogGyroDeviceNumber() {
         return drivetrainAnalogGyroDeviceNumber;
+    }
+
+    public EncoderInfo getLeftEncoderInfo() {
+        return leftEncoderInfo;
+    }
+
+    public EncoderInfo getRightEncoderInfo() {
+        return rightEncoderInfo;
     }
 
     public MotorInfo getClimberMotorOneInfo() {
