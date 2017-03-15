@@ -10,14 +10,12 @@ import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.loop.SmartDashboardLoop;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
-import org.usfirst.frc.team2175.subsystem.ClimberSubsystem;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
 import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 import org.usfirst.frc.team2175.subsystem.drivetrain.TrapezoidalMotionProfile;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,6 +26,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
     private SmartDashboardLoop smartDashboardLoop;
+    private DrivetrainSubsystem drivetrainSubsystem;
     private final static Logger log = Logger.getLogger(Robot.class.getName());
 
     static {
@@ -52,12 +51,13 @@ public class Robot extends IterativeRobot {
         schedulerLoop.start();
         smartDashboardLoop = new SmartDashboardLoop();
         smartDashboardLoop.start();
-        ServiceLocator.get(DrivetrainSubsystem.class).resetEncoders();
+        drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
         log.info("Robot program successfully initialized!");
     }
 
     @Override
     public void autonomousInit() {
+        drivetrainSubsystem.resetSensors();
         Scheduler.getInstance().add(smartDashboardLoop.getAuton());
     }
 
@@ -73,16 +73,14 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void teleopInit() {
-        ServiceLocator.get(DrivetrainSubsystem.class).resetEncoders();
+        drivetrainSubsystem.resetSensors();
         // Scheduler.getInstance().removeAll();
     }
 
     @Override
     public void teleopPeriodic() {
-        log.info("Current Encoder Position = " + ServiceLocator
-                .get(DrivetrainSubsystem.class).getLeftEncoderDistance());
-        SmartDashboard.putNumber("Current Output",
-                ServiceLocator.get(ClimberSubsystem.class).getOutputCurrent());
+        log.info("Current Encoder Position = "
+                + drivetrainSubsystem.getLeftEncoderDistance());
     }
 
     /**
