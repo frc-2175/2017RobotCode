@@ -4,7 +4,7 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.autonomous.CrossBaselineTimeBasedAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.DoNothingAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.DriveForwardAndPlaceGearOnPegAutonomous;
-import org.usfirst.frc.team2175.command.autonomous.RightPegAutonomous;
+import org.usfirst.frc.team2175.command.autonomous.SideGearsAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.TurnDegreesFromUDP;
 import org.usfirst.frc.team2175.subsystem.ClimberSubsystem;
 import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
@@ -45,10 +45,12 @@ public class SmartDashboardLoop extends ControlLoop {
                 new CrossBaselineTimeBasedAutonomous());
         autonSelector.addObject("Center Peg Auton",
                 new DriveForwardAndPlaceGearOnPegAutonomous());
+        autonSelector.addObject("Left Peg Auton",
+                new SideGearsAutonomous(true));
+        autonSelector.addObject("Right Peg Auton",
+                new SideGearsAutonomous(false));
         autonSelector.addDefault("Turn Degrees From UDP",
                 new TurnDegreesFromUDP());
-        autonSelector.addObject("Drive Two Feet Forward",
-                new RightPegAutonomous());
     }
 
     @Override

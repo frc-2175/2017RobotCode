@@ -5,18 +5,23 @@ import org.usfirst.frc.team2175.command.single.TurnDegreesWithGyroCommand;
 import org.usfirst.frc.team2175.command.single.TurnToPegVisionTargetCommand;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class SideGearsAutonomous extends CommandGroup {
     private double degreesToTurn;
 
-    public SideGearsAutonomous(boolean isLeftPeg) {
+    public SideGearsAutonomous(final boolean isLeftPeg) {
         degreesToTurn = -60;
-        addSequential(new DriveInchesSimpleCommand(106));
+        addSequential(new DriveInchesSimpleCommand(-90.5));
+        addSequential(new WaitCommand(.25));
         if (isLeftPeg) {
             degreesToTurn = 60;
         }
         addSequential(new TurnDegreesWithGyroCommand(degreesToTurn));
+        addSequential(new WaitCommand(.15));
         addSequential(new TurnToPegVisionTargetCommand());
+        addSequential(new WaitCommand(.15));
         addSequential(new DriveForwardAndPlaceGearOnPegAutonomous());
+
     }
 }
