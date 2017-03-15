@@ -183,6 +183,7 @@ public class DriverStation {
         return cameraSwitchButton;
     }
 
+    // TODO: Remove all references to "climb buttons"
     public JoystickButton getClimbButton() {
         return climbButton;
     }
@@ -207,6 +208,7 @@ public class DriverStation {
         return shooterActuatorOutButton;
     }
 
+    // TODO: Add precision mode to the properties file
     public boolean isPrecisionButtonPressed() {
         return driverGamepad.getRawButton(7);
     }

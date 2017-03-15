@@ -7,6 +7,7 @@ import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class DriveInchesWithoutEncodersCommandGroup extends CommandGroup {
+    // TODO: Remove unnecessary instance variables
     private DrivetrainSubsystem drivetrainSubsystem;
     private final double inches;
     private final double percentVbus;
@@ -21,8 +22,10 @@ public class DriveInchesWithoutEncodersCommandGroup extends CommandGroup {
         addSequential(new ArcadeDriveForAutonCommand(percentVbus, 0), seconds);
     }
 
-    private double calculateSecondsFromInches(double inches,
-            double percentVbus) {
+    // TODO: This assumes a speed of 0.8 by default. Is that ok, or should we
+    // handle it in some way, like throwing an exception?
+    private double calculateSecondsFromInches(final double inches,
+            final double percentVbus) {
         double seconds;
         final double INCHES_PER_SECOND_ZERO_POINT_SIX = 22.6008;
         final double INCHES_PER_SECOND_ZERO_POINT_SEVEN = 24.375;

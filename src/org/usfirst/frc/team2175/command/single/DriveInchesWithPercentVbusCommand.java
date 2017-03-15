@@ -7,6 +7,8 @@ import org.usfirst.frc.team2175.subsystem.drivetrain.TrapezoidalMotionProfile;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+// TODO: Determine what to do with this class. We may want to rename it to
+// reflect the use of TrapezoidalMotionProfile.
 public class DriveInchesWithPercentVbusCommand extends BaseCommand {
     private DrivetrainSubsystem drivetrainSubsystem;
     private TrapezoidalMotionProfile motionProfile;

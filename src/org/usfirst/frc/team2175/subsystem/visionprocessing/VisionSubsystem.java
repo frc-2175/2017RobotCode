@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class VisionSubsystem extends BaseSubsystem {
 
+    // TODO: Clean up unnecessary instance variables
     private CvSource processOutput;
     private NetworkTable table;
     private double[] contourArea;
@@ -29,6 +30,7 @@ public class VisionSubsystem extends BaseSubsystem {
         table = NetworkTable.getTable("myContourReport");
     }
 
+    // TODO: Remove this?
     private void startAutomaticCapture() {
         CameraServer.getInstance().startAutomaticCapture(0);
     }

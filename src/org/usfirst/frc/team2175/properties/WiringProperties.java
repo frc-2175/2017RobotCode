@@ -151,6 +151,8 @@ public class WiringProperties extends BaseProperties {
         return returnedPorts;
     }
 
+    // TODO: Possibly make these methods more general? For example, we could
+    // have getInteger(final String[] info) and getBoolean(final String[] info).
     public int getDeviceNumber(final String[] info) {
         return Integer.parseInt(info[0]);
     }

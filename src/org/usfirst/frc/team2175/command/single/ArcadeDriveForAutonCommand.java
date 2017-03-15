@@ -37,13 +37,16 @@ public class ArcadeDriveForAutonCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-
+        // TODO: At the moment, this command can't turn. We should probably only
+        // do straightArcadeDrive if rotateValue == 0, or we should make a
+        // separate command for using straightArcadeDrive in auto.
         drivetrainSubsystem.straightArcadeDrive(moveValue);
-
     }
 
     @Override
     protected boolean isFinished() {
+        // TODO: This could be simplified into one if/else statement:
+        // if (shouldStopIfHitsSomething && timeSinceInitialized() > .75)
         if (shouldStopIfHitsSomething) {
             if (timeSinceInitialized() > .75) {
                 return drivetrainSubsystem.getOutputCurrent() > 3;

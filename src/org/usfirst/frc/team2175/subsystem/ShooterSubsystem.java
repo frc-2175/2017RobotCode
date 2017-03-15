@@ -84,6 +84,7 @@ public class ShooterSubsystem extends BaseSubsystem {
         rightFeederMotor.set(rightFeederSpeed);
     }
 
+    // TODO: Negate the motors instead of the speeds here.
     public void setAgitatorDefaultSpeed() {
         agitatorMotor.set(-agitatorSpeed);
     }
