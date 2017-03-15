@@ -66,12 +66,11 @@ public class JoystickProperties extends BaseProperties {
                 buttonInfoFromPropertyValue("button.gearintake.outandspin");
         shooterActuatorInInfo =
                 buttonInfoFromPropertyValue("button.shooter.actuator.in");
+        shooterActuatorOutInfo =
+                buttonInfoFromPropertyValue("button.shooter.actuator.out");
 
         shooterInPOVAngle = getIntPropertyValue("pov.shooter.angle");
         fuelOutPOVAngle = getIntPropertyValue("pov.fuel.angle");
-
-        shooterActuatorOutInfo =
-                buttonInfoFromPropertyValue("button.shooter.actuator.out");
     }
 
     protected ButtonInfo buttonInfoFromPropertyValue(
