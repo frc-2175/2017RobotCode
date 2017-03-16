@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // TODO: Determine what to do with this class. We may want to rename it to
 // reflect the use of TrapezoidalMotionProfile.
-public class DriveInchesWithPercentVbusCommand extends BaseCommand {
+public class DriveInchesWithTrapezoidalMotionCommand extends BaseCommand {
     private DrivetrainSubsystem drivetrainSubsystem;
     private TrapezoidalMotionProfile motionProfile;
 
-    public DriveInchesWithPercentVbusCommand(final double inches) {
+    public DriveInchesWithTrapezoidalMotionCommand(final double inches) {
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
         motionProfile = ServiceLocator.get(TrapezoidalMotionProfile.class);
         motionProfile.setUpDrive(inches);

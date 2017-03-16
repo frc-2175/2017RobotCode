@@ -9,13 +9,13 @@ import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 /**
  *
  */
-public class DriveInchesCommand extends BaseCommand {
+public class DriveInchesPIDCommand extends BaseCommand {
     private final Logger log = Logger.getLogger(getClass().getName());
 
     private final DrivetrainSubsystem drivetrainSubsystem;
     private final double distance;
 
-    public DriveInchesCommand(final double distance) {
+    public DriveInchesPIDCommand(final double distance) {
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
         requires(drivetrainSubsystem);
         drivetrainSubsystem.switchToPID();
@@ -28,7 +28,7 @@ public class DriveInchesCommand extends BaseCommand {
     @Override
     protected void initialize() {
         super.initialize();
-        drivetrainSubsystem.setSetpoints(distance, distance);
+        // TODO Add way to do PID
     }
 
     @Override

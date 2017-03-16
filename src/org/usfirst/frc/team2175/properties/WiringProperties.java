@@ -124,7 +124,7 @@ public class WiringProperties extends BaseProperties {
 
     protected MotorInfo motorInfoFromPropertyValue(final String propertyName) {
         final String[] info = getStringArrayPropertyValue(propertyName);
-        return new MotorInfo(getDeviceNumber(info), getIsInverted(info, 1));
+        return new MotorInfo(getInteger(info, 0), getBoolean(info, 1));
     }
 
     protected SolenoidInfo solenoidInfoFromPropertyValue(
@@ -138,8 +138,8 @@ public class WiringProperties extends BaseProperties {
             final String propertyName) {
         final String[] info = getStringArrayPropertyValue(propertyName);
 
-        return new EncoderInfo(getSource(info, 0), getSource(info, 1),
-                getIsInverted(info, 2));
+        return new EncoderInfo(getInteger(info, 0), getInteger(info, 1),
+                getBoolean(info, 2));
     }
 
     public int[] getPorts(final String[] info) {
@@ -151,17 +151,11 @@ public class WiringProperties extends BaseProperties {
         return returnedPorts;
     }
 
-    // TODO: Possibly make these methods more general? For example, we could
-    // have getInteger(final String[] info) and getBoolean(final String[] info).
-    public int getDeviceNumber(final String[] info) {
-        return Integer.parseInt(info[0]);
-    }
-
-    public int getSource(final String[] info, final int arrayPos) {
+    public int getInteger(final String[] info, final int arrayPos) {
         return Integer.parseInt(info[arrayPos]);
     }
 
-    public boolean getIsInverted(final String[] info, final int arrayPos) {
+    public boolean getBoolean(final String[] info, final int arrayPos) {
         return Boolean.parseBoolean(info[arrayPos]);
     }
 
