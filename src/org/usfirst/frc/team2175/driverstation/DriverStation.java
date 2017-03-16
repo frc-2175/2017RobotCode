@@ -208,8 +208,8 @@ public class DriverStation {
         return shooterActuatorOutButton;
     }
 
-    // TODO: Add precision mode to the properties file
     public boolean isPrecisionButtonPressed() {
-        return driverGamepad.getRawButton(7);
+        return driverGamepad
+                .getRawButton(joystickProperties.getPrecisionButtonNumber());
     }
 }

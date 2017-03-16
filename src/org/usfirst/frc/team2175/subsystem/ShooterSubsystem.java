@@ -28,6 +28,7 @@ public class ShooterSubsystem extends BaseSubsystem {
     private final CANTalon agitatorMotor;
     private final SolenoidWrapper shooterSolenoid;
     private final double agitatorSpeed;
+    private final double agitatorReverseSpeed;
 
     public ShooterSubsystem() {
         final BehaviorProperties behaviorProperties =
@@ -64,6 +65,7 @@ public class ShooterSubsystem extends BaseSubsystem {
         rightFeederReverseSpeed = behaviorProperties.getFeederReverseSpeed();
 
         agitatorSpeed = behaviorProperties.getAgitatorSpeed();
+        agitatorReverseSpeed = behaviorProperties.getAgitatorReverseSpeed();
 
         shooterSolenoid = new SolenoidWrapper(
                 wiringProperties.getShooterActuatorSolenoidInfo());
@@ -86,11 +88,11 @@ public class ShooterSubsystem extends BaseSubsystem {
 
     // TODO: Negate the motors instead of the speeds here.
     public void setAgitatorDefaultSpeed() {
-        agitatorMotor.set(-agitatorSpeed);
+        agitatorMotor.set(agitatorSpeed);
     }
 
     public void setAgitatorReverseSpeed() {
-        agitatorMotor.set(agitatorSpeed);
+        agitatorMotor.set(agitatorReverseSpeed);
     }
 
     public void setShooterSpeedZero() {

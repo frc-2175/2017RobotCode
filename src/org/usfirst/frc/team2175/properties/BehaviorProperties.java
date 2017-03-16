@@ -7,6 +7,7 @@ public class BehaviorProperties extends BaseProperties {
     private double fuelIntakeOutSpeed;
     private double fuelIntakeInSpeed;
     private double agitatorSpeed;
+    private double agitatorReverseSpeed;
     private double maxClimberSpeed;
 
     private double leftShooterSpeed;
@@ -37,6 +38,7 @@ public class BehaviorProperties extends BaseProperties {
         rightFeederSpeed = getDoublePropertyValue("feeder.speed.right");
         feederReverseSpeed = getDoublePropertyValue("feeder.speed.reverse");
         agitatorSpeed = getDoublePropertyValue("agitator.speed");
+        agitatorReverseSpeed = getDoublePropertyValue("agitator.speed.reverse");
         fuelIntakeOutSpeed = getDoublePropertyValue("fuelintake.speed.out");
         fuelIntakeInSpeed = getDoublePropertyValue("fuelintake.speed.in");
         maxClimberSpeed = getDoublePropertyValue("climber.speed.max");
@@ -89,6 +91,10 @@ public class BehaviorProperties extends BaseProperties {
 
     public double getAgitatorSpeed() {
         return agitatorSpeed;
+    }
+
+    public double getAgitatorReverseSpeed() {
+        return agitatorReverseSpeed;
     }
 
     public double getMaxClimberSpeed() {
