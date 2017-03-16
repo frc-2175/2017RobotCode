@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2175.command.autonomous;
 
-import org.usfirst.frc.team2175.command.single.DriveInchesSimpleCommand;
+import org.usfirst.frc.team2175.command.group.DriveInAutonCommandGroup;
 import org.usfirst.frc.team2175.command.single.TurnDegreesWithGyroCommand;
 import org.usfirst.frc.team2175.command.single.TurnToPegVisionTargetCommand;
 
@@ -12,7 +12,7 @@ public class SideGearsAutonomous extends CommandGroup {
 
     public SideGearsAutonomous(final boolean isLeftPeg) {
         degreesToTurn = -60;
-        addSequential(new DriveInchesSimpleCommand(-90.5));
+        addSequential(new DriveInAutonCommandGroup(true, -90.5));
         addSequential(new WaitCommand(.25));
         if (isLeftPeg) {
             degreesToTurn = 60;

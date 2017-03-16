@@ -1,11 +1,11 @@
 package org.usfirst.frc.team2175.command.autonomous;
 
-import org.usfirst.frc.team2175.command.single.ArcadeDriveForAutonCommand;
+import org.usfirst.frc.team2175.command.group.DriveInAutonCommandGroup;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class CrossBaselineTimeBasedAutonomous extends CommandGroup {
     public CrossBaselineTimeBasedAutonomous() {
-        addSequential(new ArcadeDriveForAutonCommand(0.8, 0, false), 3);
+        addSequential(new DriveInAutonCommandGroup(0.8, false), 3);
     }
 }
