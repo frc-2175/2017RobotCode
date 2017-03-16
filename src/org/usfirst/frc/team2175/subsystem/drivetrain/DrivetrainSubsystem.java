@@ -131,12 +131,6 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         rightMasterMotor.changeControlMode(TalonControlMode.PercentVbus);
     }
 
-    public void setSetpoints(final double leftSetpoint,
-            final double rightSetpoint) {
-        leftMasterMotor.setSetpoint(convertFromInchesToClicks(leftSetpoint));
-        rightMasterMotor.setSetpoint(convertFromInchesToClicks(rightSetpoint));
-    }
-
     public double convertFromInchesToClicks(final double inches) {
         return inches * 54.518;
     }

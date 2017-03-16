@@ -18,8 +18,8 @@ public class DriverStation {
 
     private double deadbandSize;
     private DeadbandCalculator deadbandCalculator;
+    private JoystickProperties joystickProperties;
 
-    private JoystickButton climbButton;
     private JoystickButton feedOutButton;
     private JoystickButton fuelIntakeActuateInButton;
     private JoystickButton fuelIntakeActuateOutButton;
@@ -42,8 +42,7 @@ public class DriverStation {
     private double maxClimberSpeed;
 
     public DriverStation() {
-        final JoystickProperties joystickProperties =
-                ServiceLocator.get(JoystickProperties.class);
+        joystickProperties = ServiceLocator.get(JoystickProperties.class);
         final ClimberSubsystem climberSubsystem =
                 ServiceLocator.get(ClimberSubsystem.class);
 
@@ -181,11 +180,6 @@ public class DriverStation {
 
     public JoystickButton getCameraSwitchButton() {
         return cameraSwitchButton;
-    }
-
-    // TODO: Remove all references to "climb buttons"
-    public JoystickButton getClimbButton() {
-        return climbButton;
     }
 
     public POVTrigger getFuelOutPOV() {

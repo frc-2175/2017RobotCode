@@ -2,24 +2,18 @@ package org.usfirst.frc.team2175.subsystem.visionprocessing;
 
 import org.usfirst.frc.team2175.subsystem.BaseSubsystem;
 
-import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class VisionSubsystem extends BaseSubsystem {
 
-    // TODO: Clean up unnecessary instance variables
-    private CvSource processOutput;
     private NetworkTable table;
     private double[] contourArea;
-    private double[] contourCenterX;
     private double[] contourCenterY;
     private double[] contourHeight;
     private double[] contourWidth;
     private double[] contourSolidity;
-    private double[] defaultValue;
-    private double degrees;
     UsbCamera camera;
 
     public VisionSubsystem() {
@@ -28,11 +22,6 @@ public class VisionSubsystem extends BaseSubsystem {
         CameraServer.getInstance().startAutomaticCapture(camera);
         // startGripPipelineCapture();
         table = NetworkTable.getTable("myContourReport");
-    }
-
-    // TODO: Remove this?
-    private void startAutomaticCapture() {
-        CameraServer.getInstance().startAutomaticCapture(0);
     }
 
     // private void startGripPipelineCapture() {
