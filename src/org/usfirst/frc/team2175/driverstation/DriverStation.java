@@ -36,6 +36,10 @@ public class DriverStation {
     private JoystickButton gearIntakeOutAndSpinButton;
     private JoystickButton shooterActuatorInButton;
     private JoystickButton shooterActuatorOutButton;
+    private JoystickButton gearIntakeActuateOutDriverButton;
+    private JoystickButton gearIntakeInDriverButton;
+    private JoystickButton gearIntakeOutDriverButton;
+    private JoystickButton gearIntakeOutAndSpinDriverButton;
 
     private POVTrigger shooterInPOV;
     private POVTrigger fuelOutPOV;
@@ -76,6 +80,14 @@ public class DriverStation {
                 joystickProperties.getGearIntakeOutAndSpinInfo());
         shooterActuatorInButton = buttonFromButtonInfo(
                 joystickProperties.getShooterActuatorInInfo());
+        gearIntakeActuateOutDriverButton = buttonFromButtonInfo(
+                joystickProperties.getGearIntakeActuatorInfo());
+        gearIntakeInDriverButton = buttonFromButtonInfo(
+                joystickProperties.getGearIntakeInDriverInfo());
+        gearIntakeOutDriverButton = buttonFromButtonInfo(
+                joystickProperties.getGearIntakeInDriverInfo());
+        gearIntakeOutAndSpinDriverButton = buttonFromButtonInfo(
+                joystickProperties.getGearIntakeOutAndSpinDriverInfo());
 
         shooterInPOV = new POVTrigger(weaponsGamepad,
                 joystickProperties.getShooterInPOV());
@@ -89,6 +101,22 @@ public class DriverStation {
         shooterActuatorOutButton = buttonFromButtonInfo(
                 joystickProperties.getShooterActuatorOutInfo());
         ServiceLocator.register(this);
+    }
+
+    public JoystickButton getGearIntakeOutAndSpinDriverButton() {
+        return gearIntakeOutAndSpinDriverButton;
+    }
+
+    public JoystickButton getGearIntakeActuateOutDriverButton() {
+        return gearIntakeActuateOutDriverButton;
+    }
+
+    public JoystickButton getGearIntakeInDriverButton() {
+        return gearIntakeInDriverButton;
+    }
+
+    public JoystickButton getGearIntakeOutDriverButton() {
+        return gearIntakeOutDriverButton;
     }
 
     protected JoystickButton buttonFromButtonInfo(

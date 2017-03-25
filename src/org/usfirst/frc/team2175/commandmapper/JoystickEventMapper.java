@@ -44,6 +44,14 @@ public class JoystickEventMapper {
                 .whenPressed(new ActuateShootersInCommand());
         driverStation.getShooterActuatorOutButton()
                 .whenPressed(new ActuateShootersOutCommand());
+        driverStation.getGearIntakeActuateOutDriverButton()
+                .whenPressed(new ToggleGearIntakeActuationCommand());
+        driverStation.getGearIntakeInDriverButton()
+                .whileHeld(new RunGearIntakeInCommand());
+        driverStation.getGearIntakeOutDriverButton()
+                .whileHeld(new RunGearIntakeOutCommand());
+        driverStation.getGearIntakeOutAndSpinDriverButton()
+                .whileHeld(new ActuateGearIntakeOutAndSpinCommand());
 
         driverStation.getFuelOutPOV()
                 .whileActive(new FuelIntakeFailsafeCommand());
