@@ -10,8 +10,6 @@ public class JoystickProperties extends BaseProperties {
 
     private ButtonInfo feederOutInfo;
     private ButtonInfo fuelIntakeInInfo;
-    private ButtonInfo fuelIntakeActuateInInfo;
-    private ButtonInfo fuelIntakeActuateOutInfo;
     private ButtonInfo gearIntakeInInfo;
     private ButtonInfo gearIntakeOutInfo;
     private ButtonInfo gearIntakeActuatorInfo;
@@ -20,8 +18,6 @@ public class JoystickProperties extends BaseProperties {
     private ButtonInfo shooterOutInfo;
     private ButtonInfo cameraSwitchInfo;
     private ButtonInfo gearIntakeOutAndSpinInfo;
-    private ButtonInfo shooterActuatorInInfo;
-    private ButtonInfo shooterActuatorOutInfo;
     private ButtonInfo gearIntakeInDriverInfo;
     private ButtonInfo gearIntakeOutDriverInfo;
     private ButtonInfo gearIntakeActuatorDriverInfo;
@@ -132,14 +128,6 @@ public class JoystickProperties extends BaseProperties {
         return feederOutInfo;
     }
 
-    public ButtonInfo getFuelIntakeActuateInInfo() {
-        return fuelIntakeActuateInInfo;
-    }
-
-    public ButtonInfo getFuelIntakeActuateOutInfo() {
-        return fuelIntakeActuateOutInfo;
-    }
-
     public ButtonInfo getFuelIntakeInInfo() {
         return fuelIntakeInInfo;
     }
@@ -176,20 +164,12 @@ public class JoystickProperties extends BaseProperties {
         return gearIntakeOutAndSpinInfo;
     }
 
-    public ButtonInfo getShooterActuatorInInfo() {
-        return shooterActuatorInInfo;
-    }
-
     public int getShooterInPOV() {
         return shooterInPOVAngle;
     }
 
     public int getFuelIntakeOutPOV() {
         return fuelOutPOVAngle;
-    }
-
-    public ButtonInfo getShooterActuatorOutInfo() {
-        return shooterActuatorOutInfo;
     }
 
     public int getPrecisionButtonNumber() {
