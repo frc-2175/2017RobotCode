@@ -3,14 +3,17 @@ package org.usfirst.frc.team2175.command.single;
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
+import org.usfirst.frc.team2175.properties.Properties;
 import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 
 public class ArcadeDriveWithJoysticksCommand extends BaseCommand {
 
     private final DrivetrainSubsystem drivetrainSubsystem;
     private final DriverStation driverStation;
+    private Properties props;
 
     public ArcadeDriveWithJoysticksCommand() {
+        props = ServiceLocator.get(Properties.class);
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
         driverStation = ServiceLocator.get(DriverStation.class);
 
@@ -26,7 +29,7 @@ public class ArcadeDriveWithJoysticksCommand extends BaseCommand {
     protected void execute() {
         double moveValue;
         double turnValue;
-        if (driverStation.isPrecisionButtonPressed()) {
+        if (driverStation.getButtonMap().get(props.getPrecisionMode()).get()) {
             moveValue = driverStation.getMoveValue() / 2;
             turnValue = driverStation.getTurnValue() / 2;
         } else {
