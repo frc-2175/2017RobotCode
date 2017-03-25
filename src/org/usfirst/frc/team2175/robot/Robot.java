@@ -9,6 +9,7 @@ import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.loop.SmartDashboardLoop;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
+import org.usfirst.frc.team2175.properties.Properties;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
 import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
@@ -41,6 +42,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
+        new Properties();
         PropertiesFactory.makeAll();
         SubsystemsFactory.makeAll();
         new DriverStation();
