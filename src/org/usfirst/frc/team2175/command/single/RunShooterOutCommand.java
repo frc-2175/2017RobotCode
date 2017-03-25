@@ -6,11 +6,11 @@ import org.usfirst.frc.team2175.subsystem.ShooterSubsystem;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class RunShooterPercentVbusCommand extends BaseCommand {
+public class RunShooterOutCommand extends BaseCommand {
 
     private final ShooterSubsystem shooterSubsystem;
 
-    public RunShooterPercentVbusCommand() {
+    public RunShooterOutCommand() {
         shooterSubsystem = ServiceLocator.get(ShooterSubsystem.class);
 
         requires(shooterSubsystem);

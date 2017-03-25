@@ -5,12 +5,12 @@ import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
 import org.usfirst.frc.team2175.subsystem.ShooterSubsystem;
 
-public class RunFuelIntakeInCommand extends BaseCommand {
+public class RunFuelInCommand extends BaseCommand {
 
     private final FuelIntakeSubsystem fuelIntakeSubsystem;
     private ShooterSubsystem shooterSubsystem;
 
-    public RunFuelIntakeInCommand() {
+    public RunFuelInCommand() {
         fuelIntakeSubsystem = ServiceLocator.get(FuelIntakeSubsystem.class);
         shooterSubsystem = ServiceLocator.get(ShooterSubsystem.class);
 

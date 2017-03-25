@@ -4,11 +4,11 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.GearIntakeSubsystem;
 
-public class ToggleGearIntakeActuationCommand extends BaseCommand {
+public class ActuateGearCommand extends BaseCommand {
 
     GearIntakeSubsystem gearIntakeSubsystem;
 
-    public ToggleGearIntakeActuationCommand() {
+    public ActuateGearCommand() {
         gearIntakeSubsystem = ServiceLocator.get(GearIntakeSubsystem.class);
         requires(gearIntakeSubsystem);
     }

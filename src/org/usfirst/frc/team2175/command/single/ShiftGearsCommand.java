@@ -7,12 +7,12 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 
-public class ShiftToHighGearCommand extends BaseCommand {
+public class ShiftGearsCommand extends BaseCommand {
 
     private final DrivetrainSubsystem drivetrainSubsystem;
     private final Logger log = Logger.getLogger(getClass().getName());
 
-    public ShiftToHighGearCommand() {
+    public ShiftGearsCommand() {
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
     }
 
