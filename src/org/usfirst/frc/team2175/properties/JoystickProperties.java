@@ -63,10 +63,6 @@ public class JoystickProperties extends BaseProperties {
         cameraSwitchInfo = buttonInfoFromPropertyValue("button.camera.switch");
         gearIntakeOutAndSpinInfo =
                 buttonInfoFromPropertyValue("button.gearintake.outandspin");
-        shooterActuatorInInfo =
-                buttonInfoFromPropertyValue("button.shooter.actuator.in");
-        shooterActuatorOutInfo =
-                buttonInfoFromPropertyValue("button.shooter.actuator.out");
         gearIntakeOutAndSpinDriverInfo = buttonInfoFromPropertyValue(
                 "button.gearintake.outandspin.driver");
 
