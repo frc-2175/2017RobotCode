@@ -48,9 +48,9 @@ public class JoystickProperties extends BaseProperties {
 
     @Override
     protected void populate() {
-        weaponsGamepadPort = getIntPropertyValue("joystick.weapons.port");
         leftJoystickPort = getIntPropertyValue("joystick.left.port");
         rightJoystickPort = getIntPropertyValue("joystick.right.port");
+        weaponsGamepadPort = getIntPropertyValue("joystick.weapons.port");
 
         deadbandSize = getDoublePropertyValue("deadband.value");
 

@@ -128,10 +128,13 @@ public class DriverStation {
     private Joystick joystickForName(final String name) {
         Joystick joystickOfChoice = null;
         switch (name) {
-        case "driver":
+        case "left":
             joystickOfChoice = leftJoystick;
             break;
-        case "weapons":
+        case "right":
+            joystickOfChoice = rightJoystick;
+            break;
+        case "gamepad":
             joystickOfChoice = weaponsGamepad;
             break;
         default:
@@ -145,7 +148,6 @@ public class DriverStation {
     }
 
     public double getMoveValue() {
-        // final double input = driverGamepad.getRawAxis(1);
         final double input = leftJoystick.getY();
         final double deadbandedOutput = deadbandCalculator
                 .calcDeadbandedOutput(squareRootInput(input), deadbandSize);
@@ -153,7 +155,6 @@ public class DriverStation {
     }
 
     public double getTurnValue() {
-        // final double input = driverGamepad.getRawAxis(2);
         final double input = rightJoystick.getX();
         final double deadbandedOutput = deadbandCalculator
                 .calcDeadbandedOutput(squareRootInput(input), deadbandSize);
