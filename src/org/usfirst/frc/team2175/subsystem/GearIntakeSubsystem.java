@@ -9,8 +9,7 @@ import com.ctre.CANTalon;
 
 public class GearIntakeSubsystem extends BaseSubsystem {
 
-    private CANTalon leftIntakeMotor;
-    private CANTalon rightIntakeMotor;
+    private CANTalon intakeMotor;
     private SolenoidWrapper gearIntakeActuator;
 
     private double gearIntakeInSpeed;
@@ -27,10 +26,7 @@ public class GearIntakeSubsystem extends BaseSubsystem {
                 ServiceLocator.get(WiringProperties.class);
         final BehaviorProperties behaviorProperties =
                 ServiceLocator.get(BehaviorProperties.class);
-        leftIntakeMotor =
-                motorFromInfo(wiringProperties.getLeftGearIntakeMotorInfo());
-        rightIntakeMotor =
-                motorFromInfo(wiringProperties.getRightGearIntakeMotorInfo());
+        intakeMotor = motorFromInfo(wiringProperties.getGearIntakeMotorInfo());
         gearIntakeActuator = new SolenoidWrapper(
                 wiringProperties.getGearIntakeSolenoidInfo());
 
@@ -41,29 +37,25 @@ public class GearIntakeSubsystem extends BaseSubsystem {
     }
 
     public void runIn() {
-        if (!isCancelled) {
-            if (isFirstTimeRunningIn) {
-                timeWhenInitialized = System.nanoTime() / 1000000000.0;
-            }
-            if (getLeftMotorCurrent() <= 3.5) {
-                leftIntakeMotor.set(gearIntakeInSpeed);
-                rightIntakeMotor.set(-gearIntakeInSpeed);
-            } else if (System.nanoTime() / 1000000000.0 > timeWhenInitialized
-                    + 0.75) {
-                leftIntakeMotor.set(0);
-                rightIntakeMotor.set(0);
-                isCancelled = true;
-            }
-            isFirstTimeRunningIn = false;
-        } else {
-            leftIntakeMotor.set(0);
-            rightIntakeMotor.set(0);
-        }
+        // /if (!isCancelled) {
+        // if (isFirstTimeRunningIn) {
+        // timeWhenInitialized = System.nanoTime() / 1000000000.0;
+        // }
+        // if (getMotorCurrent() <= 3.5) {
+        intakeMotor.set(-gearIntakeInSpeed);
+        // } else if (System.nanoTime() / 1000000000.0 > timeWhenInitialized
+        // + 0.75) {
+        // intakeMotor.set(0);
+        // isCancelled = true;
+        // }
+        // isFirstTimeRunningIn = false;
+        // } else {
+        // intakeMotor.set(0);
+        // }
     }
 
     public void runOut() {
-        leftIntakeMotor.set(-gearIntakeOutSpeed);
-        rightIntakeMotor.set(gearIntakeOutSpeed);
+        intakeMotor.set(gearIntakeOutSpeed);
     }
 
     public void raiseIntake() {
@@ -75,8 +67,7 @@ public class GearIntakeSubsystem extends BaseSubsystem {
     }
 
     public void stop() {
-        leftIntakeMotor.set(0);
-        rightIntakeMotor.set(0);
+        intakeMotor.set(0);
         isFirstTimeRunningIn = true;
         isCancelled = false;
     }
@@ -85,8 +76,8 @@ public class GearIntakeSubsystem extends BaseSubsystem {
         gearIntakeActuator.set(!gearIntakeActuator.get());
     }
 
-    public double getLeftMotorCurrent() {
-        return leftIntakeMotor.getOutputCurrent();
+    public double getMotorCurrent() {
+        return intakeMotor.getOutputCurrent();
     }
 
     public boolean getIsGearIntakeOut() {

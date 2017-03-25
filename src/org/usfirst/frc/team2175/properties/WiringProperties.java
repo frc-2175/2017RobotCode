@@ -10,8 +10,7 @@ public class WiringProperties extends BaseProperties {
     private MotorInfo rightSlaveMotorTwoInfo;
     private SolenoidInfo driveShiftersSolenoidInfo;
 
-    private MotorInfo leftGearIntakeMotorInfo;
-    private MotorInfo rightGearIntakeMotorInfo;
+    private MotorInfo gearIntakeMotorInfo;
     private SolenoidInfo gearIntakeSolenoidInfo;
 
     private MotorInfo fuelIntakeMainMotorInfo;
@@ -88,10 +87,7 @@ public class WiringProperties extends BaseProperties {
         rightSlaveMotorTwoInfo =
                 motorInfoFromPropertyValue("drivetrain.motor.right.slavetwo");
 
-        leftGearIntakeMotorInfo =
-                motorInfoFromPropertyValue("gearintake.motor.left");
-        rightGearIntakeMotorInfo =
-                motorInfoFromPropertyValue("gearintake.motor.right");
+        gearIntakeMotorInfo = motorInfoFromPropertyValue("gearintake.motor");
         gearIntakeSolenoidInfo =
                 solenoidInfoFromPropertyValue("gearintake.solenoid");
 
@@ -187,12 +183,8 @@ public class WiringProperties extends BaseProperties {
         return rightSlaveMotorTwoInfo;
     }
 
-    public MotorInfo getLeftGearIntakeMotorInfo() {
-        return leftGearIntakeMotorInfo;
-    }
-
-    public MotorInfo getRightGearIntakeMotorInfo() {
-        return rightGearIntakeMotorInfo;
+    public MotorInfo getGearIntakeMotorInfo() {
+        return gearIntakeMotorInfo;
     }
 
     public SolenoidInfo getGearIntakeSolenoidInfo() {
@@ -250,5 +242,4 @@ public class WiringProperties extends BaseProperties {
     public MotorInfo getClimberMotorTwoInfo() {
         return climberMotorTwoInfo;
     }
-
 }

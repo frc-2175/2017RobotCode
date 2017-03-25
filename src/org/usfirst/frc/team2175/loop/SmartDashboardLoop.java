@@ -66,7 +66,7 @@ public class SmartDashboardLoop extends ControlLoop {
 
     protected void showGearIntakeInfo() {
         SmartDashboard.putNumber("Current",
-                gearIntakeSubsystem.getLeftMotorCurrent());
+                gearIntakeSubsystem.getMotorCurrent());
         SmartDashboard.putBoolean("Gear in Gear Intake",
                 gearIntakeSubsystem.isCancelled());
         SmartDashboard.putBoolean("GearActuatorOut",
