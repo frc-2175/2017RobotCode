@@ -1,28 +1,18 @@
 package org.usfirst.frc.team2175.properties;
 
+import java.util.HashMap;
+
+import org.usfirst.frc.team2175.ServiceLocator;
+
 public class JoystickProperties extends BaseProperties {
 
-    private int weaponsGamepadPort;
+    private HashMap<String, ButtonInfo> buttonInfoMap;
+
     private int leftJoystickPort;
     private int rightJoystickPort;
+    private int weaponsGamepadPort;
 
     private double deadbandSize;
-
-    private ButtonInfo feederOutInfo;
-    private ButtonInfo fuelIntakeInInfo;
-    private ButtonInfo gearIntakeInInfo;
-    private ButtonInfo gearIntakeOutInfo;
-    private ButtonInfo gearIntakeActuatorInfo;
-    private ButtonInfo hopperInfo;
-    private ButtonInfo shiftButtonInfo;
-    private ButtonInfo shooterOutInfo;
-    private ButtonInfo cameraSwitchInfo;
-    private ButtonInfo gearIntakeOutAndSpinInfo;
-    private ButtonInfo gearIntakeInDriverInfo;
-    private ButtonInfo gearIntakeOutDriverInfo;
-    private ButtonInfo gearIntakeActuatorDriverInfo;
-    private ButtonInfo gearIntakeOutAndSpinDriverInfo;
-    private int precisionModeButtonNumber;
 
     private int shooterInPOVAngle;
     private int fuelOutPOVAngle;
@@ -44,68 +34,41 @@ public class JoystickProperties extends BaseProperties {
 
     @Override
     protected void populate() {
+        buttonInfoMap = new HashMap<>();
+
+        Properties props = ServiceLocator.get(Properties.class);
+
         leftJoystickPort = getIntPropertyValue("joystick.left.port");
         rightJoystickPort = getIntPropertyValue("joystick.right.port");
         weaponsGamepadPort = getIntPropertyValue("joystick.weapons.port");
 
         deadbandSize = getDoublePropertyValue("deadband.value");
 
-        feederOutInfo = buttonInfoFromPropertyValue("button.feeder.out");
-        fuelIntakeInInfo = buttonInfoFromPropertyValue("button.fuelintake.in");
-        fuelIntakeActuateInInfo =
-                buttonInfoFromPropertyValue("button.fuelintake.actuatein");
-        fuelIntakeActuateOutInfo =
-                buttonInfoFromPropertyValue("button.fuelintake.actuateout");
-        gearIntakeInInfo = buttonInfoFromPropertyValue("button.gearintake.in");
-        gearIntakeOutInfo =
-                buttonInfoFromPropertyValue("button.gearintake.out");
-        gearIntakeActuatorInfo =
-                buttonInfoFromPropertyValue("button.gearintake.lower");
-        hopperInfo = buttonInfoFromPropertyValue("button.hopper.lower");
-        shiftButtonInfo = buttonInfoFromPropertyValue("button.shift");
-        shooterOutInfo = buttonInfoFromPropertyValue("button.shooter.out");
-        cameraSwitchInfo = buttonInfoFromPropertyValue("button.camera.switch");
-        gearIntakeOutAndSpinInfo =
-                buttonInfoFromPropertyValue("button.gearintake.outandspin");
-        shooterActuatorInInfo =
-                buttonInfoFromPropertyValue("button.shooter.actuator.in");
-        shooterActuatorOutInfo =
-                buttonInfoFromPropertyValue("button.shooter.actuator.out");
-        gearIntakeOutAndSpinDriverInfo = buttonInfoFromPropertyValue(
-                "button.gearintake.outandspin.driver");
+        createInfoFromProps(props.getFeedOut());
+        createInfoFromProps(props.getFuelIn());
+        createInfoFromProps(props.getGearIn());
+        createInfoFromProps(props.getGearOut());
+        createInfoFromProps(props.getActuateGear());
+        createInfoFromProps(props.getHopper());
+        createInfoFromProps(props.getShiftGears());
+        createInfoFromProps(props.getShootOut());
+        createInfoFromProps(props.getCameraSwitch());
+        createInfoFromProps(props.getGearOutAndSpin());
+        createInfoFromProps(props.getPrecisionMode());
 
-        precisionModeButtonNumber = getButtonNumber("button.drive.precision");
+        createInfoFromProps(props.getGearOutAndSpinDriver());
+        createInfoFromProps(props.getGearInDriver());
+        createInfoFromProps(props.getGearOutDriver());
+        createInfoFromProps(props.getActuateGearDriver());
 
         shooterInPOVAngle = getIntPropertyValue("pov.shooter.angle");
         fuelOutPOVAngle = getIntPropertyValue("pov.fuel.angle");
-        gearIntakeInDriverInfo =
-                buttonInfoFromPropertyValue("button.gearintake.in.driver");
-        gearIntakeOutDriverInfo =
-                buttonInfoFromPropertyValue("button.gearintake.out.driver");
-        gearIntakeActuatorDriverInfo =
-                buttonInfoFromPropertyValue("button.gearintake.lower.driver");
     }
 
-    public ButtonInfo getGearIntakeOutAndSpinDriverInfo() {
-        return gearIntakeOutAndSpinDriverInfo;
-    }
-
-    public ButtonInfo getGearIntakeInDriverInfo() {
-        return gearIntakeInDriverInfo;
-    }
-
-    public ButtonInfo getGearIntakeOutDriverInfo() {
-        return gearIntakeOutDriverInfo;
-    }
-
-    public ButtonInfo getGearIntakeActuatorDriverInfo() {
-        return gearIntakeActuatorDriverInfo;
-    }
-
-    protected ButtonInfo buttonInfoFromPropertyValue(
-            final String propertyValue) {
-        return new ButtonInfo(getJoystickName(propertyValue),
+    protected void createInfoFromProps(final String propertyValue) {
+        ButtonInfo info = new ButtonInfo(getJoystickName(propertyValue),
                 getButtonNumber(propertyValue));
+        buttonInfoMap.put(propertyValue, info);
     }
 
     public String getJoystickName(final String propertyName) {
@@ -116,6 +79,18 @@ public class JoystickProperties extends BaseProperties {
         return Integer.parseInt(getStringArrayPropertyValue(propertyName)[1]);
     }
 
+    public HashMap<String, ButtonInfo> getButtonInfo() {
+        return buttonInfoMap;
+    }
+
+    public int getLeftJoystickPort() {
+        return leftJoystickPort;
+    }
+
+    public int getRightJoytickPort() {
+        return rightJoystickPort;
+    }
+
     public int getWeaponsGamepadPort() {
         return weaponsGamepadPort;
     }
@@ -124,63 +99,11 @@ public class JoystickProperties extends BaseProperties {
         return deadbandSize;
     }
 
-    public ButtonInfo getFeederOutInfo() {
-        return feederOutInfo;
-    }
-
-    public ButtonInfo getFuelIntakeInInfo() {
-        return fuelIntakeInInfo;
-    }
-
-    public ButtonInfo getGearIntakeActuatorInfo() {
-        return gearIntakeActuatorInfo;
-    }
-
-    public ButtonInfo getGearIntakeInInfo() {
-        return gearIntakeInInfo;
-    }
-
-    public ButtonInfo getGearIntakeOutInfo() {
-        return gearIntakeOutInfo;
-    }
-
-    public ButtonInfo getHopperInfo() {
-        return hopperInfo;
-    }
-
-    public ButtonInfo getShiftGearsInfo() {
-        return shiftButtonInfo;
-    }
-
-    public ButtonInfo getShooterOutInfo() {
-        return shooterOutInfo;
-    }
-
-    public ButtonInfo getCameraSwitchInfo() {
-        return cameraSwitchInfo;
-    }
-
-    public ButtonInfo getGearIntakeOutAndSpinInfo() {
-        return gearIntakeOutAndSpinInfo;
-    }
-
     public int getShooterInPOV() {
         return shooterInPOVAngle;
     }
 
     public int getFuelIntakeOutPOV() {
         return fuelOutPOVAngle;
-    }
-
-    public int getPrecisionButtonNumber() {
-        return precisionModeButtonNumber;
-    }
-
-    public int getRightJoytickPort() {
-        return rightJoystickPort;
-    }
-
-    public int getLeftJoystickPort() {
-        return leftJoystickPort;
     }
 }
