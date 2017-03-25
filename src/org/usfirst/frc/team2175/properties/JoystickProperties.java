@@ -52,10 +52,6 @@ public class JoystickProperties extends BaseProperties {
 
         feederOutInfo = buttonInfoFromPropertyValue("button.feeder.out");
         fuelIntakeInInfo = buttonInfoFromPropertyValue("button.fuelintake.in");
-        fuelIntakeActuateInInfo =
-                buttonInfoFromPropertyValue("button.fuelintake.actuatein");
-        fuelIntakeActuateOutInfo =
-                buttonInfoFromPropertyValue("button.fuelintake.actuateout");
         gearIntakeInInfo = buttonInfoFromPropertyValue("button.gearintake.in");
         gearIntakeOutInfo =
                 buttonInfoFromPropertyValue("button.gearintake.out");
