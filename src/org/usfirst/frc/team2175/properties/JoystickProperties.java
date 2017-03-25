@@ -2,8 +2,9 @@ package org.usfirst.frc.team2175.properties;
 
 public class JoystickProperties extends BaseProperties {
 
-    private int driverGamepadPort;
     private int weaponsGamepadPort;
+    private int leftJoystickPort;
+    private int rightJoystickPort;
 
     private double deadbandSize;
 
@@ -43,8 +44,9 @@ public class JoystickProperties extends BaseProperties {
 
     @Override
     protected void populate() {
-        driverGamepadPort = getIntPropertyValue("joystick.driver.port");
         weaponsGamepadPort = getIntPropertyValue("joystick.weapons.port");
+        leftJoystickPort = getIntPropertyValue("joystick.left.port");
+        rightJoystickPort = getIntPropertyValue("joystick.right.port");
 
         deadbandSize = getDoublePropertyValue("deadband.value");
 
@@ -88,10 +90,6 @@ public class JoystickProperties extends BaseProperties {
 
     public int getButtonNumber(final String propertyName) {
         return Integer.parseInt(getStringArrayPropertyValue(propertyName)[1]);
-    }
-
-    public int getDriverGamepadPort() {
-        return driverGamepadPort;
     }
 
     public int getWeaponsGamepadPort() {
@@ -168,5 +166,13 @@ public class JoystickProperties extends BaseProperties {
 
     public int getPrecisionButtonNumber() {
         return precisionModeButtonNumber;
+    }
+
+    public int getRightJoytickPort() {
+        return rightJoystickPort;
+    }
+
+    public int getLeftJoystickPort() {
+        return leftJoystickPort;
     }
 }

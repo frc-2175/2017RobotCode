@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class DriverStation {
     private final static Logger log = Logger.getLogger(Robot.class.getName());
 
-    private Joystick driverGamepad;
+    private Joystick leftJoystick;
+    private Joystick rightJoystick;
     private Joystick weaponsGamepad;
 
     private double deadbandSize;
@@ -46,10 +47,10 @@ public class DriverStation {
         final ClimberSubsystem climberSubsystem =
                 ServiceLocator.get(ClimberSubsystem.class);
 
-        driverGamepad = new Joystick(joystickProperties.getDriverGamepadPort());
+        leftJoystick = new Joystick(joystickProperties.getLeftJoystickPort());
+        rightJoystick = new Joystick(joystickProperties.getRightJoytickPort());
         weaponsGamepad =
                 new Joystick(joystickProperties.getWeaponsGamepadPort());
-
         feedOutButton =
                 buttonFromButtonInfo(joystickProperties.getFeederOutInfo());
         fuelIntakeActuateInButton = buttonFromButtonInfo(
@@ -100,7 +101,7 @@ public class DriverStation {
         Joystick joystickOfChoice = null;
         switch (name) {
         case "driver":
-            joystickOfChoice = driverGamepad;
+            joystickOfChoice = leftJoystick;
             break;
         case "weapons":
             joystickOfChoice = weaponsGamepad;
@@ -116,14 +117,16 @@ public class DriverStation {
     }
 
     public double getMoveValue() {
-        final double input = driverGamepad.getRawAxis(1);
+        // final double input = driverGamepad.getRawAxis(1);
+        final double input = leftJoystick.getY();
         final double deadbandedOutput = deadbandCalculator
                 .calcDeadbandedOutput(squareRootInput(input), deadbandSize);
         return -deadbandedOutput;
     }
 
     public double getTurnValue() {
-        final double input = driverGamepad.getRawAxis(2);
+        // final double input = driverGamepad.getRawAxis(2);
+        final double input = rightJoystick.getX();
         final double deadbandedOutput = deadbandCalculator
                 .calcDeadbandedOutput(squareRootInput(input), deadbandSize);
         return deadbandedOutput;
@@ -203,7 +206,6 @@ public class DriverStation {
     }
 
     public boolean isPrecisionButtonPressed() {
-        return driverGamepad
-                .getRawButton(joystickProperties.getPrecisionButtonNumber());
+        return rightJoystick.getRawButton(1);
     }
 }
