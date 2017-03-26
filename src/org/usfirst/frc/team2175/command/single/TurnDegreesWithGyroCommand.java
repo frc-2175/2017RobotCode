@@ -1,23 +1,29 @@
 package org.usfirst.frc.team2175.command.single;
 
 import org.usfirst.frc.team2175.ServiceLocator;
+import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.pid.GyroTurnPIDController;
 import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 
-import edu.wpi.first.wpilibj.command.Command;
-
-public class TurnDegreesWithGyroCommand extends Command {
+public class TurnDegreesWithGyroCommand extends BaseCommand {
 
     private DrivetrainSubsystem drivetrainSubsystem;
     private GyroTurnPIDController controller = new GyroTurnPIDController();
 
     private double setpoint;
 
-    public TurnDegreesWithGyroCommand(final double setpoint) {
+    public TurnDegreesWithGyroCommand(final double setpoint,
+            final boolean shouldRequireDrivetrain) {
         this.setpoint = setpoint;
 
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
-        requires(drivetrainSubsystem);
+        if (shouldRequireDrivetrain) {
+            requires(drivetrainSubsystem);
+        }
+    }
+
+    public TurnDegreesWithGyroCommand(final double setpoint) {
+        this(setpoint, true);
     }
 
     @Override
