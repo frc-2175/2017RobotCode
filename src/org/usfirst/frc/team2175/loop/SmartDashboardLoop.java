@@ -6,11 +6,13 @@ import org.usfirst.frc.team2175.command.autonomous.DoNothingAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.DriveForwardAndPlaceGearOnPegAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.SideGearsAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.TurnDegreesFromUDP;
+import org.usfirst.frc.team2175.command.autonomous.TurnToVisionTarget;
 import org.usfirst.frc.team2175.subsystem.ClimberSubsystem;
 import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
 import org.usfirst.frc.team2175.subsystem.GearIntakeSubsystem;
 import org.usfirst.frc.team2175.subsystem.communications.CommunicationSubsystem;
 import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
+import org.usfirst.frc.team2175.subsystem.visionprocessing.VisionSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -19,13 +21,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SmartDashboardLoop extends ControlLoop {
     private final GearIntakeSubsystem gearIntakeSubsystem;
     private final DrivetrainSubsystem drivetrainSubsystem;
+    private final VisionSubsystem visionSubsystem;
 
     private SendableChooser<Command> autonSelector;
 
     public SmartDashboardLoop() {
         gearIntakeSubsystem = ServiceLocator.get(GearIntakeSubsystem.class);
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
-
+        visionSubsystem = ServiceLocator.get(VisionSubsystem.class);
         autonSelector = new SendableChooser<>();
 
         populateAutonSelector();
@@ -51,12 +54,15 @@ public class SmartDashboardLoop extends ControlLoop {
                 new SideGearsAutonomous(false));
         autonSelector.addDefault("Turn Degrees From UDP",
                 new TurnDegreesFromUDP());
+        autonSelector.addObject("Turn To Vision Target",
+                new TurnToVisionTarget());
     }
 
     @Override
     protected void runTask() {
         showGearIntakeInfo();
         showDrivetrainInfo();
+        showVisionInfo();
 
         SmartDashboard.putNumber("Gyro value from UDP",
                 ServiceLocator.get(CommunicationSubsystem.class).getSetpoint());
@@ -85,6 +91,13 @@ public class SmartDashboardLoop extends ControlLoop {
                 ServiceLocator.get(FuelIntakeSubsystem.class).isHopperUp());
         SmartDashboard.putNumber("Right Encoder",
                 drivetrainSubsystem.getRightEncoderDistance());
+    }
+
+    protected void showVisionInfo() {
+        SmartDashboard.putNumber("Degrees Till Centered",
+                visionSubsystem.getDegreesToTurnToPeg());
+        SmartDashboard.putNumber("Pixel Value Of Center",
+                visionSubsystem.getCenterPegInPixels());
     }
 
     public Command getAuton() {
