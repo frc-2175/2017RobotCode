@@ -2,6 +2,7 @@ package org.usfirst.frc.team2175.subsystem.drivetrain;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.SolenoidWrapper;
+import org.usfirst.frc.team2175.properties.BehaviorProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties.EncoderInfo;
 import org.usfirst.frc.team2175.subsystem.BaseSubsystem;
@@ -34,10 +35,13 @@ public class DrivetrainSubsystem extends BaseSubsystem {
 
     private AHRS navXGyro;
 
+    private final double TURN_CORRECTION;
+
     public DrivetrainSubsystem() {
         final WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
-
+        final BehaviorProperties behaviorProperties =
+                ServiceLocator.get(BehaviorProperties.class);
         leftMasterMotor =
                 motorFromInfo(wiringProperties.getLeftMasterMotorInfo());
         leftSlaveMotorOne =
@@ -65,6 +69,7 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         navXGyro = new AHRS(SPI.Port.kMXP);
         leftEncoder = encoderFromInfo(wiringProperties.getLeftEncoderInfo());
         rightEncoder = encoderFromInfo(wiringProperties.getRightEncoderInfo());
+        TURN_CORRECTION = behaviorProperties.getDrivetrainGyroTurnCorrection();
     }
 
     protected void setSlave(final CANTalon slave, final CANTalon master) {
@@ -87,7 +92,7 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         if (Math.abs(getGyroAngle()) <= .25) {
             arcadeDrive(moveValue, 0);
         } else {
-            arcadeDrive(moveValue, -(getGyroAngle() / 45));
+            arcadeDrive(moveValue, -(getGyroAngle() / TURN_CORRECTION));
         }
 
     }

@@ -17,6 +17,8 @@ public class BehaviorProperties extends BaseProperties {
     private double shooterReverseSpeed;
     private double feederReverseSpeed;
 
+    private double drivetrainGyroTurnCorrection;
+
     private double gyroP;
     private double gyroI;
     private double gyroD;
@@ -42,6 +44,8 @@ public class BehaviorProperties extends BaseProperties {
         fuelIntakeOutSpeed = getDoublePropertyValue("fuelintake.speed.out");
         fuelIntakeInSpeed = getDoublePropertyValue("fuelintake.speed.in");
         maxClimberSpeed = getDoublePropertyValue("climber.speed.max");
+        drivetrainGyroTurnCorrection =
+                getDoublePropertyValue("drivetrain.gyro.turncorrection");
 
         gyroP = getDoublePropertyValue("gyro.p");
         gyroI = getDoublePropertyValue("gyro.i");
@@ -115,6 +119,10 @@ public class BehaviorProperties extends BaseProperties {
 
     public double getGyroF() {
         return gyroF;
+    }
+
+    public double getDrivetrainGyroTurnCorrection() {
+        return drivetrainGyroTurnCorrection;
     }
 
 }
