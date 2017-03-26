@@ -22,7 +22,7 @@ public class VisionSubsystem extends BaseSubsystem {
         camera.setExposureManual(1);
         CameraServer.getInstance().startAutomaticCapture(camera);
         // startGripPipelineCapture();
-        // table = NetworkTable.getTable("myContourReport");
+        table = NetworkTable.getTable("GRIP/myContourReport");
     }
 
     // private void startGripPipelineCapture() {
@@ -84,5 +84,9 @@ public class VisionSubsystem extends BaseSubsystem {
 
     public double getDegreesToTurnToPeg() {
         return getDegreeFromPixel(getCenterPegInPixels());
+    }
+
+    public int getNumberOfContors() {
+        return getContourCenterX().length;
     }
 }
