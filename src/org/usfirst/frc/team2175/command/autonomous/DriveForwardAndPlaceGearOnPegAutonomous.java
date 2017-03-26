@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class DriveForwardAndPlaceGearOnPegAutonomous extends CommandGroup {
     public DriveForwardAndPlaceGearOnPegAutonomous() {
-        addSequential(new DriveInAutonCommandGroup(-0.6), 4);
+        addSequential(new DriveInAutonCommandGroup(-0.7), 5);
         addParallel(new DriveInAutonCommandGroup(0.5), 0.5);
         addSequential(new PlaceGearOnPegAndRetreatCommandGroup());
     }
