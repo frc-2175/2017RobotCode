@@ -11,12 +11,12 @@ public class GyroTurnPIDController extends PIDControllerComplete {
 
     public GyroTurnPIDController() {
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
-        BehaviorProperties behaviorProperties =
+        final BehaviorProperties behaviorProperties =
                 ServiceLocator.get(BehaviorProperties.class);
-        double p = behaviorProperties.getGyroP();
-        double i = behaviorProperties.getGyroI();
-        double d = behaviorProperties.getGyroD();
-        double f = behaviorProperties.getGyroF();
+        final double p = behaviorProperties.getGyroP();
+        final double i = behaviorProperties.getGyroI();
+        final double d = behaviorProperties.getGyroD();
+        final double f = behaviorProperties.getGyroF();
         // Get PID values from a properties file and set them here.
         setPID(p, i, d, f);
 
@@ -26,7 +26,7 @@ public class GyroTurnPIDController extends PIDControllerComplete {
         // Set the "close enough" value here. If our sensor reading is less than
         // that, we'll consider ourselves done with this PID.
         // TODO Make absolute tolerance a property
-        setAbsoluteTolerance(0.3);
+        setAbsoluteTolerance(2);
 
         // Set the type of PID controller here - either kDisplacement or kRate.
         setPIDSourceType(PIDSourceType.kDisplacement);
