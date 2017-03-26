@@ -8,6 +8,7 @@ import org.usfirst.frc.team2175.subsystem.communications.CommunicationSubsystem;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class TurnDegreesFromUDP extends BaseCommand {
+
     private CommunicationSubsystem communicationSubsystem;
 
     public TurnDegreesFromUDP() {

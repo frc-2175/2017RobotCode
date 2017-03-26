@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2175.command.autonomous;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import org.usfirst.frc.team2175.command.BaseCommandGroup;
 
-public class DoNothingAutonomous extends CommandGroup {
+public class DoNothingAutonomous extends BaseCommandGroup {
 
 }
