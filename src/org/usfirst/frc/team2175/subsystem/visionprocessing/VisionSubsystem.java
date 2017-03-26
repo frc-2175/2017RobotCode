@@ -18,11 +18,11 @@ public class VisionSubsystem extends BaseSubsystem {
 
     public VisionSubsystem() {
         camera = new UsbCamera("GearCam", 0);
-        camera.setExposureAuto();
-        // camera.setExposureManual(0);
+        // camera.setExposureAuto();
+        camera.setExposureManual(1);
         CameraServer.getInstance().startAutomaticCapture(camera);
         // startGripPipelineCapture();
-        table = NetworkTable.getTable("myContourReport");
+        // table = NetworkTable.getTable("myContourReport");
     }
 
     // private void startGripPipelineCapture() {
