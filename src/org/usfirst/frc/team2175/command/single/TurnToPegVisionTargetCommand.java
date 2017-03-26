@@ -11,6 +11,8 @@ public class TurnToPegVisionTargetCommand extends BaseCommand {
     private DrivetrainSubsystem drivetrainSubsystem;
     private double degreesToTurn;
     private VisionSubsystem visionSubsystem;
+    private Command turnDegrees;
+    private boolean hasStarted = false;
 
     public TurnToPegVisionTargetCommand() {
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
@@ -19,13 +21,28 @@ public class TurnToPegVisionTargetCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
-        // degreesToTurn = visionSubsystem.getDegreesToTurn();
-        Command turnDegrees = new TurnDegreesWithGyroCommand(degreesToTurn);
+        super.initialize();
+        degreesToTurn = visionSubsystem.getDegreesToTurnToPeg();
+        turnDegrees = new TurnDegreesWithGyroCommand(degreesToTurn, false);
         turnDegrees.start();
     }
 
     @Override
-    protected boolean isFinished() {
-        return true;
+    protected void execute() {
+        if (turnDegrees.isRunning()) {
+            hasStarted = true;
+        }
     }
+
+    @Override
+    protected boolean isFinished() {
+        return hasStarted && !turnDegrees.isRunning();
+    }
+
+    @Override
+    protected void end() {
+        super.end();
+        turnDegrees.cancel();
+    }
+
 }
