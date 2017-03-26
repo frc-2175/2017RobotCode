@@ -79,8 +79,6 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopPeriodic() {
-        log.info("Current Encoder Position = "
-                + drivetrainSubsystem.getLeftEncoderDistance());
     }
 
     /**
