@@ -21,7 +21,7 @@ public class SideGearsAutonomous extends BaseCommandGroup {
         }
         addSequential(new TurnDegreesWithGyroCommand(degreesToTurn));
         addSequential(new WaitCommand(.15));
-        addSequential(new TurnToPegVisionTargetCommand());
+        addSequential(new TurnToPegVisionTargetCommand(), 3);
         addSequential(new WaitCommand(.15));
         addSequential(new DriveForwardAndPlaceGearOnPegAutonomous());
     }
