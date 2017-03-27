@@ -6,12 +6,11 @@ import org.usfirst.frc.team2175.command.autonomous.DoNothingAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.DriveForwardAndPlaceGearOnPegAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.SideGearsAutonomous;
 import org.usfirst.frc.team2175.command.autonomous.TurnDegreesFromUDP;
-import org.usfirst.frc.team2175.command.autonomous.TurnToVisionTarget;
 import org.usfirst.frc.team2175.subsystem.ClimberSubsystem;
+import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
 import org.usfirst.frc.team2175.subsystem.FuelIntakeSubsystem;
 import org.usfirst.frc.team2175.subsystem.GearIntakeSubsystem;
 import org.usfirst.frc.team2175.subsystem.communications.CommunicationSubsystem;
-import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
 import org.usfirst.frc.team2175.subsystem.visionprocessing.VisionSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -54,8 +53,6 @@ public class SmartDashboardLoop extends ControlLoop {
                 new SideGearsAutonomous(false));
         autonSelector.addDefault("Turn Degrees From UDP",
                 new TurnDegreesFromUDP());
-        autonSelector.addObject("Turn To Vision Target",
-                new TurnToVisionTarget());
     }
 
     @Override
