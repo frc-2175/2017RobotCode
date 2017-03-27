@@ -45,7 +45,16 @@ public class Robot extends IterativeRobot {
         new Properties();
         PropertiesFactory.makeAll();
         SubsystemsFactory.makeAll();
-        new DriverStation();
+        try {
+            new DriverStation();
+        } catch (Exception e) {
+            log.severe("DriverStation took in non-string values!");
+            try {
+                throw (e);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
         new TrapezoidalMotionProfile();
         DefaultCommandFactory.makeAll();
 

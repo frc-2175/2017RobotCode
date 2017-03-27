@@ -32,7 +32,8 @@ public class DriverStation {
 
     private double maxClimberSpeed;
 
-    public DriverStation() {
+    public DriverStation()
+            throws IllegalArgumentException, IllegalAccessException {
         joystickProperties = ServiceLocator.get(JoystickProperties.class);
         Properties props = ServiceLocator.get(Properties.class);
         buttonMap = new HashMap<>();
@@ -44,11 +45,7 @@ public class DriverStation {
 
         for (Field field : props.getClass().getDeclaredFields()) {
             field.setAccessible(true);
-            try {
-                createButtonFromInfo(field.get(props));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            createButtonFromInfo(field.get(props).toString());
         }
 
         shooterInPOV = new POVTrigger(weaponsGamepad,

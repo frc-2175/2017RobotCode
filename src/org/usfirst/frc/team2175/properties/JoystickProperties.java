@@ -48,7 +48,7 @@ public class JoystickProperties extends BaseProperties {
         for (Field field : props.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             try {
-                createInfoFromProps(field.get(props));
+                createInfoFromProps(field.get(props).toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -58,11 +58,10 @@ public class JoystickProperties extends BaseProperties {
         fuelOutPOVAngle = getIntPropertyValue("pov.fuel.angle");
     }
 
-    protected void createInfoFromProps(final Object object) {
-        String s = String.valueOf(object);
-        ButtonInfo info =
-                new ButtonInfo(getJoystickName(s), getButtonNumber(s));
-        buttonInfoMap.put(s, info);
+    protected void createInfoFromProps(final String propertyValue) {
+        ButtonInfo info = new ButtonInfo(getJoystickName(propertyValue),
+                getButtonNumber(propertyValue));
+        buttonInfoMap.put(propertyValue, info);
     }
 
     public String getJoystickName(final String propertyName) {
