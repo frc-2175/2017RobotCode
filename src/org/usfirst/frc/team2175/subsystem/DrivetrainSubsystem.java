@@ -1,11 +1,10 @@
-package org.usfirst.frc.team2175.subsystem.drivetrain;
+package org.usfirst.frc.team2175.subsystem;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.SolenoidWrapper;
 import org.usfirst.frc.team2175.properties.BehaviorProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties.EncoderInfo;
-import org.usfirst.frc.team2175.subsystem.BaseSubsystem;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;

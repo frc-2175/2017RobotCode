@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.BaseCommand;
-import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
+import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
 
 /**
  *

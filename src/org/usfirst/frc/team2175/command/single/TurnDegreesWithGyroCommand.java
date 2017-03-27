@@ -3,7 +3,7 @@ package org.usfirst.frc.team2175.command.single;
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.pid.GyroTurnPIDController;
-import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
+import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
 
 public class TurnDegreesWithGyroCommand extends BaseCommand {
 
