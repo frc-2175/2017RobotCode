@@ -1,103 +1,28 @@
 package org.usfirst.frc.team2175.properties;
 
-import org.usfirst.frc.team2175.ServiceLocator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class Properties {
-    private String feedOut;
-    private String fuelIn;
-    private String actuateGear;
-    private String gearIn;
-    private String gearOut;
-    private String hopper;
-    private String shiftGears;
-    private String gearOutAndSpin;
-    private String shootOut;
-    private String cameraSwitch;
-    private String precisionMode;
+public class ButtonProps {
+    public static final String FEED_OUT = "button.feeder.out";
+    public static final String FUEL_IN = "button.fuel.in";
+    public static final String GEAR_IN = "button.gear.in";
+    public static final String GEAR_OUT = "button.gear.out";
+    public static final String ACTUATE_HOPPER = "buton.hopper.toggle";
+    public static final String SHIFT_GEARS = "button.shift";
+    public static final String GEAR_OUT_SPIN = "button.gear.outandspin";
+    public static final String SHOOT_OUT = "button.shoot.out";
+    public static final String CAMERA_SWITCH = "button.camera.switch";
+    public static final String ACTUATE_GEAR = "button.gear.toggle";
+    public static final String RAISE_GEAR_DRIVER = "button.gear.raise.driver";
+    public static final String GEAR_OUT_DRIVER = "button.gear.out.driver";
+    public static final String GEAR_IN_DRIVER = "button.gear.in.driver";
+    public static final String GEAR_OUT_SPIN_DRIVER =
+            "button.gear.outandspin.driver";
 
-    private String actuateGearDriver;
-    private String gearInDriver;
-    private String gearOutDriver;
-    private String gearOutAndSpinDriver;
-
-    public Properties() {
-        feedOut = "button.feeder.out";
-        fuelIn = "button.fuel.in";
-        actuateGear = "button.gear.lower";
-        gearIn = "button.gear.in";
-        gearOut = "button.gear.out";
-        hopper = "button.gamepad.lower";
-        shiftGears = "button.shift";
-        gearOutAndSpin = "button.gear.outandspin";
-        shootOut = "button.shoot.out";
-        cameraSwitch = "buton.camera.switch";
-        precisionMode = "button.drive.precision";
-
-        actuateGear = "button.gear.lower.driver";
-        gearIn = "button.gear.in.driver";
-        gearOut = "button.gear.out.driver";
-        gearOutAndSpin = "button.gear.outandspin.driver";
-
-        ServiceLocator.register(this);
-    }
-
-    public String getFeedOut() {
-        return feedOut;
-    }
-
-    public String getFuelIn() {
-        return fuelIn;
-    }
-
-    public String getActuateGear() {
-        return actuateGear;
-    }
-
-    public String getGearIn() {
-        return gearIn;
-    }
-
-    public String getGearOut() {
-        return gearOut;
-    }
-
-    public String getHopper() {
-        return hopper;
-    }
-
-    public String getShiftGears() {
-        return shiftGears;
-    }
-
-    public String getGearOutAndSpin() {
-        return gearOutAndSpin;
-    }
-
-    public String getShootOut() {
-        return shootOut;
-    }
-
-    public String getCameraSwitch() {
-        return cameraSwitch;
-    }
-
-    public String getPrecisionMode() {
-        return precisionMode;
-    }
-
-    public String getActuateGearDriver() {
-        return actuateGearDriver;
-    }
-
-    public String getGearInDriver() {
-        return gearInDriver;
-    }
-
-    public String getGearOutDriver() {
-        return gearOutDriver;
-    }
-
-    public String getGearOutAndSpinDriver() {
-        return gearOutAndSpinDriver;
+    public boolean areFieldRequirementsMet(String string) {
+        Pattern var = Pattern.compile("[^A-Za-z.]");
+        Matcher m = var.matcher(string);
+        return !m.find();
     }
 }

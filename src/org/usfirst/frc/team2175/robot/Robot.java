@@ -8,8 +8,8 @@ import org.usfirst.frc.team2175.commandmapper.JoystickEventMapper;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.loop.SmartDashboardLoop;
+import org.usfirst.frc.team2175.properties.ButtonProps;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
-import org.usfirst.frc.team2175.properties.Properties;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
 import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
@@ -42,19 +42,10 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-        new Properties();
+        new ButtonProps();
         PropertiesFactory.makeAll();
         SubsystemsFactory.makeAll();
-        try {
-            new DriverStation();
-        } catch (Exception e) {
-            log.severe("DriverStation took in non-string values!");
-            try {
-                throw (e);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        }
+        new DriverStation();
         new TrapezoidalMotionProfile();
         DefaultCommandFactory.makeAll();
 

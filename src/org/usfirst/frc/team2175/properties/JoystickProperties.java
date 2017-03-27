@@ -3,8 +3,6 @@ package org.usfirst.frc.team2175.properties;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
-import org.usfirst.frc.team2175.ServiceLocator;
-
 public class JoystickProperties extends BaseProperties {
 
     private HashMap<String, ButtonInfo> buttonInfoMap;
@@ -37,7 +35,7 @@ public class JoystickProperties extends BaseProperties {
     protected void populate() {
         buttonInfoMap = new HashMap<>();
 
-        Properties props = ServiceLocator.get(Properties.class);
+        ButtonProps props = new ButtonProps();
 
         leftJoystickPort = getIntPropertyValue("joystick.left.port");
         rightJoystickPort = getIntPropertyValue("joystick.right.port");
@@ -46,11 +44,11 @@ public class JoystickProperties extends BaseProperties {
         deadbandSize = getDoublePropertyValue("deadband.value");
 
         for (Field field : props.getClass().getDeclaredFields()) {
-            field.setAccessible(true);
             try {
-                createInfoFromProps(field.get(props).toString());
+                if (props.areFieldRequirementsMet(field.toString())) {
+                    createInfoFromProps(field.get(props).toString());
+                }
             } catch (Exception e) {
-                e.printStackTrace();
             }
         }
 

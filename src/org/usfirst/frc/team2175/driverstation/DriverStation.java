@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 import org.usfirst.frc.team2175.ServiceLocator;
+import org.usfirst.frc.team2175.properties.ButtonProps;
 import org.usfirst.frc.team2175.properties.JoystickProperties;
 import org.usfirst.frc.team2175.properties.JoystickProperties.ButtonInfo;
-import org.usfirst.frc.team2175.properties.Properties;
 import org.usfirst.frc.team2175.robot.Robot;
 import org.usfirst.frc.team2175.subsystem.ClimberSubsystem;
 
@@ -32,20 +32,23 @@ public class DriverStation {
 
     private double maxClimberSpeed;
 
-    public DriverStation()
-            throws IllegalArgumentException, IllegalAccessException {
+    public DriverStation() {
         joystickProperties = ServiceLocator.get(JoystickProperties.class);
-        Properties props = ServiceLocator.get(Properties.class);
         buttonMap = new HashMap<>();
 
         leftJoystick = new Joystick(joystickProperties.getLeftJoystickPort());
         rightJoystick = new Joystick(joystickProperties.getRightJoytickPort());
         weaponsGamepad =
                 new Joystick(joystickProperties.getWeaponsGamepadPort());
+        ButtonProps props = new ButtonProps();
 
         for (Field field : props.getClass().getDeclaredFields()) {
-            field.setAccessible(true);
-            createButtonFromInfo(field.get(props).toString());
+            try {
+                if (props.areFieldRequirementsMet(field.toString())) {
+                    createButtonFromInfo(field.get(props).toString());
+                }
+            } catch (Exception e) {
+            }
         }
 
         shooterInPOV = new POVTrigger(weaponsGamepad,

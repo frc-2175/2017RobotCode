@@ -14,7 +14,7 @@ import org.usfirst.frc.team2175.command.single.RunShooterOutCommand;
 import org.usfirst.frc.team2175.command.single.ShiftGearsCommand;
 import org.usfirst.frc.team2175.command.single.ShooterFailsafeCommand;
 import org.usfirst.frc.team2175.driverstation.DriverStation;
-import org.usfirst.frc.team2175.properties.Properties;
+import org.usfirst.frc.team2175.properties.ButtonProps;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -23,30 +23,30 @@ public class JoystickEventMapper {
     public JoystickEventMapper() {
         final DriverStation driverStation =
                 ServiceLocator.get(DriverStation.class);
-        Properties props = ServiceLocator.get(Properties.class);
         HashMap<String, JoystickButton> buttonMap =
                 driverStation.getButtonMap();
 
-        buttonMap.get(props.getShiftGears()).whileHeld(new ShiftGearsCommand());
-        buttonMap.get(props.getGearIn()).whileHeld(new RunGearInCommand());
-        buttonMap.get(props.getGearOut()).whileHeld(new RunGearOutCommand());
-        buttonMap.get(props.getShootOut())
+        buttonMap.get(ButtonProps.SHIFT_GEARS)
+                .whileHeld(new ShiftGearsCommand());
+        buttonMap.get(ButtonProps.GEAR_IN).whileHeld(new RunGearInCommand());
+        buttonMap.get(ButtonProps.GEAR_OUT).whileHeld(new RunGearOutCommand());
+        buttonMap.get(ButtonProps.SHOOT_OUT)
                 .toggleWhenPressed(new RunShooterOutCommand());
-        buttonMap.get(props.getHopper())
+        buttonMap.get(ButtonProps.ACTUATE_HOPPER)
                 .toggleWhenPressed(new LowerHopperCommand());
-        buttonMap.get(props.getFuelIn()).whileHeld(new RunFuelInCommand());
-        buttonMap.get(props.getActuateGear())
+        buttonMap.get(ButtonProps.FUEL_IN).whileHeld(new RunFuelInCommand());
+        buttonMap.get(ButtonProps.ACTUATE_GEAR)
                 .whenPressed(new ActuateGearCommand());
-        buttonMap.get(props.getGearOutAndSpin())
+        buttonMap.get(ButtonProps.GEAR_OUT_SPIN)
                 .whileHeld(new ActuateGearIntakeOutAndSpinCommand());
 
-        buttonMap.get(props.getActuateGearDriver())
+        buttonMap.get(ButtonProps.RAISE_GEAR_DRIVER)
                 .whenPressed(new ActuateGearCommand());
-        buttonMap.get(props.getGearInDriver())
+        buttonMap.get(ButtonProps.GEAR_IN_DRIVER)
                 .whileHeld(new RunGearInCommand());
-        buttonMap.get(props.getGearOutDriver())
+        buttonMap.get(ButtonProps.GEAR_OUT_DRIVER)
                 .whileHeld(new RunGearOutCommand());
-        buttonMap.get(props.getGearOutAndSpinDriver())
+        buttonMap.get(ButtonProps.GEAR_OUT_SPIN_DRIVER)
                 .whileHeld(new ActuateGearIntakeOutAndSpinCommand());
 
         driverStation.getFuelOutPOV()
