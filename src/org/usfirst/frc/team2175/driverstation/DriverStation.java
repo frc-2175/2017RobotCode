@@ -31,9 +31,10 @@ public class DriverStation {
     private JoystickButton shootOutButton;
     private JoystickButton cameraSwitchButton;
     private JoystickButton gearIntakeOutAndSpinButton;
-    private JoystickButton gearIntakeActuateOutDriverButton;
+
+    private JoystickButton gearIntakeUpDriverButton;
+    private JoystickButton gearIntakeDownDriverButton;
     private JoystickButton gearIntakeInDriverButton;
-    private JoystickButton gearIntakeOutDriverButton;
     private JoystickButton gearIntakeOutAndSpinDriverButton;
 
     private POVTrigger shooterInPOV;
@@ -69,12 +70,13 @@ public class DriverStation {
                 buttonFromButtonInfo(joystickProperties.getCameraSwitchInfo());
         gearIntakeOutAndSpinButton = buttonFromButtonInfo(
                 joystickProperties.getGearIntakeOutAndSpinInfo());
-        gearIntakeActuateOutDriverButton = buttonFromButtonInfo(
-                joystickProperties.getGearIntakeActuatorInfo());
+
+        gearIntakeUpDriverButton = buttonFromButtonInfo(
+                joystickProperties.getGearIntakeUpDriver());
+        gearIntakeDownDriverButton = buttonFromButtonInfo(
+                joystickProperties.getGearIntakeDownDriver());
         gearIntakeInDriverButton = buttonFromButtonInfo(
-                joystickProperties.getGearIntakeInDriverInfo());
-        gearIntakeOutDriverButton = buttonFromButtonInfo(
-                joystickProperties.getGearIntakeInDriverInfo());
+                joystickProperties.getGearIntakeInDriver());
         gearIntakeOutAndSpinDriverButton = buttonFromButtonInfo(
                 joystickProperties.getGearIntakeOutAndSpinDriverInfo());
 
@@ -142,20 +144,20 @@ public class DriverStation {
         return input * input * sign;
     }
 
-    public JoystickButton getGearIntakeOutAndSpinDriverButton() {
-        return gearIntakeOutAndSpinDriverButton;
+    public JoystickButton getGearIntakeUpDriverButton() {
+        return gearIntakeUpDriverButton;
     }
 
-    public JoystickButton getGearIntakeActuateOutDriverButton() {
-        return gearIntakeActuateOutDriverButton;
+    public JoystickButton getGearIntakeDownDriverButton() {
+        return gearIntakeDownDriverButton;
     }
 
     public JoystickButton getGearIntakeInDriverButton() {
         return gearIntakeInDriverButton;
     }
 
-    public JoystickButton getGearIntakeOutDriverButton() {
-        return gearIntakeOutDriverButton;
+    public JoystickButton getGearIntakeOutAndSpinDriverButton() {
+        return gearIntakeOutAndSpinDriverButton;
     }
 
     public double getClimberSpinSpeed() {

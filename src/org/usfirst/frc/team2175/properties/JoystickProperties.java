@@ -18,10 +18,11 @@ public class JoystickProperties extends BaseProperties {
     private ButtonInfo shooterOutInfo;
     private ButtonInfo cameraSwitchInfo;
     private ButtonInfo gearIntakeOutAndSpinInfo;
-    private ButtonInfo gearIntakeInDriverInfo;
-    private ButtonInfo gearIntakeOutDriverInfo;
-    private ButtonInfo gearIntakeActuatorDriverInfo;
+
     private ButtonInfo gearIntakeOutAndSpinDriverInfo;
+    private ButtonInfo gearIntakeUpDriverInfo;
+    private ButtonInfo gearIntakeDownDriverInfo;
+    private ButtonInfo gearIntakeInDriverInfo;
 
     private int shooterInPOVAngle;
     private int fuelOutPOVAngle;
@@ -62,15 +63,15 @@ public class JoystickProperties extends BaseProperties {
         cameraSwitchInfo = buttonInfoFromPropertyValue("button.camera.switch");
         gearIntakeOutAndSpinInfo =
                 buttonInfoFromPropertyValue("button.gearintake.outandspin");
+
         gearIntakeOutAndSpinDriverInfo = buttonInfoFromPropertyValue(
                 "button.gearintake.outandspin.driver");
-
+        gearIntakeUpDriverInfo =
+                buttonInfoFromPropertyValue("button.gear.up.driver");
+        gearIntakeDownDriverInfo =
+                buttonInfoFromPropertyValue("button.gear.down.driver");
         gearIntakeInDriverInfo =
-                buttonInfoFromPropertyValue("button.gearintake.in.driver");
-        gearIntakeOutDriverInfo =
-                buttonInfoFromPropertyValue("button.gearintake.out.driver");
-        gearIntakeActuatorDriverInfo =
-                buttonInfoFromPropertyValue("button.gearintake.lower.driver");
+                buttonInfoFromPropertyValue("button.gear.in.driver");
 
         shooterInPOVAngle = getIntPropertyValue("pov.shooter.angle");
         fuelOutPOVAngle = getIntPropertyValue("pov.fuel.angle");
@@ -80,16 +81,16 @@ public class JoystickProperties extends BaseProperties {
         return gearIntakeOutAndSpinDriverInfo;
     }
 
-    public ButtonInfo getGearIntakeInDriverInfo() {
+    public ButtonInfo getGearIntakeUpDriver() {
+        return gearIntakeUpDriverInfo;
+    }
+
+    public ButtonInfo getGearIntakeDownDriver() {
+        return gearIntakeDownDriverInfo;
+    }
+
+    public ButtonInfo getGearIntakeInDriver() {
         return gearIntakeInDriverInfo;
-    }
-
-    public ButtonInfo getGearIntakeOutDriverInfo() {
-        return gearIntakeOutDriverInfo;
-    }
-
-    public ButtonInfo getGearIntakeActuatorDriverInfo() {
-        return gearIntakeActuatorDriverInfo;
     }
 
     protected ButtonInfo buttonInfoFromPropertyValue(

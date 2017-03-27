@@ -76,6 +76,14 @@ public class GearIntakeSubsystem extends BaseSubsystem {
         gearIntakeActuator.set(!gearIntakeActuator.get());
     }
 
+    public void lower() {
+        gearIntakeActuator.set(true);
+    }
+
+    public void raise() {
+        gearIntakeActuator.set(false);
+    }
+
     public double getMotorCurrent() {
         return intakeMotor.getOutputCurrent();
     }
