@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2175.properties;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 
 import org.usfirst.frc.team2175.ServiceLocator;
@@ -44,31 +45,24 @@ public class JoystickProperties extends BaseProperties {
 
         deadbandSize = getDoublePropertyValue("deadband.value");
 
-        createInfoFromProps(props.getFeedOut());
-        createInfoFromProps(props.getFuelIn());
-        createInfoFromProps(props.getGearIn());
-        createInfoFromProps(props.getGearOut());
-        createInfoFromProps(props.getActuateGear());
-        createInfoFromProps(props.getHopper());
-        createInfoFromProps(props.getShiftGears());
-        createInfoFromProps(props.getShootOut());
-        createInfoFromProps(props.getCameraSwitch());
-        createInfoFromProps(props.getGearOutAndSpin());
-        createInfoFromProps(props.getPrecisionMode());
-
-        createInfoFromProps(props.getGearOutAndSpinDriver());
-        createInfoFromProps(props.getGearInDriver());
-        createInfoFromProps(props.getGearOutDriver());
-        createInfoFromProps(props.getActuateGearDriver());
+        for (Field field : props.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                createInfoFromProps(field.get(props));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         shooterInPOVAngle = getIntPropertyValue("pov.shooter.angle");
         fuelOutPOVAngle = getIntPropertyValue("pov.fuel.angle");
     }
 
-    protected void createInfoFromProps(final String propertyValue) {
-        ButtonInfo info = new ButtonInfo(getJoystickName(propertyValue),
-                getButtonNumber(propertyValue));
-        buttonInfoMap.put(propertyValue, info);
+    protected void createInfoFromProps(final Object object) {
+        String s = String.valueOf(object);
+        ButtonInfo info =
+                new ButtonInfo(getJoystickName(s), getButtonNumber(s));
+        buttonInfoMap.put(s, info);
     }
 
     public String getJoystickName(final String propertyName) {

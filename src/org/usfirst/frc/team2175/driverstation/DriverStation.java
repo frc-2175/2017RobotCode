@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2175.driverstation;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -41,22 +42,14 @@ public class DriverStation {
         weaponsGamepad =
                 new Joystick(joystickProperties.getWeaponsGamepadPort());
 
-        createButtonFromInfo(props.getFeedOut());
-        createButtonFromInfo(props.getFuelIn());
-        createButtonFromInfo(props.getActuateGear());
-        createButtonFromInfo(props.getGearIn());
-        createButtonFromInfo(props.getGearOut());
-        createButtonFromInfo(props.getHopper());
-        createButtonFromInfo(props.getShiftGears());
-        createButtonFromInfo(props.getShootOut());
-        createButtonFromInfo(props.getPrecisionMode());
-        createButtonFromInfo(props.getCameraSwitch());
-        createButtonFromInfo(props.getGearOutAndSpin());
-
-        createButtonFromInfo(props.getActuateGearDriver());
-        createButtonFromInfo(props.getGearInDriver());
-        createButtonFromInfo(props.getGearOutDriver());
-        createButtonFromInfo(props.getGearOutAndSpinDriver());
+        for (Field field : props.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                createButtonFromInfo(field.get(props));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         shooterInPOV = new POVTrigger(weaponsGamepad,
                 joystickProperties.getShooterInPOV());
@@ -71,11 +64,12 @@ public class DriverStation {
         ServiceLocator.register(this);
     }
 
-    protected void createButtonFromInfo(String propertyValue) {
-        ButtonInfo info = joystickProperties.getButtonInfo().get(propertyValue);
+    protected void createButtonFromInfo(Object object) {
+        String s = String.valueOf(object);
+        ButtonInfo info = joystickProperties.getButtonInfo().get(s);
         JoystickButton button = new JoystickButton(
                 joystickForName(info.joystickName), info.buttonNumber);
-        buttonMap.put(propertyValue, button);
+        buttonMap.put(s, button);
     }
 
     private Joystick joystickForName(final String name) {
