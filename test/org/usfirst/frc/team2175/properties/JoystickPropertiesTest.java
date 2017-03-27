@@ -78,8 +78,9 @@ public class JoystickPropertiesTest extends TestBase {
         final String assertMessage =
                 "'" + joystickName + "' in ButtonInfo field " + key
                         + " is not a valid Joystick name.";
-        assertTrue(assertMessage, joystickName.equals("driver")
-                || joystickName.equals("weapons"));
+        assertTrue(assertMessage,
+                joystickName.equals("left") || joystickName.equals("right")
+                        || joystickName.equals("gamepad"));
     }
 
     protected void checkButtonNumberAboveZero(final int buttonValue,
