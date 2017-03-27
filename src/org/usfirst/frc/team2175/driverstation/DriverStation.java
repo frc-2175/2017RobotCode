@@ -22,20 +22,15 @@ public class DriverStation {
     private JoystickProperties joystickProperties;
 
     private JoystickButton feedOutButton;
-    private JoystickButton fuelIntakeActuateInButton;
-    private JoystickButton fuelIntakeActuateOutButton;
     private JoystickButton fuelIntakeInButton;
     private JoystickButton gearIntakeActuateOutButton;
     private JoystickButton gearIntakeInButton;
     private JoystickButton gearIntakeOutButton;
     private JoystickButton hopperButton;
     private JoystickButton shiftButton;
-    private JoystickButton shootInButton;
     private JoystickButton shootOutButton;
     private JoystickButton cameraSwitchButton;
     private JoystickButton gearIntakeOutAndSpinButton;
-    private JoystickButton shooterActuatorInButton;
-    private JoystickButton shooterActuatorOutButton;
     private JoystickButton gearIntakeActuateOutDriverButton;
     private JoystickButton gearIntakeInDriverButton;
     private JoystickButton gearIntakeOutDriverButton;
@@ -123,22 +118,6 @@ public class DriverStation {
         return joystickOfChoice;
     }
 
-    public JoystickButton getGearIntakeOutAndSpinDriverButton() {
-        return gearIntakeOutAndSpinDriverButton;
-    }
-
-    public JoystickButton getGearIntakeActuateOutDriverButton() {
-        return gearIntakeActuateOutDriverButton;
-    }
-
-    public JoystickButton getGearIntakeInDriverButton() {
-        return gearIntakeInDriverButton;
-    }
-
-    public JoystickButton getGearIntakeOutDriverButton() {
-        return gearIntakeOutDriverButton;
-    }
-
     public double getMoveValue() {
         final double input = leftJoystick.getY();
         final double deadbandedOutput =
@@ -161,6 +140,22 @@ public class DriverStation {
     protected static double squareInput(final double input) {
         final double sign = Math.signum(input);
         return input * input * sign;
+    }
+
+    public JoystickButton getGearIntakeOutAndSpinDriverButton() {
+        return gearIntakeOutAndSpinDriverButton;
+    }
+
+    public JoystickButton getGearIntakeActuateOutDriverButton() {
+        return gearIntakeActuateOutDriverButton;
+    }
+
+    public JoystickButton getGearIntakeInDriverButton() {
+        return gearIntakeInDriverButton;
+    }
+
+    public JoystickButton getGearIntakeOutDriverButton() {
+        return gearIntakeOutDriverButton;
     }
 
     public double getClimberSpinSpeed() {
@@ -213,9 +208,5 @@ public class DriverStation {
 
     public JoystickButton getGearIntakeOutAndSpinButton() {
         return gearIntakeOutAndSpinButton;
-    }
-
-    public boolean isPrecisionButtonPressed() {
-        return rightJoystick.getRawButton(1);
     }
 }

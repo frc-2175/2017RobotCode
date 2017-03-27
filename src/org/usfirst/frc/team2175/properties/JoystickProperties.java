@@ -22,7 +22,6 @@ public class JoystickProperties extends BaseProperties {
     private ButtonInfo gearIntakeOutDriverInfo;
     private ButtonInfo gearIntakeActuatorDriverInfo;
     private ButtonInfo gearIntakeOutAndSpinDriverInfo;
-    private int precisionModeButtonNumber;
 
     private int shooterInPOVAngle;
     private int fuelOutPOVAngle;
@@ -66,16 +65,15 @@ public class JoystickProperties extends BaseProperties {
         gearIntakeOutAndSpinDriverInfo = buttonInfoFromPropertyValue(
                 "button.gearintake.outandspin.driver");
 
-        precisionModeButtonNumber = getButtonNumber("button.drive.precision");
-
-        shooterInPOVAngle = getIntPropertyValue("pov.shooter.angle");
-        fuelOutPOVAngle = getIntPropertyValue("pov.fuel.angle");
         gearIntakeInDriverInfo =
                 buttonInfoFromPropertyValue("button.gearintake.in.driver");
         gearIntakeOutDriverInfo =
                 buttonInfoFromPropertyValue("button.gearintake.out.driver");
         gearIntakeActuatorDriverInfo =
                 buttonInfoFromPropertyValue("button.gearintake.lower.driver");
+
+        shooterInPOVAngle = getIntPropertyValue("pov.shooter.angle");
+        fuelOutPOVAngle = getIntPropertyValue("pov.fuel.angle");
     }
 
     public ButtonInfo getGearIntakeOutAndSpinDriverInfo() {
@@ -162,10 +160,6 @@ public class JoystickProperties extends BaseProperties {
 
     public int getFuelIntakeOutPOV() {
         return fuelOutPOVAngle;
-    }
-
-    public int getPrecisionButtonNumber() {
-        return precisionModeButtonNumber;
     }
 
     public int getRightJoytickPort() {
