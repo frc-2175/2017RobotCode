@@ -18,25 +18,9 @@ public class VisionSubsystem extends BaseSubsystem {
 
     public VisionSubsystem() {
         camera = new UsbCamera("GearCam", 0);
-        // camera.setExposureAuto();
-        camera.setExposureManual(1);
         CameraServer.getInstance().startAutomaticCapture(camera);
-        // startGripPipelineCapture();
         table = NetworkTable.getTable("GRIP/myContourReport");
     }
-
-    // private void startGripPipelineCapture() {
-    // final UsbCamera camera = new UsbCamera("GearCam", 0);
-    // camera.setExposureManual(1);
-    // final GripPipeline gripPipeline = new GripPipeline();
-    //
-    // final VisionThread visionThread =
-    // new VisionThread(camera, gripPipeline, this);
-    // visionThread.start();
-    //
-    // processOutput =
-    // CameraServer.getInstance().putVideo("Process Output", 320, 240);
-    // }
 
     public double[] getContourArea() {
         return contourArea;
@@ -88,5 +72,14 @@ public class VisionSubsystem extends BaseSubsystem {
 
     public int getNumberOfContors() {
         return getContourCenterX().length;
+    }
+
+    public void setExposureManual() {
+        camera.setExposureManual(1);
+
+    }
+
+    public void setExposureAuto() {
+        camera.setExposureAuto();
     }
 }

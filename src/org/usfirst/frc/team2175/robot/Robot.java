@@ -10,11 +10,12 @@ import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.loop.SmartDashboardLoop;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
 import org.usfirst.frc.team2175.properties.PropertiesFactory;
+import org.usfirst.frc.team2175.subsystem.DrivetrainSubsystem;
 import org.usfirst.frc.team2175.subsystem.SubsystemsFactory;
-import org.usfirst.frc.team2175.subsystem.drivetrain.DrivetrainSubsystem;
-import org.usfirst.frc.team2175.subsystem.drivetrain.TrapezoidalMotionProfile;
+import org.usfirst.frc.team2175.subsystem.visionprocessing.VisionSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
@@ -25,9 +26,11 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  * directory.
  */
 public class Robot extends IterativeRobot {
+    private final static Logger log = Logger.getLogger(Robot.class.getName());
     private SmartDashboardLoop smartDashboardLoop;
     private DrivetrainSubsystem drivetrainSubsystem;
-    private final static Logger log = Logger.getLogger(Robot.class.getName());
+    private VisionSubsystem visionSubsystem;
+    private Command auton;
 
     static {
         new LoggingConfig();
@@ -44,7 +47,6 @@ public class Robot extends IterativeRobot {
         PropertiesFactory.makeAll();
         SubsystemsFactory.makeAll();
         new DriverStation();
-        new TrapezoidalMotionProfile();
         DefaultCommandFactory.makeAll();
 
         new JoystickEventMapper();
@@ -52,13 +54,16 @@ public class Robot extends IterativeRobot {
         smartDashboardLoop = new SmartDashboardLoop();
         smartDashboardLoop.start();
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
+        visionSubsystem = ServiceLocator.get(VisionSubsystem.class);
         log.info("Robot program successfully initialized!");
     }
 
     @Override
     public void autonomousInit() {
+        visionSubsystem.setExposureManual();
         drivetrainSubsystem.resetSensors();
-        Scheduler.getInstance().add(smartDashboardLoop.getAuton());
+        auton = smartDashboardLoop.getAuton();
+        Scheduler.getInstance().add(auton);
     }
 
     /**
@@ -73,8 +78,11 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void teleopInit() {
+        visionSubsystem.setExposureAuto();
         drivetrainSubsystem.resetSensors();
-        // Scheduler.getInstance().removeAll();
+        if (auton.isRunning()) {
+            auton.cancel();
+        }
     }
 
     @Override
