@@ -47,8 +47,17 @@ public class VisionSubsystem extends BaseSubsystem {
         return contourSolidity;
     }
 
-    public double getDegreeFromPixel(final double pixel) {
+    public double getPegDegreeFromPixel(final double pixel) {
         return -67.25407 + 0.39355 * pixel;
+    }
+
+    public double getBoilerDegreeFromPixel(final double pixel,
+            boolean isLeftSide) {
+        if (isLeftSide) {
+            return getPegDegreeFromPixel(pixel) - 35;
+        } else {
+            return getPegDegreeFromPixel(pixel) + 23;
+        }
     }
 
     public double[] getFirstTwoCenterX() {
@@ -66,8 +75,17 @@ public class VisionSubsystem extends BaseSubsystem {
         return (firstTwoCenterX[0] + firstTwoCenterX[1]) / 2;
     }
 
+    private double getCenterBoilerInPixels() {
+        final double[] firstTwoCenterX = getFirstTwoCenterX();
+        return (firstTwoCenterX[0] + firstTwoCenterX[1]) / 2;
+    }
+
     public double getDegreesToTurnToPeg() {
-        return getDegreeFromPixel(getCenterPegInPixels());
+        return getPegDegreeFromPixel(getCenterPegInPixels());
+    }
+
+    public double getDegreesToTurnToBoiler(boolean isLeftSide) {
+        return getBoilerDegreeFromPixel(getCenterBoilerInPixels(), isLeftSide);
     }
 
     public int getNumberOfContors() {
@@ -75,7 +93,7 @@ public class VisionSubsystem extends BaseSubsystem {
     }
 
     public void setExposureManual() {
-        camera.setExposureManual(1);
+        camera.setExposureManual(2);
 
     }
 

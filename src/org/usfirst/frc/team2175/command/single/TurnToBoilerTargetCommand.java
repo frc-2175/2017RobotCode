@@ -6,20 +6,22 @@ import org.usfirst.frc.team2175.subsystem.visionprocessing.VisionSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class TurnToPegVisionTargetCommand extends BaseCommand {
+public class TurnToBoilerTargetCommand extends BaseCommand {
     private double degreesToTurn;
     private VisionSubsystem visionSubsystem;
     private Command turnDegrees;
     private boolean hasStarted = false;
+    private boolean isLeftSide;
 
-    public TurnToPegVisionTargetCommand() {
+    public TurnToBoilerTargetCommand(boolean isLeftSide) {
         visionSubsystem = ServiceLocator.get(VisionSubsystem.class);
+        this.isLeftSide = isLeftSide;
     }
 
     @Override
     protected void initialize() {
         super.initialize();
-        degreesToTurn = visionSubsystem.getDegreesToTurnToPeg();
+        degreesToTurn = visionSubsystem.getDegreesToTurnToBoiler(isLeftSide);
         turnDegrees = new TurnDegreesWithGyroCommand(degreesToTurn, false);
         turnDegrees.start();
     }
