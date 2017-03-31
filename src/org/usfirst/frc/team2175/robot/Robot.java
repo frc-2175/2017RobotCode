@@ -80,10 +80,9 @@ public class Robot extends IterativeRobot {
     public void teleopInit() {
         visionSubsystem.setExposureAuto();
         drivetrainSubsystem.resetSensors();
-        if (auton != null) {
-            if (auton.isRunning()) {
-                auton.cancel();
-            }
+
+        if (auton != null && auton.isRunning()) {
+            auton.cancel();
         }
     }
 
