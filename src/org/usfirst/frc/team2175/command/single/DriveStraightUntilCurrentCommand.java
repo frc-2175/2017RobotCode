@@ -36,8 +36,8 @@ public class DriveStraightUntilCurrentCommand extends BaseCommand {
 
     @Override
     protected boolean isFinished() {
-        if (shouldStopIfHitsSomething && timeSinceInitialized() > .75) {
-            return drivetrainSubsystem.getOutputCurrent() > 3;
+        if (shouldStopIfHitsSomething && timeSinceInitialized() > 1) {
+            return drivetrainSubsystem.isCurrentGreatEnough();
         } else {
             return false;
         }

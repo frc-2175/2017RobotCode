@@ -7,7 +7,7 @@ import org.usfirst.frc.team2175.command.group.PlaceGearOnPegAndRetreatCommandGro
 public class DriveForwardAndPlaceGearOnPegAutonomous extends BaseCommandGroup {
 
     public DriveForwardAndPlaceGearOnPegAutonomous() {
-        addSequential(new DriveInAutonCommandGroup(-0.7), 5);
+        addSequential(new DriveInAutonCommandGroup(-0.8), 5);
         addParallel(new DriveInAutonCommandGroup(0.5), 0.5);
         addSequential(new PlaceGearOnPegAndRetreatCommandGroup());
     }
