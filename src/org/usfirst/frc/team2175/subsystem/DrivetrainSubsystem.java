@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.SPI;
 public class DrivetrainSubsystem extends BaseSubsystem {
 
     public static final double RADIUSOFTURN = 29.2371 / 2;
+    private BehaviorProperties behaviorProperties;
 
     private CANTalon leftMasterMotor;
     private CANTalon rightMasterMotor;
@@ -39,8 +40,7 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     public DrivetrainSubsystem() {
         final WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
-        final BehaviorProperties behaviorProperties =
-                ServiceLocator.get(BehaviorProperties.class);
+        behaviorProperties = ServiceLocator.get(BehaviorProperties.class);
         leftMasterMotor =
                 motorFromInfo(wiringProperties.getLeftMasterMotorInfo());
         leftSlaveMotorOne =
@@ -157,10 +157,6 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         return leftEncoder.getRate();
     }
 
-    public double getOutputCurrent() {
-        return leftMasterMotor.getOutputCurrent();
-    }
-
     public double getRightEncoderDistance() {
         return rightEncoder.getDistance();
     }
@@ -171,5 +167,13 @@ public class DrivetrainSubsystem extends BaseSubsystem {
 
     public double getEncoderDistance() {
         return getRightEncoderDistance();
+    }
+
+    public boolean isCurrentGreatEnough() {
+        return getOutputCurrent() > behaviorProperties.getCurrentThreshold();
+    }
+
+    public double getOutputCurrent() {
+        return leftMasterMotor.getOutputCurrent();
     }
 }

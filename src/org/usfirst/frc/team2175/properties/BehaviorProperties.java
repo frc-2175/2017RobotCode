@@ -17,6 +17,8 @@ public class BehaviorProperties extends BaseProperties {
     private double shooterReverseSpeed;
     private double feederReverseSpeed;
 
+    private double currentThreshold;
+
     private double drivetrainGyroTurnCorrection;
 
     private double gyroP;
@@ -44,6 +46,9 @@ public class BehaviorProperties extends BaseProperties {
         fuelIntakeOutSpeed = getDoublePropertyValue("fuelintake.speed.out");
         fuelIntakeInSpeed = getDoublePropertyValue("fuelintake.speed.in");
         maxClimberSpeed = getDoublePropertyValue("climber.speed.max");
+        currentThreshold =
+                getDoublePropertyValue("drivetrain.threshold.current");
+
         drivetrainGyroTurnCorrection =
                 getDoublePropertyValue("drivetrain.gyro.turncorrection");
 
@@ -123,6 +128,10 @@ public class BehaviorProperties extends BaseProperties {
 
     public double getDrivetrainGyroTurnCorrection() {
         return drivetrainGyroTurnCorrection;
+    }
+
+    public double getCurrentThreshold() {
+        return currentThreshold;
     }
 
 }
