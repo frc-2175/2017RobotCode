@@ -10,13 +10,13 @@ public class BaseCommandGroup extends CommandGroup {
 
     @Override
     protected void initialize() {
-        log.info("Starting command group '" + getClass().getName() + "'");
+        log.info("Starting command group '" + getClass().getSimpleName() + "'");
         super.initialize();
     }
 
     @Override
     protected void end() {
-        log.info("Ending command group '" + getClass().getName() + "'");
+        log.info("Ending command group '" + getClass().getSimpleName() + "'");
         super.end();
     }
 

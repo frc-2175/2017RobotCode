@@ -10,12 +10,12 @@ public abstract class BaseCommand extends Command {
 
     @Override
     protected void initialize() {
-        log.info("Starting command '" + getClass().getName() + "'");
+        log.info("Starting command '" + getClass().getSimpleName() + "'");
     }
 
     @Override
     protected void end() {
-        log.info("Ending command '" + getClass().getName() + "'");
+        log.info("Ending command '" + getClass().getSimpleName() + "'");
     }
 
     @Override
