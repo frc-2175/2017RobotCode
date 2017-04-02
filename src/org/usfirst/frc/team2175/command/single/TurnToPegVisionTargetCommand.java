@@ -10,7 +10,7 @@ public class TurnToPegVisionTargetCommand extends BaseCommand {
     private double degreesToTurn;
     private VisionSubsystem visionSubsystem;
     private Command turnDegrees;
-    private boolean hasStarted = false;
+    private boolean hasStarted;
 
     public TurnToPegVisionTargetCommand() {
         visionSubsystem = ServiceLocator.get(VisionSubsystem.class);
@@ -22,6 +22,7 @@ public class TurnToPegVisionTargetCommand extends BaseCommand {
         degreesToTurn = visionSubsystem.getDegreesToTurnToPeg();
         turnDegrees = new TurnDegreesWithGyroCommand(degreesToTurn, false);
         turnDegrees.start();
+        hasStarted = false;
     }
 
     @Override
