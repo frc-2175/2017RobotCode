@@ -60,7 +60,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
-        visionSubsystem.setExposureManual();
+        visionSubsystem.setExposureManual(1);
         drivetrainSubsystem.resetSensors();
         auton = smartDashboardLoop.getAuton();
         Scheduler.getInstance().add(auton);
@@ -78,7 +78,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void teleopInit() {
-        visionSubsystem.setExposureAuto();
+        visionSubsystem.setExposureManual(4);
         drivetrainSubsystem.resetSensors();
 
         if (auton != null && auton.isRunning()) {

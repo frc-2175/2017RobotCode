@@ -56,7 +56,7 @@ public class VisionSubsystem extends BaseSubsystem {
         if (isLeftSide) {
             return getPegDegreeFromPixel(pixel) - 35;
         } else {
-            return getPegDegreeFromPixel(pixel) + 23;
+            return getPegDegreeFromPixel(pixel) + 4;
         }
     }
 
@@ -92,12 +92,7 @@ public class VisionSubsystem extends BaseSubsystem {
         return getContourCenterX().length;
     }
 
-    public void setExposureManual() {
-        camera.setExposureManual(2);
-
-    }
-
-    public void setExposureAuto() {
-        camera.setExposureAuto();
+    public void setExposureManual(int value) {
+        camera.setExposureManual(value);
     }
 }
