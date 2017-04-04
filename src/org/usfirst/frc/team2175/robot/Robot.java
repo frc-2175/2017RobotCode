@@ -78,7 +78,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void teleopInit() {
-        visionSubsystem.setExposureManual(4);
+        visionSubsystem.setExposureManual(3);
         drivetrainSubsystem.resetSensors();
 
         if (auton != null && auton.isRunning()) {
