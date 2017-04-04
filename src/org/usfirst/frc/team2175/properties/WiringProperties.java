@@ -16,11 +16,10 @@ public class WiringProperties extends BaseProperties {
     private MotorInfo fuelIntakeMainMotorInfo;
     private SolenoidInfo hopperSolenoidInfo;
 
-    private MotorInfo leftShooterMotorInfo;
-    private MotorInfo leftFeederMotorInfo;
+    private MotorInfo shooterMotorInfo;
+    private MotorInfo feederMotorInfo;
+    private MotorInfo augerMotorInfo;
     private MotorInfo shooterAgitatorMotorInfo;
-    private MotorInfo rightShooterMotorInfo;
-    private MotorInfo rightFeederMotorInfo;
     private SolenoidInfo shooterActuatorSolenoidInfo;
 
     private int drivetrainAnalogGyroDeviceNumber;
@@ -96,10 +95,10 @@ public class WiringProperties extends BaseProperties {
 
         hopperSolenoidInfo = solenoidInfoFromPropertyValue("hopper.solenoid");
 
-        leftShooterMotorInfo = motorInfoFromPropertyValue("shooter.motor.left");
-        leftFeederMotorInfo = motorInfoFromPropertyValue("feeder.motor.left");
-        shooterAgitatorMotorInfo =
-                motorInfoFromPropertyValue("shooter.motor.agitator");
+        shooterMotorInfo = motorInfoFromPropertyValue("shooter.motor");
+        feederMotorInfo = motorInfoFromPropertyValue("feeder.motor");
+        shooterAgitatorMotorInfo = motorInfoFromPropertyValue("agitator.motor");
+        augerMotorInfo = motorInfoFromPropertyValue("auger.motor");
 
         drivetrainAnalogGyroDeviceNumber =
                 getIntPropertyValue("drivetrain.analog.gyro");
@@ -111,9 +110,6 @@ public class WiringProperties extends BaseProperties {
         climberMotorOneInfo = motorInfoFromPropertyValue("climber.motor.one");
         climberMotorTwoInfo = motorInfoFromPropertyValue("climber.motor.two");
 
-        rightShooterMotorInfo =
-                motorInfoFromPropertyValue("shooter.motor.right");
-        rightFeederMotorInfo = motorInfoFromPropertyValue("feeder.motor.right");
         shooterActuatorSolenoidInfo =
                 solenoidInfoFromPropertyValue("shooter.solenoid.actuator");
     }
@@ -155,10 +151,6 @@ public class WiringProperties extends BaseProperties {
         return Boolean.parseBoolean(info[arrayPos]);
     }
 
-    public SolenoidInfo getDriveShiftersSolenoidInfo() {
-        return driveShiftersSolenoidInfo;
-    }
-
     public MotorInfo getLeftMasterMotorInfo() {
         return leftMasterMotorInfo;
     }
@@ -183,6 +175,10 @@ public class WiringProperties extends BaseProperties {
         return rightSlaveMotorTwoInfo;
     }
 
+    public SolenoidInfo getDriveShiftersSolenoidInfo() {
+        return driveShiftersSolenoidInfo;
+    }
+
     public MotorInfo getGearIntakeMotorInfo() {
         return gearIntakeMotorInfo;
     }
@@ -199,24 +195,20 @@ public class WiringProperties extends BaseProperties {
         return hopperSolenoidInfo;
     }
 
-    public MotorInfo getLeftShooterMotorInfo() {
-        return leftShooterMotorInfo;
+    public MotorInfo getShooterMotorInfo() {
+        return shooterMotorInfo;
     }
 
-    public MotorInfo getLeftFeederMotorInfo() {
-        return leftFeederMotorInfo;
+    public MotorInfo getFeederMotorInfo() {
+        return feederMotorInfo;
+    }
+
+    public MotorInfo getAugerMotorInfo() {
+        return augerMotorInfo;
     }
 
     public MotorInfo getShooterAgitatorMotorInfo() {
         return shooterAgitatorMotorInfo;
-    }
-
-    public MotorInfo getRightShooterMotorInfo() {
-        return rightShooterMotorInfo;
-    }
-
-    public MotorInfo getRightFeederMotorInfo() {
-        return rightFeederMotorInfo;
     }
 
     public SolenoidInfo getShooterActuatorSolenoidInfo() {

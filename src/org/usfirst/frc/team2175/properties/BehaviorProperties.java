@@ -10,12 +10,12 @@ public class BehaviorProperties extends BaseProperties {
     private double agitatorReverseSpeed;
     private double maxClimberSpeed;
 
-    private double leftShooterSpeed;
-    private double rightShooterSpeed;
-    private double leftFeederSpeed;
-    private double rightFeederSpeed;
+    private double shooterSpeed;
+    private double feederSpeed;
     private double shooterReverseSpeed;
     private double feederReverseSpeed;
+    private double augerSpeed;
+    private double augerReverseSpeed;
 
     private double currentThreshold;
 
@@ -35,12 +35,12 @@ public class BehaviorProperties extends BaseProperties {
     protected void populate() {
         gearIntakeInSpeed = getDoublePropertyValue("gearintake.speed.in");
         gearIntakeOutSpeed = getDoublePropertyValue("gearintake.speed.out");
-        leftShooterSpeed = getDoublePropertyValue("shooter.speed.left");
-        rightShooterSpeed = getDoublePropertyValue("shooter.speed.right");
+        shooterSpeed = getDoublePropertyValue("shooter.speed.left");
         shooterReverseSpeed = getDoublePropertyValue("shooter.speed.reverse");
-        leftFeederSpeed = getDoublePropertyValue("feeder.speed.left");
-        rightFeederSpeed = getDoublePropertyValue("feeder.speed.right");
+        feederSpeed = getDoublePropertyValue("feeder.speed.left");
         feederReverseSpeed = getDoublePropertyValue("feeder.speed.reverse");
+        augerSpeed = getDoublePropertyValue("auger.speed");
+        augerReverseSpeed = getDoublePropertyValue("auger.speed.reverse");
         agitatorSpeed = getDoublePropertyValue("agitator.speed");
         agitatorReverseSpeed = getDoublePropertyValue("agitator.speed.reverse");
         fuelIntakeOutSpeed = getDoublePropertyValue("fuelintake.speed.out");
@@ -75,11 +75,7 @@ public class BehaviorProperties extends BaseProperties {
     }
 
     public double getLeftShooterSpeed() {
-        return leftShooterSpeed;
-    }
-
-    public double getRightShooterSpeed() {
-        return rightShooterSpeed;
+        return shooterSpeed;
     }
 
     public double getShooterReverseSpeed() {
@@ -87,11 +83,7 @@ public class BehaviorProperties extends BaseProperties {
     }
 
     public double getLeftFeederSpeed() {
-        return leftFeederSpeed;
-    }
-
-    public double getRightFeederSpeed() {
-        return rightFeederSpeed;
+        return feederSpeed;
     }
 
     public double getFeederReverseSpeed() {
@@ -132,6 +124,14 @@ public class BehaviorProperties extends BaseProperties {
 
     public double getCurrentThreshold() {
         return currentThreshold;
+    }
+
+    public double getAugerSpeed() {
+        return augerSpeed;
+    }
+
+    public double getAugerReverseSpeed() {
+        return augerReverseSpeed;
     }
 
 }

@@ -11,22 +11,19 @@ import com.ctre.CANTalon.TalonControlMode;
 
 public class ShooterSubsystem extends BaseSubsystem {
 
-    private final CANTalon leftShooterMotor;
-    private final CANTalon rightShooterMotor;
-    private final double leftShooterSpeed;
-    private final double rightShooterSpeed;
-    private final double leftShooterReverseSpeed;
-    private final double rightShooterReverseSpeed;
+    private final CANTalon shooterMotor;
+    private final SolenoidWrapper shooterSolenoid;
+    private final double shooterSpeed;
+    private final double shooterReverseSpeed;
 
-    private final CANTalon rightFeederMotor;
-    private final CANTalon leftFeederMotor;
-    private final double leftFeederSpeed;
-    private final double rightFeederSpeed;
-    private final double leftFeederReverseSpeed;
-    private final double rightFeederReverseSpeed;
+    private final CANTalon feederMotor;
+    private final double feederSpeed;
+    private final double feederReverseSpeed;
 
     private final CANTalon agitatorMotor;
-    private final SolenoidWrapper shooterSolenoid;
+    private final CANTalon augerMotor;
+    private final double augerSpeed;
+    private final double augerReverseSpeed;
     private final double agitatorSpeed;
     private final double agitatorReverseSpeed;
 
@@ -36,57 +33,40 @@ public class ShooterSubsystem extends BaseSubsystem {
         final WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
 
-        // TODO: Provide a way of configuring both our shooter motor controllers
-        // the same way without duplicate code.
+        shooterMotor = motorFromInfo(wiringProperties.getShooterMotorInfo());
 
-        leftShooterMotor =
-                motorFromInfo(wiringProperties.getLeftShooterMotorInfo());
-        rightShooterMotor =
-                motorFromInfo(wiringProperties.getRightShooterMotorInfo());
-
-        leftFeederMotor =
-                motorFromInfo(wiringProperties.getLeftFeederMotorInfo());
-        rightFeederMotor =
-                motorFromInfo(wiringProperties.getRightFeederMotorInfo());
-
+        feederMotor = motorFromInfo(wiringProperties.getFeederMotorInfo());
         agitatorMotor =
                 motorFromInfo(wiringProperties.getShooterAgitatorMotorInfo());
-
+        augerMotor = motorFromInfo(wiringProperties.getAugerMotorInfo());
+        augerSpeed = behaviorProperties.getAugerSpeed();
+        augerReverseSpeed = behaviorProperties.getAugerReverseSpeed();
         switchToPercentVbus();
-        leftShooterSpeed = behaviorProperties.getLeftShooterSpeed();
-        rightShooterSpeed = behaviorProperties.getRightShooterSpeed();
+        shooterSpeed = behaviorProperties.getLeftShooterSpeed();
 
-        leftFeederSpeed = behaviorProperties.getLeftFeederSpeed();
-        rightFeederSpeed = behaviorProperties.getRightFeederSpeed();
+        feederSpeed = behaviorProperties.getLeftFeederSpeed();
+        shooterReverseSpeed = behaviorProperties.getShooterReverseSpeed();
+        feederReverseSpeed = behaviorProperties.getFeederReverseSpeed();
 
-        leftShooterReverseSpeed = behaviorProperties.getShooterReverseSpeed();
-        rightShooterReverseSpeed = behaviorProperties.getShooterReverseSpeed();
-        leftFeederReverseSpeed = behaviorProperties.getFeederReverseSpeed();
-        rightFeederReverseSpeed = behaviorProperties.getFeederReverseSpeed();
-
-        agitatorSpeed = behaviorProperties.getAgitatorSpeed();
-        agitatorReverseSpeed = behaviorProperties.getAgitatorReverseSpeed();
+        agitatorSpeed = -behaviorProperties.getAgitatorSpeed();
+        agitatorReverseSpeed = -behaviorProperties.getAgitatorReverseSpeed();
 
         shooterSolenoid = new SolenoidWrapper(
                 wiringProperties.getShooterActuatorSolenoidInfo());
     }
 
     public void setShooterDefaultSpeed() {
-        leftShooterMotor.set(leftShooterSpeed);
-        rightShooterMotor.set(rightShooterSpeed);
+        shooterMotor.set(shooterSpeed);
     }
 
     public void setShooterDefaultSetpoint() {
-        rightShooterMotor.set(leftShooterSpeed);
-        leftShooterMotor.set(rightShooterSpeed);
+        shooterMotor.set(shooterSpeed);
     }
 
     public void setFeederDefaultSpeed() {
-        leftFeederMotor.set(leftFeederSpeed);
-        rightFeederMotor.set(rightFeederSpeed);
+        feederMotor.set(feederSpeed);
     }
 
-    // TODO: Negate the motors instead of the speeds here.
     public void setAgitatorDefaultSpeed() {
         agitatorMotor.set(agitatorSpeed);
     }
@@ -95,14 +75,20 @@ public class ShooterSubsystem extends BaseSubsystem {
         agitatorMotor.set(agitatorReverseSpeed);
     }
 
+    public void setAugerDefaultSpeed() {
+        augerMotor.set(augerSpeed);
+    }
+
+    public void setAugerReverseSpeed() {
+        augerMotor.set(augerReverseSpeed);
+    }
+
     public void setShooterSpeedZero() {
-        leftShooterMotor.set(0);
-        rightShooterMotor.set(0);
+        shooterMotor.set(0);
     }
 
     public void setFeederSpeedZero() {
-        leftFeederMotor.set(0);
-        rightFeederMotor.set(0);
+        feederMotor.set(0);
     }
 
     public void setAgitatorSpeedZero() {
@@ -110,17 +96,15 @@ public class ShooterSubsystem extends BaseSubsystem {
     }
 
     public void setShooterReverseSpeed() {
-        leftShooterMotor.set(leftShooterReverseSpeed);
-        rightShooterMotor.set(rightShooterReverseSpeed);
+        shooterMotor.set(shooterReverseSpeed);
     }
 
     public void setFeederReverseSpeed() {
-        leftFeederMotor.set(leftFeederReverseSpeed);
-        rightFeederMotor.set(rightFeederReverseSpeed);
+        feederMotor.set(feederReverseSpeed);
     }
 
     public double getShooterSpeed() {
-        return leftShooterMotor.getSpeed();
+        return shooterMotor.getSpeed();
     }
 
     public void actuateBothShootersOut() {
@@ -132,24 +116,21 @@ public class ShooterSubsystem extends BaseSubsystem {
     }
 
     public void switchToPIDMode() {
-        leftShooterMotor.changeControlMode(TalonControlMode.Speed);
-        leftShooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        leftShooterMotor.reverseSensor(true);
-        leftShooterMotor.setProfile(0);
-        rightShooterMotor.changeControlMode(TalonControlMode.Speed);
-        rightShooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-        rightShooterMotor.reverseSensor(true);
-        rightShooterMotor.setProfile(0);
+        shooterMotor.changeControlMode(TalonControlMode.Speed);
+        shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        shooterMotor.reverseSensor(true);
+        shooterMotor.setProfile(0);
     }
 
     public void switchToPercentVbus() {
-        leftShooterMotor.changeControlMode(TalonControlMode.PercentVbus);
-        rightShooterMotor.changeControlMode(TalonControlMode.PercentVbus);
+        shooterMotor.changeControlMode(TalonControlMode.PercentVbus);
     }
 
     public boolean isShooterRunning() {
-        // If we need to run one shooter and not the other, we need to change
-        // this to check the shooter being used
-        return leftShooterMotor.get() != 0;
+        return shooterMotor.get() != 0;
+    }
+
+    public void setAugerSpeedZero() {
+        augerMotor.set(0);
     }
 }
