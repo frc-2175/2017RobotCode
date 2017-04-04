@@ -7,7 +7,9 @@ import org.usfirst.frc.team2175.command.single.DriveInchesSimpleCommand;
 public class SideGearAndShootAutonomous extends BaseCommandGroup {
     public SideGearAndShootAutonomous(boolean isLeftPeg) {
         addSequential(new SideGearCommandGroup(isLeftPeg));
-        addSequential(new DriveInchesSimpleCommand(36));
+        addSequential(new DriveInchesSimpleCommand(12));
         // addSequential(new TurnToBoilerTargetCommand(isLeftPeg));
+        // addParallel(new RunShooterPercentVbusCommand());
+        // addSequential(new RunFeedingMechanismsCommand());
     }
 }
