@@ -4,11 +4,11 @@ import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.BaseCommand;
 import org.usfirst.frc.team2175.subsystem.ShooterSubsystem;
 
-public class RunFeederAgitatorCommand extends BaseCommand {
+public class RunFeedingMechanismsCommand extends BaseCommand {
 
     private final ShooterSubsystem shooterSubsystem;
 
-    public RunFeederAgitatorCommand() {
+    public RunFeedingMechanismsCommand() {
         shooterSubsystem = ServiceLocator.get(ShooterSubsystem.class);
     }
 
@@ -22,9 +22,11 @@ public class RunFeederAgitatorCommand extends BaseCommand {
         if (shooterSubsystem.isShooterRunning()) {
             shooterSubsystem.setFeederDefaultSpeed();
             shooterSubsystem.setAgitatorDefaultSpeed();
+            shooterSubsystem.setAugerDefaultSpeed();
         } else {
             shooterSubsystem.setFeederSpeedZero();
             shooterSubsystem.setAgitatorSpeedZero();
+            shooterSubsystem.setAugerSpeedZero();
         }
     }
 
