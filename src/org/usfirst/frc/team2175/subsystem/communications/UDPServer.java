@@ -10,7 +10,7 @@ import java.net.DatagramSocket;
 public class UDPServer {
     DatagramSocket sock = null;
     private double setpoint;
-    private static int defaultPortNum = 7777;
+    private static int defaultPortNum = 5808;
 
     public static void main(String args[]) {
         new UDPServer();
@@ -61,6 +61,8 @@ public class UDPServer {
                     isDouble = true;
                 } catch (Exception e) {
                     // TODO: handle exception
+                	
+                	setpoint = 1000; // so that it is ignored
                 }
 
                 if (isDouble) {
