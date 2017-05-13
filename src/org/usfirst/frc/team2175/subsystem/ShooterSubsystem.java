@@ -2,6 +2,7 @@ package org.usfirst.frc.team2175.subsystem;
 
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.SolenoidWrapper;
+import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.properties.BehaviorProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties;
 
@@ -27,11 +28,14 @@ public class ShooterSubsystem extends BaseSubsystem {
     private final double agitatorSpeed;
     private final double agitatorReverseSpeed;
 
+    private final DriverStation driverStation;
+
     public ShooterSubsystem() {
         final BehaviorProperties behaviorProperties =
                 ServiceLocator.get(BehaviorProperties.class);
         final WiringProperties wiringProperties =
                 ServiceLocator.get(WiringProperties.class);
+        driverStation = ServiceLocator.get(DriverStation.class);
 
         shooterMotor = motorFromInfo(wiringProperties.getShooterMotorInfo());
 
@@ -53,6 +57,7 @@ public class ShooterSubsystem extends BaseSubsystem {
 
         shooterSolenoid = new SolenoidWrapper(
                 wiringProperties.getShooterActuatorSolenoidInfo());
+
     }
 
     public void setShooterDefaultSpeed() {
@@ -132,5 +137,15 @@ public class ShooterSubsystem extends BaseSubsystem {
 
     public void setAugerSpeedZero() {
         augerMotor.set(0);
+    }
+
+    public void setShooterToSpeed(double speed) {
+        shooterMotor.set(speed);
+    }
+
+    public void setShooterToSpeedWithThrottle() {
+        double throttledSpeed =
+                shooterSpeed - (driverStation.getShooterTurnSpeed() * 0.15);
+        shooterMotor.set(throttledSpeed);
     }
 }

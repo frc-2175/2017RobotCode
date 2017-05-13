@@ -67,4 +67,8 @@ public class GearIntakeSubsystem extends BaseSubsystem {
     public boolean getIsGearIntakeOut() {
         return gearIntakeActuator.get();
     }
+
+    public boolean isGearSolidlyInPlace() {
+        return getMotorCurrent() > 40;
+    }
 }

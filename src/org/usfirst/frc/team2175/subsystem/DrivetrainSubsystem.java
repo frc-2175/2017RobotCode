@@ -101,11 +101,11 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     }
 
     public void shiftToHighGear() {
-        setGear(false);
+        setGear(true);
     }
 
     public void shiftToLowGear() {
-        setGear(true);
+        setGear(false);
     }
 
     public void stopAllMotors() {
@@ -136,7 +136,9 @@ public class DrivetrainSubsystem extends BaseSubsystem {
     }
 
     public double convertFromInchesToClicks(final double inches) {
-        return inches * 54.518;
+        return inches * behaviorProperties.getConversionFactor();
+        // 40.21;
+        // 54.518
     }
 
     public void resetEncoders() {
@@ -169,8 +171,10 @@ public class DrivetrainSubsystem extends BaseSubsystem {
         return getRightEncoderDistance();
     }
 
+    // TODO make separate method for encoder rates
     public boolean isCurrentGreatEnough() {
-        return getOutputCurrent() > behaviorProperties.getCurrentThreshold();
+        return Math.abs(getRightEncoderSpeed()) < Math
+                .abs(behaviorProperties.getCurrentThreshold());
     }
 
     public double getOutputCurrent() {

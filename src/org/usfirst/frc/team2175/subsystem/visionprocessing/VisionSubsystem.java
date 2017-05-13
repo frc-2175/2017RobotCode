@@ -15,6 +15,11 @@ public class VisionSubsystem extends BaseSubsystem {
     private double[] contourWidth;
     private double[] contourSolidity;
     UsbCamera camera;
+    private double offset;
+
+    public double getOffset() {
+        return offset;
+    }
 
     public VisionSubsystem() {
         camera = new UsbCamera("GearCam", 0);
@@ -81,7 +86,8 @@ public class VisionSubsystem extends BaseSubsystem {
     }
 
     public double getDegreesToTurnToPeg() {
-        return getPegDegreeFromPixel(getCenterPegInPixels());
+        offset = 3;
+        return getPegDegreeFromPixel(getCenterPegInPixels()) + offset;
     }
 
     public double getDegreesToTurnToBoiler(boolean isLeftSide) {
