@@ -31,8 +31,7 @@ public class SmartDashboardLoop extends ControlLoop {
         visionSubsystem = ServiceLocator.get(VisionSubsystem.class);
         autonSelector = new SendableChooser<>();
 
-        populateAutonSelector();
-        SmartDashboard.putData("Auton", autonSelector);
+        makeAutonSelector();
 
         ServiceLocator.register(this);
     }
@@ -47,17 +46,21 @@ public class SmartDashboardLoop extends ControlLoop {
         autonSelector.addObject("Cross Baseline",
                 new CrossBaselineTimeBasedAutonomous());
         autonSelector.addObject("Center Peg Auton",
-                new DriveForwardAndPlaceGearOnPegAutonomous());
+                new DriveForwardAndPlaceGearOnPegAutonomous(-0.8));
         autonSelector.addObject("Left Peg Auton",
-                new SideGearsAutonomous(true));
+                new SideGearsAutonomous(true, false));
         autonSelector.addObject("Right Peg Auton",
-                new SideGearsAutonomous(false));
+                new SideGearsAutonomous(false, false));
         autonSelector.addDefault("Turn Degrees From UDP",
                 new TurnDegreesFromUDP());
         autonSelector.addObject("RightGearAndShoot",
-                new SideGearAndShootAutonomous(false));
+                new SideGearAndShootAutonomous(false, false));
         autonSelector.addObject("LeftGearAndShoot",
-                new SideGearAndShootAutonomous(true));
+                new SideGearAndShootAutonomous(true, false));
+        autonSelector.addObject("Left Gear Autonomous WITH JETSON",
+                new SideGearsAutonomous(true, true));
+        autonSelector.addObject("Right Gear Autonomous WITH JETSON",
+                new SideGearsAutonomous(false, true));
     }
 
     @Override
@@ -77,6 +80,8 @@ public class SmartDashboardLoop extends ControlLoop {
                 gearIntakeSubsystem.getMotorCurrent());
         SmartDashboard.putBoolean("GearActuatorOut",
                 gearIntakeSubsystem.getIsGearIntakeOut());
+        SmartDashboard.putBoolean("Gear In Place",
+                gearIntakeSubsystem.isGearSolidlyInPlace());
     }
 
     protected void showDrivetrainInfo() {
@@ -91,6 +96,8 @@ public class SmartDashboardLoop extends ControlLoop {
                 ServiceLocator.get(FuelIntakeSubsystem.class).isHopperUp());
         SmartDashboard.putNumber("Right Encoder",
                 drivetrainSubsystem.getRightEncoderDistance());
+        SmartDashboard.putNumber("Right Encoder Rate",
+                drivetrainSubsystem.getRightEncoderSpeed());
     }
 
     protected void showVisionInfo() {
@@ -98,10 +105,17 @@ public class SmartDashboardLoop extends ControlLoop {
                 visionSubsystem.getDegreesToTurnToPeg());
         SmartDashboard.putNumber("Pixel Value Of Center",
                 visionSubsystem.getCenterPegInPixels());
+        SmartDashboard.putNumber("Vision Offset", visionSubsystem.getOffset());
     }
 
     public Command getAuton() {
         return autonSelector.getSelected();
+    }
+
+    public void makeAutonSelector() {
+        populateAutonSelector();
+
+        SmartDashboard.putData("Auton", autonSelector);
     }
 
 }

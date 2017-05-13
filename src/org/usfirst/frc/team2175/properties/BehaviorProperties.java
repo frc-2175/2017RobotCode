@@ -17,6 +17,8 @@ public class BehaviorProperties extends BaseProperties {
     private double augerSpeed;
     private double augerReverseSpeed;
 
+    private double drivetrainConversionFactor;
+
     private double currentThreshold;
 
     private double drivetrainGyroTurnCorrection;
@@ -48,6 +50,8 @@ public class BehaviorProperties extends BaseProperties {
         maxClimberSpeed = getDoublePropertyValue("climber.speed.max");
         currentThreshold =
                 getDoublePropertyValue("drivetrain.threshold.current");
+        drivetrainConversionFactor =
+                getDoublePropertyValue("drivetrain.conversion");
 
         drivetrainGyroTurnCorrection =
                 getDoublePropertyValue("drivetrain.gyro.turncorrection");
@@ -132,6 +136,10 @@ public class BehaviorProperties extends BaseProperties {
 
     public double getAugerReverseSpeed() {
         return augerReverseSpeed;
+    }
+
+    public double getConversionFactor() {
+        return drivetrainConversionFactor;
     }
 
 }

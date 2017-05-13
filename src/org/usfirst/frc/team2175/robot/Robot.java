@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import org.usfirst.frc.team2175.ServiceLocator;
 import org.usfirst.frc.team2175.command.DefaultCommandFactory;
 import org.usfirst.frc.team2175.commandmapper.JoystickEventMapper;
-import org.usfirst.frc.team2175.driverstation.DriverStation;
 import org.usfirst.frc.team2175.loop.SchedulerLoop;
 import org.usfirst.frc.team2175.loop.SmartDashboardLoop;
 import org.usfirst.frc.team2175.properties.LoggingConfig;
@@ -17,6 +16,7 @@ import org.usfirst.frc.team2175.subsystem.visionprocessing.VisionSubsystem;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -46,7 +46,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         PropertiesFactory.makeAll();
         SubsystemsFactory.makeAll();
-        new DriverStation();
+
         DefaultCommandFactory.makeAll();
 
         new JoystickEventMapper();
@@ -55,7 +55,15 @@ public class Robot extends IterativeRobot {
         smartDashboardLoop.start();
         drivetrainSubsystem = ServiceLocator.get(DrivetrainSubsystem.class);
         visionSubsystem = ServiceLocator.get(VisionSubsystem.class);
+        SmartDashboard.putBoolean("Refresh Auton Selector", false);
         log.info("Robot program successfully initialized!");
+    }
+
+    @Override
+    public void disabledPeriodic() {
+        if (SmartDashboard.getBoolean("Refresh Auton Selector", false)) {
+            smartDashboardLoop.makeAutonSelector();
+        }
     }
 
     @Override
