@@ -10,31 +10,29 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TurnToPegVisionTargetCommand extends BaseCommand {
     private double degreesToTurn;
     private VisionSubsystem visionSubsystem;
-    
-    
+
     private CommunicationSubsystem communicationSubsystem;
-    private final boolean USE_JETSON = false;
-    
+    private boolean USE_JETSON = false;
+
     private Command turnDegrees;
     private boolean hasStarted;
 
-    public TurnToPegVisionTargetCommand() {
+    public TurnToPegVisionTargetCommand(boolean useJetson) {
         visionSubsystem = ServiceLocator.get(VisionSubsystem.class);
-        communicationSubsystem = ServiceLocator.get(CommunicationSubsystem.class);
+        communicationSubsystem =
+                ServiceLocator.get(CommunicationSubsystem.class);
+        USE_JETSON = useJetson;
     }
 
     @Override
     protected void initialize() {
         super.initialize();
-        
+
         double udpAngle = communicationSubsystem.getSetpoint();
-        if (USE_JETSON && Math.abs(udpAngle) < 45)
-        {
-        	degreesToTurn = udpAngle;
-        }
-        else
-        {        	
-        	degreesToTurn = visionSubsystem.getDegreesToTurnToPeg();
+        if (USE_JETSON && Math.abs(udpAngle) < 45) {
+            degreesToTurn = udpAngle;
+        } else {
+            degreesToTurn = visionSubsystem.getDegreesToTurnToPeg();
         }
         turnDegrees = new TurnDegreesWithGyroCommand(degreesToTurn, false);
         turnDegrees.start();

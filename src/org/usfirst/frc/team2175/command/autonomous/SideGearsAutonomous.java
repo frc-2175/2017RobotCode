@@ -5,8 +5,9 @@ import org.usfirst.frc.team2175.command.group.SideGearCommandGroup;
 
 public class SideGearsAutonomous extends BaseCommandGroup {
 
-    public SideGearsAutonomous(final boolean isLeftPeg) {
-        addSequential(new SideGearCommandGroup(isLeftPeg));
+    public SideGearsAutonomous(final boolean isLeftPeg,
+            boolean shouldUseJetson) {
+        addSequential(new SideGearCommandGroup(isLeftPeg, shouldUseJetson));
     }
 
 }
