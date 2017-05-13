@@ -40,6 +40,7 @@ public class RunFeedingMechanismsCommand extends BaseCommand {
         super.end();
         shooterSubsystem.setFeederSpeedZero();
         shooterSubsystem.setAgitatorSpeedZero();
+        shooterSubsystem.setAugerSpeedZero();
     }
 
 }
