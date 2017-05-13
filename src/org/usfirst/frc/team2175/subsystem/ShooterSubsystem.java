@@ -125,6 +125,10 @@ public class ShooterSubsystem extends BaseSubsystem {
         shooterMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         shooterMotor.reverseSensor(true);
         shooterMotor.setProfile(0);
+        shooterMotor.setP(.15);
+        shooterMotor.setI(.1);
+        shooterMotor.setD(.1);
+        shooterMotor.setVoltageRampRate(3);
     }
 
     public void switchToPercentVbus() {
@@ -146,6 +150,6 @@ public class ShooterSubsystem extends BaseSubsystem {
     public void setShooterToSpeedWithThrottle() {
         double throttledSpeed =
                 shooterSpeed - (driverStation.getShooterTurnSpeed() * 0.15);
-        shooterMotor.set(throttledSpeed);
+        shooterMotor.set(shooterSpeed);
     }
 }

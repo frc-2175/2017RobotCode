@@ -8,11 +8,11 @@ import org.usfirst.frc.team2175.command.single.TurnToPegVisionTargetCommand;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class SideGearCommandGroup extends BaseCommandGroup {
-    private double turn = 45;
+    private double turn = 49;
 
     public SideGearCommandGroup(boolean isLeftPeg, boolean shouldUseJetson) {
         double degreesToTurn = -turn;
-        addSequential(new DriveInAutonCommandGroup(true, -93.5), 2.8);
+        addSequential(new DriveInAutonCommandGroup(true, -81.5), 2.8);
         addSequential(new WaitCommand(.25));
         if (isLeftPeg) {
             degreesToTurn = turn;

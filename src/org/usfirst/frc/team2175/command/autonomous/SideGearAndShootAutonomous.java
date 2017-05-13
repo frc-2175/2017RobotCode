@@ -11,9 +11,9 @@ public class SideGearAndShootAutonomous extends BaseCommandGroup {
     public SideGearAndShootAutonomous(boolean isLeftPeg,
             boolean shouldUseJetson) {
         addSequential(new SideGearCommandGroup(isLeftPeg, shouldUseJetson));
-        addSequential(new DriveInchesSimpleCommand(12));
+        addSequential(new DriveInchesSimpleCommand(10));
         // addSequential(new TurnToBoilerTargetCommand(isLeftPeg));
-        addSequential(new TurnDegreesWithGyroCommand(12));
+        addSequential(new TurnDegreesWithGyroCommand(-12));
         addParallel(new RunShooterPercentVbusCommand());
         addSequential(new RunFeedingMechanismsCommand());
     }
