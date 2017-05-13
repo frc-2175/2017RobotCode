@@ -24,7 +24,7 @@ public class RunShooterPercentVbusCommand extends BaseCommand {
 
     @Override
     protected void execute() {
-        shooterSubsystem.setShooterDefaultSpeed();
+        shooterSubsystem.setShooterToSpeedWithThrottle();
         SmartDashboard.putNumber("Shooter speed",
                 shooterSubsystem.getShooterSpeed());
     }

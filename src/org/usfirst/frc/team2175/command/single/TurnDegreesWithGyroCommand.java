@@ -33,6 +33,7 @@ public class TurnDegreesWithGyroCommand extends BaseCommand {
         drivetrainSubsystem.resetGyro();
         controller.setSetpoint(setpoint);
         controller.enable();
+        controller.setOutputRange(-.8, 0.8);
     }
 
     @Override
