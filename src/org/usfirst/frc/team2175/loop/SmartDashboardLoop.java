@@ -46,7 +46,7 @@ public class SmartDashboardLoop extends ControlLoop {
         autonSelector.addObject("Cross Baseline",
                 new CrossBaselineTimeBasedAutonomous());
         autonSelector.addObject("Center Peg Auton",
-                new DriveForwardAndPlaceGearOnPegAutonomous(-0.8));
+                new DriveForwardAndPlaceGearOnPegAutonomous(-0.6));
         autonSelector.addObject("Left Peg Auton",
                 new SideGearsAutonomous(true, false));
         autonSelector.addObject("Right Peg Auton",
