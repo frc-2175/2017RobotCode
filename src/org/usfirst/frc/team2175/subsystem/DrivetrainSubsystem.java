@@ -173,7 +173,7 @@ public class DrivetrainSubsystem extends BaseSubsystem {
 
     // TODO make separate method for encoder rates
     public boolean isCurrentGreatEnough() {
-        return Math.abs(getRightEncoderSpeed()) < Math
+        return Math.abs(getOutputCurrent()) > Math
                 .abs(behaviorProperties.getCurrentThreshold());
     }
 
