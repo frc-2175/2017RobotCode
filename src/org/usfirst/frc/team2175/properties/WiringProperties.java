@@ -13,13 +13,13 @@ public class WiringProperties extends BaseProperties {
     private MotorInfo gearIntakeMotorInfo;
     private SolenoidInfo gearIntakeSolenoidInfo;
 
-    private MotorInfo fuelIntakeMainMotorInfo;
+    // private MotorInfo fuelIntakeMainMotorInfo;
     private SolenoidInfo hopperSolenoidInfo;
 
-    private MotorInfo shooterMotorInfo;
-    private MotorInfo feederMotorInfo;
-    private MotorInfo augerMotorInfo;
-    private MotorInfo shooterAgitatorMotorInfo;
+    // private MotorInfo shooterMotorInfo;
+    // private MotorInfo feederMotorInfo;
+    // private MotorInfo augerMotorInfo;
+    // private MotorInfo shooterAgitatorMotorInfo;
     private SolenoidInfo shooterActuatorSolenoidInfo;
 
     private int drivetrainAnalogGyroDeviceNumber;
@@ -90,15 +90,16 @@ public class WiringProperties extends BaseProperties {
         gearIntakeSolenoidInfo =
                 solenoidInfoFromPropertyValue("gearintake.solenoid");
 
-        fuelIntakeMainMotorInfo =
-                motorInfoFromPropertyValue("fuelintake.motor.main");
+        // fuelIntakeMainMotorInfo =
+        // motorInfoFromPropertyValue("fuelintake.motor.main");
 
         hopperSolenoidInfo = solenoidInfoFromPropertyValue("hopper.solenoid");
 
-        shooterMotorInfo = motorInfoFromPropertyValue("shooter.motor");
-        feederMotorInfo = motorInfoFromPropertyValue("feeder.motor");
-        shooterAgitatorMotorInfo = motorInfoFromPropertyValue("agitator.motor");
-        augerMotorInfo = motorInfoFromPropertyValue("auger.motor");
+        // shooterMotorInfo = motorInfoFromPropertyValue("shooter.motor");
+        // feederMotorInfo = motorInfoFromPropertyValue("feeder.motor");
+        // shooterAgitatorMotorInfo =
+        // motorInfoFromPropertyValue("agitator.motor");
+        // augerMotorInfo = motorInfoFromPropertyValue("auger.motor");
 
         drivetrainAnalogGyroDeviceNumber =
                 getIntPropertyValue("drivetrain.analog.gyro");
@@ -187,29 +188,29 @@ public class WiringProperties extends BaseProperties {
         return gearIntakeSolenoidInfo;
     }
 
-    public MotorInfo getFuelIntakeMainMotorInfo() {
-        return fuelIntakeMainMotorInfo;
-    }
+    // public MotorInfo getFuelIntakeMainMotorInfo() {
+    // return fuelIntakeMainMotorInfo;
+    // }
 
     public SolenoidInfo getHopperSolenoidInfo() {
         return hopperSolenoidInfo;
     }
 
-    public MotorInfo getShooterMotorInfo() {
-        return shooterMotorInfo;
-    }
+    // public MotorInfo getShooterMotorInfo() {
+    // return shooterMotorInfo;
+    // }
 
-    public MotorInfo getFeederMotorInfo() {
-        return feederMotorInfo;
-    }
+    // public MotorInfo getFeederMotorInfo() {
+    // return feederMotorInfo;
+    // }
 
-    public MotorInfo getAugerMotorInfo() {
-        return augerMotorInfo;
-    }
+    // public MotorInfo getAugerMotorInfo() {
+    // return augerMotorInfo;
+    // }
 
-    public MotorInfo getShooterAgitatorMotorInfo() {
-        return shooterAgitatorMotorInfo;
-    }
+    // public MotorInfo getShooterAgitatorMotorInfo() {
+    // return shooterAgitatorMotorInfo;
+    // }
 
     public SolenoidInfo getShooterActuatorSolenoidInfo() {
         return shooterActuatorSolenoidInfo;

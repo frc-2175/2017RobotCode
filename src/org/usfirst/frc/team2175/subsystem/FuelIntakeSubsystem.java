@@ -5,11 +5,9 @@ import org.usfirst.frc.team2175.SolenoidWrapper;
 import org.usfirst.frc.team2175.properties.BehaviorProperties;
 import org.usfirst.frc.team2175.properties.WiringProperties;
 
-import com.ctre.CANTalon;
-
 public class FuelIntakeSubsystem extends BaseSubsystem {
 
-    private final CANTalon mainMotor;
+    // private final CANTalon mainMotor;
     private SolenoidWrapper hopperSolenoid;
     private final double mainMotorDefaultInSpeed;
     private final double mainMotorDefaultOutSpeed;
@@ -19,8 +17,8 @@ public class FuelIntakeSubsystem extends BaseSubsystem {
                 ServiceLocator.get(WiringProperties.class);
         final BehaviorProperties behaviorProperties =
                 ServiceLocator.get(BehaviorProperties.class);
-        mainMotor =
-                motorFromInfo(wiringProperties.getFuelIntakeMainMotorInfo());
+        // mainMotor =
+        // motorFromInfo(wiringProperties.getFuelIntakeMainMotorInfo());
         hopperSolenoid =
                 new SolenoidWrapper(wiringProperties.getHopperSolenoidInfo());
         mainMotorDefaultInSpeed = behaviorProperties.getFuelIntakeInSpeed();
@@ -44,7 +42,7 @@ public class FuelIntakeSubsystem extends BaseSubsystem {
     }
 
     public void setMotorSpeed(final double speed) {
-        mainMotor.set(speed);
+        // mainMotor.set(speed);
     }
 
     public boolean isHopperUp() {
